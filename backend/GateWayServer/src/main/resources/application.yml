@@ -1,0 +1,45 @@
+server:
+  port: 8000
+
+eureka:
+  client:
+    # true?? eureka 8761???? ?????? ??
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Cloud Gateway Global filter
+            preLogger: true
+            postLogger: true
+      routes:
+        - id: auth-service
+          # ??? localhost:8081? ?? lb? ?? eureka ????? ????? ????? eureka? ?????? ??
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth-service/**
+          filters:
+            #            - AddRequestHeader=auth-request, auth-request-header2
+            #            - AddResponseHeader=auth-response, auth-response-header2
+            - CustomFilter
+        - id: api-service
+          uri: lb://API-SERVICE
+          predicates:
+            - Path=/api-service/**
+          filters:
+            #            - AddRequestHeader=api-request, api-request-header2
+            #            - AddResponseHeader=api-response, api-response-header2
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: Spring Cloud Gateway Logging filter
+                preLogger: true
+                postLogger: true
