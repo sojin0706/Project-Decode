@@ -1,16 +1,18 @@
-package com.ssafy.authsvr.controller;
+package com.ssafy.authsvr.oauth.controller;
 
-import com.ssafy.authsvr.common.ApiResponse;
-import com.ssafy.authsvr.config.properties.AppProperties;
-import com.ssafy.authsvr.entity.auth.AuthReqModel;
-import com.ssafy.authsvr.entity.user.UserRefreshToken;
-import com.ssafy.authsvr.oauth.entity.RoleType;
-import com.ssafy.authsvr.oauth.entity.UserPrincipal;
+import com.ssafy.authsvr.oauth.common.ApiResponse;
+import com.ssafy.authsvr.oauth.config.properties.AppProperties;
+import com.ssafy.authsvr.oauth.auth.AuthReqModel;
+import com.ssafy.authsvr.oauth.entity.UserRefreshToken;
+import com.ssafy.authsvr.oauth.domain.RoleType;
+import com.ssafy.authsvr.oauth.domain.UserPrincipal;
 import com.ssafy.authsvr.oauth.token.AuthToken;
 import com.ssafy.authsvr.oauth.token.AuthTokenProvider;
-import com.ssafy.authsvr.repository.UserRefreshTokenRepository;
-import com.ssafy.authsvr.utils.CookieUtil;
-import com.ssafy.authsvr.utils.HeaderUtil;
+import com.ssafy.authsvr.payload.response.user.UserDto;
+import com.ssafy.authsvr.oauth.repository.UserRefreshTokenRepository;
+import com.ssafy.authsvr.service.UserService;
+import com.ssafy.authsvr.oauth.utils.CookieUtil;
+import com.ssafy.authsvr.oauth.utils.HeaderUtil;
 import io.jsonwebtoken.Claims;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -18,15 +20,15 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -37,6 +39,17 @@ public class AuthController {
 
     private final static long THREE_DAYS_MSEC = 259200000;
     private final static String REFRESH_TOKEN = "refresh_token";
+
+    private final UserService userService;
+
+    @ApiOperation(value="user 반환")
+    @GetMapping("/users")
+    public ApiResponse getUser() {
+        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDto userDto = UserDto.userDto(userService.getUser(principal.getUsername()));
+
+        return ApiResponse.success("user", userDto);
+    }
 
     @ApiOperation("login")
     @PostMapping("/login")
@@ -69,7 +82,7 @@ public class AuthController {
         );
 
         // userId refresh token 으로 DB 확인
-        UserRefreshToken userRefreshToken = userRefreshTokenRepository.findByUserId(userId);
+        UserRefreshToken userRefreshToken = userRefreshTokenRepository.findByTokenId(userId);
         if (userRefreshToken == null) {
             // 없는 경우 새로 등록
             userRefreshToken = new UserRefreshToken(userId, refreshToken.getToken());
@@ -86,7 +99,7 @@ public class AuthController {
         return ApiResponse.success("token", accessToken.getToken());
     }
 
-    @ApiOperation("fsdfsd")
+    @ApiOperation("refreshToken")
     @GetMapping("/refresh")
     public ApiResponse refreshToken (HttpServletRequest request, HttpServletResponse response) {
         // access token 확인
@@ -116,7 +129,7 @@ public class AuthController {
         }
 
         // userId refresh token 으로 DB 확인
-        UserRefreshToken userRefreshToken = userRefreshTokenRepository.findByUserIdAndRefreshToken(userId, refreshToken);
+        UserRefreshToken userRefreshToken = userRefreshTokenRepository.findByTokenIdAndRefreshToken(userId, refreshToken);
         if (userRefreshToken == null) {
             return ApiResponse.invalidRefreshToken();
         }

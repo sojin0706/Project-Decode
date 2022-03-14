@@ -1,6 +1,6 @@
 package com.ssafy.authsvr.oauth.info;
 
-import com.ssafy.authsvr.oauth.entity.ProviderType;
+import com.ssafy.authsvr.oauth.domain.ProviderType;
 import com.ssafy.authsvr.oauth.info.impl.GoogleOAuth2UserInfo;
 import com.ssafy.authsvr.oauth.info.impl.KakaoOAuth2UserInfo;
 import com.ssafy.authsvr.oauth.info.impl.NaverOAuth2UserInfo;

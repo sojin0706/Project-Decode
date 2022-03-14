@@ -1,4 +1,4 @@
-package com.ssafy.authsvr.common;
+package com.ssafy.authsvr.oauth.common;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

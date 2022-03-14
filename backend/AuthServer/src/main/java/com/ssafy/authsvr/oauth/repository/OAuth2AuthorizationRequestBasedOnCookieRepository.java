@@ -1,7 +1,7 @@
 package com.ssafy.authsvr.oauth.repository;
 
 import com.nimbusds.oauth2.sdk.util.StringUtils;
-import com.ssafy.authsvr.utils.CookieUtil;
+import com.ssafy.authsvr.oauth.utils.CookieUtil;
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import javax.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package com.ssafy.authsvr.entity.user;
+package com.ssafy.authsvr.oauth.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -14,29 +14,29 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "USER_REFRESH_TOKEN")
+@Table(name = "user_refresh_token")
 public class UserRefreshToken {
     @JsonIgnore
     @Id
-    @Column(name = "REFRESH_TOKEN_SEQ")
+    @Column(name = "refresh_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long refreshTokenSeq;
+    private Long id;
 
-    @Column(name = "USER_ID", length = 64, unique = true)
+    @Column(name = "token_Id", length = 64, unique = true)
     @NotNull
     @Size(max = 64)
-    private String userId;
+    private String tokenId;
 
-    @Column(name = "REFRESH_TOKEN", length = 256)
+    @Column(name = "refresh_token", length = 256)
     @NotNull
     @Size(max = 256)
     private String refreshToken;
 
     public UserRefreshToken(
-            @NotNull @Size(max = 64) String userId,
+            @NotNull @Size(max = 64) String tokenId,
             @NotNull @Size(max = 256) String refreshToken
     ) {
-        this.userId = userId;
+        this.tokenId = tokenId;
         this.refreshToken = refreshToken;
     }
 }

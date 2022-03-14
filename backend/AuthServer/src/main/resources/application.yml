@@ -1,10 +1,10 @@
 #server:
-#  port: 8081
+#  port: 8082
   # ?? ??
 #  port: 0
 #spring:
 #  application:
-#    name: auth-service
+#    name: escape-server
 
 #eureka:
 ##  instance:
@@ -21,15 +21,6 @@ spring:
       matching-strategy: ant_path_matcher
   application:
     name: oauth2
-  data:
-    mongodb:
-      #      authentication-database: admin
-      #      username: sunin
-      #      password: BUKQ@3rbfM=+NY7sGmP^
-      uri: mongodb://localhost:27017
-      database: sunin
-      #      port: 27017
-      #      host: i6c210.p.ssafy.io
   security:
     user:
       name: ssafy
@@ -40,14 +31,12 @@ spring:
     password: ssafy
   jpa:
     hibernate:
-      ddl-auto: create # ??????!!
+      ddl-auto: create
       use-new-id-generator-mappings: true
     show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-  thymeleaf:
-    cache: false
   profiles:
     include:
       - oauth

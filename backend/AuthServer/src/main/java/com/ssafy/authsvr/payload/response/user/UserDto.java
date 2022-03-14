@@ -1,8 +1,8 @@
 package com.ssafy.authsvr.payload.response.user;
 
-import com.ssafy.authsvr.entity.user.User;
-import com.ssafy.authsvr.oauth.entity.ProviderType;
-import com.ssafy.authsvr.oauth.entity.RoleType;
+import com.ssafy.authsvr.entity.User;
+import com.ssafy.authsvr.oauth.domain.ProviderType;
+import com.ssafy.authsvr.oauth.domain.RoleType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,74 +12,84 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UserDto {
 
-    private Long userSeq;
-
-    private String userId;
-
-    private String username;
-
-    private String password;
-
-    private String userNickname;
+    private Integer id;
 
     private String email;
 
-    private String emailVerifiedYn;
-
-    private String profileImageUrl;
+    private String image;
 
     private ProviderType providerType;
 
     private RoleType roleType;
 
+    private String tokenId;
+
+    private String nickName;
+
+    private String name;
+
+    private String introduction;
+
+    private String phoneNumber;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime modifiedAt;
 
-    private String introduction;
+    private String gender;
 
-    private String address;
+    private Integer age;
 
-    private String phoneNumber;
+    private String largeRegion;
 
-    private int suninDays = 0;
+    private String smallRegion;
+
+    private String preference;
+
 
     public static UserDto userDto(User user){
         return UserDto.builder()
-                .userSeq(user.getUserSeq())
-                .userId(user.getUserId())
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .userNickname(user.getUserNickname())
+                .id(user.getId())
+                .tokenId(user.getTokenId())
+                .name(user.getName())
+                .nickName(user.getNickName())
                 .email(user.getEmail())
-                .emailVerifiedYn(user.getEmailVerifiedYn())
-                .profileImageUrl(user.getProfileImageUrl())
+                .image(user.getImage())
                 .providerType(user.getProviderType())
                 .roleType(user.getRoleType())
                 .createdAt(user.getCreatedAt().plusHours(9))
                 .modifiedAt(user.getModifiedAt().plusHours(9))
                 .introduction(user.getIntroduction())
-                .address(user.getAddress())
                 .phoneNumber(user.getPhoneNumber())
+                .gender(user.getGender())
+                .age(user.getAge())
+                .largeRegion(user.getLargeRegion())
+                .smallRegion(user.getSmallRegion())
+                .preference(user.getPreference())
                 .build();
     }
 
     @Builder
-    public UserDto(Long userSeq, String userId, String username, String password, String userNickname, String email, String emailVerifiedYn, String profileImageUrl, ProviderType providerType, RoleType roleType, LocalDateTime createdAt, LocalDateTime modifiedAt, String introduction, String address, String phoneNumber) {
-        this.userSeq = userSeq;
-        this.userId = userId;
-        this.username = username;
-        this.password = password;
-        this.userNickname = userNickname;
+    public UserDto(Integer id, String email,  String image, ProviderType providerType, RoleType roleType,
+                   String tokenId, String nickName, String name, String introduction, String phoneNumber,
+                   LocalDateTime createdAt, LocalDateTime modifiedAt, String gender, Integer age, String largeRegion,
+                   String smallRegion, String preference) {
+        this.id = id;
         this.email = email;
-        this.emailVerifiedYn = emailVerifiedYn;
-        this.profileImageUrl = profileImageUrl;
+        this.image = image;
         this.providerType = providerType;
         this.roleType = roleType;
+        this.tokenId = tokenId;
+        this.nickName = nickName;
+        this.name = name;
+        this.introduction = introduction;
+        this.phoneNumber = phoneNumber;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
-        this.introduction = introduction;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.age = age;
+        this.largeRegion = largeRegion;
+        this.smallRegion = smallRegion;
+        this.preference = preference;
     }
 }

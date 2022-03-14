@@ -1,7 +1,7 @@
 package com.ssafy.authsvr;
 
-import com.ssafy.authsvr.config.properties.AppProperties;
-import com.ssafy.authsvr.config.properties.CorsProperties;
+import com.ssafy.authsvr.oauth.config.properties.AppProperties;
+import com.ssafy.authsvr.oauth.config.properties.CorsProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

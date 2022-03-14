@@ -1,7 +1,7 @@
-package com.ssafy.authsvr.config.security;
+package com.ssafy.authsvr.config;
 
-import com.ssafy.authsvr.config.properties.AppProperties;
-import com.ssafy.authsvr.config.properties.CorsProperties;
+import com.ssafy.authsvr.oauth.config.properties.AppProperties;
+import com.ssafy.authsvr.oauth.config.properties.CorsProperties;
 import com.ssafy.authsvr.oauth.filter.TokenAuthenticationFilter;
 import com.ssafy.authsvr.oauth.handler.OAuth2AuthenticationFailureHandler;
 import com.ssafy.authsvr.oauth.handler.OAuth2AuthenticationSuccessHandler;
@@ -10,7 +10,7 @@ import com.ssafy.authsvr.oauth.repository.OAuth2AuthorizationRequestBasedOnCooki
 import com.ssafy.authsvr.oauth.service.CustomOAuth2UserService;
 import com.ssafy.authsvr.oauth.service.CustomUserDetailsService;
 import com.ssafy.authsvr.oauth.token.AuthTokenProvider;
-import com.ssafy.authsvr.repository.UserRefreshTokenRepository;
+import com.ssafy.authsvr.oauth.repository.UserRefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
 import java.util.Arrays;
 
 @Configuration

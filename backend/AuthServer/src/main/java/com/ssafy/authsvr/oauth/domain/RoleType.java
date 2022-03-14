@@ -1,4 +1,4 @@
-package com.ssafy.authsvr.oauth.entity;
+package com.ssafy.authsvr.oauth.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
