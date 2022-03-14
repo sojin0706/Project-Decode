@@ -1,16 +1,16 @@
 package com.ssafy.authsvr.oauth.handler;
 
-import com.ssafy.authsvr.config.properties.AppProperties;
-import com.ssafy.authsvr.entity.user.UserRefreshToken;
-import com.ssafy.authsvr.oauth.entity.ProviderType;
-import com.ssafy.authsvr.oauth.entity.RoleType;
+import com.ssafy.authsvr.oauth.config.properties.AppProperties;
+import com.ssafy.authsvr.oauth.entity.UserRefreshToken;
+import com.ssafy.authsvr.oauth.domain.ProviderType;
+import com.ssafy.authsvr.oauth.domain.RoleType;
 import com.ssafy.authsvr.oauth.info.OAuth2UserInfo;
 import com.ssafy.authsvr.oauth.info.OAuth2UserInfoFactory;
 import com.ssafy.authsvr.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.ssafy.authsvr.oauth.token.AuthToken;
 import com.ssafy.authsvr.oauth.token.AuthTokenProvider;
-import com.ssafy.authsvr.repository.UserRefreshTokenRepository;
-import com.ssafy.authsvr.utils.CookieUtil;
+import com.ssafy.authsvr.oauth.repository.UserRefreshTokenRepository;
+import com.ssafy.authsvr.oauth.utils.CookieUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -89,7 +89,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         );
 
         // DB 저장
-        UserRefreshToken userRefreshToken = userRefreshTokenRepository.findByUserId(userInfo.getId());
+        UserRefreshToken userRefreshToken = userRefreshTokenRepository.findByTokenId(userInfo.getId());
         if (userRefreshToken != null) {
             userRefreshToken.setRefreshToken(refreshToken.getToken());
         } else {
@@ -131,7 +131,6 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         return appProperties.getOauth2().getAuthorizedRedirectUris()
                 .stream()
                 .anyMatch(authorizedRedirectUri -> {
-                    // Only validate host and port. Let the clients use different paths if they want to
                     URI authorizedURI = URI.create(authorizedRedirectUri);
                     if(authorizedURI.getHost().equalsIgnoreCase(clientRedirectUri.getHost())
                             && authorizedURI.getPort() == clientRedirectUri.getPort()) {

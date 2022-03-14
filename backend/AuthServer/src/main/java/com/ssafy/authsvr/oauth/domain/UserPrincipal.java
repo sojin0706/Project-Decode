@@ -1,6 +1,6 @@
-package com.ssafy.authsvr.oauth.entity;
+package com.ssafy.authsvr.oauth.domain;
 
-import com.ssafy.authsvr.entity.user.User;
+import com.ssafy.authsvr.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserPrincipal implements OAuth2User, UserDetails, OidcUser {
     private final String userId;
-    private final String password;
     private final ProviderType providerType;
     private final RoleType roleType;
     private final Collection<GrantedAuthority> authorities;
@@ -36,6 +35,11 @@ public class UserPrincipal implements OAuth2User, UserDetails, OidcUser {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
     }
 
     @Override
@@ -85,8 +89,7 @@ public class UserPrincipal implements OAuth2User, UserDetails, OidcUser {
 
     public static UserPrincipal create(User user) {
         return new UserPrincipal(
-                user.getUserId(),
-                user.getPassword(),
+                user.getTokenId(),
                 user.getProviderType(),
                 RoleType.USER,
                 Collections.singletonList(new SimpleGrantedAuthority(RoleType.USER.getCode()))

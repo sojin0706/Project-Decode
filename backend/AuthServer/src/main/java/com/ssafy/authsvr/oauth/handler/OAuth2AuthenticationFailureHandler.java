@@ -1,7 +1,7 @@
 package com.ssafy.authsvr.oauth.handler;
 
 import com.ssafy.authsvr.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository;
-import com.ssafy.authsvr.utils.CookieUtil;
+import com.ssafy.authsvr.oauth.utils.CookieUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;

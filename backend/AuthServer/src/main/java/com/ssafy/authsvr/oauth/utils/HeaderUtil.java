@@ -1,4 +1,4 @@
-package com.ssafy.authsvr.utils;
+package com.ssafy.authsvr.oauth.utils;
 
 import javax.servlet.http.HttpServletRequest;
 

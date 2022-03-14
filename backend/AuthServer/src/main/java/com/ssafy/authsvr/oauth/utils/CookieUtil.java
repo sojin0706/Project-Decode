@@ -1,4 +1,4 @@
-package com.ssafy.authsvr.utils;
+package com.ssafy.authsvr.oauth.utils;
 
 import org.springframework.util.SerializationUtils;
 import javax.servlet.http.Cookie;

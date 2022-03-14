@@ -1,4 +1,4 @@
-package com.ssafy.authsvr.config.security;
+package com.ssafy.authsvr.oauth.config.security;
 
 import com.ssafy.authsvr.oauth.token.AuthTokenProvider;
 import org.springframework.beans.factory.annotation.Value;

@@ -2,7 +2,7 @@ package com.ssafy.authsvr.oauth.filter;
 
 import com.ssafy.authsvr.oauth.token.AuthToken;
 import com.ssafy.authsvr.oauth.token.AuthTokenProvider;
-import com.ssafy.authsvr.utils.HeaderUtil;
+import com.ssafy.authsvr.oauth.utils.HeaderUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

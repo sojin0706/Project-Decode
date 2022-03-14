@@ -1,7 +1,7 @@
 package com.ssafy.authsvr.oauth.service;
 
-import com.ssafy.authsvr.entity.user.User;
-import com.ssafy.authsvr.oauth.entity.UserPrincipal;
+import com.ssafy.authsvr.entity.User;
+import com.ssafy.authsvr.oauth.domain.UserPrincipal;
 import com.ssafy.authsvr.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +17,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserId(username);
+        User user = userRepository.findByTokenId(username);
         if (user == null) {
             throw new UsernameNotFoundException("Can not find username.");
         }

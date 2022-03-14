@@ -1,4 +1,4 @@
-package com.ssafy.authsvr.config.properties;
+package com.ssafy.authsvr.oauth.config.properties;
 
 import lombok.Getter;
 import lombok.Setter;
