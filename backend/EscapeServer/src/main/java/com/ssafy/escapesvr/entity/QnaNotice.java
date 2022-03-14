@@ -9,6 +9,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -42,7 +44,10 @@ public class QnaNotice {
     private LocalDateTime modifiedAt; //수정시간
 
     @NotNull
-    private Integer user_id;
+    private Integer userId;
+
+    @OneToMany(mappedBy = "qnaNotice", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<QnaComment> comments = new ArrayList<>();
 
 
 }

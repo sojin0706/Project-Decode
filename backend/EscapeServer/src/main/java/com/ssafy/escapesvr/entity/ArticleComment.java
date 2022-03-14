@@ -35,7 +35,6 @@ public class ArticleComment {
     @JoinColumn(name = "article_id")
     private Article article; //게시글 id
 
-
     @NotNull
-    private Integer user_id;
+    private Integer userId;
 }

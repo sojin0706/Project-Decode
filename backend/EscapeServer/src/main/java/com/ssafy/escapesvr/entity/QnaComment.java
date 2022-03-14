@@ -37,7 +37,7 @@ public class QnaComment {
     private QnaNotice qnaNotice; //공지사항글 id
 
     @NotNull
-    private Integer user_id;
+    private Integer userId;
 
 
 }

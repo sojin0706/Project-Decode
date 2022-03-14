@@ -97,3 +97,4 @@ compileQuerydsl {
 	if(file(querydslSrcDir).exists() )
 		delete(file(querydslSrcDir))
 }
+
