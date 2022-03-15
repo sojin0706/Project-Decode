@@ -32,7 +32,7 @@ public class Article {
     private int recommend; //추천개수
 
     @NotNull
-    private int smallRegion; //지역
+    private String smallRegion; //지역
 
     @NotNull
     private int report; //신고횟수
