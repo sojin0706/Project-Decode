@@ -1,6 +1,5 @@
 .board_wrap {
-  width: 1000px;
-  margin: 100px auto;
+  margin: 100px 0px;
 }
 
 .board_title {
@@ -12,7 +11,7 @@
 }
 
 .bt_wrap {
-  margin-top: 30px;
+  margin-top: 50px;
   text-align: right;
   font-size: 0;
 }
@@ -34,6 +33,9 @@
 .bt_wrap a.on {
   background: #000;
   color: #fff;
+}
+.board_list_wrap {
+  margin-top: 20px;
 }
 
 .board_list {
@@ -66,16 +68,17 @@
 }
 
 .board_list .type {
-  width: 10%;
+  width: 15%;
 }
 
 .board_list .num {
-  width: 10%;
+  width: 15%;
 }
 
 .board_list .title {
-  width: 60%;
+  width: 40%;
   text-align: left;
+  color: #000;
 }
 
 .board_list .top .title {
@@ -83,11 +86,11 @@
 }
 
 .board_list .writer {
-  width: 10%;
+  width: 15%;
 }
 
 .board_list .date {
-  width: 10%;
+  width: 15%;
 }
 
 .board_page {
@@ -96,8 +99,6 @@
 }
 
 .button_align {
-  justify-content: space-between;
   margin-top: 5px;
   font-size: 1.4rem;
-  justify-content: space-between;
 }

@@ -6,14 +6,25 @@ import {
     TextArea,
   } from "semantic-ui-react";
 import React, {Component} from 'react'
-import styles from "../../styles/noticecreate.module.css";
+import styles from "../../styles/notice/create.module.css";
 
 export default function noticecreate() {
 
 return (
     <>
-    <div className={styles.noticecreate}>
-    <header><h1>Q&A작성</h1></header>
+    <div className={styles.noticecreate}>    
+    <Grid>
+    <Grid.Column width={4}></Grid.Column>
+    <Grid.Column width={8}>
+    <div>    
+        <Grid>
+            <Grid.Column>
+            <div className={styles.board_title}>
+                <strong>Q&A작성</strong>
+            </div> 
+            </Grid.Column>
+        </Grid>
+    </div>
     <Form className={styles.createform}>
         <Form.Group widths='equal' inline>
             <Form.Field>
@@ -31,7 +42,7 @@ return (
         </Form.Group>   
                
         <div className={styles.buttonalign}>
-        <Grid centered columns={6}>
+        <Grid centered columns={4}>
             <Grid.Column>
                 <Button color='blue'>글작성 </Button>
             </Grid.Column>
@@ -40,6 +51,12 @@ return (
         </div>
         
     </Form>
+
+
+    </Grid.Column>
+    <Grid.Column width={2}></Grid.Column>
+    </Grid>
+
     </div>
     </>
     );
