@@ -1,50 +1,14 @@
 package com.ssafy.escapesvr.service;
 
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.ssafy.escapesvr.dto.ArticleRequestDto;
 import com.ssafy.escapesvr.dto.ArticleResponseDto;
-import com.ssafy.escapesvr.entity.Article;
-import com.ssafy.escapesvr.repository.ArticleRepository;
-import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-import java.util.stream.Collectors;
+public interface ArticleService {
 
-@RequiredArgsConstructor
-@Service
-public class ArticleService {
+    ArticleResponseDto save(ArticleRequestDto articleRequestDto); //게시글 저장
+    ArticleResponseDto getArticle(Long id);//게시글 조회
+    ArticleResponseDto updateArticle(ArticleRequestDto articleRequestDto, Long id); //게시글 수정
+    void deleteArticle(Long id); //게시글 아이디로 게시글 삭제
 
-    private final ArticleRepository articleRepository;
 
-    //게시글 생성
-    @Transactional
-    public Long save(final ArticleRequestDto params) {
-
-        Article entity = articleRepository.save(params.toEntity());
-        return entity.getId();
-
-    }
-
-    //게시글 조회
-    public List<ArticleResponseDto> findAll() {
-
-        Sort sort = Sort.by(Direction.DESC, "id", "createdAt");
-        List<Article> list = articleRepository.findAll(sort);
-        return list.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
-
-    }
-
-    //게시글 수정
-    @Transactional
-    public Long update(final Long id, final ArticleRequestDto params) {
-
-        Article entity = articleRepository.findById(id).orElseThrow();
-        entity.update(params.getTitle(), params.getContent(), params.getSmallRegion(), params.getUserId());
-        return id;
-        
-    }
 }

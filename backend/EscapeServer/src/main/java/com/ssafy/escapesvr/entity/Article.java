@@ -28,23 +28,17 @@ public class Article {
     private String content; //내용
 
     @NotNull
-    private Integer userId;
+    private Integer userId; //사용자id
 
     @NotNull
     private String smallRegion; //지역
 
-//    @NotNull
     private int recommend; //추천개수
 
-
-
-//    @NotNull
     private int report; //신고횟수
 
-//    @NotNull
     private LocalDateTime createdAt; //작성시간
 
-//    @NotNull
     private LocalDateTime modifiedAt; //수정시간
 
 
