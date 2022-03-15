@@ -15,7 +15,7 @@ export default function index() {
 
   return (
     <>
-      <Grid celled>
+      <Grid>
         <Grid.Row>
           <Grid.Column width={6}></Grid.Column>
           <Grid.Column width={4}>
