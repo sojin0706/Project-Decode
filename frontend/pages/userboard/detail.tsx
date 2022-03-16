@@ -6,7 +6,7 @@ import React, {Component} from 'react'
   
 import styles from "../../styles/notice/detail.module.css";
 
-export default function notice_detail() {
+export default function userboard_detail() {
 
 return (
     <>
@@ -53,7 +53,7 @@ return (
                     
                 </div>
                 <div className={styles.bt_wrap}>
-                    <a href="/notice" className={styles.on}>목록</a>
+                    <a href="/userboard" className={styles.on}>목록</a>
                     <a href="/create">수정</a>
                 </div>
             </div>
