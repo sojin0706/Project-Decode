@@ -24,16 +24,37 @@ return (
                 </Grid.Column>
             </Grid>
         </div>
-            <div className={styles.board_list_wrap}>
-                <div className={styles.board_list}>
+            <div className={styles.board_view_wrap}>
+                <div className={styles.board_view}>
+                    <div className={styles.title}>
+                        글 제목
+                    </div>
+                    <div className={styles.info}>
+                        <dl>
+                            <dt>번호</dt>
+                            <dd>1</dd>
+                        </dl>
+                        <dl>
+                            <dt>글쓴이</dt>
+                            <dd>하루</dd>
+                        </dl>
+                        <dl>
+                            <dt>작성일</dt>
+                            <dd>2021.03.14</dd>
+                        </dl>
+                        <dl>
+                            <dt>조회</dt>
+                            <dd>127</dd>
+                        </dl>
+                    </div>
+                    <div className={styles.cont}>
+                        글 내용이 들어갑니다.
+                    </div>
                     
-                </div>
-                <div className={styles.board_page}>
-
                 </div>
                 <div className={styles.bt_wrap}>
                     <a href="/notice" className={styles.on}>목록</a>
-                    <a href="#" className={styles.on2}>수정</a>
+                    <a href="/create">수정</a>
                 </div>
             </div>
     </div>
