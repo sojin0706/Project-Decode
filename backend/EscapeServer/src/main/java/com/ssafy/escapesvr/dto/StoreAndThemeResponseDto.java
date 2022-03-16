@@ -35,8 +35,15 @@ public class StoreAndThemeResponseDto {
     private Integer numberIsFive;
 
     //store
+    //지역 대분류
+    private String largeRegion;
+    //지역 소분류
+    private String smallRegion;
+
+    //가게 이름
     private String storeName;
 
+    //사이트 url
     private String siteUrl;
 
     public StoreAndThemeResponseDto(Theme theme, Store store,RecommendNumber recommendNumber){
@@ -52,6 +59,9 @@ public class StoreAndThemeResponseDto {
         numberIsFive=recommendNumber.getNumberIsFive();
         storeName=store.getName();
         siteUrl=store.getSiteUrl();
+        largeRegion=store.getLargeRegion();
+        smallRegion=store.getSmallRegion();
+
     }
 
 }
