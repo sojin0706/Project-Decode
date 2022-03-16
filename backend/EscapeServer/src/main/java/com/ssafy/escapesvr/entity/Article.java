@@ -1,14 +1,13 @@
 package com.ssafy.escapesvr.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,21 +28,42 @@ public class Article {
     private String content; //내용
 
     @NotNull
-    private int recommend; //추천개수
+    private Integer userId; //사용자id
 
     @NotNull
     private String smallRegion; //지역
 
-    @NotNull
+    private int recommend; //추천개수
+
     private int report; //신고횟수
 
-    @NotNull
     private LocalDateTime createdAt; //작성시간
 
-    @NotNull
     private LocalDateTime modifiedAt; //수정시간
 
-    @NotNull
-    private Integer user_id;
+
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<ArticleComment> comments = new ArrayList<>();
+
+    //빌더
+    @Builder
+    public Article(String title, String content, String smallRegion, Integer userId) {
+        this.title= title;
+        this.content= content;
+        this.smallRegion = smallRegion;
+        this.userId = userId;
+    }
+
+    //게시글 수정
+    public void update(String title, String content, String smallRegion, Integer userId) {
+        this.title = title;
+        this.content = content;
+        this.smallRegion = smallRegion;
+        this.userId = userId;
+        this.modifiedAt = LocalDateTime.now();
+    }
+
+
 
 }

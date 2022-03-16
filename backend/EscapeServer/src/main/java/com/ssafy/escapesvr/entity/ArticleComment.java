@@ -19,15 +19,15 @@ public class ArticleComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="comment_id")
-    private Long id; //댓글 ID
+    private Long id; //댓글 번호
 
     @NotNull
     private String content; //댓글 내용
 
-    @NotNull
+    //@NotNull
     private LocalDateTime createdAt;//작성시간
 
-    @NotNull
+    //@NotNull
     private LocalDateTime modifiedAt;//수정시간
 
     //외래키
@@ -35,7 +35,6 @@ public class ArticleComment {
     @JoinColumn(name = "article_id")
     private Article article; //게시글 id
 
-
     @NotNull
-    private Integer user_id;
+    private Integer userId;
 }
