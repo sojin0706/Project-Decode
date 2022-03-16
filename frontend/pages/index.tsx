@@ -4,6 +4,7 @@ const Home: NextPage = () => {
   return (
     <>
       <p>메인페이지</p>
+  
     </>
   )
 }

@@ -1,0 +1,104 @@
+.board_wrap {
+  margin: 100px 0px;
+}
+
+.board_title {
+  margin-bottom: 30px;
+}
+
+.board_title strong {
+  font-size: 3rem;
+}
+
+.bt_wrap {
+  margin-top: 50px;
+  text-align: right;
+  font-size: 0;
+}
+
+.bt_wrap a {
+  display: inline-block;
+  min-width: 80px;
+  padding: 10px;
+  margin-left: 10px;
+  border: 1px solid #000;
+  border-radius: 2px;
+  font-size: 1.4rem;
+}
+
+.bt_wrap a:first-child {
+  margin-left: 0;
+}
+
+.bt_wrap a.on {
+  background: #000;
+  color: #fff;
+}
+.board_list_wrap {
+  margin-top: 20px;
+}
+
+.board_list {
+  width: 100%;
+  border-top: 2px solid #000;
+}
+
+.board_list > div {
+  border-bottom: 1px solid #ddd;
+  font-size: 0;
+}
+
+.board_list > div.top {
+  border-bottom: 1px solid #ddd;
+}
+
+.board_list > div:last-child {
+  border-bottom: 1px solid #000;
+}
+
+.board_list > div > div {
+  display: inline-block;
+  font-size: 1.4rem;
+  text-align: center;
+  padding: 15px 0;
+}
+
+.board_list > div.top > div {
+  font-weight: 600;
+}
+
+.board_list .type {
+  width: 15%;
+}
+
+.board_list .num {
+  width: 15%;
+}
+
+.board_list .title {
+  width: 40%;
+  text-align: left;
+  color: #000;
+}
+
+.board_list .top .title {
+  text-align: center;
+}
+
+.board_list .writer {
+  width: 15%;
+}
+
+.board_list .date {
+  width: 15%;
+}
+
+.board_page {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.button_align {
+  margin-top: 5px;
+  font-size: 1.4rem;
+}
