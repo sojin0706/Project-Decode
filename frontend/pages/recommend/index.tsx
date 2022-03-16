@@ -1,4 +1,5 @@
-import { Grid, Header, Image } from "semantic-ui-react";
+import { Grid, Header } from "semantic-ui-react";
+import Recoboard from "../../src/component/board/recoboard";
 import Region from "../../src/component/filter/region";
 
 export default function Recommend(){
@@ -55,6 +56,25 @@ export default function Recommend(){
                     <Grid.Column width={2}/>
                 </Grid.Row>
             </Grid>
+            
+            {/* 2차 디자인 */}
+            {/* <Grid centered columns={3} stackable>
+                <Grid.Row>
+                <Header as='h4'>'유저' 님이 좋아하실만한 테마를 준비해봤어요!</Header>
+                </Grid.Row>
+                <Grid.Column>
+                    <Recoboard />
+                </Grid.Column>
+                <Grid.Column>
+                    <Header as='h4'>'유저' 님과 같은 '20'대 '여성'들이 좋아하는 방에 도전해보세요!</Header>
+                    <Recoboard />
+                </Grid.Column>
+                <Grid.Column>
+                    <Header as='h4'>'유저' 님이 좋아하는 '추리'장르를 모아봤어요!</Header>
+                    <Recoboard />
+                </Grid.Column>
+            </Grid> */}
+            
         </>
     );
 }
