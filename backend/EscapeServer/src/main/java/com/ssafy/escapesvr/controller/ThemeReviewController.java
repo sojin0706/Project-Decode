@@ -3,6 +3,7 @@ package com.ssafy.escapesvr.controller;
 import com.ssafy.escapesvr.dto.StoreAndThemeResponseDto;
 import com.ssafy.escapesvr.dto.ThemeReviewResponseDto;
 import com.ssafy.escapesvr.service.ThemeReviewService;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -28,7 +29,7 @@ public class ThemeReviewController {
 
     //테마에 해당하는 리뷰
     @GetMapping("/{themeId}")
-    public ResponseEntity<Map<String, Object>> getDetail(@PathVariable Integer themeId,@PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable) {
+    public ResponseEntity<Map<String, Object>> getDetail(@PathVariable @ApiParam( value="테마 아이디",required = true) Integer themeId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable) {
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         List<ThemeReviewResponseDto> reviews=new ArrayList<>();

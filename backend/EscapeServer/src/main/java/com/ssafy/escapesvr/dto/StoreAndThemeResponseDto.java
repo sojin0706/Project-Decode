@@ -3,6 +3,7 @@ package com.ssafy.escapesvr.dto;
 import com.ssafy.escapesvr.entity.RecommendNumber;
 import com.ssafy.escapesvr.entity.Store;
 import com.ssafy.escapesvr.entity.Theme;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,38 +13,49 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StoreAndThemeResponseDto {
-    //테마관련 테마아이디
+
+    @ApiModelProperty(value = "테마 아이디", example = "1", required = true)
     private Integer themeId;
-    //포스터
+
+    @ApiModelProperty(value = "포스터 url", example = "http://www.secretgardenescape.com/pimages/Product/Pr_1593416874.jpg", required = true)
     private String posterUrl;
-    //난이드
+
+    @ApiModelProperty(value = "테마 난이도", example = "3", required = true)
     private Integer level;
-    //장르
+
+    @ApiModelProperty(value = "테마 장르", example = "공포", required = true)
     private String genre;
-    //최대인원수
+
+    @ApiModelProperty(value = "최대 인원수", example = "5", required = true)
     private Integer maxNumber;
-    //시간
+
+    @ApiModelProperty(value = "테마 시간", example = "60", required = true)
     private Integer time;
 
     //추천인원수
+    @ApiModelProperty(value = "추천인원수 2명 가능", example = "1", required = true)
     private Integer numberIsTwo;
-
+    @ApiModelProperty(value = "추천인원수 3명 가능", example = "1", required = true)
     private Integer numberIsThree;
-
+    @ApiModelProperty(value = "추천인원수 4명 가능", example = "0", required = true)
     private Integer numberIsFour;
-
+    @ApiModelProperty(value = "추천인원수 5명 가능", example = "0", required = true)
     private Integer numberIsFive;
 
     //store
     //지역 대분류
+    @ApiModelProperty(value = "지역 대분류", example = "서울", required = true)
     private String largeRegion;
     //지역 소분류
+    @ApiModelProperty(value = "지역 소분류", example = "홍대", required = true)
     private String smallRegion;
 
     //가게 이름
+    @ApiModelProperty(value = "가게 이름", example = "넥스트에디션 강남1호점", required = true)
     private String storeName;
 
     //사이트 url
+    @ApiModelProperty(value = "가게 사이트 url", example = "https://www.nextedition.co.kr/shops/NextEdition%20Gangnam", required = true)
     private String siteUrl;
 
     public StoreAndThemeResponseDto(Theme theme, Store store,RecommendNumber recommendNumber){
