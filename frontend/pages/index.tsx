@@ -4,7 +4,7 @@ import { Grid, GridColumn, Image } from "semantic-ui-react"
 const Home: NextPage = () => {
   return (
     <>
-      <Grid>
+      <Grid stackable>
         <Grid.Row>
           <Grid.Column width={2}></Grid.Column>
           <Grid.Column width={12}>
