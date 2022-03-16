@@ -19,11 +19,12 @@ export default function Info() {
                 <Grid.Row>
                     <Grid.Column width={2} />
                     <Grid.Column width={12}>
-                        <Stick />    
+                        <Stick />  
+                        <Infoboard />  
                     </Grid.Column>
                     <Grid.Column width={2} />
                 </Grid.Row>
-                <Infoboard />
+                
             </Grid>
         </>
     );
