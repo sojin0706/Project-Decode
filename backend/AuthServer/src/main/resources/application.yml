@@ -1,5 +1,5 @@
 #server:
-#  port: 8082
+#  port: 8081
   # ?? ??
 #  port: 0
 #spring:
@@ -21,22 +21,20 @@ spring:
       matching-strategy: ant_path_matcher
   application:
     name: oauth2
-  security:
-    user:
-      name: ssafy
-      password: ssafy
+#  security:
+#    user:
+#      name: ssafy
+#      password: ssafy
   datasource:
-    url: jdbc:mysql://localhost:3306/eroom?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-    username: ssafy
-    password: ssafy
+    url: jdbc:mysql://j6c203.p.ssafy.io:3306/escape?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: escape
+    password: escape
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: create
       use-new-id-generator-mappings: true
     show-sql: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   profiles:
     include:
       - oauth
@@ -63,10 +61,10 @@ jwt:
 #  secret: ENC(jGKmciAnyrtj+Ht6hzsC7fHv9R67FxH38qJdsn+km/fYNaz/xxzfpB90la/9tlAXubj7mKZvbqmaC98Th/3xeA4SWIYTo++VzTnqZxOZbrwOCf3m2qn5YXo6EbgFH02G)
 
 # jasypt
-jasypt:
-  encryptor:
-    bean: jasyptStringEncryptor
-    password: ssafy
+#jasypt:
+#  encryptor:
+#    bean: jasyptStringEncryptor
+#    password: ssafy
 #    password : ENC(QxiQKa7GkBsypVEVvAqpVQ==)
 
 # ?? ?? secret Key ? RedirectUri ??
