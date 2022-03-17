@@ -20,7 +20,7 @@ public class ThemeReviewResponseDto {
 
     private String userNickName;
 
-    private double reviewScore;
+    private Integer myScore;
 
     private String reviewContent;
 
@@ -31,7 +31,7 @@ public class ThemeReviewResponseDto {
     public  ThemeReviewResponseDto(ThemeReview themeReview){
         theme_review_id=themeReview.getId();
         userNickName=themeReview.getUserNickName();
-        reviewScore=themeReview.getReviewScore();
+        myScore=themeReview.getMyScore();
         reviewContent=themeReview.getReviewContent();
         createdAt=themeReview.getCreatedAt();
         clearTime=themeReview.getClearTime();

@@ -9,5 +9,6 @@ import java.util.List;
 
 public interface ThemeReviewRepo extends JpaRepository<ThemeReview,Integer> {
     List<ThemeReview> findByTheme(Theme theme,Pageable pageable);
+    List<ThemeReview> findAllByUserId(Integer userId,Pageable pageable);
 
 }
