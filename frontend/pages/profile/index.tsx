@@ -5,6 +5,7 @@ import Graph from "../../src/component/profile/graph"
 import RecentClear from "../../src/component/profile/recentClear";
 import ClearList from "../../src/component/profile/clearList";
 import NickMail from "../../src/component/profile/nickMail";
+import UserInfo from "../../src/component/profile/userInfo";
 
 export default function index() {
   
@@ -25,27 +26,28 @@ export default function index() {
               </Grid.Column>
 
               {/* 닉네임, 이메일 */}
-              <Grid.Column width={3}>
+              <Grid.Column width={5}>
                 <br></br>
                 <NickMail/>
                 <Graph/>
               </Grid.Column>
 
               {/* 그래프 */}
-              <Grid.Column width={6}>
+              <Grid.Column width={4}>
                 <Graph/>
               </Grid.Column>
 
               {/* 최근클리어 */}
               <Grid.Column width={4}>
-                최근클리어 1줄4/16
                 <RecentClear/>
               </Grid.Column>
             </Grid>
             {/* 프로필정보, 작성글 리스트 */}
             <Grid centered columns={4}>
               {/* 프로필정보 */}
-              <Grid.Column width={6}>프로필정보 2줄 6/16</Grid.Column>
+              <Grid.Column width={6}>
+                <UserInfo/>
+              </Grid.Column>
 
               {/* 작성글 리스트 */}
               <Grid.Column width={10}>작성글리스트 2줄 10/16</Grid.Column>
