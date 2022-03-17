@@ -31,7 +31,7 @@ public class InformationController {
     @Autowired
     ThemeReviewService themeReviewService;
 
-    @ApiOperation(value = "정보게시판 리스트 조회", notes = "게시글 리스트를 쿼리스트링으로 받은 옵션에 따라 불러온다", response = Map.class)
+    @ApiOperation(value = "정보게시판 필터링된 리스트 조회", notes = "게시글 리스트를 쿼리스트링으로 받은 옵션에 따라 불러온다", response = Map.class)
     @GetMapping
     public ResponseEntity<Map<String, Object>> getInformationList(@RequestParam(required = false) @ApiParam( value="대분류 지역") String largeRegion,
                                                               @RequestParam(required = false) @ApiParam( value="소분류 지역")  String smallRegion,

@@ -32,7 +32,6 @@ public class InformationServiceImpl implements InformationService {
         Store store=theme.getStore();
 
         RecommendNumber recommendNumber=theme.getRecommendNumber();
-
         StoreAndThemeResponseDto storeAndThemeResponseDto=new StoreAndThemeResponseDto(theme,store,recommendNumber);
 
         return storeAndThemeResponseDto;
