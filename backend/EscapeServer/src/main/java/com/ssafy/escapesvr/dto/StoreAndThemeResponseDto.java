@@ -26,11 +26,16 @@ public class StoreAndThemeResponseDto {
     @ApiModelProperty(value = "테마 장르", example = "공포", required = true)
     private String genre;
 
+    @ApiModelProperty(value = "테마 유형", example = "공포", required = true)
+    private String type;
+
     @ApiModelProperty(value = "최대 인원수", example = "5", required = true)
     private Integer maxNumber;
 
     @ApiModelProperty(value = "테마 시간", example = "60", required = true)
     private Integer time;
+    @ApiModelProperty(value = "예약 페이지url", example = "60", required = true)
+    private String reserveUrl;
 
     //추천인원수
     @ApiModelProperty(value = "추천인원수 2명 가능", example = "1", required = true)
@@ -63,8 +68,10 @@ public class StoreAndThemeResponseDto {
         posterUrl=theme.getPosterUrl();
         level=theme.getLevel();
         genre=theme.getGenre();
+        type=theme.getType();
         maxNumber=theme.getMaxNumber();
         time=theme.getTime();
+        reserveUrl=theme.getReserveUrl();
         numberIsTwo=recommendNumber.getNumberIsTwo();
         numberIsThree=recommendNumber.getNumberIsThree();
         numberIsFour=recommendNumber.getNumberIsFour();

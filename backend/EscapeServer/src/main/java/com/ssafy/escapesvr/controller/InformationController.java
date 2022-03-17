@@ -36,7 +36,9 @@ public class InformationController {
     public ResponseEntity<Map<String, Object>> getInformationList(@RequestParam(required = false) @ApiParam( value="대분류 지역") String largeRegion,
                                                               @RequestParam(required = false) @ApiParam( value="소분류 지역")  String smallRegion,
                                                               @RequestParam(required = false) @ApiParam( value="장르")String gerne,
-                                                              @RequestParam @ApiParam( value="최대 인원수") Integer maxCnt, @RequestParam @ApiParam( value="최대 난이도") Integer maxLevel, @RequestParam @ApiParam( value="최소 시간") Integer minTime, @RequestParam @ApiParam( value="최대 시간") Integer maxTime
+                                                              @RequestParam @ApiParam( value="최대 인원수") Integer maxNumber, @RequestParam @ApiParam( value="최대 난이도") Integer maxLevel, @RequestParam @ApiParam( value="최대 시간") Integer maxTime,
+                                                                  @RequestParam(required = false) @ApiParam( value="혼자 가능 여부 (가능하면 1)") Integer isSingleplay,
+                                                                @PageableDefault(size = 10)  Pageable pageable
                                                                   ) {
 
         Map<String, Object> result = new HashMap<>();
@@ -45,19 +47,16 @@ public class InformationController {
         HttpStatus httpStatus = null;
 
         try {
-            informationList = informationService.getInformationList(largeRegion, smallRegion, gerne, maxCnt,maxLevel,minTime,maxTime);
+            informationList = informationService.getInformationList(largeRegion, smallRegion, gerne, maxNumber,maxLevel,maxTime,isSingleplay,pageable);
             httpStatus = HttpStatus.OK;
-            result.put("success", true);
-
         } catch (RuntimeException e) {
             e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-            result.put("success", false);
-
         }
          result.put("informationList", informationList);
          return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
+
     @ApiOperation(value = "테마 상세 조회", notes = "테마별 상세 조회 정보를 나타낸다.", response = Map.class)
     @GetMapping("/detail/{themeId}")
     public ResponseEntity<Map<String, Object>> getDetail(@PathVariable @ApiParam( value="테마 아이디",required = true) Integer themeId) {
@@ -67,15 +66,11 @@ public class InformationController {
         try {
             //리뷰를 제외한 테마+스토어에 대한 정보
             storeandtheme = informationService.getDetail(themeId);
-
             httpStatus = HttpStatus.OK;
-            result.put("success", true);
         } catch (RuntimeException e) {
             e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-            result.put("success", false);
         }
-
         result.put("storeandtheme",storeandtheme);
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }

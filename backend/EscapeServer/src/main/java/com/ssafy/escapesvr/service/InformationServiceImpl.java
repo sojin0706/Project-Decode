@@ -7,6 +7,8 @@ import com.ssafy.escapesvr.entity.Store;
 import com.ssafy.escapesvr.entity.Theme;
 import com.ssafy.escapesvr.repository.ThemeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ public class InformationServiceImpl implements InformationService {
 
     @Autowired
     ThemeRepo themeRepo;
+
 
 
     //테마아이디로 상세페이지
@@ -34,21 +37,16 @@ public class InformationServiceImpl implements InformationService {
 
         return storeAndThemeResponseDto;
     }
-
+    //정보페이지 필터링
     @Override
-    public List<ThemeResponseDto> getInformationList(String largeRegion, String smallRegion, String gerne, Integer maxCnt, Integer maxLevel, Integer minTime, Integer maxTime) {
+    public List<ThemeResponseDto> getInformationList(String largeRegion, String smallRegion, String gerne, Integer maxNumber, Integer maxLevel, Integer maxTime,Integer isSingleplay, Pageable pageable) {
 
-        // 1. 지역대분류/소분류/장르가 null일때 -> 인원수,난이도,시간으로 필터링
+        List<ThemeResponseDto> informations=null;
 
-        // 2. 지역대분류/소분류가 null일때 -> 장르,인원수,난이도,시간으로 필터링
+        informations=themeRepo.findByConditions(largeRegion,smallRegion,gerne,maxNumber,maxLevel,maxTime,isSingleplay,pageable);
 
-        // 3. 지역소분류가 null일때 -> 지역대분류,인원수,난이도,시간으로 필터링
+        return informations;
 
-        // 4. 지역 소분류,장르가 null 일때  -> 지역대분류,인원수,난이도,시간으로 필터링
-
-        // 5. 장르가 null일때 -> 지역대분류,소분류,인원수,난이도,시간으로 필터링
-
-        return null;
     }
 
 }
