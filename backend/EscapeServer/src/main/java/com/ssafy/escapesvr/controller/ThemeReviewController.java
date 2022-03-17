@@ -38,11 +38,10 @@ public class ThemeReviewController {
             reviews=themeReviewService.getReview(themeId,pageable);
             // 그 테마 아이디에 해당하는 리뷰들을 리스트형태로 가지고와서 -> 리뷰에서 만들어주기
             httpStatus = HttpStatus.OK;
-            result.put("success", true);
         } catch (RuntimeException e) {
             e.printStackTrace();
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-            result.put("success", false);
+
         }
         result.put("review",reviews);
 
