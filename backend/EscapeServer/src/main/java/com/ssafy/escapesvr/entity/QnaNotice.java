@@ -32,15 +32,14 @@ public class QnaNotice {
     private String content; //내용
 
     @NotNull
-    private boolean isSecret; //보안글여부
+    private Boolean isSecret; //보안글여부
 
     @NotNull
-    private boolean isNotice; //공지글여부
+    private Boolean isNotice; //공지글여부
 
     @NotNull
     private LocalDateTime createdAt; //작성시간
 
-    @NotNull
     private LocalDateTime modifiedAt; //수정시간
 
     @NotNull
