@@ -6,6 +6,7 @@ import RecentClear from "../../src/component/profile/recentClear";
 import ClearList from "../../src/component/profile/clearList";
 import NickMail from "../../src/component/profile/nickMail";
 import UserInfo from "../../src/component/profile/userInfo";
+import Board from "../../src/component/profile/board";
 
 export default function index() {
   
@@ -14,7 +15,9 @@ export default function index() {
       <Grid stackable>
         <Grid.Row>
           {/* 여백 */}
-          <Grid.Column width={2}>여백 2/16</Grid.Column>
+          <Grid.Column width={2}>
+
+          </Grid.Column>
 
           {/* 본문 */}
           <Grid.Column width={12}>
@@ -50,7 +53,10 @@ export default function index() {
               </Grid.Column>
 
               {/* 작성글 리스트 */}
-              <Grid.Column width={10}>작성글리스트 2줄 10/16</Grid.Column>
+              <Grid.Column width={10}>
+                <Board/>
+              </Grid.Column>
+                
             </Grid>
 
             {/* 클리어한 테마 리스트들 */}
@@ -58,7 +64,7 @@ export default function index() {
           </Grid.Column>
 
           {/* 여백 */}
-          <Grid.Column width={2}>여백 2/16</Grid.Column>
+          <Grid.Column width={2}></Grid.Column>
         </Grid.Row>
       </Grid>
     </>
