@@ -10,9 +10,9 @@ import com.ssafy.authsvr.oauth.token.AuthToken;
 import com.ssafy.authsvr.oauth.token.AuthTokenProvider;
 import com.ssafy.authsvr.payload.response.user.UserDto;
 import com.ssafy.authsvr.oauth.repository.UserRefreshTokenRepository;
-import com.ssafy.authsvr.service.UserService;
 import com.ssafy.authsvr.oauth.utils.CookieUtil;
 import com.ssafy.authsvr.oauth.utils.HeaderUtil;
+import com.ssafy.authsvr.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +46,7 @@ public class AuthController {
     @GetMapping("/users")
     public ApiResponse getUser() {
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserDto userDto = UserDto.userDto(userService.getUser(principal.getUsername()));
+        UserDto userDto = UserDto.userDto(userService.findDetailsUser(principal.getUsername()));
 
         return ApiResponse.success("user", userDto);
     }
