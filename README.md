@@ -23,7 +23,7 @@
 | :white_check_mark:  Mobile Web       | :white_check_mark: Big Data           | :white_check_mark: TypeScript | :white_check_mark: React             |
 | :black_square_button: Responsive Web | :black_square_button: Blockchain      | :black_square_button: C/C++   | :black_square_button: Angular        |
 | :black_square_button: Android App    | :black_square_button: IoT             | :black_square_button: C#      | :black_square_button: Node.js        |
-| :black_square_button: iOS App        | :black_square_button: AR/VR/Metaverse | :black_square_button: Python  | :black_square_button: Flask/Django   |
+| :black_square_button: iOS App        | :black_square_button: AR/VR/Metaverse | :white_check_mark: Python     | :black_square_button: Flask/Django   |
 | :black_square_button: Desktop App    | :black_square_button: Game            | :white_check_mark: Java       | :white_check_mark: Spring/Springboot |
 |                                      |                                       | :black_square_button: Kotlin  |                                      |
 
@@ -193,7 +193,7 @@
 
   - [ERD-설계](/문서/ERD-설계/README.md)
   - [데이터전처리](/문서/데이터전처리/README.md)
-  - [유저데이터]((/문서/유저데이터/README.md))
+  - [유저데이터](/문서/유저데이터/README.md)
   
   
 
