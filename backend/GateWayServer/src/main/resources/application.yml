@@ -7,13 +7,32 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://j6c203.p.ssafy.io:8761/eureka
 
 spring:
   application:
-    name: apigateway-service
+    name: gateway-server
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000"
+            allow-credentials: true   #추가
+            allowedHeaders:
+              - x-requested-with
+              - authorization
+              - content-type
+              - credential
+              - X-AUTH-TOKEN
+              - X-CSRF-TOKEN
+            allowedMethods:
+              - POST
+              - GET
+              - PUT
+              - OPTIONS
+              - DELETE
+
       default-filters:
         - name: GlobalFilter
           args:
@@ -21,19 +40,24 @@ spring:
             preLogger: true
             postLogger: true
       routes:
-        - id: auth-service
+        - id: auth-server
           # ??? localhost:8081? ?? lb? ?? eureka ????? ????? ????? eureka? ?????? ??
-          uri: lb://AUTH-SERVICE
+          uri: lb://AUTH-SERVER
           predicates:
-            - Path=/auth-service/**
+            - Path=/**
           filters:
             #            - AddRequestHeader=auth-request, auth-request-header2
             #            - AddResponseHeader=auth-response, auth-response-header2
-            - CustomFilter
-        - id: api-service
-          uri: lb://API-SERVICE
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: Spring Cloud Gateway Logging filter
+                preLogger: true
+                postLogger: true
+        - id: escape-server
+          uri: lb://ESCAPE-SERVER
           predicates:
-            - Path=/api-service/**
+            - Path=/**
           filters:
             #            - AddRequestHeader=api-request, api-request-header2
             #            - AddResponseHeader=api-response, api-response-header2
