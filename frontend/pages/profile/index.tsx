@@ -1,11 +1,16 @@
 import { Grid, Image } from "semantic-ui-react";
+
+// Components
 import Graph from "../../src/component/profile/graph"
+import RecentClear from "../../src/component/profile/recentClear";
+import ClearList from "../../src/component/profile/clearList";
+import NickMail from "../../src/component/profile/nickMail";
 
 export default function index() {
   
   return (
     <>
-      <Grid>
+      <Grid stackable>
         <Grid.Row>
           {/* 여백 */}
           <Grid.Column width={2}>여백 2/16</Grid.Column>
@@ -15,16 +20,27 @@ export default function index() {
             {/* 프로필사진, 그래프, 최근클리어 */}
             <Grid centered columns={4}>
               {/* 프로필사진 */}
-              <Grid.Column width={6}>프로필사진 1줄 6/16</Grid.Column>
+              <Grid.Column width={3}>
+                <Image src= "/images/test_chr.png"></Image>
+              </Grid.Column>
+
+              {/* 닉네임, 이메일 */}
+              <Grid.Column width={3}>
+                <br></br>
+                <NickMail/>
+                <Graph/>
+              </Grid.Column>
 
               {/* 그래프 */}
               <Grid.Column width={6}>
-                그래프 1줄 6/16
-                <Graph></Graph>
+                <Graph/>
               </Grid.Column>
 
               {/* 최근클리어 */}
-              <Grid.Column width={4}>최근클리어 1줄4/16</Grid.Column>
+              <Grid.Column width={4}>
+                최근클리어 1줄4/16
+                <RecentClear/>
+              </Grid.Column>
             </Grid>
             {/* 프로필정보, 작성글 리스트 */}
             <Grid centered columns={4}>
@@ -36,20 +52,7 @@ export default function index() {
             </Grid>
 
             {/* 클리어한 테마 리스트들 */}
-            <Grid centered columns={4}>
-              <Grid.Column>
-                <Image src="https://yologuys.com/Escape_img/theme/1753.jpg;"></Image>
-              </Grid.Column>
-              <Grid.Column>
-                <Image src="https://yologuys.com/Escape_img/theme/1753.jpg;"></Image>
-              </Grid.Column>
-              <Grid.Column>
-                <Image src="https://yologuys.com/Escape_img/theme/1753.jpg;"></Image>
-              </Grid.Column>
-              <Grid.Column>
-                <Image src="https://yologuys.com/Escape_img/theme/1753.jpg;"></Image>
-              </Grid.Column>
-            </Grid>
+            <ClearList/>
           </Grid.Column>
 
           {/* 여백 */}
