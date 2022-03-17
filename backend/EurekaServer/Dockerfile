@@ -1,4 +1,5 @@
 FROM adoptopenjdk/openjdk11
+EXPOSE 8761
 
 # 가상의 디렉토리
 VOLUME /tmp
