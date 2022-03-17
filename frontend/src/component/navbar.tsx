@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import LoginModal from "./login/loginModal";
 
 export default function Navbar(){
     const router = useRouter();
@@ -26,6 +27,7 @@ export default function Navbar(){
           <Link href="/userboard">
             <a className={router.pathname === "/userboard" ? "active" : ""}>userboard</a>
           </Link>
+          <LoginModal />
           <style jsx>{`
             a {
               text-decoration: none;
