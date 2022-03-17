@@ -3,7 +3,7 @@
 }
 
 .board_title {
-  margin-bottom: 30px;
+  margin-bottom: 18px;
 }
 
 .board_title strong {
@@ -33,9 +33,6 @@
 .bt_wrap a.on {
   background: #000;
   color: #fff;
-}
-.board_list_wrap {
-  margin-top: 20px;
 }
 
 .board_list {
@@ -98,7 +95,11 @@
   text-align: center;
 }
 
-.noticetop {
-  margin-top: 5px;
-  font-size: 1.4rem;
+.board_search {
+  margin-top: 55px;
+  text-align: right;
+}
+
+.regionfilter {
+  margin-top: 25px;
 }

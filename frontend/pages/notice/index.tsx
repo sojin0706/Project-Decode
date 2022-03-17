@@ -16,7 +16,7 @@ return (
     <Grid.Column width={12}>
     <div className={styles.board_wrap}>    
      
-        <div className={styles.button_align}>
+        <div className={styles.noticetop}>
             <Grid>
                 <Grid.Column width={13}>
                 <div className={styles.board_title}>
