@@ -9,6 +9,7 @@ import com.ssafy.escapesvr.entity.ThemeReview;
 import com.ssafy.escapesvr.repository.ThemeRepo;
 import com.ssafy.escapesvr.repository.ThemeReviewRepo;
 import feign.FeignException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
@@ -88,7 +89,7 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
         // reviewRequestDto의 userId를 이용해서 nickname을 구해온 후, 저장
 //        themeReview.setUserNickName("임시 저장");
         try{
-            String nickname=userServiceClient.userFindNickName(reviewRequestDto.getUserId());
+            String nickname = userServiceClient.userFindNickName(reviewRequestDto.getUserId());
             themeReview.setUserNickName(nickname);
         }catch (FeignException e){
             e.printStackTrace();

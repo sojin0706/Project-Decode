@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface UserServiceClient {
 
     @GetMapping("/user/name/{id}")
-    String userFindNickName(@PathVariable(value="id")Integer id);
+    String userFindNickName(@PathVariable(value="id") Integer id);
 
 
 }
