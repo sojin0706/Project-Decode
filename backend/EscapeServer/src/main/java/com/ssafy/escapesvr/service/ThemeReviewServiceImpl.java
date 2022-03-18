@@ -29,7 +29,6 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
     @Autowired
     ThemeReviewRepo themeReviewRepo;
 
-    @Autowired
     UserServiceClient userServiceClient;
 
     //테마의 리뷰리스트
