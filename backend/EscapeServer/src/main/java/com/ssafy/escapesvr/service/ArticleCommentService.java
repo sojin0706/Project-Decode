@@ -9,7 +9,7 @@ public interface ArticleCommentService {
 
     List<ArticleCommentResponseDto> getArticleCommentList(Long articleId);
     void insertArticleComment(ArticleCommentRequestDto articleCommentRequestDto);
-    void updateArticleComment(ArticleCommentRequestDto articlecommentRequestDto);
+    void updateArticleComment(ArticleCommentRequestDto articleCommentRequestDto);
     void deleteArticleComment(Long commentId);
 
 }

@@ -1,20 +1,17 @@
 package com.ssafy.authsvr.service;
 
+import com.ssafy.authsvr.payload.response.UserReponseDto;
+import com.ssafy.authsvr.payload.request.UserRequestDto;
 import com.ssafy.authsvr.entity.User;
-import com.ssafy.authsvr.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
-@Service
-@RequiredArgsConstructor
-@Slf4j
-public class UserService {
+public interface UserService {
 
-    private final UserRepository userRepository;
+    User findDetailsUser(String tokenId);
 
-    public User getUser(String userId) {
-        return userRepository.findByTokenId(userId);
-    }
+    String findNickNameUser(Integer userId);
+
+    void ModifiyRecommendInfoUser(UserRequestDto.profileRequest profileRequest);
+
+    UserReponseDto.ProfileResponse findProfileUser(Integer userId);
 
 }

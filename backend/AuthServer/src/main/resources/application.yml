@@ -1,26 +1,13 @@
-#server:
-#  port: 8081
-  # ?? ??
-#  port: 0
-#spring:
-#  application:
-#    name: escape-server
-
-#eureka:
-##  instance:
-#  #    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-#  client:
-#    register-with-eureka: true
-#    fetch-registry: true
-#    service-url:
-#      defaultZone: http://localhost:8761/eureka
-
+server:
+  port: 8081
 spring:
+  application:
+    name: auth-server
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  application:
-    name: oauth2
+#  application:
+#    name: oauth2
 #  security:
 #    user:
 #      name: ssafy
@@ -32,7 +19,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
       use-new-id-generator-mappings: true
     show-sql: true
   profiles:
@@ -43,6 +30,14 @@ spring:
   jackson:
     property-naming-strategy: SNAKE_CASE
 
+eureka:
+  #  instance:
+  #    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://j6c203.p.ssafy.io:8761/eureka
 
 #logging:
 #  level.org.springframework: debug

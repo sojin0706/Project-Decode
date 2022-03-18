@@ -2,6 +2,7 @@ package com.ssafy.authsvr.entity;
 
 import com.ssafy.authsvr.oauth.domain.ProviderType;
 import com.ssafy.authsvr.oauth.domain.RoleType;
+import com.ssafy.authsvr.payload.request.UserRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -71,7 +72,9 @@ public class User {
 
     private String smallRegion;
 
-    private String preference;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "genre_preference_id")
+    private GenrePreference genrePreference;
 
     public User(String tokenId, String name, String email,String image, ProviderType providerType,
                 RoleType roleType, LocalDateTime createdAt,LocalDateTime modifiedAt, String introduction, String phoneNumber) {
@@ -94,6 +97,14 @@ public class User {
 
     public void setUserNameModified(String name){
         this.name = name;
+    }
+
+    public void setUserProfileInfoModified(UserRequestDto.profileRequest profileRequest){
+        this.nickName = profileRequest.getNickName();
+        this.age = profileRequest.getAge();
+        this.gender = profileRequest.getGender();
+        this.largeRegion = profileRequest.getLargeRegion();
+        this.smallRegion = profileRequest.getSmallRegion();
     }
 
 }

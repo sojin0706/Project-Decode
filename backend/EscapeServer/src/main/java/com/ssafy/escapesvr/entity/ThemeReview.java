@@ -28,7 +28,7 @@ public class ThemeReview {
     private String userNickName;
 
     @NotNull
-    private double reviewScore;
+    private Integer myScore;
 
     @NotNull
     private String reviewContent;
@@ -39,7 +39,6 @@ public class ThemeReview {
     @NotNull
     private LocalDate createdAt;
 
-    private LocalDate modifiedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "theme_id")
