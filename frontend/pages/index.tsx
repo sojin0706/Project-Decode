@@ -3,6 +3,7 @@ import { Grid, GridColumn, Image } from "semantic-ui-react"
 
 // Component
 import Data from '../src/component/main/data'
+import Explain from '../src/component/main/explain'
 
 const Home: NextPage = () => {
   return (
@@ -28,6 +29,7 @@ const Home: NextPage = () => {
             <Grid centered columns={5}>
               <Data/>
             </Grid>
+            <Explain/>
           </Grid.Column>
           <Grid.Column width={2}></Grid.Column>
         </Grid.Row>
