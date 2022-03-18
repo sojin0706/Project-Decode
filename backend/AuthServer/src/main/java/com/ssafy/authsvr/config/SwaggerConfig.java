@@ -34,8 +34,8 @@ public class SwaggerConfig {
      * */
     private ApiInfo swaggerInfo() {
         return new ApiInfoBuilder()
-                .title("써닌(SUN-IN) - 선한 영향력 프로젝트")
-                .description("일생생활 속 선한 영향력을 끼칠 수 있는 일들을 한 후 서로 공유하고 함께 참여할 수 있도록 이끄는 서비스")
+                .title("Decode - 방탈출 카페 추천 프로젝트")
+                .description("개인의 성향에 따라서 방탈출 카페를 추천해주는 서비스")
                 .version("1.0.0")
                 .build();
     }

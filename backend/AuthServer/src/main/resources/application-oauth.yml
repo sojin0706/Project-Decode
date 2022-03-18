@@ -15,7 +15,7 @@ spring:
 #            clientSecret: ENC(AFkKVRWDG/ft3y/djwhQucVclrzuo0nK)
             clientAuthenticationMethod: post
             authorizationGrantType: authorization_code
-            redirectUri: http://localhost:8080/login/oauth2/code/naver
+            redirectUri: http://j6c203.p.ssafy.io:8081/login/oauth2/code/naver
             scope:
               - nickname
               - email
@@ -27,7 +27,7 @@ spring:
 #            clientSecret: ENC(1zdPcyo0yxO36UX2xqOrLEuk74JH0hS2adDM8TjdLPA+AvQnNAwQgNK2kEnbwgYF)
             clientAuthenticationMethod: post
             authorizationGrantType: authorization_code
-            redirectUri: http://localhost:8080/login/oauth2/code/kakao
+            redirectUri: http://j6c203.p.ssafy.io:8081/login/oauth2/code/kakao
             scope:
               - profile_nickname
               - profile_image

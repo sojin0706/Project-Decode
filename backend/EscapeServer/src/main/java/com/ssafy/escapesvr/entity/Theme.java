@@ -22,44 +22,54 @@ public class Theme {
     @Column(name = "theme_id")
     private Integer id;
 
+    //테마이름
     @NotNull
     @Column(name="theme_name")
     private String name;
 
+    //장르
     @NotNull
     private String genre;
 
-    //
+    //공포여부
     @NotNull
     private Integer isScared;
 
+    //난이도
     @NotNull
     private Integer level;
 
+    //최대인원수
     @NotNull
     private Integer maxNumber;
 
+    //시간
     @NotNull
     private Integer time;
 
+    //평점
     @NotNull
     private Double score;
 
+    //리뷰수
     @NotNull
     private Integer reviewCnt;
 
+    //유형
     @NotNull
     private String type;
 
+    //포스터URL
     @NotNull
     @Column(length = 1000)
     private String posterUrl;
 
+    //예약 페에지URL
     @NotNull
     @Column(length = 1000)
     private String reserveUrl;
 
-    //
+    //1인 가능여부
     @NotNull
     private Integer isSingleplay;
 
