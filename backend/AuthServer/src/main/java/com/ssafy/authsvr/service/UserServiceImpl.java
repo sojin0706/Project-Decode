@@ -1,15 +1,13 @@
 package com.ssafy.authsvr.service;
 
-import com.ssafy.authsvr.dto.UserReponseDto;
-import com.ssafy.authsvr.dto.UserRequestDto;
+import com.ssafy.authsvr.payload.response.UserReponseDto;
+import com.ssafy.authsvr.payload.request.UserRequestDto;
 import com.ssafy.authsvr.entity.User;
 import com.ssafy.authsvr.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
@@ -26,17 +24,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String ModifiyRecommendInfoUser(UserRequestDto.profileRequest profileRequest) {
-
-        return null;
+    public void ModifiyRecommendInfoUser(UserRequestDto.profileRequest profileRequest) {
+        User user = userRepository.findById(profileRequest.getId());
+        user.setUserProfileInfoModified(profileRequest);
+        userRepository.save(user);
     }
 
     @Override
     public UserReponseDto.ProfileResponse findProfileUser(Integer userId) {
-        User user = userRepository.findById(userId);
-//        return UserReponseDto.ProfileResponse.;
-        return null;
+        return UserReponseDto.ProfileResponse.profileResponse(userRepository.findById(userId));
     }
-
 
 }
