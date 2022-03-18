@@ -8,10 +8,10 @@ import com.ssafy.authsvr.oauth.domain.RoleType;
 import com.ssafy.authsvr.oauth.domain.UserPrincipal;
 import com.ssafy.authsvr.oauth.token.AuthToken;
 import com.ssafy.authsvr.oauth.token.AuthTokenProvider;
-import com.ssafy.authsvr.payload.response.user.UserDto;
 import com.ssafy.authsvr.oauth.repository.UserRefreshTokenRepository;
 import com.ssafy.authsvr.oauth.utils.CookieUtil;
 import com.ssafy.authsvr.oauth.utils.HeaderUtil;
+import com.ssafy.authsvr.payload.response.UserReponseDto;
 import com.ssafy.authsvr.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.swagger.annotations.ApiOperation;
@@ -46,9 +46,9 @@ public class AuthController {
     @GetMapping("/users")
     public ApiResponse getUser() {
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserDto userDto = UserDto.userDto(userService.findDetailsUser(principal.getUsername()));
+        UserReponseDto.DetailResponse detailResponse = UserReponseDto.DetailResponse.detailResponse(userService.findDetailsUser(principal.getUsername()));
 
-        return ApiResponse.success("user", userDto);
+        return ApiResponse.success("user", detailResponse);
     }
 
     @ApiOperation("login")

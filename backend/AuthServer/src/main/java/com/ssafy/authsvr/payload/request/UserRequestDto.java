@@ -1,4 +1,4 @@
-package com.ssafy.authsvr.dto;
+package com.ssafy.authsvr.payload.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +21,8 @@ public class UserRequestDto {
         private Integer age;
         @NotBlank
         private String gender;
-        private List<String> genre;
+        @NotBlank
+        private List<String> preference;
         @NotBlank
         private String largeRegion;
         @NotBlank
