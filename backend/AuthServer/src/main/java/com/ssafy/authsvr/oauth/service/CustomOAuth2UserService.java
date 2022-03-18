@@ -1,9 +1,9 @@
 package com.ssafy.authsvr.oauth.service;
 
-import com.ssafy.authsvr.entity.user.User;
-import com.ssafy.authsvr.oauth.entity.ProviderType;
-import com.ssafy.authsvr.oauth.entity.RoleType;
-import com.ssafy.authsvr.oauth.entity.UserPrincipal;
+import com.ssafy.authsvr.entity.User;
+import com.ssafy.authsvr.oauth.domain.ProviderType;
+import com.ssafy.authsvr.oauth.domain.RoleType;
+import com.ssafy.authsvr.oauth.domain.UserPrincipal;
 import com.ssafy.authsvr.oauth.exception.OAuthProviderMissMatchException;
 import com.ssafy.authsvr.oauth.info.OAuth2UserInfo;
 import com.ssafy.authsvr.oauth.info.OAuth2UserInfoFactory;
@@ -42,7 +42,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         ProviderType providerType = ProviderType.valueOf(userRequest.getClientRegistration().getRegistrationId().toUpperCase());
 
         OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerType, user.getAttributes());
-        User savedUser = userRepository.findByUserId(userInfo.getId());
+        User savedUser = userRepository.findByTokenId(userInfo.getId());
 
         if (savedUser != null) {
             if (providerType != savedUser.getProviderType()) {
@@ -65,13 +65,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 userInfo.getId(),
                 userInfo.getName(),
                 userInfo.getEmail(),
-                "Y",
                 userInfo.getImageUrl(),
                 providerType,
                 RoleType.USER,
                 now,
                 now,
-                null,
                 null,
                 null
         );
@@ -80,11 +78,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private User updateUser(User user, OAuth2UserInfo userInfo) {
-        if (userInfo.getName() != null && !user.getUsername().equals(userInfo.getName())) {
+        if (userInfo.getName() != null && !user.getName().equals(userInfo.getName())) {
             user.setUserNameModified(userInfo.getName());
         }
 
-        if (userInfo.getImageUrl() != null && !user.getProfileImageUrl().equals(userInfo.getImageUrl())) {
+        if (userInfo.getImageUrl() != null && !user.getImage().equals(userInfo.getImageUrl())) {
             user.setUserProfileImageModified(userInfo.getImageUrl());
         }
 
