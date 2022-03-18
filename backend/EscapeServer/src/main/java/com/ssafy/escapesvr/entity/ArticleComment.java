@@ -24,10 +24,8 @@ public class ArticleComment {
     @NotNull
     private String content; //댓글 내용
 
-    //@NotNull
     private LocalDateTime createdAt;//작성시간
 
-    //@NotNull
     private LocalDateTime modifiedAt;//수정시간
 
     //외래키

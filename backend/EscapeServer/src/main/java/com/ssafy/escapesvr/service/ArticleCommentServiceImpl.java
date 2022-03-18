@@ -47,9 +47,9 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
 
     //댓글 수정
     @Override
-    public void updateArticleComment(ArticleCommentRequestDto articlecommentRequestDto) {
-        ArticleComment articleComment = articleCommentRepository.getById(articlecommentRequestDto.getId());
-        articleComment.setContent(articlecommentRequestDto.getContent());
+    public void updateArticleComment(ArticleCommentRequestDto articleCommentRequestDto) {
+        ArticleComment articleComment = articleCommentRepository.getById(articleCommentRequestDto.getId());
+        articleComment.setContent(articleCommentRequestDto.getContent());
         articleComment.setModifiedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
         articleCommentRepository.save(articleComment);
 

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "1:1 문의와 공지사항 관련 요청dto")
+@ApiModel(description = "1:1 문의와 공지사항 관련 요청 dto")
 public class QnaNoticeRequestDto {
 
     @ApiModelProperty(value = "공지사항/문의글 번호", required = true)
