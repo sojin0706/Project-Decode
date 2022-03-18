@@ -1,7 +1,10 @@
 import {
-    Pagination,
-    Grid,
     Button,
+    Comment,
+    Form,
+    Header,
+    Grid,
+    Icon,
   } from "semantic-ui-react";
 import React, {Component} from 'react'
   
@@ -53,17 +56,40 @@ return (
                             <dd>127</dd>
                         </dl>
                     </div>
-                    <div className={styles.cont}>
+                    <div className={styles.board_cont}>
                         글 내용이 들어갑니다.
                     </div>
                     
                 </div>
                 <div className={styles.comment}>
                     <div className={styles.comment_review}>
-                        <dl>추천</dl>
-                        <dl>신고</dl>
+                        <div className={styles.comment_reco}>
+                        <Button color='orange' inverted animated='fade'>
+                            <Button.Content visible>
+                                <Icon name='thumbs up outline' />
+                            </Button.Content>
+                            <Button.Content hidden>
+                                추천
+                            </Button.Content>
+                        </Button>
+                        </div>
+                        <div className={styles.comment_report}>
+                        <Button color='grey'  animated='fade'>
+                            <Button.Content visible>
+                                <Icon name='user close' />
+                            </Button.Content>
+                            <Button.Content hidden>
+                                신고
+                            </Button.Content>
+                        </Button>
+                        </div>
                     </div>
-                    <div className={styles.comment_title}>
+                    <br />
+                <div className={styles.bt_wrap}>
+                    <a href="/userboard" className={styles.on}>목록</a>
+                    <a href="/userboard/create">수정</a>
+                </div>
+                    {/* <div className={styles.comment_title}>
                         댓글쓰기
                     </div>
                     <div className={styles.comment_create}>
@@ -79,12 +105,62 @@ return (
                     <dl>
                         <dt>리뷰내용</dt>
                     </dl>
+                    </div> */}
+
+                    <div className={styles.comments}>
+                        <div className={styles.comment_title}>
+                            댓글쓰기
+                        </div>
+                        <div className={styles.comment_cont}>
+                            <dl>
+                                <dt>
+                                    하루
+                                </dt>
+                                <dd>
+                                    <textarea placeholder="댓글을 작성해주세요"></textarea>
+                                </dd>
+                                <div className={styles.comment_button}>
+                                    <Button color='black'> 작성 </Button>
+                                </div>
+                               
+                            </dl>
+                        </div>
+                        <Comment.Group >
+                            <Comment>
+                            <Comment. Avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
+                            <Comment.Content>
+                                <Comment.Author as='a'>하랑</Comment.Author>
+                                <Comment.Metadata>
+                                <div>하루 전</div>
+                                </Comment.Metadata>
+                                <Comment.Text>
+                                <p>방탈출 함께 해요</p>
+                                </Comment.Text>
+                                <Comment.Actions>
+                                <Comment.Action>답글 달기</Comment.Action>
+                                </Comment.Actions>
+                            </Comment.Content>
+                            <Comment.Group>
+                                <Comment>
+                                <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/stevie.jpg' />
+                                <Comment.Content>
+                                    <Comment.Author as='a'>하늬</Comment.Author>
+                                    <Comment.Metadata>
+                                    <div>방금 전</div>
+                                    </Comment.Metadata>
+                                    <Comment.Text>저요</Comment.Text>
+                                    <Comment.Actions>
+                                    <Comment.Action>답글 달기</Comment.Action>
+                                    </Comment.Actions>
+                                </Comment.Content>
+                                </Comment>
+                            </Comment.Group>
+                            </Comment>
+                        </Comment.Group>
+    
                     </div>
                 </div>
-                <div className={styles.bt_wrap}>
-                    <a href="/userboard" className={styles.on}>목록</a>
-                    <a href="/userboard/create">수정</a>
-                </div>
+
             </div>
     </div>
     </Grid.Column>

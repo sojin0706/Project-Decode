@@ -97,9 +97,63 @@
   color: #777;
 }
 
-.board_view .cont {
+.board_view .board_cont {
   padding: 15px;
   border-bottom: 1px solid #000;
   line-height: 160%;
   font-size: 1.4rem;
+  margin-bottom: 20px;
+}
+
+.comment_review div {
+  display: inline-block;
+}
+
+.comment_reco {
+  float: left;
+}
+
+.comment_report {
+  float: right;
+}
+
+.comments {
+  padding: 70px 0;
+}
+
+.comment_title {
+  border-bottom: 1px solid #000;
+  line-height: 160%;
+  font-size: 1.4rem;
+}
+
+.comment_cont textarea {
+  border-bottom: 1px solid #000;
+  margin: 10px 10px;
+  width: 80%;
+  height: 50px;
+  box-sizing: border-box;
+  border: 1;
+  resize: vertical;
+}
+
+.comment_button {
+  padding: 0.1px;
+  margin-top: 15px;
+  text-align: right;
+}
+
+.comment_cont dl {
+  font-size: 0;
+}
+
+.comment_cont dd,
+.comment_cont dt {
+  display: inline;
+  vertical-align: middle;
+  font-size: 1.4rem;
+}
+
+.board_write .title dt {
+  width: 100px;
 }
