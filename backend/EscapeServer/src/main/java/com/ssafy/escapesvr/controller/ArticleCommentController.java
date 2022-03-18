@@ -5,6 +5,9 @@ import com.ssafy.escapesvr.dto.ArticleCommentRequestDto;
 import com.ssafy.escapesvr.dto.ArticleCommentResponseDto;
 import com.ssafy.escapesvr.service.ArticleCommentService;
 import com.ssafy.escapesvr.service.ArticleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +19,8 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/comment")
+@Api("유저게시판 댓글 컨트롤러")
 public class ArticleCommentController {
 
     private final ArticleCommentService articleCommentService;
@@ -25,8 +29,9 @@ public class ArticleCommentController {
 
 
     //댓글 작성
-    @PostMapping("/comment")
-    public ResponseEntity<String> insertArticleComment(@RequestBody ArticleCommentRequestDto articleCommentRequestDto) {
+    @ApiOperation(value = "유저게시글 댓글 작성", notes = "게시글에 댓글을 작성한다", response = Map.class)
+    @PostMapping
+    public ResponseEntity<String> insertArticleComment(@RequestBody @ApiParam(value = "댓글 작성 모델") ArticleCommentRequestDto articleCommentRequestDto) {
         HttpStatus status = null;
         try {
             articleCommentService.insertArticleComment(articleCommentRequestDto);
@@ -38,9 +43,10 @@ public class ArticleCommentController {
         return new ResponseEntity<>(status);
     }
 
-    // 게시글 댓글 조회
-    @GetMapping("/comment")
-    public ResponseEntity<Map<String, Object>> getArticleCommentList(@RequestParam("articleId") Long articleId) {
+    //해당 게시글의 모든 댓글 조회
+    @ApiOperation(value = "유저게시글 댓글 조회", notes = "해당 게시글(articleId)의 모든 댓글을 조회한다", response = Map.class)
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> getArticleCommentList(@RequestParam("articleId") @ApiParam(value = "게시글 번호", required = true) Long articleId) {
 
         Map<String, Object> result = new HashMap<>();
         List<ArticleCommentResponseDto> articleCommentList = null;
@@ -58,8 +64,9 @@ public class ArticleCommentController {
     }
 
     //댓글 수정
-    @PutMapping("/comment")
-    public ResponseEntity<String> updateArticleComment(@RequestBody ArticleCommentRequestDto articleCommentRequestDto) {
+    @ApiOperation(value = "유저게시글 댓글 수정", notes = "댓글(commentId가 일치하는)을 수정한다", response = Map.class)
+    @PutMapping
+    public ResponseEntity<String> updateArticleComment(@RequestBody @ApiParam(value = "댓글 수정 모델") ArticleCommentRequestDto articleCommentRequestDto) {
         HttpStatus status = null;
         try {
             articleCommentService.updateArticleComment(articleCommentRequestDto);
@@ -72,8 +79,10 @@ public class ArticleCommentController {
     }
 
     //댓글 삭제
-    @DeleteMapping("/comment/{commentId}")
-    public ResponseEntity<String> deleteArticleComment(@PathVariable("commentId") Long commentId) {
+    @ApiOperation(value = "유저게시글 댓글 삭제", notes = "댓글(commentId가 일치하는)을 삭제한다", response = Map.class)
+    @DeleteMapping("{commentId}")
+    public ResponseEntity<String> deleteArticleComment(@PathVariable("commentId") @ApiParam(value = "댓글 번호", required = true) Long commentId) {
+
         HttpStatus status = null;
         try {
             articleCommentService.deleteArticleComment(commentId);
@@ -84,8 +93,5 @@ public class ArticleCommentController {
         }
         return new ResponseEntity<>(status);
     }
-
-
-
 
 }
