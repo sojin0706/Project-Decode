@@ -42,9 +42,20 @@ public class Article {
     private LocalDateTime modifiedAt; //수정시간
 
 
-
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<ArticleComment> comments = new ArrayList<>();
+
+
+    //추천 개수 증가
+    public void increaseRecommend() {
+        this.recommend++;
+    }
+
+    //신고 횟수 증가
+    public void increaseReport() {
+        this.report++;
+    }
+
 
     //빌더
     @Builder

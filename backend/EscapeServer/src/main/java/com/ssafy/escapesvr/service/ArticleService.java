@@ -9,6 +9,6 @@ public interface ArticleService {
     ArticleResponseDto getArticle(Long id);//게시글 조회
     ArticleResponseDto updateArticle(ArticleRequestDto articleRequestDto, Long id); //게시글 수정
     void deleteArticle(Long id); //게시글 아이디로 게시글 삭제
-
-
+    void recommendArticle(Long id); //게시글 아이디로 추천 수 증가
+    void reportArticle(Long id); //게시글 아이디로 신고 수 증가
 }

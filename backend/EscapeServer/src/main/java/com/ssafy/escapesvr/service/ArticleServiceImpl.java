@@ -22,15 +22,6 @@ public class ArticleServiceImpl implements ArticleService{
 
     private final ArticleRepository articleRepository;
 
-//    //게시글 생성
-//    @Transactional
-//    public Long save(final ArticleRequestDto params) {
-//
-//        Article entity = articleRepository.save(params.toEntity());
-//        return entity.getId();
-//
-//    }
-
     //게시글 생성
     @Override
     @Transactional
@@ -74,16 +65,6 @@ public class ArticleServiceImpl implements ArticleService{
 
     }
 
-//    //게시글 수정
-//    @Transactional
-//    public Long update(final Long id, final ArticleRequestDto params) {
-//
-//        Article entity = articleRepository.findById(id).orElseThrow();
-//        entity.update(params.getTitle(), params.getContent(), params.getSmallRegion(), params.getUserId());
-//        return id;
-//
-//    }
-
     //게시글 수정
     @Override
     @Transactional
@@ -113,6 +94,28 @@ public class ArticleServiceImpl implements ArticleService{
         //댓글 완성되면 연관 댓글도 삭제!
 
         articleRepository.deleteById(id);
+    }
+
+    // 추천 횟수 증가
+    @Override
+    public void recommendArticle(Long id) {
+
+        Article article = articleRepository.getById(id);
+
+        article.setRecommend((article.getRecommend()+1));
+        article = articleRepository.save(article);
+
+    }
+
+    // 신고 횟수 증가
+    @Override
+    public void reportArticle(Long id) {
+
+        Article article = articleRepository.getById(id);
+
+        article.setRecommend((article.getReport()+1));
+        article = articleRepository.save(article);
+
     }
 
 

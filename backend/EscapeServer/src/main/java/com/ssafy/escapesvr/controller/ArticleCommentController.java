@@ -19,7 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/comment")
 @Api("유저게시판 댓글 컨트롤러")
 public class ArticleCommentController {
 
@@ -30,7 +30,7 @@ public class ArticleCommentController {
 
     //댓글 작성
     @ApiOperation(value = "유저게시글 댓글 작성", notes = "게시글에 댓글을 작성한다", response = Map.class)
-    @PostMapping("/comment")
+    @PostMapping
     public ResponseEntity<String> insertArticleComment(@RequestBody @ApiParam(value = "댓글 작성 모델") ArticleCommentRequestDto articleCommentRequestDto) {
         HttpStatus status = null;
         try {
@@ -43,9 +43,9 @@ public class ArticleCommentController {
         return new ResponseEntity<>(status);
     }
 
-    // 게시글 댓글 조회
+    //해당 게시글의 모든 댓글 조회
     @ApiOperation(value = "유저게시글 댓글 조회", notes = "해당 게시글(articleId)의 모든 댓글을 조회한다", response = Map.class)
-    @GetMapping("/comment")
+    @GetMapping
     public ResponseEntity<Map<String, Object>> getArticleCommentList(@RequestParam("articleId") @ApiParam(value = "게시글 번호", required = true) Long articleId) {
 
         Map<String, Object> result = new HashMap<>();
@@ -65,7 +65,7 @@ public class ArticleCommentController {
 
     //댓글 수정
     @ApiOperation(value = "유저게시글 댓글 수정", notes = "댓글(commentId가 일치하는)을 수정한다", response = Map.class)
-    @PutMapping("/comment")
+    @PutMapping
     public ResponseEntity<String> updateArticleComment(@RequestBody @ApiParam(value = "댓글 수정 모델") ArticleCommentRequestDto articleCommentRequestDto) {
         HttpStatus status = null;
         try {
@@ -80,8 +80,9 @@ public class ArticleCommentController {
 
     //댓글 삭제
     @ApiOperation(value = "유저게시글 댓글 삭제", notes = "댓글(commentId가 일치하는)을 삭제한다", response = Map.class)
-    @DeleteMapping("/comment/{commentId}")
+    @DeleteMapping("{commentId}")
     public ResponseEntity<String> deleteArticleComment(@PathVariable("commentId") @ApiParam(value = "댓글 번호", required = true) Long commentId) {
+
         HttpStatus status = null;
         try {
             articleCommentService.deleteArticleComment(commentId);
@@ -92,8 +93,5 @@ public class ArticleCommentController {
         }
         return new ResponseEntity<>(status);
     }
-
-
-
 
 }
