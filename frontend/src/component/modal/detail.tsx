@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Header, Modal, Rating } from 'semantic-ui-react'
 import Reviewboard from '../board/reviewboard';
-import Map from '../kakaomap/kmap';
+import Kakaomap from '../kakaomap/kmap';
 
 export default function Detail({item, isImage, w, h}: any){
 
@@ -35,8 +35,7 @@ export default function Detail({item, isImage, w, h}: any){
                     <Modal.Description>
                         <br />
                         <h3>지점 명</h3>
-                        {/* <h3>api{process.env.NEXT_PUBLIC_API_URL_TEST}</h3> */}
-                        <Map latitude={33.450701} longitude={126.570667}/>
+                        <Kakaomap latitude={33.450701} longitude={126.570667}/>
                         <br />
                         <p>예약 홈페이지 주소</p>
                     </Modal.Description>
