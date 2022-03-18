@@ -1,6 +1,5 @@
 package com.ssafy.escapesvr.configuration;
 
-import jdk.javadoc.doclet.Doclet;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -30,6 +29,4 @@ public class SwaggerConfig {
                 .description("decode API Reference for Developers")
                 .version("1.0").build();
     }
-
-
 }
