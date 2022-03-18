@@ -74,9 +74,9 @@ export default function Reviewboard(){
         setMytime(0)
         setMyReview('')
         console.log('전달할 예정인 정보', myRate, myTime, myReview)
-        let timeinput: any = document.getElementsByClassName('timeinput')[0]
+        var timeinput: any = document.getElementsByClassName('timeinput')[0]
         timeinput['value'] = 0
-        let reviewinput: any = document.getElementsByClassName('reviewinput')[0]
+        var reviewinput: any = document.getElementsByClassName('reviewinput')[0]
         reviewinput['value'] = ''
         alert('리뷰가 저장되었습니다.')
     }
