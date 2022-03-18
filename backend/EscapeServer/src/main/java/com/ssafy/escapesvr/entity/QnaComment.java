@@ -25,15 +25,13 @@ public class QnaComment {
     @NotNull
     private String content; //댓글 내용
 
-    @NotNull
     private LocalDateTime createdAt;//작성시간
 
-    @NotNull
     private LocalDateTime modifiedAt;//수정시간
 
     //외래키
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "qna_id")
+    @JoinColumn(name = "qna_notice_id")
     private QnaNotice qnaNotice; //공지사항글 id
 
     @NotNull
