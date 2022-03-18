@@ -1,29 +1,29 @@
-#server:
-#  port: 8082
+server:
+  port: 8082
 #  port: 0
-#
-#spring:
-#  application:
-#    name: escape-server
-#eureka:
+
+eureka:
 #  instance:
 #    instance-id: ${spring.application.name}:flushed:{spring.application.instance_id:${random.value}}
-#  client:
-#    register-with-eureka: true
-#    fetch-registry: true
-#    service-url:
-#      defaultZone: http://localhost:8761/eureka
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://j6c203.p.ssafy.io:8761/eureka
+
 spring:
+  application:
+    name: escape-server
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
   datasource:
-    url: jdbc:mysql://localhost:3307/escape?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-    username: root
-    password: 1234
+    url: jdbc:mysql://j6c203.p.ssafy.io:3306/escape?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: escape
+    password: escape
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
       use-new-id-generator-mappings: true
     show-sql: true
     properties:
