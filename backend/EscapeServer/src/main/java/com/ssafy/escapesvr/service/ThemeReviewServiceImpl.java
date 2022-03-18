@@ -18,7 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional(readOnly = true)
@@ -60,6 +62,20 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
             MyReviewResponseDto.add(reviewDto);
         }
         return MyReviewResponseDto;
+    }
+
+    //내가 깬 장르
+    @Override
+    public Map<String, Integer> getMyGenre(Integer userId) {
+        List<ThemeReview>reviews=themeReviewRepo.findAllByUserId(userId);
+        Map<String,Integer>genres=new HashMap<>();
+        for (ThemeReview review : reviews) {
+            Theme theme=review.getTheme();
+            String genre=theme.getGenre();
+            // 있으면 기존의것에+1 없으면 그냥 1
+            genres.put(genre, genres.containsKey(genre) ? genres.get(genre) + 1 : 1);
+        }
+        return genres;
     }
 
     //리뷰 작성

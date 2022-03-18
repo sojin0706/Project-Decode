@@ -67,6 +67,21 @@ public class ThemeReviewController {
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
 
+    // 회원 아이디가 깬 장르 개수
+    @ApiOperation(value = "내가 깬 장르", notes = "회원 아아디가 깬 장르 개수를 불러온다.",response=Map.class)
+    @GetMapping("/mygenre/{userId}")
+    public Map<String,Integer> getMyGenre(@PathVariable @ApiParam( value="회원 아이디",required = true) Integer userId){
+        Map<String,Integer>mygenre=new HashMap<>();
+        try{
+            mygenre=themeReviewService.getMyGenre(userId);
+
+        }catch (RuntimeException e){
+            e.printStackTrace();
+        }
+        return mygenre;
+    }
+
+
     // 리뷰 작성
     @ApiOperation(value = "리뷰 작성", notes = "테마에 리뷰를 작성한다.")
     @PostMapping

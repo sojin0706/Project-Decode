@@ -29,6 +29,4 @@ public class SwaggerConfig {
                 .description("decode API Reference for Developers")
                 .version("1.0").build();
     }
-
-
 }
