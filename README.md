@@ -9,23 +9,23 @@
   - [팀 소개](#팀-소개)
   - [기술 스택](#기술-스택)
   - [프로젝트 진행](#프로젝트-진행)
-    - [특화-sub PJT Ⅰ](#공통-sub-pjt-ⅰ)
-    - [특화-sub PJT Ⅱ](#공통-sub-pjt-ⅱ)
-    - [특화-sub PJT Ⅲ](#공통-sub-pjt-ⅲ)
+    - [특화-sub PJT Ⅰ](#특화-sub-pjt-ⅰ)
+    - [특화-sub PJT Ⅱ](#특화-sub-pjt-ⅱ)
+    - [특화-sub PJT Ⅲ](#특화-sub-pjt-ⅲ)
 
 <!-- 필수 항목 -->
 
 ## 카테고리
 
-| Application                          | Domain                                | Language                         | Framework                            |
-| ------------------------------------ | ------------------------------------- | -------------------------------- | ------------------------------------ |
-| :white_check_mark: Desktop Web       | :black_square_button: AI              | :white_check_mark: JavaScript    | :black_square_button: Vue.js         |
-| :white_check_mark:  Mobile Web       | :black_square_button: Big Data        | :black_square_button: TypeScript | :white_check_mark: React             |
-| :black_square_button: Responsive Web | :black_square_button: Blockchain      | :black_square_button: C/C++      | :black_square_button: Angular        |
-| :black_square_button: Android App    | :black_square_button: IoT             | :black_square_button: C#         | :black_square_button: Node.js        |
-| :black_square_button: iOS App        | :black_square_button: AR/VR/Metaverse | :black_square_button: Python     | :black_square_button: Flask/Django   |
-| :black_square_button: Desktop App    | :black_square_button: Game            | :white_check_mark: Java          | :white_check_mark: Spring/Springboot |
-|                                      |                                       | :black_square_button: Kotlin     |                                      |
+| Application                       | Domain                                | Language                      | Framework                            |
+| --------------------------------- | ------------------------------------- | ----------------------------- | ------------------------------------ |
+| :white_check_mark: Desktop Web    | :black_square_button: AI              | :white_check_mark: JavaScript | :black_square_button: Vue.js         |
+| :white_check_mark:  Mobile Web    | :white_check_mark: Big Data           | :white_check_mark: TypeScript | :white_check_mark: React             |
+| :white_check_mark: Responsive Web | :black_square_button: Blockchain      | :black_square_button: C/C++   | :black_square_button: Angular        |
+| :black_square_button: Android App | :black_square_button: IoT             | :black_square_button: C#      | :black_square_button: Node.js        |
+| :black_square_button: iOS App     | :black_square_button: AR/VR/Metaverse | :white_check_mark: Python     | :black_square_button: Flask/Django   |
+| :black_square_button: Desktop App | :black_square_button: Game            | :white_check_mark: Java       | :white_check_mark: Spring/Springboot |
+|                                   |                                       | :black_square_button: Kotlin  | :white_check_mark: Next.js           |
 
 [프론트엔드 학습내용](/문서/FRONTEND.md)  
 [백엔드 학습내용](/문서/BACKEND.md)
@@ -65,12 +65,32 @@
   - 상세기능
     
     - 소셜로그인
+      - 네이버, 카카오, 구글 소셜로그인 제공
     - 메인페이지
+      - 로그인 유저
+        - 로그인한 유저 데이터 기반으로 세가지 카테고리별 1위 방탈출 테마를 추천 받음
+        - 디코드가 보유한 데이터 수 시각화
+      - 비로그인 유저
+        - 유저 접속 지역 기반 방탈출 테마 중 평점 1위부터 3위 까지의 테마 추천
     - 프로필
+      - 유저가 클리어한 방탈출 테마 분석 그래프 제공
+      - 회원정보 수정 기능
     - 정보페이지
+      - 디코드가 보유한 방탈출 데이터들을 사용자들이 원하는 필터에 맞춰 정보 제공
+      - 테마명 클릭시 테마정보와 함께 방탈출 클리어한 유저들의 리뷰를 볼 수 있는 모달로 이동.
+      - 테마명 클릭시 연결된 모달창에서 리뷰 작성 기능 제공
     - 추천페이지
+      - 로그인한 유저의 장르 선호도를 기반으로 추천
+      - 로그인한 유저와 비슷한 유저(성별, 연령)집단이 좋아하는 테마 추천
+      - 지역별 평점 순위로 추천
     - 유저게시판
+      - 유저들이 작성할 수 있는 게시판으로 게시글 작성, 수정, 댓글 기능 제공
+      - 유저들이 작성한 글을 지역별로 확인 가능
+      - 키워드 검색 기능 제공
     - 공지게시판
+      - 관리자의 공지사항과 유저의 Q&A를 확인할 수 있는 공간으로 게시글 작성, 수정, 댓글 기능 제공
+      - 관리자의 공지사항은 메인페이지 게시판 상단에서 확인 가능
+      - 공개글 / 비밀글 선택 기능 제공
   
 - 주요 기술
 
@@ -173,7 +193,7 @@
 
   - [ERD-설계](/문서/ERD-설계/README.md)
   - [데이터전처리](/문서/데이터전처리/README.md)
-  - [유저데이터]((/문서/유저데이터/README.md))
+  - [유저데이터](/문서/유저데이터/README.md)
   
   
 
