@@ -1,19 +1,11 @@
-import Script from 'next/script';
 import { useState } from 'react';
-import { Button, Header, Image, Modal, Rating } from 'semantic-ui-react'
+import { Button, Header, Modal, Rating } from 'semantic-ui-react'
 import Reviewboard from '../board/reviewboard';
+import Map from '../kakaomap/kmap';
 
 export default function Detail({item, isImage, w, h}: any){
 
     const [open, setOpen] = useState(false)
-
-    // var container = document.getElementById('map');
-	// 	var options = {
-	// 		center: new kakao.maps.LatLng(33.450701, 126.570667),
-	// 		level: 3
-	// 	};
-
-	// 	var map = new kakao.maps.Map(container, options);
 
     return (
         <>
@@ -41,19 +33,12 @@ export default function Detail({item, isImage, w, h}: any){
                     </Modal.Description>
                     <Modal.Description />
                     <Modal.Description>
-                        <p>임시 지도 위치</p>
-                        <div id="map" style={{ width: "500", height: "400" }}></div>
-                        <h3>api{process.env.NEXT_PUBLIC_API_URL_TEST}</h3>
-                        {/* <Script type="text/javascript" src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_API_URL}`}></Script> */}
-                        {/* <Script>
-                            var container = document.getElementById('map');
-                            var options = {
-                                center: new kakao.maps.LatLng(33.450701, 126.570667),
-                                level: 3
-                            };
-
-                            var map = new kakao.maps.Map(container, options);
-                        </Script> */}
+                        <br />
+                        <h3>지점 명</h3>
+                        {/* <h3>api{process.env.NEXT_PUBLIC_API_URL_TEST}</h3> */}
+                        <Map latitude={33.450701} longitude={126.570667}/>
+                        <br />
+                        <p>예약 홈페이지 주소</p>
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
