@@ -36,6 +36,7 @@ spring:
 #      - credentials
   jackson:
     property-naming-strategy: SNAKE_CASE
+
 #logging:
 #  level.org.springframework: debug
 #  level.org.springframework.web: debug

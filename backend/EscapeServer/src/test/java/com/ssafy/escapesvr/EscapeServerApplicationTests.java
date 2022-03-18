@@ -1,13 +1,13 @@
-package com.ssafy.escapesvr;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class EscapeServerApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-}
+//package com.ssafy.escapesvr;
+//
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
+//
+//@SpringBootTest
+//class EscapeServerApplicationTests {
+//
+//	@Test
+//	void contextLoads() {
+//	}
+//
+//}
