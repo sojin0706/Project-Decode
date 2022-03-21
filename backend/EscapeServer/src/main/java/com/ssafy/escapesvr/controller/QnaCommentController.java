@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class QnaCommentController {
     //댓글 작성
     @ApiOperation(value = "Qna 게시글 댓글 작성", notes = "게시글에 댓글을 작성한다", response = Map.class)
     @PostMapping
-    public ResponseEntity<String> insertQnaComment(@RequestBody @ApiParam(value = "댓글 작성 모델") QnaCommentRequestDto qnaCommentRequestDto) {
+    public ResponseEntity<String> insertQnaComment(@RequestBody @ApiParam(value = "댓글 작성 모델") @Valid QnaCommentRequestDto qnaCommentRequestDto) {
         HttpStatus status = null;
         try {
             qnaCommentService.insertQnaComment(qnaCommentRequestDto);
