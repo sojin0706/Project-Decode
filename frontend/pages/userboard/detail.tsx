@@ -89,24 +89,6 @@ return (
                     <a href="/userboard" className={styles.on}>목록</a>
                     <a href="/userboard/create">수정</a>
                 </div>
-                    {/* <div className={styles.comment_title}>
-                        댓글쓰기
-                    </div>
-                    <div className={styles.comment_create}>
-                    <div className={styles.cont}>
-                    <textarea placeholder="내용 입력"></textarea>
-                    </div>
-                    <Button>등록</Button>
-                    </div>
-                    <div className={styles.comment_view}>
-                    <dl>
-                        <dt>유저이름</dt>
-                    </dl>
-                    <dl>
-                        <dt>리뷰내용</dt>
-                    </dl>
-                    </div> */}
-
                     <div className={styles.comments}>
                         
                         <div className={styles.comment_title}>
