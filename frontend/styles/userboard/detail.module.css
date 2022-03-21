@@ -142,21 +142,6 @@
   text-align: right;
 }
 
-.comment_cont dl {
-  font-size: 0;
-}
-
-.comment_cont dd,
-.comment_cont dt {
-  display: inline;
-  vertical-align: middle;
-  font-size: 1.4rem;
-}
-
-.board_write .title dt {
-  width: 100px;
-}
-
 .comment_createname {
   font-size: 1.4rem;
 }

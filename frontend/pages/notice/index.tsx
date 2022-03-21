@@ -40,6 +40,13 @@ return (
                     <div className={styles.writer}>글쓴이</div>
                     <div className={styles.date}>작성일</div>
                 </div>
+                <div className={styles.top_notice}>
+                    <div className={styles.type}>공지</div>
+                    <div className={styles.num}>1</div>
+                    <div className={styles.title}><a>공지test</a></div>
+                    <div className={styles.writer}>관리자</div>
+                    <div className={styles.date}>2022.03.21</div>
+                </div>
                 <div>
                     <div className={styles.type}>Q&A</div>
                     <div className={styles.num}>1</div>
@@ -61,6 +68,9 @@ return (
              />
 
             </div>
+            {/* <div className={styles.bt_wrap}>
+                <a href="/notice/create" className={styles.on2}>공지 작성</a>
+            </div> */}
         </div>
     </div>
     </Grid.Column>
