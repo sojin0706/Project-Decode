@@ -1,16 +1,38 @@
-import { Grid, GridColumn, GridRow, Header } from 'semantic-ui-react'
+import { useEffect, useState } from 'react';
+import { Grid, Header, Pagination } from 'semantic-ui-react'
+import allAxios from '../../lib/allAxios';
 import Detail from '../modal/detail';
 
 export default function Infoboard() {
-    const thema = {
-        name: '완전한 사랑',
-        difficulty: 3,
-        genre: '감성/드라마',
-        reco_person: 3,
-        max_person: 3,
-        time: 60,
-        url: 'https://next-edition.s3.amazonaws.com/theme/title_image_url/%EC%99%84%EC%A0%84%ED%95%9C%EC%82%AC%EB%9E%91(%EB%A6%AC%EB%89%B4%EC%96%BC)/theme__%E1%84%8B%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%BC-%E1%84%91%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%A5_%EC%99%84%EC%A0%84%ED%95%9C%EC%82%AC%EB%9E%91(%EB%A6%AC%EB%89%B4%EC%96%BC).jpg',
+
+    const [themeInfo, setThemeInfo] = useState([])
+
+    useEffect(() => {
+        loadInfomation(0)
+    }, [])
+
+    const loadInfomation = async (pages: Number) => {
+        await allAxios
+            .get("/information", {
+                params: {
+                    maxLevel: 5,
+                    maxNumber: 5,
+                    maxTime: 60,
+                    page: pages,
+                }
+            })
+            .then(({ data }) => {
+                setThemeInfo(data.informationList)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
     }
+
+    function movePage(e: any) {
+        loadInfomation(e.target.textContent-1)
+    }
+
     return(
         <>
             <Grid celled centered stackable>
@@ -37,31 +59,47 @@ export default function Infoboard() {
                     <Header as='h4'>시간</Header>
                 </Grid.Column>
                 </Grid.Row>
-                <Grid.Row>
-                <Grid.Column width={1}>
-                    <Header as='h4'>1</Header>
-                </Grid.Column>
-                <Grid.Column width={2}>
-                    <Header as='h4'>제주</Header>
-                </Grid.Column>
-                <Grid.Column width={2}>
-                    <Header as='h4'>스릴러</Header>
-                </Grid.Column>
-                <Grid.Column width={5}>
-                    {/* <Header as='h4'>테마명??</Header> */}
-                    <Detail item={thema} isImage={false} w={150} h={200}/>
-                </Grid.Column>
-                <Grid.Column width={2}>
-                    <Header as='h4'>3명</Header>
-                </Grid.Column>
-                <Grid.Column width={2}>
-                    <Header as='h4'>3명</Header>
-                </Grid.Column>
-                <Grid.Column width={2}>
-                    <Header as='h4'>60분</Header>
-                </Grid.Column>
-                </Grid.Row>
+                {themeInfo.map((theme: any) => {
+                    return (
+                        <Grid.Row key={theme.theme_id}>
+                            <Grid.Column width={1}>
+                                <Header as='h4'>{theme.theme_id}</Header>
+                            </Grid.Column>
+                            <Grid.Column width={2}>
+                                <Header as='h4'>{theme.largeRegion}/{theme.smallRegion}</Header>
+                            </Grid.Column>
+                            <Grid.Column width={2}>
+                                <Header as='h4'>{theme.genre}</Header>
+                            </Grid.Column>
+                            <Grid.Column width={5}>
+                                <Detail theme={theme} isImage={false} w={150} h={200}/>
+                            </Grid.Column>
+                            <Grid.Column width={2}>
+                                <Header as='h4'>{theme.maxNumber}명</Header>
+                            </Grid.Column>
+                            <Grid.Column width={2}>
+                                <Header as='h4'>{theme.level}</Header>
+                            </Grid.Column>
+                            <Grid.Column width={2}>
+                                <Header as='h4'>{theme.time}분</Header>
+                            </Grid.Column>
+                        </Grid.Row>
+                    );
+                })} 
             </Grid>
+            <Grid centered>
+                <Pagination
+                        boundaryRange={0}
+                        defaultActivePage={1}
+                        ellipsisItem={null}
+                        firstItem={null}
+                        lastItem={null}
+                        siblingRange={2}
+                        totalPages={10}
+                        onClick={movePage}
+                    />
+            </Grid>
+            
         </>
     );
 }

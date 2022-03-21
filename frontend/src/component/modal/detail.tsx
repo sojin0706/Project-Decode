@@ -1,11 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Header, Modal, Rating } from 'semantic-ui-react'
+import allAxios from '../../lib/allAxios';
 import Reviewboard from '../board/reviewboard';
 import Kakaomap from '../kakaomap/kmap';
 
-export default function Detail({item, isImage, w, h}: any){
+export default function Detail({theme, isImage, w, h}: any){
 
     const [open, setOpen] = useState(false)
+    const [themeDetail, setThemeDetail] = useState([])
+    const item: any = []
+
+    useEffect(() => {
+        console.log(theme.theme_id)
+        loadDetailInfomation()
+    }, [])
+
+    const loadDetailInfomation = async () => {
+        await allAxios
+            .get(`/information/detail/${theme.theme_id}`, {
+                params: {
+                    themeId: theme.theme_id
+                }
+            })
+            .then(({ data }) => {
+                console.log('디테일', data.storeandtheme)
+                setThemeDetail(data.storeandtheme)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
 
     return (
         <>
@@ -16,7 +40,7 @@ export default function Detail({item, isImage, w, h}: any){
                 trigger={isImage?
                     <button style={{ backgroundColor: "white", border: "white", cursor: "pointer"}}><img src={item.url} alt="url" width={w} height={h} /></button>
                 :
-                    <Button>{item.name}</Button>
+                    <Button>{theme.theme_name}</Button>
                 }
                 >
                 <Modal.Content image>
