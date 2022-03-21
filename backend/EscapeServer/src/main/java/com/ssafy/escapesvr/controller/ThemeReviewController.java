@@ -49,8 +49,8 @@ public class ThemeReviewController {
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
 
-    // 회원 아이디에 해당하는 리뷰
-    @ApiOperation(value = "내가 작성한 리뷰 조회", notes = "회원 아아디에 해당하는 리뷰들을 불러온다",response=Map.class)
+    // auth서버 전달- 회원 아이디에 해당하는 리뷰
+    @ApiOperation(value = "내가 작성한 리뷰 조회 - myprofile 리뷰 조회", notes = "회원 아아디에 해당하는 리뷰들을 불러온다",response=Map.class)
     @GetMapping("/myreview/{userId}")
     public ResponseEntity<Map<String, Object>> getMyReviewList(@PathVariable @ApiParam( value="회원 아이디",required = true) Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable){
         Map<String, Object> result = new HashMap<>();
@@ -67,18 +67,31 @@ public class ThemeReviewController {
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
 
-    // 회원 아이디가 깬 장르 개수
-    @ApiOperation(value = "내가 깬 장르", notes = "회원 아아디가 깬 장르 개수를 불러온다.",response=Map.class)
+    // auth서버 전달- 회원 아이디가 깬 장르 개수
+    @ApiOperation(value = "내가 깬 장르 - myprofile ", notes = "회원 아아디가 깬 장르 개수를 불러온다.",response=Map.class)
     @GetMapping("/mygenre/{userId}")
     public Map<String,Integer> getMyGenre(@PathVariable @ApiParam( value="회원 아이디",required = true) Integer userId){
         Map<String,Integer>mygenre=new HashMap<>();
         try{
             mygenre=themeReviewService.getMyGenre(userId);
-
         }catch (RuntimeException e){
             e.printStackTrace();
         }
         return mygenre;
+    }
+
+    // auth서버 전달 - 포스터들
+    @ApiOperation(value = "내가 깬 테마의 포스터 - myprofile 포스터들", notes = "회원 아아디가 깬 장르 개수를 불러온다.",response=Map.class)
+    @GetMapping("/poster/{userId}")
+    public List<String> getPoster(@PathVariable @ApiParam( value="회원 아이디",required = true) Integer userId){
+       List<String>posters=new ArrayList<>();
+        try{
+            posters=themeReviewService.getPosters(userId);
+
+        }catch (RuntimeException e){
+            e.printStackTrace();
+        }
+        return posters;
     }
 
 

@@ -21,10 +21,7 @@ spring:
     url: jdbc:mysql://j6c203.p.ssafy.io:3306/escape?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
     username: escape
     password: escape
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/escape?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-#    username: ssafy
-#    password: ssafy
+
   jpa:
     hibernate:
       ddl-auto: update
