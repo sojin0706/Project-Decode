@@ -81,7 +81,7 @@ return (
             ellipsisItem={null}
             firstItem={null}
             lastItem={null}
-            siblingRange={1}
+            siblingRange={2}
             totalPages={10}
              />
 
