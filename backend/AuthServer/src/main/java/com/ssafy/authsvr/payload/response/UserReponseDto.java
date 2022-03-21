@@ -4,7 +4,6 @@ import com.ssafy.authsvr.entity.User;
 import com.ssafy.authsvr.oauth.domain.ProviderType;
 import com.ssafy.authsvr.oauth.domain.RoleType;
 import lombok.*;
-
 import java.time.LocalDateTime;
 
 public class UserReponseDto {
@@ -12,21 +11,21 @@ public class UserReponseDto {
     @Getter
     @NoArgsConstructor
     public static class ProfileResponse {
-        private Integer id;
+        private Integer userId;
         private String image;
         private String nickName;
 
         public static ProfileResponse profileResponse(User user){
             return ProfileResponse.builder()
-                    .id(user.getId())
+                    .userId(user.getId())
                     .image(user.getImage())
                     .nickName(user.getNickName())
                     .build();
         }
 
         @Builder
-        public ProfileResponse(Integer id, String image, String nickName) {
-            this.id = id;
+        public ProfileResponse(Integer userId, String image, String nickName) {
+            this.userId = userId;
             this.image = image;
             this.nickName = nickName;
         }
