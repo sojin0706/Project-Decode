@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class ArticleCommentController {
     //댓글 작성
     @ApiOperation(value = "유저게시글 댓글 작성", notes = "게시글에 댓글을 작성한다", response = Map.class)
     @PostMapping
-    public ResponseEntity<String> insertArticleComment(@RequestBody @ApiParam(value = "댓글 작성 모델") ArticleCommentRequestDto articleCommentRequestDto) {
+    public ResponseEntity<String> insertArticleComment(@RequestBody @ApiParam(value = "댓글 작성 모델")  @Valid ArticleCommentRequestDto articleCommentRequestDto) {
         HttpStatus status = null;
         try {
             articleCommentService.insertArticleComment(articleCommentRequestDto);
@@ -90,7 +91,7 @@ public class ArticleCommentController {
     //댓글 수정
     @ApiOperation(value = "유저게시글 댓글 수정", notes = "댓글(commentId가 일치하는)을 수정한다", response = Map.class)
     @PutMapping
-    public ResponseEntity<String> updateArticleComment(@RequestBody @ApiParam(value = "댓글 수정 모델") ArticleCommentRequestDto articleCommentRequestDto) {
+    public ResponseEntity<String> updateArticleComment(@RequestBody @ApiParam(value = "댓글 수정 모델") @Valid ArticleCommentRequestDto articleCommentRequestDto) {
         HttpStatus status = null;
         try {
             articleCommentService.updateArticleComment(articleCommentRequestDto);

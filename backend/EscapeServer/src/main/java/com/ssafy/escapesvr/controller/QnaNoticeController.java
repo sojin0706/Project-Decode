@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class QnaNoticeController {
     //Qna랑 공지사항 작성 : isNotice가 0이면 qna, 1이면 공지사항
     @ApiOperation(value = "1:1 문의 or 공지사항 작성", notes = "회원이 1:1 문의글(isNotice =0) or 공지사항(isNotice = 1)을 작성한다")
     @PostMapping
-    public ResponseEntity<String> insertQnaNotice(@RequestBody @ApiParam(value = "문의/공지글 작성 모델") QnaNoticeRequestDto qnaNoticeRequestDto) {
+    public ResponseEntity<String> insertQnaNotice(@RequestBody @ApiParam(value = "문의/공지글 작성 모델") @Valid QnaNoticeRequestDto qnaNoticeRequestDto) {
 
         HttpStatus status = null;
         try {
@@ -88,7 +89,7 @@ public class QnaNoticeController {
 
     @ApiOperation(value = "1:1 문의 or 공지사항 수정", notes = "1:1 문의글(isNotice =0) or 공지사항(isNotice = 1)을 수정한다")
     @PutMapping
-    public ResponseEntity<String> updateQnaNotice(@RequestBody @ApiParam(value = "문의/공지글 수정 모델") QnaNoticeRequestDto qnaNoticeRequestDto) {
+    public ResponseEntity<String> updateQnaNotice(@RequestBody @ApiParam(value = "문의/공지글 수정 모델") @Valid QnaNoticeRequestDto qnaNoticeRequestDto) {
         HttpStatus status = null;
         try {
             qnaNoticeService.updateQnaNotice(qnaNoticeRequestDto);

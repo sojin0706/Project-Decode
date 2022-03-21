@@ -32,7 +32,7 @@ public class ArticleController {
     //게시글생성
     @ApiOperation(value = "유저게시글 생성", notes = "게시글을 작성한다", response = Map.class)
     @PostMapping
-    public ResponseEntity<Map<String, Object>> save(@RequestBody @ApiParam(value = "게시글에 대한 정보", required = true) ArticleRequestDto articleRequestDto) {
+    public ResponseEntity<Map<String, Object>> save(@RequestBody @ApiParam(value = "게시글에 대한 정보", required = true) @Valid ArticleRequestDto articleRequestDto) {
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         try {
@@ -125,7 +125,7 @@ public class ArticleController {
     //게시글수정
     @PutMapping ("/{id}")
     @ApiOperation(value = "유저게시글 수정", notes = "게시글 번호(id)에 해당하는 게시글을 수정한다", response = Map.class)
-    public ResponseEntity<Map<String, Object>> updateArticle(@PathVariable @ApiParam(value = "게시글 번호", required = true) final Long id, @RequestBody @ApiParam(value = "게시글 정보", required = true) final ArticleRequestDto articleRequestDto) {
+    public ResponseEntity<Map<String, Object>> updateArticle(@PathVariable @ApiParam(value = "게시글 번호", required = true) final Long id, @RequestBody @ApiParam(value = "게시글 정보", required = true) @Valid  final ArticleRequestDto articleRequestDto) {
 
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
