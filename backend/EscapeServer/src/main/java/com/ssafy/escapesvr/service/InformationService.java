@@ -10,5 +10,6 @@ import java.util.List;
 
 public interface InformationService {
     StoreAndThemeResponseDto getDetail(Integer themeId);
-    List<ThemeResponseDto> getInformationList(String largeRegion, String smallRegion, String gerne, Integer maxNumber, Integer maxLevel, Integer maxTime,Integer isSingleplay, Pageable pageable);
-    }
+    List<ThemeResponseDto> getInformationList(String largeRegion, String smallRegion, String genre, Integer maxNumber, Integer maxLevel, Integer maxTime,Integer isSingleplay, Pageable pageable);
+    List<String> getSmallRegion(String largeRegion);
+}

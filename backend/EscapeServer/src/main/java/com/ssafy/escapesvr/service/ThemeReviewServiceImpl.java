@@ -6,10 +6,9 @@ import com.ssafy.escapesvr.dto.ReviewRequestDto;
 import com.ssafy.escapesvr.dto.ThemeReviewResponseDto;
 import com.ssafy.escapesvr.entity.Theme;
 import com.ssafy.escapesvr.entity.ThemeReview;
-import com.ssafy.escapesvr.repository.ThemeRepo;
-import com.ssafy.escapesvr.repository.ThemeReviewRepo;
+import com.ssafy.escapesvr.repository.ThemeRepository;
+import com.ssafy.escapesvr.repository.ThemeReviewRepository;
 import feign.FeignException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
@@ -27,10 +26,10 @@ import java.util.Map;
 public class ThemeReviewServiceImpl implements ThemeReviewService{
     
     @Autowired
-    ThemeRepo themeRepo;
+    ThemeRepository themeRepo;
 
     @Autowired
-    ThemeReviewRepo themeReviewRepo;
+    ThemeReviewRepository themeReviewRepo;
 
     @Autowired
     UserServiceClient userServiceClient;

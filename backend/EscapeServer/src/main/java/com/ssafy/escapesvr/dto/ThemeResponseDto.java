@@ -21,7 +21,7 @@ public class ThemeResponseDto {
    @ApiModelProperty(value = "테마 이름", example = "네드", required = true)
     private String theme_name;
     @ApiModelProperty(value = "장르", example = "네드", required = true)
-   private String gerne;
+   private String genre;
    @ApiModelProperty(value = "테마 최대 인원수", example = "5", required = true)
     private Integer maxNumber;
    @ApiModelProperty(value = "테마 난이도", example = "3", required = true)
