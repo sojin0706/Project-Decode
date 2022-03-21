@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Grid, Header, Icon, Rating } from "semantic-ui-react";
+import { Button, Grid, Header, Icon, Pagination, Rating } from "semantic-ui-react";
 
 export default function Reviewboard(){
 
@@ -166,6 +166,15 @@ export default function Reviewboard(){
                         />
                     </Grid.Column>
                 </Grid.Row>
+                <Pagination
+                    boundaryRange={0}
+                    defaultActivePage={1}
+                    ellipsisItem={null}
+                    firstItem={null}
+                    lastItem={null}
+                    siblingRange={2}
+                    totalPages={10}
+                />
             </Grid>
         </>
     );
