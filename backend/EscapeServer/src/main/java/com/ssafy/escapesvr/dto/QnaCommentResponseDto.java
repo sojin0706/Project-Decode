@@ -33,6 +33,12 @@ public class QnaCommentResponseDto {
     @ApiModelProperty(value = "공지사항/문의글 번호", required = true)
     private Long qnaNoticeId; //문의글 번호
 
+    @ApiModelProperty(value = "공지게시판 댓글 작성자 닉네임")
+    private String nickName;//유저 닉네임
+
+    @ApiModelProperty(value = "공지게시판 댓글 작성자 프로필사진")
+    private String userImage; //유저 프로필 사진
+
 
     public QnaCommentResponseDto(QnaComment qnaComment){
         this.id= qnaComment.getId();
@@ -41,6 +47,8 @@ public class QnaCommentResponseDto {
         this.createdAt = qnaComment.getCreatedAt();
         this.modifiedAt = qnaComment.getModifiedAt();
         this.qnaNoticeId = qnaComment.getQnaNotice().getId();
+        this.nickName = qnaComment.getNickName();
+        this.userImage = qnaComment.getUserImage();
     }
 
 

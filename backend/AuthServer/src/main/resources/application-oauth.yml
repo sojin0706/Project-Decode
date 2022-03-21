@@ -10,8 +10,8 @@ spring:
               - email
               - profile
           naver:
-            clientId: 0sWPNALWs4UNXiWdkhH6
-            clientSecret: 68NGV6LgQl
+            clientId: PVbOVwkqA48r5lmokxLn
+            clientSecret: B2jNek8jz2
 #            clientSecret: ENC(AFkKVRWDG/ft3y/djwhQucVclrzuo0nK)
             clientAuthenticationMethod: post
             authorizationGrantType: authorization_code

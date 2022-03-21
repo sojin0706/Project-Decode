@@ -40,6 +40,12 @@ public class QnaNoticeResponseDto {
     @ApiModelProperty(value = "사용자 id(번호)", required = true)
     private Integer userId; //사용자 번호
 
+    @ApiModelProperty(value = "공지게시판 글 작성자 닉네임")
+    private String nickName;//유저 닉네임
+
+    @ApiModelProperty(value = "공지게시판 글 작성자 프로필사진")
+    private String userImage; //유저 프로필 사진
+
     public QnaNoticeResponseDto(QnaNotice qnaNotice){
         this.id= qnaNotice.getId();
         this.title= qnaNotice.getTitle();;
@@ -49,6 +55,8 @@ public class QnaNoticeResponseDto {
         this.isSecret=qnaNotice.getIsSecret();
         this.isNotice=qnaNotice.getIsNotice();
         this.userId=qnaNotice.getUserId();
+        this.nickName =qnaNotice.getNickName();
+        this.userImage = qnaNotice.getUserImage();
     }
 
 

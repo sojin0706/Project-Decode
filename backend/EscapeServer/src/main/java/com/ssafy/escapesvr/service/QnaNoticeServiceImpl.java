@@ -1,10 +1,14 @@
 package com.ssafy.escapesvr.service;
 
+import com.ssafy.escapesvr.client.UserServiceClient;
+import com.ssafy.escapesvr.dto.ProfileRequestDto;
 import com.ssafy.escapesvr.dto.QnaNoticeRequestDto;
 import com.ssafy.escapesvr.dto.QnaNoticeResponseDto;
 import com.ssafy.escapesvr.entity.QnaNotice;
 import com.ssafy.escapesvr.repository.QnaNoticeRepository;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,13 +20,15 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class QnaNoticeServiceImpl implements QnaNoticeService{
 
     private final QnaNoticeRepository qnaNoticeRepository;
 
+    private final UserServiceClient userServiceClient;
 
     //게시글 작성
+    @Transactional
     @Override
     public void insertQnaNotice(QnaNoticeRequestDto qnaNoticeRequestDto) throws Exception {
 
@@ -35,11 +41,20 @@ public class QnaNoticeServiceImpl implements QnaNoticeService{
         qnaNotice.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
         qnaNotice.setUserId(qnaNoticeRequestDto.getUserId());
 
+        try{
+            ProfileRequestDto profileRequestDto = userServiceClient.userFindProfile(qnaNoticeRequestDto.getUserId());
+            qnaNotice.setNickName(profileRequestDto.getNickName());
+            qnaNotice.setUserImage(profileRequestDto.getImage());
+        }catch (FeignException e){
+            e.printStackTrace();
+        }
+
         qnaNoticeRepository.save(qnaNotice);
 
     }
 
     //게시글 수정
+    @Transactional
     @Override
     public void updateQnaNotice(QnaNoticeRequestDto qnaNoticeRequestDto) {
 
@@ -57,6 +72,7 @@ public class QnaNoticeServiceImpl implements QnaNoticeService{
     }
 
     //게시글 삭제
+    @Transactional
     @Override
     public void deleteQnaNotice(Long qnaId) {
         qnaNoticeRepository.deleteById(qnaId);
@@ -70,5 +86,13 @@ public class QnaNoticeServiceImpl implements QnaNoticeService{
         List<QnaNotice> qnaNotices = qnaNoticeRepository.findAll(Sort.by(Sort.Direction.DESC, "isNotice","createdAt"));
         return qnaNotices.stream().map(QnaNoticeResponseDto::new).collect(Collectors.toList());
     }
+
+    //회원 별 게시글 조회
+    @Override
+    public List<QnaNoticeResponseDto> getMyQnaList(Integer userId, Pageable pageable) {
+        List<QnaNotice> myQnaNotices = qnaNoticeRepository.findByUserId(userId);
+        return myQnaNotices.stream().map(QnaNoticeResponseDto::new).collect(Collectors.toList());
+    }
+
 
 }

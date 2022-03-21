@@ -45,6 +45,10 @@ public class QnaNotice {
     @NotNull
     private Integer userId;
 
+    private String nickName;//유저 닉네임
+
+    private String userImage; //유저 프로필 사진
+
     @OneToMany(mappedBy = "qnaNotice", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<QnaComment> comments = new ArrayList<>();
 
