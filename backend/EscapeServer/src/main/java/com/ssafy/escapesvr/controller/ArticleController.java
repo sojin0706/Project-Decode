@@ -8,6 +8,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
@@ -97,6 +100,25 @@ public class ArticleController {
         result.put("article", article);
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
 
+    }
+
+    //유저 별 게시글 조회
+    @ApiOperation(value = "자신(회원)이 쓴 유저게시글 리스트", notes = "(프로필페이지에서 확인) 회원이 자신이 작성한 유저게시판의 모든 게시글 리스트를 불러온다")
+    @GetMapping("/profile/{userId}")
+    public ResponseEntity<Map<String, Object>> getMyArticleList(@PathVariable @ApiParam(value = "회원번호") Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable) {
+        Map<String, Object> result = new HashMap<>();
+        List<ArticleResponseDto> myArticleList = null;
+        HttpStatus status = null;
+        try {
+            myArticleList = articleService.getMyArticleList(userId, pageable);
+            status = HttpStatus.OK;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        result.put("myArticleList", myArticleList);
+
+        return new ResponseEntity<>(result, status);
     }
 
 

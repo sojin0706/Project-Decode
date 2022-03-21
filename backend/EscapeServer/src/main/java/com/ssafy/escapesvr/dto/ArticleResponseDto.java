@@ -38,6 +38,12 @@ public class ArticleResponseDto {
     @ApiModelProperty(value = "유저게시판 글 수정시간")
     private LocalDateTime modifiedAt; //수정시간
 
+    @ApiModelProperty(value = "유저게시판 글 작성자 닉네임")
+    private String nickName;//유저 닉네임
+
+    @ApiModelProperty(value = "유저게시판 글 작성자 프로필사진")
+    private String userImage; //유저 프로필 사진
+
     public ArticleResponseDto(Article entity) {
         this.id = entity.getId();
         this.title = entity.getTitle();
@@ -48,6 +54,8 @@ public class ArticleResponseDto {
         this.userId = entity.getUserId();
         this.createdAt = entity.getCreatedAt();
         this.modifiedAt = entity.getModifiedAt();
+        this.nickName= entity.getNickName();
+        this.userImage = entity.getUserImage();
     }
 
 }

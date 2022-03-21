@@ -9,6 +9,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -59,6 +62,26 @@ public class QnaCommentController {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         result.put("commentList", qnaCommentList);
+
+        return new ResponseEntity<>(result, status);
+    }
+
+    //자신이 쓴 댓글 조회
+    @ApiOperation(value = "자신이 쓴 qna/공지 댓글 리스트", notes = "자신이 쓴 qna/공지 댓글 리스트을 반환한다.")
+    @GetMapping("/profile/{userId}")
+    public ResponseEntity<Map<String, Object>> getMyQnaCommentList(@PathVariable("userId") @ApiParam(value = "회원번호") Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable) {
+
+        Map<String, Object> result = new HashMap<>();
+        List<QnaCommentResponseDto> myQnaCommentList = null;
+        HttpStatus status = null;
+        try {
+            myQnaCommentList = qnaCommentService.getMyQnaCommentList(userId, pageable);
+            status = HttpStatus.OK;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        result.put("myQnaCommentList",myQnaCommentList);
 
         return new ResponseEntity<>(result, status);
     }

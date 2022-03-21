@@ -10,6 +10,5 @@ import java.util.List;
 public interface QnaCommentRepository extends JpaRepository<QnaComment, Long> {
 
     List<QnaComment> findByQnaNotice(QnaNotice qnaNotice);
-
-
+    List<QnaComment> findByUserIdOrderByCreatedAtDesc(Integer userId);
 }

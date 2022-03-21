@@ -9,6 +9,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +65,27 @@ public class ArticleCommentController {
 
         return new ResponseEntity<>(result, status);
     }
+
+    //자신이 쓴 유저게시판 댓글 조회
+    @ApiOperation(value = "자신이 쓴 유저게시판 댓글 리스트", notes = "자신이 쓴 유저게시판 댓글 리스트을 반환한다.")
+    @GetMapping("/profile/{userId}")
+    public ResponseEntity<Map<String, Object>> getMyArticleCommentList(@PathVariable("userId") @ApiParam(value = "회원번호") Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable) {
+
+        Map<String, Object> result = new HashMap<>();
+        List<ArticleCommentResponseDto> myArticleCommentList = null;
+        HttpStatus status = null;
+        try {
+            myArticleCommentList = articleCommentService.getMyArticleCommentList(userId, pageable);
+            status = HttpStatus.OK;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        result.put("myArticleCommentList",myArticleCommentList);
+
+        return new ResponseEntity<>(result, status);
+    }
+
 
     //댓글 수정
     @ApiOperation(value = "유저게시글 댓글 수정", notes = "댓글(commentId가 일치하는)을 수정한다", response = Map.class)
