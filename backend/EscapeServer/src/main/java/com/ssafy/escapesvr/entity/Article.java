@@ -41,6 +41,11 @@ public class Article {
 
     private LocalDateTime modifiedAt; //수정시간
 
+    private String nickName;//유저 닉네임
+
+    private String userImage; //유저 프로필 사진
+
+
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<ArticleComment> comments = new ArrayList<>();

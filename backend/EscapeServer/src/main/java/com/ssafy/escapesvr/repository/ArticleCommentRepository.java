@@ -9,6 +9,5 @@ import java.util.List;
 public interface ArticleCommentRepository extends JpaRepository<ArticleComment, Long> {
 
     List<ArticleComment> findByArticle(Article article);
-
-
+    List<ArticleComment> findByUserIdOrderByCreatedAtDesc(Integer userId);
 }

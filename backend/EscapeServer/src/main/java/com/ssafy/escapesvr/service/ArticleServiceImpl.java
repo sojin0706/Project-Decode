@@ -1,5 +1,9 @@
 package com.ssafy.escapesvr.service;
 
+import com.ssafy.escapesvr.client.UserServiceClient;
+import com.ssafy.escapesvr.dto.ProfileRequestDto;
+import feign.FeignException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -18,9 +22,12 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class ArticleServiceImpl implements ArticleService{
 
     private final ArticleRepository articleRepository;
+
+    private final UserServiceClient userServiceClient;
 
     //게시글 생성
     @Override
@@ -29,7 +36,14 @@ public class ArticleServiceImpl implements ArticleService{
 
         Article article = new Article();
 
-        //유저정보에서 userid가져오기
+        try{
+            ProfileRequestDto profileRequestDto = userServiceClient.userFindProfile(articleRequestDto.getUserId());
+            article.setNickName(profileRequestDto.getNickName());
+            article.setUserImage(profileRequestDto.getImage());
+        }catch (FeignException e){
+            e.printStackTrace();
+        }
+
         article.setUserId(articleRequestDto.getUserId());
         article.setTitle(articleRequestDto.getTitle());
         article.setContent(articleRequestDto.getTitle());
@@ -55,7 +69,6 @@ public class ArticleServiceImpl implements ArticleService{
 
     //해당 게시물 조회
     @Override
-    @Transactional
     public ArticleResponseDto getArticle(Long id) {
 
         Article article = articleRepository.getById(id);
@@ -63,6 +76,14 @@ public class ArticleServiceImpl implements ArticleService{
 
         return articleResponseDto;
 
+    }
+
+    //회원 별 게시물 조회
+    @Override
+    public List<ArticleResponseDto> getMyArticleList(Integer userId, Pageable pageable) {
+
+        List<Article> myArticleList = articleRepository.findByUserId(userId);
+        return myArticleList.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
     }
 
     //게시글 수정
@@ -98,23 +119,29 @@ public class ArticleServiceImpl implements ArticleService{
 
     // 추천 횟수 증가
     @Override
-    public void recommendArticle(Long id) {
+    @Transactional
+    public Integer recommendArticle(Long id) {
 
         Article article = articleRepository.getById(id);
 
         article.setRecommend((article.getRecommend()+1));
         article = articleRepository.save(article);
 
+        return article.getRecommend();
+
     }
 
     // 신고 횟수 증가
     @Override
-    public void reportArticle(Long id) {
+    @Transactional
+    public Integer reportArticle(Long id) {
 
         Article article = articleRepository.getById(id);
 
         article.setRecommend((article.getReport()+1));
         article = articleRepository.save(article);
+
+        return article.getReport();
 
     }
 

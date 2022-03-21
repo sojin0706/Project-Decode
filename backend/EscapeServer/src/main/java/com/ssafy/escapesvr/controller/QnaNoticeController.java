@@ -9,6 +9,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -64,6 +67,23 @@ public class QnaNoticeController {
         return new ResponseEntity<>(result, status);
     }
 
+    @ApiOperation(value = "자신(회원)이 쓴 qna 문의 리스트", notes = "회원이 프로필에서 확인하는 자신의 qna 문의 리스트")
+    @GetMapping("/profile/{userId}")
+    public ResponseEntity<Map<String, Object>> getMyQnaList(@PathVariable @ApiParam(value = "회원번호") Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable) {
+        Map<String, Object> result = new HashMap<>();
+        List<QnaNoticeResponseDto> myQnaList = null;
+        HttpStatus status = null;
+        try {
+            myQnaList = qnaNoticeService.getMyQnaList(userId, pageable);
+            status = HttpStatus.OK;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        result.put("myQnaList", myQnaList);
+
+        return new ResponseEntity<>(result, status);
+    }
 
 
     @ApiOperation(value = "1:1 문의 or 공지사항 수정", notes = "1:1 문의글(isNotice =0) or 공지사항(isNotice = 1)을 수정한다")

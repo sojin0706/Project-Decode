@@ -37,5 +37,9 @@ public class QnaComment {
     @NotNull
     private Integer userId;
 
+    private String nickName;//유저 닉네임
+
+    private String userImage; //유저 프로필 사진
+
 
 }
