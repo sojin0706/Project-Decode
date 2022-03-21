@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -98,7 +99,7 @@ public class ThemeReviewController {
     // 리뷰 작성
     @ApiOperation(value = "리뷰 작성", notes = "테마에 리뷰를 작성한다.")
     @PostMapping
-    public ResponseEntity<String> insertReview(@RequestBody @ApiParam(value = "댓글 작성 모델") ReviewRequestDto reviewRequestDto){
+    public ResponseEntity<String> insertReview(@RequestBody @ApiParam(value = "댓글 작성 모델") @Valid ReviewRequestDto reviewRequestDto){
         HttpStatus status = null;
         try {
             themeReviewService.insertReview(reviewRequestDto);
