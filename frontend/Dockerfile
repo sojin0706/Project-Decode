@@ -5,12 +5,14 @@ ENV PORT 3000
 WORKDIR /usr/src/app
 
 COPY package*.json ./
-RUN npm install
 
 COPY ./ ./
+RUN npm install
+
+# COPY ./ ./
 
 # ENV NODE_ENV production
 
-# RUN npm run build
+COPY . .
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]
