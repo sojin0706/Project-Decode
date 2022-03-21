@@ -14,4 +14,5 @@ public interface ThemeReviewService {
    Map<String,Integer> getMyGenre(Integer userId);
    void insertReview(ReviewRequestDto reviewRequestDto);
    void deleteReview(Integer themeReviewId);
+   List<String>getPosters(Integer userId);
 }

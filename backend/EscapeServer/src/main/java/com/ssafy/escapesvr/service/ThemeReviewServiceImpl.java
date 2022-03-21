@@ -50,7 +50,7 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
        return ThemeReviewResponseDto;
     }
 
-    //내가 작성한 리뷰리스트
+    //auth로 전달- 내가 작성한 리뷰리스트
     @Override
     public List<MyReviewResponseDto> getMyReviewList(Integer userId, Pageable pageable) {
         List<ThemeReview>reviews=themeReviewRepo.findAllByUserId(userId,pageable);
@@ -64,7 +64,7 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
         return MyReviewResponseDto;
     }
 
-    //내가 깬 장르
+    // auth로 전달- 내가 깬 장르
     @Override
     public Map<String, Integer> getMyGenre(Integer userId) {
         List<ThemeReview>reviews=themeReviewRepo.findAllByUserId(userId);
@@ -77,6 +77,20 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
         }
         return genres;
     }
+
+    // 포스터
+    @Override
+    public List<String> getPosters(Integer userId) {
+        List<ThemeReview>reviews=themeReviewRepo.findAllByUserId(userId);
+        List<String>posters=new ArrayList<>();
+        for (ThemeReview review : reviews) {
+            Theme theme=review.getTheme();
+            posters.add(theme.getPosterUrl());
+
+        }
+        return posters;
+    }
+
 
     //리뷰 작성
     @Override
@@ -128,5 +142,6 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
         themeRepo.save(theme);
 
     }
+
 
 }

@@ -23,8 +23,8 @@ spring:
 #    password: escape
   datasource:
     url: jdbc:mysql://j6c203.p.ssafy.io:3306/escape?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-    username: root
-    password: 1234
+    username: escape
+    password: escape
 
   jpa:
     hibernate:
