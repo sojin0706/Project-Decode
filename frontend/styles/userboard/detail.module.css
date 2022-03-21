@@ -130,7 +130,7 @@
 .comment_cont textarea {
   border-bottom: 1px solid #000;
   margin: 10px 10px;
-  width: 80%;
+  width: 100%;
   height: 50px;
   box-sizing: border-box;
   border: 1;
@@ -139,7 +139,6 @@
 
 .comment_button {
   padding: 0.1px;
-  margin-top: 15px;
   text-align: right;
 }
 
@@ -156,4 +155,8 @@
 
 .board_write .title dt {
   width: 100px;
+}
+
+.comment_createname {
+  font-size: 1.4rem;
 }

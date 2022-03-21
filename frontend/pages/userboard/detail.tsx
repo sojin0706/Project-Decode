@@ -1,15 +1,15 @@
 import {
     Button,
     Comment,
-    Form,
-    Header,
+    Image,
+    Item,
     Grid,
     Icon,
   } from "semantic-ui-react";
 import React, {Component} from 'react'
   
 import styles from "../../styles/userboard/detail.module.css";
-import { isDynamicRoute } from "next/dist/shared/lib/router/utils";
+
 
 export default function userboard_detail() {
 
@@ -108,11 +108,36 @@ return (
                     </div> */}
 
                     <div className={styles.comments}>
+                        
                         <div className={styles.comment_title}>
                             댓글쓰기
                         </div>
                         <div className={styles.comment_cont}>
-                            <dl>
+                            <Grid verticalAlign='middle' centered>
+                                <Grid.Column width={1}>
+                                    <Item.Group>
+                                        <Item>
+                                            <Item.Image size='tiny' src='https://react.semantic-ui.com/images/avatar/small/helen.jpg' />
+                                        </Item>
+                                    </Item.Group>
+                                </Grid.Column>
+                                <Grid.Column width={1}>
+                                    <div className={styles.comment_createname}>
+                                        하루
+                                    </div>
+                                </Grid.Column>
+                                <Grid.Column width={12}>
+                                <div>
+                                    <textarea placeholder="댓글을 작성해주세요"></textarea>
+                                </div>
+                                </Grid.Column>
+                                <Grid.Column width={2}>
+                                    <div className={styles.comment_button}>
+                                        <Button color='black'> 작성 </Button>
+                                    </div>
+                                </Grid.Column>
+                            </Grid>
+                            {/* <dl>
                                 <dt>
                                     하루
                                 </dt>
@@ -123,7 +148,7 @@ return (
                                     <Button color='black'> 작성 </Button>
                                 </div>
                                
-                            </dl>
+                            </dl> */}
                         </div>
                         <Comment.Group >
                             <Comment>
