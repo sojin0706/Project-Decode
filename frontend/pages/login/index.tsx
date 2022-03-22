@@ -40,15 +40,23 @@ export default function Index() {
     { key: 7, text: "제주", value: "제주" },
   ];
 
-  const options = [
-    { key: 1, text: "One", value: 1 },
-    { key: 2, text: "Two", value: 2 },
-    { key: 3, text: "Three", value: 3 },
-  ];
 
   const [selectedBigPlace, setSelectedBigPlace] = useState("서울");
 
   const [smallPlace, setSmallPlace] = useState([]);
+  const [selectedSmallPlace, setselectedSmallPlace] = useState('');
+
+  useEffect(()=> {
+    axios
+    .get(`http://j6c203.p.ssafy.io:8082/information/region?largeRegion=서울`)
+    .then(({ data }) => {
+      setSmallPlace(data.smallRegions)
+      return data.smallRegions
+    })
+    .then((data)=>{
+      setselectedSmallPlace(data[0])
+    })
+  },[])
 
   const genre = [
     { key: "thrill", text: "스릴러", value: 0 },
@@ -63,32 +71,21 @@ export default function Index() {
     { key: "drama", text: "감성/드라마", value: 0 },
   ];
 
-  const selectBigPlace = () => {
-    const selected = selectedBigPlace;
-    axios
-      // .get(`http://j6c203.p.ssafy.io:8082/information/region?largeRegion=${selected}`)
-      .get(`http://j6c203.p.ssafy.io:8082/information/region?largeRegion=서울`)
-      .then(({ data }) => {
-        console.log("here!!!!!!!!!!!!!!");
-        console.log(data);
-        setSmallPlace(data.smallRegions);
-      });
-  };
-
   const handleChangeBig = (e: any) => {
     axios
       .get(`http://j6c203.p.ssafy.io:8082/information/region?largeRegion=${e.target.value}`)
       .then(({ data }) => {
-        console.log('콘솔로그 확인용!!')
-        console.log(data);
         setSmallPlace(data.smallRegions)
       })
   };
 
+  const handleChangeSmall = (e:any) => {
+    setselectedSmallPlace(e.target.value)
+  }
   return (
     <>
       <h1>{selectedBigPlace}</h1>
-      <h1>{smallPlace}</h1>
+      <h1>{selectedSmallPlace}</h1>
       <Grid>
         <Grid.Row>
           <Grid.Column width={6}></Grid.Column>
@@ -137,7 +134,7 @@ export default function Index() {
 
               <div>
                 <p>소분류 지역을 선택하세요</p>
-                <select>
+                <select onChange={(e) => handleChangeSmall(e)}>
                 {/* <select onChange={(e) => handleChangeBig(e)}> */}
                   { smallPlace.map((p, i) => {
                     return (
