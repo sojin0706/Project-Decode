@@ -2,7 +2,7 @@ import { Grid, Header } from "semantic-ui-react";
 // import Region from "../../src/component/filter/region";
 // import Detail from "../../src/component/modal/detail";
 
-// export default function Recommend(){
+export default function Recommend(){
 
 //     const thema = {
 //         name: '완전한 사랑',
@@ -103,4 +103,4 @@ import { Grid, Header } from "semantic-ui-react";
             
 //         </>
 //     );
-// }
+}

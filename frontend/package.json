@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "serverrun": "next build & next dev"
   },
   "dependencies": {
     "@types/chart.js": "^2.9.35",
