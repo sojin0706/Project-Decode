@@ -52,7 +52,6 @@ export default function Navbar() {
         })
         .then(({ data }) => {
           console.log("데이터");
-          console.log(data);
           console.log(data.body.user)
           setUserInfo(data.body.user)
         })
@@ -63,7 +62,11 @@ export default function Navbar() {
     }
   }, []);
 
-
+  // if (userInfo.preference === null && router.pathname !== "/login") {
+  //   router.push("/login")
+  //   console.log("추가정보입력x")
+  // }
+  
   return (
     <nav>
       <Link href="/">
