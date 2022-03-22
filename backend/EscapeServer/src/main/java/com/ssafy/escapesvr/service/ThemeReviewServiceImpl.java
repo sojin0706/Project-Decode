@@ -26,7 +26,7 @@ import java.util.Map;
 @Service
 @Transactional(readOnly = true)
 public class ThemeReviewServiceImpl implements ThemeReviewService{
-    
+
     @Autowired
     ThemeRepository themeRepo;
 
@@ -43,8 +43,8 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
         Theme theme=themeRepo.getById(themeId);
         Page<ThemeReview>reviews=themeReviewRepo.findByTheme(theme,pageable);
         Page<ThemeReviewResponseDto> themelist=reviews.map(
-                o-> new ThemeReviewResponseDto(o.getId(),o.getUserNickName(),o.getMyScore(),o.getReviewContent(),o.getCreatedAt(),o.getClearTime()));
-       return themelist;
+                o-> new ThemeReviewResponseDto(o.getId(),o.getUserId(),o.getUserNickName(),o.getMyScore(),o.getReviewContent(),o.getCreatedAt(),o.getClearTime()));
+        return themelist;
     }
 
     //auth로 전달- 내가 작성한 리뷰리스트
@@ -53,11 +53,11 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
         List<ThemeReview>reviews=themeReviewRepo.findAllByUserId(userId,pageable);
         List<MyReviewResponseDto> myReviewResponseDtos=new ArrayList<>();
         List<ThemeReview>findcnts=themeReviewRepo.findAllByUserId(userId);
-       int cnt=findcnts.size();
-       for (ThemeReview review : reviews) {
+        int cnt=findcnts.size();
+        for (ThemeReview review : reviews) {
             Theme theme=review.getTheme();
-           MyReviewResponseDto reviewDto=new MyReviewResponseDto(review,theme);
-           myReviewResponseDtos.add(reviewDto);
+            MyReviewResponseDto reviewDto=new MyReviewResponseDto(review,theme);
+            myReviewResponseDtos.add(reviewDto);
         }
         return new PageImpl<>(myReviewResponseDtos, pageable,cnt);
     }
@@ -110,7 +110,7 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
         themeReview.setMyScore(reviewRequestDto.getMyScore());
         themeReview.setClearTime(reviewRequestDto.getClearTime());
         themeReview.setReviewContent(reviewRequestDto.getReviewContent());
-        themeReview.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDate());
+        themeReview.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
         //리뷰 개수는 1 증가
         theme.setReviewCnt(theme.getReviewCnt()+1);
         //테마 score 재계산
