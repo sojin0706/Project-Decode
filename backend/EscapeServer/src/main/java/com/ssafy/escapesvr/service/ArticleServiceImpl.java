@@ -2,7 +2,11 @@ package com.ssafy.escapesvr.service;
 
 import com.ssafy.escapesvr.client.UserServiceClient;
 import com.ssafy.escapesvr.dto.ProfileRequestDto;
+import com.ssafy.escapesvr.dto.SearchDto;
+import com.ssafy.escapesvr.repository.querydsl.SearchRepository;
 import feign.FeignException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -26,6 +30,8 @@ import java.util.stream.Collectors;
 public class ArticleServiceImpl implements ArticleService{
 
     private final ArticleRepository articleRepository;
+
+    //private final SearchRepository searchRepository;
 
     private final UserServiceClient userServiceClient;
 
@@ -86,6 +92,14 @@ public class ArticleServiceImpl implements ArticleService{
         return myArticleList.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
     }
 
+    @Override
+    public List<ArticleResponseDto> postList(SearchDto searchDto) {
+
+        List<Article> articleList = articleRepository.findPageDynamicQuery(searchDto);
+        return articleList.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
+
+    }
+
     //게시글 수정
     @Override
     @Transactional
@@ -144,6 +158,8 @@ public class ArticleServiceImpl implements ArticleService{
         return article.getReport();
 
     }
+
+
 
 
 }

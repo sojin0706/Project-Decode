@@ -3,6 +3,7 @@ package com.ssafy.escapesvr.controller;
 
 import com.ssafy.escapesvr.dto.ArticleRequestDto;
 import com.ssafy.escapesvr.dto.ArticleResponseDto;
+import com.ssafy.escapesvr.dto.SearchDto;
 import com.ssafy.escapesvr.service.ArticleServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,7 +14,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -48,8 +48,7 @@ public class ArticleController {
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
 
-
-    //게시글 전체 조회
+    //게시글 전체조회
     @ApiOperation(value = "유저게시글 전체 리스트 조회", notes = "게시글 리스트를 불러온다", response = Map.class)
     @GetMapping
     public ResponseEntity<Map<String, Object>>  findAll() {
@@ -60,6 +59,34 @@ public class ArticleController {
 
         try {
             articleList = articleService.findAll();
+            httpStatus = HttpStatus.OK;
+            result.put("success", true);
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+
+        }
+
+        result.put("articleList", articleList);
+
+        return new ResponseEntity<Map<String, Object>>(result, httpStatus);
+
+    }
+
+
+    //게시글 검색
+    @ApiOperation(value = "유저게시판 게시글 검색", notes = "유저게시판 게시글 검색한 리스트를 불러온다", response = Map.class)
+    @PostMapping("/board")
+    public ResponseEntity<Map<String, Object>> postList(@RequestBody @ApiParam(value = "게시글 검색에 필요한 정보", required = true) SearchDto searchDto)  {
+
+        Map<String, Object> result = new HashMap<>();
+        List<ArticleResponseDto> articleList = null;
+        HttpStatus httpStatus = null;
+
+        try {
+            articleList = articleService.postList(searchDto);
             httpStatus = HttpStatus.OK;
             result.put("success", true);
 
