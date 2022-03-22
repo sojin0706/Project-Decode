@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 public class UserRequestDto {
 
@@ -21,11 +20,37 @@ public class UserRequestDto {
         private Integer age;
         @NotBlank
         private String gender;
-        @NotBlank
-        private List<String> preference;
+
+        private preferenceGenre preferenceGenre;
         @NotBlank
         private String largeRegion;
         @NotBlank
         private String smallRegion;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class preferenceGenre {
+        @NotNull
+        private Integer thrill;
+        @NotNull
+        private Integer romance;
+        @NotNull
+        private Integer reasoning;
+        @NotNull
+        private Integer sfFantasy;
+        @NotNull
+        private Integer adventure;
+        @NotNull
+        private Integer comedy;
+        @NotNull
+        private Integer crime;
+        @NotNull
+        private Integer horror;
+        @NotNull
+        private Integer adult;
+        @NotNull
+        private Integer drama;
     }
 }

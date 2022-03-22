@@ -5,7 +5,7 @@ import {
 // import styles from "../../styles/userboard/create.module.css";
 // import Region from "../../src/component/filter/region";
 
-// export default function userboard_create() {
+export default function userboard_create() {
 
 // return (
 //     <>
@@ -59,4 +59,4 @@ import {
 //     </Grid>
 //     </>
 //     );
-//     }
+    }

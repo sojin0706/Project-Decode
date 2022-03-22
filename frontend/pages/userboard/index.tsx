@@ -16,7 +16,7 @@ import { useState } from 'react';
 //     { key: '글쓴이', value: '글쓴이', text: '글쓴이' }
 // ]
 
-// export default function userboard() {
+export default function userboard() {
 
 // return (
 //     <>
@@ -94,4 +94,4 @@ import { useState } from 'react';
     
 //     </>
 // );
-// }
+}

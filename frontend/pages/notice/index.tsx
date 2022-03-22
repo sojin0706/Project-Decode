@@ -7,7 +7,7 @@ import {
   
 // import styles from "../../styles/notice/notice.module.css";
 
-// export default function notice() {
+export default function notice() {
 
 // return (
 //     <>
@@ -69,4 +69,4 @@ import {
     
 //     </>
 // );
-// }
+}

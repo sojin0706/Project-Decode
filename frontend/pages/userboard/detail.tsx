@@ -11,7 +11,7 @@ import {
 // import styles from "../../styles/userboard/detail.module.css";
 // import { isDynamicRoute } from "next/dist/shared/lib/router/utils";
 
-// export default function userboard_detail() {
+export default function userboard_detail() {
 
 // return (
 //     <>
@@ -169,4 +169,4 @@ import {
     
 //     </>
 // );
-// }
+}

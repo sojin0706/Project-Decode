@@ -8,7 +8,7 @@ import { Grid, Image } from "semantic-ui-react";
 // import UserInfo from "../../src/component/profile/userInfo";
 // import Board from "../../src/component/profile/board";
 
-// export default function index() {
+export default function index() {
   
 //   return (
 //     <>
@@ -69,4 +69,4 @@ import { Grid, Image } from "semantic-ui-react";
 //       </Grid>
 //     </>
 //   );
-// }
+}

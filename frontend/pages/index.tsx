@@ -23,7 +23,7 @@ const Home: NextPage = () => {
                 {/* <Image src = "https://yologuys.com/Escape_img/theme/1753.jpg;"></Image>  */}
               </Grid.Column>
               <Grid.Column>
-                <Image src = "https://yologuys.com/Escape_img/theme/1753.jpg;"></Image> 
+                {/* <Image src = "https://yologuys.com/Escape_img/theme/1753.jpg;"></Image>  */}
               </Grid.Column>
             </Grid>
             <Grid centered columns={5}>

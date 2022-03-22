@@ -4,6 +4,7 @@ import com.ssafy.authsvr.payload.response.UserReponseDto;
 import com.ssafy.authsvr.payload.request.UserRequestDto;
 import com.ssafy.authsvr.service.UserService;
 import io.swagger.annotations.ApiOperation;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,14 @@ public class UserController {
         log.info("userFindProfile");
 
         return ResponseEntity.status(HttpStatus.OK).body(userService.findProfileUser(id));
+    }
+
+    @ApiOperation(value = "회원 프로필 전체 조회", notes = "회원 PK값으로 프로필 전체 조회")
+    @GetMapping("/allProfile/{id}")
+    public ResponseEntity<UserReponseDto.AllProfileResponse> userFindAllProfile(@PathVariable("id") Integer id){
+        log.info("userFindAllProfile");
+
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findAllProfileUser(id));
     }
 
 }

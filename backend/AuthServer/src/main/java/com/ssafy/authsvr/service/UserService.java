@@ -14,4 +14,5 @@ public interface UserService {
 
     UserReponseDto.ProfileResponse findProfileUser(Integer userId);
 
+    UserReponseDto.AllProfileResponse findAllProfileUser(Integer userId);
 }
