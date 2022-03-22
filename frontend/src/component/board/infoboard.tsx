@@ -34,6 +34,7 @@ export default function Infoboard() {
     const [pages, setPages] = useState(0)
     const [region, setRegion] = useState(null)
     const [smallRegion, setSmallRegion] = useState(null)
+    const [smallRegionOptions, setSmallRegionOptions] = useState([{ key: '전체', value: '전체', text: '전체' }])
     const [genres, setGenres] = useState(null)
     const [person, setPerson] = useState(5)
     const [difficulty, setDifficulty] = useState(3)
@@ -136,7 +137,7 @@ export default function Infoboard() {
                     </Grid.Column>
                     <Grid.Column width={5}>
                         <Header as='h5'>세부지역</Header>
-                        <Select placeholder='세부지역' options={regionOptions} onChange={selectedSmallRegion} />
+                        <Select placeholder='세부지역' options={smallRegionOptions} onChange={selectedSmallRegion} />
                     </Grid.Column>
                     <Grid.Column width={4}>
                         <Header as='h5'>장르</Header>
@@ -178,7 +179,7 @@ export default function Infoboard() {
                         onChange={changeMinute}
                         />
                     {minute}분 이하
-                    <Rating rating={minute/10} maxRating={9}/>
+                    <Rating rating={minute/10} maxRating={8}/>
                 </Grid.Column>
             </Grid>
             <Grid celled centered stackable>
