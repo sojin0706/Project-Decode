@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 // components
 import userAxios from "../../lib/userAxios";
@@ -16,22 +17,20 @@ export default function Navbar() {
     router.reload();
   }
 
-  // function autoLogout() {
-  //   if (isLogin && !userInfo.username) {
-  //     logout();
-  //   }
-  // }
-  
-  // const isLogin = IsLogin;
+  function autoLogout() {
+    if (IsLogin() && !userInfo.username) {
+      logout();
+    }
+  }
 
+  const isLogin = IsLogin;
 
-  // const [userInfo, setUserInfo]: any = useState([]);
-  
+  const [userInfo, setUserInfo]: any = useState([]);
 
   // useEffect(() => {
-  //   if (isLogin) {
+  //   if (IsLogin()) {
   //     userAxios
-  //       .get(`/api/v1/users`)
+  //       .get(`/api/auth/users`)
   //       .then(({ data }) => {
   //         setUserInfo(data.body.user);
   //       })
@@ -41,6 +40,29 @@ export default function Navbar() {
   //       });
   //   }
   // }, []);
+
+  useEffect(() => {
+    if (isLogin()) {
+      var Token: any = null;
+      if (typeof window !== "undefined") Token = localStorage.getItem("token");
+
+      axios
+        .get("http://j6c203.p.ssafy.io:8081/auth/users", {
+          headers: { Authorization: `Bearer ${Token}` },
+        })
+        .then(({ data }) => {
+          console.log("데이터");
+          console.log(data);
+          console.log(data.body.user)
+          setUserInfo(data.body.user)
+        })
+        .catch((e: any) => {
+          console.log("에러");
+          console.log(e);
+        });
+    }
+  }, []);
+
 
   return (
     <nav>
@@ -78,7 +100,7 @@ export default function Navbar() {
       ) : (
         <LoginModal />
       )}
-      
+
       {/* {IsLogin ? (
         <Link href="/">
           <a onClick={logout}>Logout</a>
