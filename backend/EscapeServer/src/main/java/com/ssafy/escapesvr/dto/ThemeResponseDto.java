@@ -13,7 +13,7 @@ import javax.persistence.GeneratedValue;
 public class ThemeResponseDto {
 
    @ApiModelProperty(value = "테마 아이디", example = "1", required = true)
-    private Integer theme_id;
+    private Integer themeId;
    @ApiModelProperty(value = "대분류지역", example = "서울", required = true)
    private String largeRegion;
    @ApiModelProperty(value = "소분류지역", example = "홍대", required = true)

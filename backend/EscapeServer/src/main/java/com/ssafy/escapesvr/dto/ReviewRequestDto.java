@@ -13,13 +13,9 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class ReviewRequestDto {
     @ApiModelProperty(value = "유저 아이디",example = "1")
-    @NotBlank
     private Integer userId;
-
     @ApiModelProperty(value = "내가 리뷰 작성하는 테마 아이디",example = "1")
-    @NotBlank
     private Integer themeId;
-
     @ApiModelProperty(value = "내 점수",example = "8")
     private Integer myScore;
     @ApiModelProperty(value = "클리어 시간",example = "45")

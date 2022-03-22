@@ -21,20 +21,17 @@ public class MyReviewResponseDto {
     private String reviewContent;
     @ApiModelProperty(value = "내 리뷰점수", example = "1")
     private Integer myScore;
+    @ApiModelProperty(value = "테마 아이디", example = "1")
+    private Integer themeId;
     @ApiModelProperty(value = "테마이름", example = "1")
     private String themeName;
-    @ApiModelProperty(value = "포스터 url", example = "http://www.secretgardenescape.com/pimages/Product/Pr_1593416874.jpg")
-    private String posterUrl;
 
     public MyReviewResponseDto(ThemeReview review, Theme theme){
         themeReviewId=review.getId();
         createdAt=review.getCreatedAt();
         reviewContent=review.getReviewContent();
         myScore=review.getMyScore();
+        themeId=theme.getId();
         themeName=theme.getName();
-        posterUrl=theme.getPosterUrl();
     }
-
-
-
 }

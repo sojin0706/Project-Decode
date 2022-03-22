@@ -33,10 +33,17 @@ spring:
   profiles:
     include:
       - oauth
-#      - aws
-#      - credentials
+      - aws
+      - credentials
   jackson:
     property-naming-strategy: SNAKE_CASE
+
+  logging:
+    level:
+      com:
+        amazonaws:
+          util:
+            EC2MetadataUtils: error
 
 #logging:
 #  level.org.springframework: debug
