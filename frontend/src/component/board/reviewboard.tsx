@@ -1,54 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Grid, Header, Icon, Pagination, Rating } from "semantic-ui-react";
+import allAxios from "../../lib/allAxios";
 
-export default function Reviewboard(){
-
-    const reviews = [
-        {
-            number: 1,
-            nickname: '닉네임1',
-            score: 3,
-            create_date: '2020.09.28',
-            clear_time: 55,
-            content: '재밌었다.'
-        },
-        {
-            number: 2,
-            nickname: '닉네임2',
-            score: 5,
-            create_date: '2020.07.28',
-            clear_time: 45,
-            content: '추천'
-        },
-        {
-            number: 3,
-            nickname: '닉네임3',
-            score: 1,
-            create_date: '2020.05.28',
-            clear_time: 60,
-            content: '어려워요어려워요어려워요어려워요어려워요어려워요어려워요어려워요어려워요어려워요어려워요어려워요어려워요어려워요어려워요어려워요어려워요어려워요어려워요어려워요어려워요어려워요'
-        },
-        {
-            number: 4,
-            nickname: '닉네임4',
-            score: 4,
-            create_date: '2020.03.28',
-            clear_time: 50,
-            content: '재밌었다.'
-        },
-        {
-            number: 5,
-            nickname: '닉네임5',
-            score: 3,
-            create_date: '2020.01.28',
-            clear_time: 55,
-            content: '난이도 보통'
-        },
-    ]
+export default function Reviewboard({ themeIds }: any){
 
     const [myRate, setMyRate] = useState(3)
     const [myTime, setMytime] = useState(0)
     const [myReview, setMyReview] = useState('')
+    const [reviewInfo, setReviewInfo] = useState([])
+    const [pages, setPages] = useState(0)
+
+    useEffect(() => {
+        loadReview(pages)
+    }, [pages])
+
+    const loadReview = async (pages: Number) => {
+        await allAxios.get(`/review/${themeIds}`, {
+            params: {
+                themeId: themeIds,
+                page: pages
+            }
+        })
+        .then(({ data }) => {
+            setReviewInfo(data.review)
+        })
+        .catch((e) => {
+            console.log(e)
+        })
+    }
+
+    function movePage(e: any){
+        if(e.target.type == "nextItem"){
+            setPages(pages+1)
+        } else if (e.target.type === "prevItem"){
+            if (pages < 1){
+                return
+            }
+            setPages(Number(pages-1))
+        } else {
+            setPages(e.target.textContent-1)
+        }
+    }
 
     function changeTime(e: any){
         setMytime(e.target.value)
@@ -108,26 +100,26 @@ export default function Reviewboard(){
                         <Header as='h5'>후기</Header>
                     </Grid.Column>
                 </Grid.Row>
-                {reviews.map((review) => {
+                {reviewInfo.map((review: any, index) => {
                     return(
-                        <Grid.Row>
+                        <Grid.Row key={review.theme_review_id}>
                             <Grid.Column width={1}>
-                                <Header as='h5'>{review.number}</Header>
+                                <Header as='h5'>{index+pages*5+1}</Header>
                             </Grid.Column>
                             <Grid.Column width={2}>
-                                <Header as='h5'>{review.nickname}</Header>
+                                <Header as='h5'>{review.userNickName}</Header>
                             </Grid.Column>
                             <Grid.Column width={2}>
-                                <Header as='h5'><Rating icon='star' defaultRating={review.score} maxRating={review.score} /></Header>
+                                <Header as='h5'><Rating icon='star' defaultRating={review.myScore/2} maxRating={review.myScore/2} /></Header>
                             </Grid.Column>
                             <Grid.Column width={2}>
-                                <Header as='h5'>{review.create_date}</Header>
+                                <Header as='h5'>{review.createdAt[0]}.{review.createdAt[1]}.{review.createdAt[2]}</Header>
                             </Grid.Column>
                             <Grid.Column width={2}>
-                                <Header as='h5'>{review.clear_time}분</Header>
+                                <Header as='h5'>{review.clearTime}분</Header>
                             </Grid.Column>
                             <Grid.Column width={6}>
-                                <Header as='h5'>{review.content}</Header>
+                                <Header as='h5'>{review.reviewContent}</Header>
                             </Grid.Column>
                             <Grid.Column width={1}>
                                 <Icon name="trash" color="red" style={{ cursor: 'pointer'}} onClick={deleteReview}/>
@@ -174,6 +166,7 @@ export default function Reviewboard(){
                     lastItem={null}
                     siblingRange={2}
                     totalPages={10}
+                    onClick={movePage}
                 />
             </Grid>
         </>

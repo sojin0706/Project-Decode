@@ -5,13 +5,13 @@ import Detail from "../../src/component/modal/detail";
 export default function Recommend(){
 
     const thema = {
-        name: '완전한 사랑',
+        theme_name: '완전한 사랑',
         difficulty: 3,
         genre: '감성/드라마',
         reco_person: 3,
         max_person: 3,
         time: 60,
-        url: 'https://next-edition.s3.amazonaws.com/theme/title_image_url/%EC%99%84%EC%A0%84%ED%95%9C%EC%82%AC%EB%9E%91(%EB%A6%AC%EB%89%B4%EC%96%BC)/theme__%E1%84%8B%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%BC-%E1%84%91%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%A5_%EC%99%84%EC%A0%84%ED%95%9C%EC%82%AC%EB%9E%91(%EB%A6%AC%EB%89%B4%EC%96%BC).jpg',
+        posterUrl: 'https://next-edition.s3.amazonaws.com/theme/title_image_url/%EC%99%84%EC%A0%84%ED%95%9C%EC%82%AC%EB%9E%91(%EB%A6%AC%EB%89%B4%EC%96%BC)/theme__%E1%84%8B%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%BC-%E1%84%91%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%A5_%EC%99%84%EC%A0%84%ED%95%9C%EC%82%AC%EB%9E%91(%EB%A6%AC%EB%89%B4%EC%96%BC).jpg',
     }
 
     return (
@@ -28,13 +28,13 @@ export default function Recommend(){
                     <Grid.Column width={2}/>
                     <Grid.Column width={12}>
                         <Header as='h3'>'유저' 님이 좋아하실만한 테마를 준비해봤어요!</Header>
-                        <Detail item={thema} isImage={true} w={150} h={200}/>
+                        <Detail theme={thema} isImage={true} w={150} h={200}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <Detail item={thema} isImage={true} w={150} h={200}/>
+                        <Detail theme={thema} isImage={true} w={150} h={200}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <Detail item={thema} isImage={true} w={150} h={200}/>
+                        <Detail theme={thema} isImage={true} w={150} h={200}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <Detail item={thema} isImage={true} w={150} h={200}/>
+                        <Detail theme={thema} isImage={true} w={150} h={200}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </Grid.Column>
                     <Grid.Column width={2}/>

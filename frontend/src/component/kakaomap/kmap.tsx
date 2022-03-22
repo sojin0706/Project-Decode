@@ -7,11 +7,12 @@ declare global {
   }
 
 interface MapProps {
+  storename: String,
   latitude: number;
   longitude: number;
 }
 
-function Kakaomap({ latitude, longitude }: MapProps) {
+function Kakaomap({ storename, latitude, longitude }: MapProps) {
   useEffect(() => {
     const mapScript = document.createElement("script");
 
@@ -31,7 +32,7 @@ function Kakaomap({ latitude, longitude }: MapProps) {
         var infowindow = new window.kakao.maps.InfoWindow({zIndex:1});
         const ps = new window.kakao.maps.services.Places(); 
         // 키워드로 장소를 검색합니다
-        ps.keywordSearch('마스터키 강남점', placesSearchCB); 
+        ps.keywordSearch(storename, placesSearchCB); 
 
         // 키워드 검색 완료 시 호출되는 콜백함수 입니다
         function placesSearchCB (data: any, status: any, pagination: any) {
