@@ -3,10 +3,13 @@ package com.ssafy.escapesvr.repository.querydsl;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.util.StringUtils;
+import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.escapesvr.dto.ThemeResponseDto;
 import com.ssafy.escapesvr.entity.QStore;
 import com.ssafy.escapesvr.entity.QTheme;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
@@ -25,15 +28,19 @@ public class InformationRepositoryImpl implements InformationRepository {
     }
 
     @Override
-    public List<ThemeResponseDto> findByConditions(String largeRegion, String smallRegion, String genre, Integer maxNumber, Integer maxLevel, Integer maxTime, Integer isSingleplay, Pageable pageable) {
-        return queryFactory
-                .select(Projections.constructor(ThemeResponseDto.class,qTheme.id,qStore.largeRegion,qStore.smallRegion,qTheme.name,qTheme.genre,qTheme.maxNumber,qTheme.level,qTheme.time))
-                .from(qTheme)
-                .join(qTheme.store,qStore)
-                .where(qTheme.maxNumber.loe(maxNumber).and(qTheme.level.loe(maxLevel).and(qTheme.time.loe(maxTime))),likelargeRegion(largeRegion),likesmallRegion(smallRegion),likegenre(genre),eqisSingle(isSingleplay))
+    public Page<ThemeResponseDto> findByConditions(String largeRegion, String smallRegion, String genre, Integer maxNumber, Integer maxLevel, Integer maxTime, Integer isSingleplay, Pageable pageable) {
+        JPQLQuery<ThemeResponseDto> query =
+                queryFactory
+                        .select(Projections.constructor(ThemeResponseDto.class,qTheme.id,qStore.largeRegion,qStore.smallRegion,qTheme.name,qTheme.genre,qTheme.maxNumber,qTheme.level,qTheme.time))
+                        .from(qTheme)
+                        .join(qTheme.store,qStore)
+                        .where(qTheme.maxNumber.loe(maxNumber).and(qTheme.level.loe(maxLevel).and(qTheme.time.loe(maxTime))),likelargeRegion(largeRegion),likesmallRegion(smallRegion),likegenre(genre),eqisSingle(isSingleplay))
                 .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
+                .limit(pageable.getPageSize());
+
+        List<ThemeResponseDto> items = query.fetch(); // 데이터 조회
+        long totalCount = query.fetchCount(); // 전체 count
+        return new PageImpl<>(items, pageable, totalCount);
     }
 
     private BooleanExpression likelargeRegion(String largeRegion){

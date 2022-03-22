@@ -28,13 +28,13 @@ public class ThemeReviewResponseDto {
 
     private Integer clearTime;
 
-    public  ThemeReviewResponseDto(ThemeReview themeReview){
-        themeReviewId=themeReview.getId();
-        userNickName=themeReview.getUserNickName();
-        myScore=themeReview.getMyScore();
-        reviewContent=themeReview.getReviewContent();
-        createdAt=themeReview.getCreatedAt();
-        clearTime=themeReview.getClearTime();
-    }
+//    public  ThemeReviewResponseDto(ThemeReview themeReview){
+//        themeReviewId=themeReview.getId();
+//        userNickName=themeReview.getUserNickName();
+//        myScore=themeReview.getMyScore();
+//        reviewContent=themeReview.getReviewContent();
+//        createdAt=themeReview.getCreatedAt();
+//        clearTime=themeReview.getClearTime();
+//    }
 
 }

@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -36,7 +37,7 @@ public class InformationController {
 
     @ApiOperation(value = "대분류에 해당하는 소분류 리스트", notes = "대분류 별 소분류 리스트", response = Map.class)
     @GetMapping("/region")
-    public ResponseEntity<Map<String, Object>> getDetail(@RequestParam(required = true)@ApiParam(value = "대분류 지역") String largeRegion){
+    public ResponseEntity<Map<String, Object>> getDetail(@RequestParam @ApiParam(value = "대분류 지역") String largeRegion){
         Map<String, Object> result = new HashMap<>();
         List<String>smallRegions=null;
         HttpStatus httpStatus = null;
@@ -63,7 +64,7 @@ public class InformationController {
 
         Map<String, Object> result = new HashMap<>();
 
-        List<ThemeResponseDto> informationList = null;
+        Page<ThemeResponseDto> informationList = null;
         HttpStatus httpStatus = null;
 
         try {

@@ -10,6 +10,8 @@ import com.ssafy.escapesvr.repository.ThemeRepository;
 import com.ssafy.escapesvr.repository.ThemeReviewRepository;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,31 +38,30 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
 
     //테마의 리뷰리스트
     @Override
-    public List<ThemeReviewResponseDto> getThemeReviewList(Integer themeId,Pageable pageable) {
+    public Page<ThemeReviewResponseDto> getThemeReviewList(Integer themeId, Pageable pageable) {
 
         Theme theme=themeRepo.getById(themeId);
-        List<ThemeReview>reviews=themeReviewRepo.findByTheme(theme,pageable);
-        List<ThemeReviewResponseDto> ThemeReviewResponseDto=new ArrayList<>();
-
-        for (ThemeReview review : reviews) {
-            ThemeReviewResponseDto reviewDto=new ThemeReviewResponseDto(review);
-            ThemeReviewResponseDto.add(reviewDto);
-        }
-       return ThemeReviewResponseDto;
+        Page<ThemeReview>reviews=themeReviewRepo.findByTheme(theme,pageable);
+        Page<ThemeReviewResponseDto> themelist=reviews.map(
+                o-> new ThemeReviewResponseDto(o.getId(),o.getUserNickName(),o.getMyScore(),o.getReviewContent(),o.getCreatedAt(),o.getClearTime()));
+       return themelist;
     }
 
     //auth로 전달- 내가 작성한 리뷰리스트
     @Override
-    public List<MyReviewResponseDto> getMyReviewList(Integer userId, Pageable pageable) {
-        List<ThemeReview>reviews=themeReviewRepo.findAllByUserId(userId,pageable);
-        List<MyReviewResponseDto> MyReviewResponseDto=new ArrayList<>();
-
+    public Page<MyReviewResponseDto> getMyReviewList(Integer userId, Pageable pageable) {
+        Page<ThemeReview>reviews=themeReviewRepo.findAllByUserId(userId,pageable);
+        List<MyReviewResponseDto> myReviewResponseDtos=null;
+        List<ThemeReview>findcnts=themeReviewRepo.findAllByUserId(userId);
+       int cnt=findcnts.size();
+//        Page<MyReviewResponseDto> themelist=reviews.map(
+//                o-> new MyReviewResponseDto(o.getId(),o.getUserNickName(),o.getMyScore(),o.getReviewContent(),o.getCreatedAt(),o.getClearTime()));
         for (ThemeReview review : reviews) {
             Theme theme=review.getTheme();
             MyReviewResponseDto reviewDto=new MyReviewResponseDto(review,theme);
-            MyReviewResponseDto.add(reviewDto);
+            myReviewResponseDtos.add(reviewDto);
         }
-        return MyReviewResponseDto;
+        return new PageImpl<>(myReviewResponseDtos, pageable,cnt);
     }
 
     // auth로 전달- 내가 깬 장르

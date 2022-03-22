@@ -8,6 +8,7 @@ import com.ssafy.escapesvr.service.ThemeReviewService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -34,7 +35,7 @@ public class ThemeReviewController {
     public ResponseEntity<Map<String, Object>> getThemeReviewList(@PathVariable @ApiParam( value="테마 아이디",required = true) Integer themeId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable) {
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
-        List<ThemeReviewResponseDto> reviews=new ArrayList<>();
+        Page<ThemeReviewResponseDto> reviews=null;
         try {
             //리뷰리스트에 대한 정보
             reviews=themeReviewService.getThemeReviewList(themeId,pageable);
@@ -56,7 +57,7 @@ public class ThemeReviewController {
     public ResponseEntity<Map<String, Object>> getMyReviewList(@PathVariable @ApiParam( value="회원 아이디",required = true) Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable){
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
-        List<MyReviewResponseDto> reviews=new ArrayList<>();
+        Page<MyReviewResponseDto> reviews=null;
         try{
             reviews=themeReviewService.getMyReviewList(userId,pageable);
             httpStatus = HttpStatus.OK;
@@ -99,7 +100,7 @@ public class ThemeReviewController {
     // 리뷰 작성
     @ApiOperation(value = "리뷰 작성", notes = "테마에 리뷰를 작성한다.")
     @PostMapping
-    public ResponseEntity<String> insertReview(@RequestBody @ApiParam(value = "댓글 작성 모델") @Valid ReviewRequestDto reviewRequestDto){
+    public ResponseEntity<String> insertReview(@RequestBody @ApiParam(value = "댓글 작성 모델")ReviewRequestDto reviewRequestDto){
         HttpStatus status = null;
         try {
             themeReviewService.insertReview(reviewRequestDto);

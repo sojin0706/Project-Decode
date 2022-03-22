@@ -9,6 +9,7 @@ import com.ssafy.escapesvr.entity.Theme;
 import com.ssafy.escapesvr.repository.LocationRepository;
 import com.ssafy.escapesvr.repository.ThemeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,9 +42,9 @@ public class InformationServiceImpl implements InformationService {
     }
     //정보페이지 필터링
     @Override
-    public List<ThemeResponseDto> getInformationList(String largeRegion, String smallRegion, String genre, Integer maxNumber, Integer maxLevel, Integer maxTime,Integer isSingleplay, Pageable pageable) {
+    public Page<ThemeResponseDto> getInformationList(String largeRegion, String smallRegion, String genre, Integer maxNumber, Integer maxLevel, Integer maxTime,Integer isSingleplay, Pageable pageable) {
 
-        List<ThemeResponseDto> informations=null;
+        Page<ThemeResponseDto> informations=null;
 
         informations=themeRepo.findByConditions(largeRegion,smallRegion,genre,maxNumber,maxLevel,maxTime,isSingleplay,pageable);
 
@@ -55,10 +56,17 @@ public class InformationServiceImpl implements InformationService {
     @Override
     public List<String> getSmallRegion(String largeRegion) {
        List<String> smallRegions=new ArrayList<>();
-        List<Location> locations=locationRepo.findAllByLargeRegion(largeRegion);
-        for (Location location : locations) {
-            smallRegions.add(location.getSmallRegion());
-        }
+       if(largeRegion!=null){
+           List<Location> locations=locationRepo.findAllByLargeRegion(largeRegion);
+           for (Location location : locations) {
+               smallRegions.add(location.getSmallRegion());
+           }
+       }else{
+           List<Location> locations=locationRepo.findAll();
+           for (Location location : locations) {
+               smallRegions.add(location.getSmallRegion());
+           }
+       }
         return smallRegions;
     }
 
