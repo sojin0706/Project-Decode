@@ -7,11 +7,9 @@ import Kakaomap from '../kakaomap/kmap';
 export default function Detail({theme, isImage, w, h}: any){
 
     const [open, setOpen] = useState(false)
-    const [themeDetail, setThemeDetail] = useState([])
-    const item: any = []
+    const [themeDetail, setThemeDetail]: any = useState([])
 
     useEffect(() => {
-        console.log(theme.theme_id)
         loadDetailInfomation()
     }, [])
 
@@ -23,7 +21,6 @@ export default function Detail({theme, isImage, w, h}: any){
                 }
             })
             .then(({ data }) => {
-                console.log('디테일', data.storeandtheme)
                 setThemeDetail(data.storeandtheme)
             })
             .catch((e) => {
@@ -38,35 +35,34 @@ export default function Detail({theme, isImage, w, h}: any){
                 onOpen={() => setOpen(true)}
                 open={open}
                 trigger={isImage?
-                    <button style={{ backgroundColor: "white", border: "white", cursor: "pointer"}}><img src={item.url} alt="url" width={w} height={h} /></button>
+                    <button style={{ backgroundColor: "white", border: "white", cursor: "pointer"}}><img src={themeDetail.posterUrl} alt="url" width={w} height={h} /></button>
                 :
                     <Button>{theme.theme_name}</Button>
                 }
                 >
                 <Modal.Content image>
-                    <img src="https://next-edition.s3.amazonaws.com/theme/title_image_url/%EC%99%84%EC%A0%84%ED%95%9C%EC%82%AC%EB%9E%91(%EB%A6%AC%EB%89%B4%EC%96%BC)/theme__%E1%84%8B%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%BC-%E1%84%91%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%A5_%EC%99%84%EC%A0%84%ED%95%9C%EC%82%AC%EB%9E%91(%EB%A6%AC%EB%89%B4%EC%96%BC).jpg" alt="이미지가 없습니다" width="250px" height="350px"/>
-                    {/* <Image size='medium' src='https://next-edition.s3.amazonaws.com/theme/title_image_url/%EC%99%84%EC%A0%84%ED%95%9C%EC%82%AC%EB%9E%91(%EB%A6%AC%EB%89%B4%EC%96%BC)/theme__%E1%84%8B%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%BC-%E1%84%91%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%A5_%EC%99%84%EC%A0%84%ED%95%9C%EC%82%AC%EB%9E%91(%EB%A6%AC%EB%89%B4%EC%96%BC).jpg' wrapped /> */}
+                    <img src={themeDetail.posterUrl} alt="이미지가 없습니다" width="250px" height="350px"/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <Modal.Description>
-                        <Header as='h2'>{item.name}</Header>
-                        <Header as='h3'>난이도 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Rating icon='heart' defaultRating={item.difficulty} maxRating={item.difficulty} /></Header>
-                        <Header as='h3'>장르 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {item.genre}</Header>
-                        <Header as='h3'>추천 인원 &nbsp;&nbsp;&nbsp;&nbsp; {item.reco_person}명</Header>
-                        <Header as='h3'>최대 인원 &nbsp;&nbsp;&nbsp;&nbsp; {item.max_person}명</Header>
-                        <Header as='h3'>시간 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {item.time}분</Header>
+                        <Header as='h2'>{theme.theme_name.slice(0, 12)}<br/>{theme.theme_name.slice(12, 24)}</Header>
+                        <Header as='h3'>난이도 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Rating icon='heart' defaultRating={themeDetail.level} maxRating={themeDetail.level} /></Header>
+                        <Header as='h3'>장르 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {themeDetail.genre}</Header>
+                        <Header as='h3'>추천 인원 &nbsp;&nbsp;&nbsp;&nbsp; {themeDetail.numberIsTwo?'2, ':''}{themeDetail.numberIsThree?'3, ':''}{themeDetail.numberIsFour?'4, ':''}{themeDetail.numberIsFive?'5':''}명</Header>
+                        <Header as='h3'>최대 인원 &nbsp;&nbsp;&nbsp;&nbsp; {themeDetail.maxNumber}명</Header>
+                        <Header as='h3'>시간 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {themeDetail.time}분</Header>
                     </Modal.Description>
                     <Modal.Description />
                     <Modal.Description>
                         <br />
-                        <h3>지점 명</h3>
-                        <Kakaomap latitude={33.450701} longitude={126.570667}/>
+                        <h3>{themeDetail.storeName}</h3>
+                        <Kakaomap storename={themeDetail.storeName} latitude={33.450701} longitude={126.570667}/>
                         <br />
-                        <p>예약 홈페이지 주소</p>
+                        <a href={themeDetail.reserveUrl}>예약하기</a>
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
                     <br />
-                    <Reviewboard />
+                    <Reviewboard themeIds={theme.theme_id}/>
                     <br />
                     <Button 
                         content='close'
