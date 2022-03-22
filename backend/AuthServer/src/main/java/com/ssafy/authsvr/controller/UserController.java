@@ -4,7 +4,6 @@ import com.ssafy.authsvr.payload.response.UserReponseDto;
 import com.ssafy.authsvr.payload.request.UserRequestDto;
 import com.ssafy.authsvr.service.UserService;
 import io.swagger.annotations.ApiOperation;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

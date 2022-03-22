@@ -5,10 +5,7 @@ import com.ssafy.authsvr.entity.User;
 import com.ssafy.authsvr.oauth.domain.ProviderType;
 import com.ssafy.authsvr.oauth.domain.RoleType;
 import lombok.*;
-
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class UserReponseDto {
 
@@ -47,25 +44,25 @@ public class UserReponseDto {
 
         private Integer drama;
 
-//        public static AllProfileResponse allProfileResponse(User user, List<String> genrePreference){
-//            return AllProfileResponse.builder()
-//                    .id(user.getId())
-//                    .nickName(user.getNickName())
-//                    .age(user.getAge())
-//                    .gender(user.getGender())
-//                    .largeRegion(user.getLargeRegion())
-//                    .smallRegion(user.getSmallRegion())
-//                    .thrill(genrePreference.)
-//                    .reasoning(genrePreference.getReasoning())
-//                    .romance(genrePreference.getRomance())
-//                    .sfFantasy(genrePreference.getSfFantasy())
-//                    .adventure(genrePreference.getAdventure())
-//                    .comedy(genrePreference.getComedy())
-//                    .horror(genrePreference.getHorror())
-//                    .adult(genrePreference.getAdult())
-//                    .drama(genrePreference.getDrama())
-//                    .build();
-//        }
+        public static AllProfileResponse allProfileResponse(User user, GenrePreference genrePreference){
+            return AllProfileResponse.builder()
+                    .id(user.getId())
+                    .nickName(user.getNickName())
+                    .age(user.getAge())
+                    .gender(user.getGender())
+                    .largeRegion(user.getLargeRegion())
+                    .smallRegion(user.getSmallRegion())
+                    .thrill(genrePreference.getThrill())
+                    .reasoning(genrePreference.getReasoning())
+                    .romance(genrePreference.getRomance())
+                    .sfFantasy(genrePreference.getSfFantasy())
+                    .adventure(genrePreference.getAdventure())
+                    .comedy(genrePreference.getComedy())
+                    .horror(genrePreference.getHorror())
+                    .adult(genrePreference.getAdult())
+                    .drama(genrePreference.getDrama())
+                    .build();
+        }
 
         @Builder
         public AllProfileResponse(Integer id, String nickName, Integer age, String gender, String largeRegion, String smallRegion, Integer thrill, Integer romance, Integer reasoning, Integer sfFantasy, Integer adventure, Integer comedy, Integer crime, Integer horror, Integer adult, Integer drama) {

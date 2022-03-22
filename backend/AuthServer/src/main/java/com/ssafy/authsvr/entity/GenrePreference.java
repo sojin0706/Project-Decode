@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "genre_preference")
@@ -57,8 +56,9 @@ public class GenrePreference {
         this.user = user;
     }
 
-    public static GenrePreference genrePreferenceBuild(UserRequestDto.preferenceGenre genre, User user){
+    public static GenrePreference genrePreferenceBuild(UserRequestDto.preferenceGenre genre, User user) {
         return GenrePreference.builder()
+                .id(user.getId())
                 .thrill(genre.getThrill())
                 .romance(genre.getRomance())
                 .reasoning(genre.getReasoning())
@@ -71,9 +71,5 @@ public class GenrePreference {
                 .drama(genre.getDrama())
                 .user(user)
                 .build();
-    }
-
-
-    public void setGenrePreference(List<String> genrePreference){
     }
 }

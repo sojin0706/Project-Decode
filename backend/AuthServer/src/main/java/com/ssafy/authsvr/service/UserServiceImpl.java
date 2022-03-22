@@ -9,7 +9,6 @@ import com.ssafy.authsvr.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -50,17 +49,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserReponseDto.AllProfileResponse findAllProfileUser(Integer userId) {
-        //
-        User user = userRepository.findById(userId);
-        System.out.println();
-        // 장르 조회
-        List<GenrePreference> genreList= genrePreferenceRepository.findByUserGenrePreference();
-        System.out.println();
-        // 조회한거 builder
-
-
-//        return UserReponseDto.AllProfileResponse.allProfileResponse(userRepository.findById(userId),genreList);
-        return null;
+        return UserReponseDto.AllProfileResponse.allProfileResponse(userRepository.findById(userId),
+                                                    genrePreferenceRepository.findGenreById(userId));
     }
 
 }
