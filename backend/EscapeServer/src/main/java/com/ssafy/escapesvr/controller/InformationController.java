@@ -5,6 +5,7 @@ import com.ssafy.escapesvr.dto.ThemeResponseDto;
 import com.ssafy.escapesvr.dto.ThemeReviewResponseDto;
 import com.ssafy.escapesvr.service.InformationService;
 import com.ssafy.escapesvr.service.ThemeReviewService;
+import com.ssafy.escapesvr.service.UrlToMultipartService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -30,6 +31,8 @@ public class InformationController {
     InformationService informationService;
     @Autowired
     ThemeReviewService themeReviewService;
+    @Autowired
+    UrlToMultipartService urlToMultipartService;
 
     @ApiOperation(value = "대분류에 해당하는 소분류 리스트", notes = "대분류 별 소분류 리스트", response = Map.class)
     @GetMapping("/region")

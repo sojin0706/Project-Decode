@@ -16,7 +16,7 @@ import java.time.LocalDate;
 public class ThemeReviewResponseDto {
 
     @ApiModelProperty(value = "테마 아이디", example = "1", required = true)
-    private Integer theme_review_id;
+    private Integer themeReviewId;
 
     private String userNickName;
 
@@ -29,7 +29,7 @@ public class ThemeReviewResponseDto {
     private Integer clearTime;
 
     public  ThemeReviewResponseDto(ThemeReview themeReview){
-        theme_review_id=themeReview.getId();
+        themeReviewId=themeReview.getId();
         userNickName=themeReview.getUserNickName();
         myScore=themeReview.getMyScore();
         reviewContent=themeReview.getReviewContent();
