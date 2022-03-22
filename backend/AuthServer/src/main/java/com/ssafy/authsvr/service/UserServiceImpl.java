@@ -9,7 +9,6 @@ import com.ssafy.authsvr.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
@@ -55,7 +54,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(userId);
         System.out.println();
         // 장르 조회
-        List<GenrePreference> genreList= genrePreferenceRepository.findByUserGenrePreference(1);
+        List<GenrePreference> genreList= genrePreferenceRepository.findByUserGenrePreference();
         System.out.println();
         // 조회한거 builder
 

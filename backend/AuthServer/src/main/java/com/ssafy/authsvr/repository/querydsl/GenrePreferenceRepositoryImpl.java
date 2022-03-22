@@ -19,13 +19,13 @@ public class GenrePreferenceRepositoryImpl implements GenrePreferenceRepositoryC
     }
 
     @Override
-    public List<GenrePreference> findByUserGenrePreference(Integer id) {
+    public List<GenrePreference> findByUserGenrePreference() {
         return queryFactory
                 .select(qGenrePreference)
-                .from(qGenrePreference)
+                .from(qUser)
                 .innerJoin(qGenrePreference.user,qUser)
                 .fetchJoin()
-                .where(qUser.genrePreference.eq(id))
+                .where(qUser.genrePreference.id.eq(qGenrePreference.id))
                 .fetch();
     }
 }
