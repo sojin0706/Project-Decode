@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +17,7 @@ public class MyReviewResponseDto {
     @ApiModelProperty(value = "리뷰 아이디", example = "1")
     private Integer themeReviewId;
     @ApiModelProperty(value = "작성시간", example = "1")
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     @ApiModelProperty(value = "리뷰내용", example = "1")
     private String reviewContent;
     @ApiModelProperty(value = "내 리뷰점수", example = "1")

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.GeneratedValue;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -18,13 +19,15 @@ public class ThemeReviewResponseDto {
     @ApiModelProperty(value = "테마 아이디", example = "1", required = true)
     private Integer themeReviewId;
 
+    private Integer userId;
+
     private String userNickName;
 
     private Integer myScore;
 
     private String reviewContent;
 
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     private Integer clearTime;
 
