@@ -50,16 +50,14 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
     //auth로 전달- 내가 작성한 리뷰리스트
     @Override
     public Page<MyReviewResponseDto> getMyReviewList(Integer userId, Pageable pageable) {
-        Page<ThemeReview>reviews=themeReviewRepo.findAllByUserId(userId,pageable);
-        List<MyReviewResponseDto> myReviewResponseDtos=null;
+        List<ThemeReview>reviews=themeReviewRepo.findAllByUserId(userId,pageable);
+        List<MyReviewResponseDto> myReviewResponseDtos=new ArrayList<>();
         List<ThemeReview>findcnts=themeReviewRepo.findAllByUserId(userId);
        int cnt=findcnts.size();
-//        Page<MyReviewResponseDto> themelist=reviews.map(
-//                o-> new MyReviewResponseDto(o.getId(),o.getUserNickName(),o.getMyScore(),o.getReviewContent(),o.getCreatedAt(),o.getClearTime()));
-        for (ThemeReview review : reviews) {
+       for (ThemeReview review : reviews) {
             Theme theme=review.getTheme();
-            MyReviewResponseDto reviewDto=new MyReviewResponseDto(review,theme);
-            myReviewResponseDtos.add(reviewDto);
+           MyReviewResponseDto reviewDto=new MyReviewResponseDto(review,theme);
+           myReviewResponseDtos.add(reviewDto);
         }
         return new PageImpl<>(myReviewResponseDtos, pageable,cnt);
     }
