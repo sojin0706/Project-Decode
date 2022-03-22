@@ -99,25 +99,8 @@ public class User {
         this.name = name;
     }
 
-    public void setUserProfileInfoModified(UserRequestDto.profileRequest profileRequest){
-        this.nickName = profileRequest.getNickName();
-        this.age = profileRequest.getAge();
-        this.gender = profileRequest.getGender();
-        this.largeRegion = profileRequest.getLargeRegion();
-        this.smallRegion = profileRequest.getSmallRegion();
-    }
-
     public void setUserGenreInfoModified(GenrePreference genrePreference){
         this.genrePreference = genrePreference;
-    }
-
-    public void setUserAddProfileInfoModified(UserRequestDto.profileRequest profileRequest, GenrePreference genrePreference){
-        this.nickName = profileRequest.getNickName();
-        this.age = profileRequest.getAge();
-        this.gender = profileRequest.getGender();
-        this.genrePreference = genrePreference;
-        this.largeRegion = profileRequest.getLargeRegion();
-        this.smallRegion = profileRequest.getSmallRegion();
     }
 
 }
