@@ -61,11 +61,11 @@ return (
                 <div className={styles.comment_cont}>
                             <Grid verticalAlign='middle' centered>
                                 <Grid.Column width={1}>
-                                    <Item.Group>
-                                        <Item>
-                                            <Item.Image size='tiny' src='https://react.semantic-ui.com/images/avatar/small/helen.jpg' />
-                                        </Item>
-                                    </Item.Group>
+                                    <Comment.Group size='massive'>
+                                        <Comment>
+                                            <Comment. Avatar src='https://react.semantic-ui.com/images/avatar/small/helen.jpg' />
+                                        </Comment>
+                                    </Comment.Group>
                                 </Grid.Column>
                                 <Grid.Column width={1}>
                                     <div className={styles.comment_createname}>
