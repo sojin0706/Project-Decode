@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 // components
-import userAxios from "../../lib/userAxios";
 import LoginModal from "../login/loginModal";
 import IsLogin from "../../lib/customLogin";
 
