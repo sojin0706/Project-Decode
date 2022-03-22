@@ -29,9 +29,10 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
             // Custom post filter
             // chain에다가 postfilter: exchange 추가
             // 비동기방식으로 단일값 추가히기 위해서 Mono: 웹 플럭스 타입으로 추가
-            return chain.filter(exchange).then(Mono.fromRunnable(() -> {
-                log.info("Custom POST filter: response code -> {}", response.getStatusCode());
-            }));
+            return chain.filter(exchange)
+                    .then(Mono.fromRunnable(() -> {
+                            log.info("Custom POST filter: response code -> {}", response.getStatusCode());
+                     }));
         };
     }
 

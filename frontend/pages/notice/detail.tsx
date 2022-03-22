@@ -53,7 +53,7 @@ return (
                     
                 </div>
                 <div className={styles.bt_wrap}>
-                    <a href="/notice" className={styles.on}>목록</a>
+                    {/* <a href="/notice" className={styles.on}>목록</a> */}
                     <a href="/create">수정</a>
                 </div>
             </div>
