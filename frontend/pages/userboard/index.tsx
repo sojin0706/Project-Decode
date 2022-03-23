@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
     Pagination,
     Grid,
@@ -6,7 +5,7 @@ import {
     Input,
     Icon
   } from "semantic-ui-react";
-import React, {Component} from 'react'
+import React from 'react'
 import Region from "../../src/component/filter/region";
 import styles from "../../styles/userboard/userboard.module.css";
 
@@ -16,7 +15,7 @@ const options = [
     { key: '글쓴이', value: '글쓴이', text: '글쓴이' }
 ]
 
-export default function userboard() {
+export default function Userboard() {
 
 return (
     <>
@@ -51,7 +50,7 @@ return (
                 </Grid.Column>
                 <Grid.Column width={2}>
                 <div className={styles.bt_wrap}>
-                    <a href="/userboard/create" className={styles.on}>글 작성</a>
+                    <div className={styles.on}>글 작성</div>
                 </div>
                 </Grid.Column>
             </Grid>
@@ -68,7 +67,7 @@ return (
                 <div>
                     <div className={styles.type}>강남</div>
                     <div className={styles.num}>1</div>
-                    <div className={styles.title}><a href="/userboard/detail">제목test</a></div>
+                    <div className={styles.title}>제목test</div>
                     <div className={styles.writer}>하루</div>
                     <div className={styles.date}>2022.03.14</div>
                 </div>

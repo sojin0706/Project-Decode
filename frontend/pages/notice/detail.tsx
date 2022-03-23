@@ -1,10 +1,9 @@
 import {
     Comment,
-    Item,
     Button,
     Grid,
   } from "semantic-ui-react";
-import React, {Component} from 'react'
+import React from 'react'
   
 import styles from "../../styles/notice/detail.module.css";
 
@@ -55,8 +54,8 @@ return (
                     
                 </div>
                 <div className={styles.bt_wrap}>
-                    <a href="/notice" className={styles.on}>목록</a>
-                    <a href="/notice/create">수정</a>
+                    <div className={styles.on}>목록</div>
+                    <div>수정</div>
                 </div>
                 <div className={styles.comment_cont}>
                             <Grid verticalAlign='middle' centered>
