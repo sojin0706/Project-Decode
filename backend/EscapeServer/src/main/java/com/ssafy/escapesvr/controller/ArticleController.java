@@ -30,7 +30,7 @@ public class ArticleController {
 
     private final ArticleServiceImpl articleService;
     
-    //게시글생성
+    //게시글 생성
     @ApiOperation(value = "유저게시글 생성", notes = "게시글을 작성한다", response = Map.class)
     @PostMapping
     public ResponseEntity<Map<String, Object>> save(@RequestBody @ApiParam(value = "게시글에 대한 정보", required = true) @Valid ArticleRequestDto articleRequestDto) {
@@ -134,6 +134,7 @@ public class ArticleController {
     @ApiOperation(value = "자신(회원)이 쓴 유저게시글 리스트", notes = "(프로필페이지에서 확인) 회원이 자신이 작성한 유저게시판의 모든 게시글 리스트를 불러온다")
     @GetMapping("/profile/{userId}")
     public ResponseEntity<Map<String, Object>> getMyArticleList(@PathVariable @ApiParam(value = "회원번호") Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable) {
+
         Map<String, Object> result = new HashMap<>();
         Page<ArticleResponseDto> myArticleList = null;
         HttpStatus status = null;
