@@ -1,33 +1,96 @@
-import { Grid, Header } from "semantic-ui-react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Grid, Header, Select } from "semantic-ui-react";
 import Region from "../../src/component/filter/region";
 import Detail from "../../src/component/modal/detail";
+import allAxios from "../../src/lib/allAxios";
+import IsLogin from "../../src/lib/customLogin";
+
+const regionOptions = [
+    { key: '전체', value: '전체', text: '전체' },
+    { key: '서울', value: '서울', text: '서울' },
+    { key: '경기/인천', value: '경기/인천', text: '경기/인천' },
+    { key: '충청', value: '충청', text: '충청' },
+    { key: '강원', value: '강원', text: '강원' },
+    { key: '경상', value: '경상', text: '경상' },
+    { key: '전라', value: '전라', text: '전라' },
+    { key: '제주', value: '제주', text: '제주' },
+]
 
 export default function Recommend(){
 
+    const router = useRouter()
+
+    const [region, setRegion] = useState(null)
+    const [smallRegion, setSmallRegion] = useState(null)
+    const [smallRegionOptions, setSmallRegionOptions] = useState([{ key: '전체', value: '전체', text: '전체' }])
+
     const thema = {
+        themeId: 2,
         theme_name: '완전한 사랑',
-        difficulty: 3,
-        genre: '감성/드라마',
-        reco_person: 3,
-        max_person: 3,
-        time: 60,
-        posterUrl: 'https://next-edition.s3.amazonaws.com/theme/title_image_url/%EC%99%84%EC%A0%84%ED%95%9C%EC%82%AC%EB%9E%91(%EB%A6%AC%EB%89%B4%EC%96%BC)/theme__%E1%84%8B%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%BC-%E1%84%91%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%A5_%EC%99%84%EC%A0%84%ED%95%9C%EC%82%AC%EB%9E%91(%EB%A6%AC%EB%89%B4%EC%96%BC).jpg',
     }
+
+    useEffect(() => {
+        // if (!IsLogin()){
+        //     alert('로그인 후 이용해주세요')
+        //     router.push('/')
+        // }
+        loadSmallRegion(null)
+    }, [])
+
+    function selectedRegion(e: any){
+        setSmallRegion(null)
+        if (e.target.textContent === '전체'){
+            loadSmallRegion(null)
+            setRegion(null)
+            return
+        }
+        setRegion(e.target.textContent) 
+        loadSmallRegion(e.target.textContent)
+    }
+
+    function selectedSmallRegion(e: any){
+        setSmallRegion(e.target.textContent)
+    }
+
+    const loadSmallRegion = async (region: any) => {
+        await allAxios
+            .get("/information/region", {
+                params: {
+                    largeRegion: region
+                }
+            })
+            .then(({ data }) => {
+                const tempRegion = data.smallRegions.map((regions: String) => {
+                    return {key: regions, value:regions, text: regions}
+                })
+                setSmallRegionOptions(tempRegion)
+            })
+            .catch((e: any) => {
+                console.log(e)
+            })
+    }
+
 
     return (
         <>
             <Grid stackable>
                 <Grid.Row>
                     <Grid.Column width={2}/>
-                    <Grid.Column width={12}>
-                        <Region />
+                    <Grid.Column width={3}>
+                        <Header as='h5'>지역</Header>
+                        <Select placeholder='지역' options={regionOptions} onChange={selectedRegion} />
+                    </Grid.Column>
+                    <Grid.Column width={3}>
+                        <Header as='h5'>세부지역</Header>
+                        <Select placeholder='세부지역' options={smallRegionOptions} onChange={selectedSmallRegion} />
                     </Grid.Column>
                     <Grid.Column width={2}/>
                 </Grid.Row>
                 <Grid.Row>
                     <Grid.Column width={2}/>
                     <Grid.Column width={12}>
-                        <Header as='h3'>'유저' 님이 좋아하실만한 테마를 준비해봤어요!</Header>
+                        <Header as='h3'>[유저] 님이 좋아하실만한 테마를 준비해봤어요!</Header>
                         <Detail theme={thema} isImage={true} w={150} h={200}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Detail theme={thema} isImage={true} w={150} h={200}/>
@@ -42,7 +105,7 @@ export default function Recommend(){
                 <Grid.Row>
                     <Grid.Column width={2}/>
                     <Grid.Column width={12}>
-                        <Header as='h3'>'유저' 님이 좋아하실만한 테마를 준비해봤어요!</Header>
+                        <Header as='h3'>[유저] 님이 좋아하실만한 테마를 준비해봤어요!</Header>
                         <img src="https://next-edition.s3.amazonaws.com/theme/title_image_url/MEMORY%20-%20Episode%201/theme__%E1%84%86%E1%85%A6%E1%84%86%E1%85%A9%E1%84%85%E1%85%B5-%E1%84%91%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%A5-%E1%84%8E%E1%85%AC%E1%84%8C%E1%85%A9%E1%86%BC_%E1%84%8C%E1%85%A5%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%85%E1%85%A3%E1%86%BC__MEMORY%20-%20Episode%201.jpg" alt="맞춤추천" height="200px" width="150px" />
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <img src="https://next-edition.s3.amazonaws.com/theme/title_image_url/%EC%99%84%EC%A0%84%ED%95%9C%EC%82%AC%EB%9E%91(%EB%A6%AC%EB%89%B4%EC%96%BC)/theme__%E1%84%8B%E1%85%AA%E1%86%AB%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AB%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%BC-%E1%84%91%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%A5_%EC%99%84%EC%A0%84%ED%95%9C%EC%82%AC%EB%9E%91(%EB%A6%AC%EB%89%B4%EC%96%BC).jpg" alt="맞춤추천" height="200px" width="150px" />
@@ -56,7 +119,7 @@ export default function Recommend(){
                 <Grid.Row>
                     <Grid.Column width={2}/>
                     <Grid.Column width={12}>
-                        <Header as='h3'>'유저' 님과 같은 '20'대 '여성'들이 좋아하는 방에 도전해보세요!</Header>
+                        <Header as='h3'>[유저] 님과 같은 [20]대 [여성]들이 좋아하는 방에 도전해보세요!</Header>
                         <img src="https://next-edition.s3.amazonaws.com/theme/title_image_url/%EC%A0%80%EB%8B%88(JOURNEY)/theme__%E1%84%8C%E1%85%A5%E1%84%82%E1%85%B5_%E1%84%8E%E1%85%AC%E1%84%8C%E1%85%A9%E1%86%BC_%EC%A0%80%EB%8B%88(JOURNEY).jpg" alt="연령추천" height="200px" width="150px" />
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <img src="https://next-edition.s3.amazonaws.com/theme/title_image_url/%ED%80%B4%EC%A6%88%20%EC%9D%B8%20%EB%8D%94%20%EB%85%B8%EB%B8%94%20(Quiz%20in%20The%20Noble)/theme__%E1%84%8F%E1%85%B1%E1%84%8C%E1%85%B3%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%83%E1%85%A5%E1%84%82%E1%85%A9%E1%84%87%E1%85%B3%E1%86%AF_%ED%80%B4%EC%A6%88%20%EC%9D%B8%20%EB%8D%94%20%EB%85%B8%EB%B8%94%20(Quiz%20in%20The%20Noble).jpg" alt="연령추천" height="200px" width="150px" />
@@ -70,7 +133,7 @@ export default function Recommend(){
                 <Grid.Row>
                     <Grid.Column width={2}/>
                     <Grid.Column width={12}>
-                        <Header as='h3'>'유저' 님이 좋아하는 '추리'장르를 모아봤어요!</Header>
+                        <Header as='h3'>[유저] 님이 좋아하는 [추리]장르를 모아봤어요!</Header>
                         <img src="https://next-edition.s3.amazonaws.com/theme/title_image_url/SOS/theme__SOS_%E1%84%91%E1%85%A9%E1%84%89%E1%85%B3%E1%84%90%E1%85%A5_%E1%84%89%E1%85%AE%E1%84%8C%E1%85%A5%E1%86%BC_%E1%84%8C%E1%85%A5%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%85%E1%85%A3%E1%86%BC__SOS.jpg" alt="장르추천" height="200px" width="150px" />
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <img src="http://red.doorescape.co.kr/upload/theme/theme51247_0.jpg" alt="장르추천" height="200px" width="150px" />
