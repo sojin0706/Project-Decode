@@ -162,7 +162,7 @@ export default function Reviewboard({ themeIds }: any){
                         <Header as='h5'>후기</Header>
                     </Grid.Column>
                 </Grid.Row>
-                {reviewInfo.map((review: any, index) => {
+                {reviewInfo?reviewInfo.map((review: any, index) => {
                     return(
                         <Grid.Row key={review.themeReviewId}>
                             <Grid.Column width={1}>
@@ -190,7 +190,7 @@ export default function Reviewboard({ themeIds }: any){
                             </Grid.Column>
                         </Grid.Row>
                     );
-                })}
+                }):''}
                 <Grid.Row />
                 {userInfo.nick_name?
                 <Grid.Row>
