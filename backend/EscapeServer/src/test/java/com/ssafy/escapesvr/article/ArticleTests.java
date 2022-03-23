@@ -37,10 +37,10 @@
 ////        assertThat(entity.getContent()).isEqualTo("3번 게시글 내용");
 ////        assertThat(entity.getUserId()).isEqualTo(3);
 ////    }
-////    @Test
-////    void test(){
-////        urlToMultipartService.changeUrl();
-////    }
+//    @Test
+//    void test(){
+//        urlToMultipartService.changeUrl();
+//    }
 //
 //
 //
