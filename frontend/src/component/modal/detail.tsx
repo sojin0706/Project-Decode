@@ -14,18 +14,20 @@ export default function Detail({theme, isImage, w, h}: any){
     }, [])
 
     const loadDetailInfomation = async () => {
-        await allAxios
-            .get(`/information/detail/${theme.themeId}`, {
-                params: {
-                    themeId: theme.themeId
-                }
-            })
-            .then(({ data }) => {
-                setThemeDetail(data.storeandtheme)
-            })
-            .catch((e) => {
-                console.log(e)
-            })
+        if (theme.themeId){
+            await allAxios
+                .get(`/information/detail/${theme.themeId}`, {
+                    params: {
+                        themeId: theme.themeId
+                    }
+                })
+                .then(({ data }) => {
+                    setThemeDetail(data.storeandtheme)
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        }
     }
 
     return (
