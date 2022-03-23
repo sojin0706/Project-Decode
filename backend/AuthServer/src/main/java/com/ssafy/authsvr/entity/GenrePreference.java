@@ -1,6 +1,6 @@
 package com.ssafy.authsvr.entity;
 
-import com.ssafy.authsvr.payload.request.UserRequestDto;
+import com.ssafy.authsvr.payload.request.UserProfileRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -59,7 +59,7 @@ public class GenrePreference {
         this.user = user;
     }
 
-    public static GenrePreference genrePreferenceBuild(UserRequestDto.preferenceGenre genre, User user) {
+    public static GenrePreference genrePreferenceBuild(UserProfileRequest.preferenceGenre genre, User user) {
         return GenrePreference.builder()
                 .id(user.getId())
                 .thrill(genre.getThrill())
