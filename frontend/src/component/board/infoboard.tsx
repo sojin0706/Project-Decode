@@ -32,6 +32,7 @@ export default function Infoboard() {
 
     const [themeInfo, setThemeInfo] = useState([])
     const [pages, setPages] = useState(0)
+    const [totalPages, setTotalPages] = useState(10)
     const [region, setRegion] = useState(null)
     const [smallRegion, setSmallRegion] = useState(null)
     const [smallRegionOptions, setSmallRegionOptions] = useState([{ key: '전체', value: '전체', text: '전체' }])
@@ -43,10 +44,16 @@ export default function Infoboard() {
 
     useEffect(() => {
         loadInfomation(pages)
-    }, [person, difficulty, minute, pages, genres, region])
+    }, [person, difficulty, minute, pages, genres, region, smallRegion])
+
+    useEffect(() => {
+        loadSmallRegion(null)
+    }, [])
 
     function selectedRegion(e: any){
+        setSmallRegion(null)
         if (e.target.textContent === '전체'){
+            loadSmallRegion(null)
             setRegion(null)
             return
         }
@@ -88,17 +95,19 @@ export default function Infoboard() {
                     page: pages,
                     genre: genres,
                     largeRegion: region,
+                    smallRegion: smallRegion,
                 }
             })
             .then(({ data }) => {
-                setThemeInfo(data.informationList)
+                setTotalPages(data.informationList.totalPages)
+                setThemeInfo(data.informationList.content)
             })
             .catch((e) => {
                 console.log(e)
             })
     }
 
-    const loadSmallRegion = async (region: String) => {
+    const loadSmallRegion = async (region: any) => {
         await allAxios
             .get("/information/region", {
                 params: {
@@ -106,7 +115,10 @@ export default function Infoboard() {
                 }
             })
             .then(({ data }) => {
-                console.log(data)
+                const tempRegion = data.smallRegions.map((regions: String) => {
+                    return {key: regions, value:regions, text: regions}
+                })
+                setSmallRegionOptions(tempRegion)
             })
             .catch((e: any) => {
                 console.log(e)
@@ -114,21 +126,24 @@ export default function Infoboard() {
     }
 
     function movePage(e: any) {
+        console.log(e)
         if(e.target.type == "nextItem"){
+            if (pages >= totalPages-1){
+                return
+            }
             setPages(pages+1)
         } else if (e.target.type === "prevItem"){
             if (pages < 1){
                 return
             }
             setPages(Number(pages-1))
-        } else {
+        } else if (e.target.type === 'pageItem'){
             setPages(e.target.textContent-1)
         }
     }
 
     return(
         <>
-            
             <Grid stackable>
                 <Grid.Row>
                     <Grid.Column width={5}>
@@ -242,7 +257,7 @@ export default function Infoboard() {
                         firstItem={null}
                         lastItem={null}
                         siblingRange={2}
-                        totalPages={10}
+                        totalPages={totalPages}
                         onClick={movePage}
                     />
             </Grid>
