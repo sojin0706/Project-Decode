@@ -7,6 +7,8 @@ import com.ssafy.escapesvr.repository.querydsl.SearchRepository;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -84,12 +86,22 @@ public class ArticleServiceImpl implements ArticleService{
 
     }
 
+
+
     //회원 별 게시물 조회
     @Override
-    public List<ArticleResponseDto> getMyArticleList(Integer userId, Pageable pageable) {
+    public Page<ArticleResponseDto> getMyArticleList(Integer userId, Pageable pageable) {
 
-        List<Article> myArticleList = articleRepository.findByUserId(userId);
-        return myArticleList.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
+
+        Page<Article> myArticleList = articleRepository.findByUserId(userId,pageable);
+
+        Page<ArticleResponseDto> myArticle=myArticleList.map( o-> new ArticleResponseDto(o.getId(),o.getTitle(), o.getContent(), o.getSmallRegion(), o.getRecommend(), o.getReport(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getNickName(), o.getUserImage()));
+
+       // return myArticleList.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
+
+        return  myArticle;
+
+
     }
 
 

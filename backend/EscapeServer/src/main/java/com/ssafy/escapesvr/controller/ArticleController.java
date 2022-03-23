@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -79,7 +80,7 @@ public class ArticleController {
     //게시글 검색
     @ApiOperation(value = "유저게시판 게시글 검색", notes = "유저게시판 게시글 검색한 리스트를 불러온다", response = Map.class)
     @PostMapping("/board")
-    public ResponseEntity<Map<String, Object>> postList(@RequestParam(required = false) @ApiParam(value = "게시글 검색에 필요한 지역 정보") String smallRegion, @ApiParam(value = "게시글 검색에 사용한 필터(제목,내용,작성자)와 해당 내용(값)") SearchDto searchDto)  {
+    public ResponseEntity<Map<String, Object>> postList(@RequestParam(required = false) @ApiParam(value = "지역 정보(지역소분류 ex)강남)") String smallRegion, @ApiParam(value = "게시글 검색 필터(제목,내용,작성자 중 선택한 사항)와 해당 검색 내용(value)") SearchDto searchDto)  {
 
         Map<String, Object> result = new HashMap<>();
         List<ArticleResponseDto> articleList = null;
@@ -134,7 +135,7 @@ public class ArticleController {
     @GetMapping("/profile/{userId}")
     public ResponseEntity<Map<String, Object>> getMyArticleList(@PathVariable @ApiParam(value = "회원번호") Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable) {
         Map<String, Object> result = new HashMap<>();
-        List<ArticleResponseDto> myArticleList = null;
+        Page<ArticleResponseDto> myArticleList = null;
         HttpStatus status = null;
         try {
             myArticleList = articleService.getMyArticleList(userId, pageable);

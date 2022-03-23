@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -73,7 +74,7 @@ public class ArticleCommentController {
     public ResponseEntity<Map<String, Object>> getMyArticleCommentList(@PathVariable("userId") @ApiParam(value = "회원번호") Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable) {
 
         Map<String, Object> result = new HashMap<>();
-        List<ArticleCommentResponseDto> myArticleCommentList = null;
+        Page<ArticleCommentResponseDto> myArticleCommentList = null;
         HttpStatus status = null;
         try {
             myArticleCommentList = articleCommentService.getMyArticleCommentList(userId, pageable);
