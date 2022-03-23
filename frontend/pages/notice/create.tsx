@@ -1,7 +1,7 @@
 import {
     Grid,
   } from "semantic-ui-react";
-import React, {Component} from 'react'
+import React from 'react'
 import styles from "../../styles/notice/create.module.css";
 
 export default function noticecreate() {
@@ -48,8 +48,8 @@ return (
 
 
                 <div className={styles.bt_wrap}>
-                    <a href="/notice" className={styles.on}>등록</a>
-                    <a href="/notice">취소</a>
+                    <div className={styles.on}>등록</div>
+                    <div>취소</div>
                 </div>
             </div>
     </div>

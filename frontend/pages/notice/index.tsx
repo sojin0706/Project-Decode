@@ -3,7 +3,7 @@ import {
     Pagination,
     Grid,
   } from "semantic-ui-react";
-import React, {Component} from 'react'
+import React from 'react'
   
 import styles from "../../styles/notice/notice.module.css";
 
@@ -26,7 +26,7 @@ return (
                 </Grid.Column>
                 <Grid.Column width={3}>
                 <div className={styles.bt_wrap}>
-                    <a href="/notice/create" className={styles.on}>글 작성</a>
+                    <a className={styles.on}>글 작성</a>
                 </div>
                 </Grid.Column>
             </Grid>
@@ -50,7 +50,7 @@ return (
                 <div>
                     <div className={styles.type}>Q&A</div>
                     <div className={styles.num}>1</div>
-                    <div className={styles.title}><a href="/notice/detail">제목test</a></div>
+                    <div className={styles.title}>제목test</div>
                     <div className={styles.writer}>하루</div>
                     <div className={styles.date}>2022.03.14</div>
                 </div>
@@ -68,9 +68,6 @@ return (
              />
 
             </div>
-            {/* <div className={styles.bt_wrap}>
-                <a href="/notice/create" className={styles.on2}>공지 작성</a>
-            </div> */}
         </div>
     </div>
     </Grid.Column>

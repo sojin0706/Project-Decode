@@ -1,17 +1,15 @@
 import {
     Button,
     Comment,
-    Image,
-    Item,
     Grid,
     Icon,
   } from "semantic-ui-react";
-import React, {Component} from 'react'
+import React from 'react'
   
 import styles from "../../styles/userboard/detail.module.css";
 
 
-export default function userboard_detail() {
+export default function Userboard_detail() {
 
 return (
     <>
@@ -86,8 +84,8 @@ return (
                     </div>
                     <br />
                 <div className={styles.bt_wrap}>
-                    <a href="/userboard" className={styles.on}>목록</a>
-                    <a href="/userboard/create">수정</a>
+                    <div className={styles.on}>목록</div>
+                    <div>수정</div>
                 </div>
                     <div className={styles.comments}>
                         
@@ -119,18 +117,6 @@ return (
                                     </div>
                                 </Grid.Column>
                             </Grid>
-                            {/* <dl>
-                                <dt>
-                                    하루
-                                </dt>
-                                <dd>
-                                    <textarea placeholder="댓글을 작성해주세요"></textarea>
-                                </dd>
-                                <div className={styles.comment_button}>
-                                    <Button color='black'> 작성 </Button>
-                                </div>
-                               
-                            </dl> */}
                         </div>
                         <Comment.Group >
                             <Comment>
