@@ -17,5 +17,5 @@ public interface ArticleService {
     Integer recommendArticle(Long id); //게시글 아이디로 추천 수 증가
     Integer reportArticle(Long id); //게시글 아이디로 신고 수 증가
 
-    List<ArticleResponseDto> postList(SearchDto searchDto);
+    List<ArticleResponseDto> postList(String smallRegion, SearchDto searchDto);
 }

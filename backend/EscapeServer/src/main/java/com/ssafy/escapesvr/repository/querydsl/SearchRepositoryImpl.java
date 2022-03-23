@@ -26,18 +26,23 @@ public class SearchRepositoryImpl implements SearchRepository {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
-
     @Override
-    public List<Article> findPageDynamicQuery(SearchDto searchDto) {
-
+    public List<Article> findPageDynamicQuery(String smallRegion, SearchDto searchDto) {
         return queryFactory
                 .select(qArticle)
                 .from(qArticle)
-                .where(searchDtoEq(searchDto))
+                .where(smallRegionEq(smallRegion),searchDtoEq(searchDto))
                 .orderBy(qArticle.createdAt.desc())
                 .fetch();
-
     }
+
+    private BooleanExpression smallRegionEq(String smallRegion) {
+        if(smallRegion!=null){ //소분류지역선택한 것에 따라서 조회
+            return article.smallRegion.contains(smallRegion);
+        } //만약 전체지역을 선택했다면 smallRegion은 null이 넘어옴
+        return null;
+    }
+
 
     private BooleanExpression searchDtoEq(SearchDto searchDto) {
         if(searchDto.getSearchKey()!=null && searchDto.getSearchValue()!=null){
@@ -52,4 +57,6 @@ public class SearchRepositoryImpl implements SearchRepository {
         }
         return null;
     }
+
+
 }

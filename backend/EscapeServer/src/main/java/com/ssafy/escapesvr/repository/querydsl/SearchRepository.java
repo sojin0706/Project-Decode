@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface SearchRepository {
 
-    List<Article> findPageDynamicQuery(SearchDto searchDto);
+    List<Article> findPageDynamicQuery(String smallRegion, SearchDto searchDto);
 }

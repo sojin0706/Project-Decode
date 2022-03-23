@@ -92,12 +92,11 @@ public class ArticleServiceImpl implements ArticleService{
         return myArticleList.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
     }
 
+
     @Override
-    public List<ArticleResponseDto> postList(SearchDto searchDto) {
-
-        List<Article> articleList = articleRepository.findPageDynamicQuery(searchDto);
+    public List<ArticleResponseDto> postList(String smallRegion, SearchDto searchDto) {
+        List<Article> articleList = articleRepository.findPageDynamicQuery(smallRegion, searchDto);
         return articleList.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
-
     }
 
     //게시글 수정
