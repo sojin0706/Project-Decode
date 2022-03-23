@@ -1,13 +1,16 @@
 package com.ssafy.escapesvr.service;
 
 import com.ssafy.escapesvr.client.UserServiceClient;
+import com.ssafy.escapesvr.dto.ArticleResponseDto;
 import com.ssafy.escapesvr.dto.ProfileRequestDto;
 import com.ssafy.escapesvr.dto.QnaNoticeRequestDto;
 import com.ssafy.escapesvr.dto.QnaNoticeResponseDto;
+import com.ssafy.escapesvr.entity.Article;
 import com.ssafy.escapesvr.entity.QnaNotice;
 import com.ssafy.escapesvr.repository.QnaNoticeRepository;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -89,9 +92,14 @@ public class QnaNoticeServiceImpl implements QnaNoticeService{
 
     //회원 별 게시글 조회
     @Override
-    public List<QnaNoticeResponseDto> getMyQnaList(Integer userId, Pageable pageable) {
-        List<QnaNotice> myQnaNotices = qnaNoticeRepository.findByUserId(userId);
-        return myQnaNotices.stream().map(QnaNoticeResponseDto::new).collect(Collectors.toList());
+    public Page<QnaNoticeResponseDto> getMyQnaList(Integer userId, Pageable pageable) {
+
+
+        Page<QnaNotice> myQnaNotices = qnaNoticeRepository.findByUserId(userId,pageable);
+
+        Page<QnaNoticeResponseDto> myQnaNotice = myQnaNotices.map(o -> new QnaNoticeResponseDto(o.getId(),o.getTitle(), o.getContent(),  o.getIsSecret(), o.getIsNotice(), o.getCreatedAt(), o.getModifiedAt(),o.getUserId(), o.getNickName(), o.getUserImage()));
+
+        return  myQnaNotice;
     }
 
 

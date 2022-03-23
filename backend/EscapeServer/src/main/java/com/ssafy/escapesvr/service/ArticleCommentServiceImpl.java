@@ -1,16 +1,14 @@
 package com.ssafy.escapesvr.service;
 
 import com.ssafy.escapesvr.client.UserServiceClient;
-import com.ssafy.escapesvr.dto.ArticleCommentRequestDto;
-import com.ssafy.escapesvr.dto.ArticleCommentResponseDto;
-import com.ssafy.escapesvr.dto.ProfileRequestDto;
-import com.ssafy.escapesvr.dto.QnaCommentResponseDto;
+import com.ssafy.escapesvr.dto.*;
 import com.ssafy.escapesvr.entity.Article;
 import com.ssafy.escapesvr.entity.ArticleComment;
 import com.ssafy.escapesvr.repository.ArticleCommentRepository;
 import com.ssafy.escapesvr.repository.ArticleRepository;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,9 +38,11 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
 
     //내가 쓴 댓글 조회
     @Override
-    public List<ArticleCommentResponseDto> getMyArticleCommentList(Integer userId, Pageable pageable) {
-        List<ArticleComment> myArticleComments = articleCommentRepository.findByUserIdOrderByCreatedAtDesc(userId);
-        return myArticleComments.stream().map(ArticleCommentResponseDto::new).collect(Collectors.toList());
+    public Page<ArticleCommentResponseDto> getMyArticleCommentList(Integer userId, Pageable pageable) {
+        Page<ArticleComment> myArticleComments = articleCommentRepository.findByUserIdOrderByCreatedAtDesc(userId, pageable);
+        Page<ArticleCommentResponseDto> myArticleComment = myArticleComments.map(o-> new ArticleCommentResponseDto(o.getId(), o.getContent(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getArticle().getId(), o.getNickName(), o.getUserImage()));
+
+        return myArticleComment;
     }
 
 
@@ -59,6 +59,7 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
         articleComment.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
         articleComment.setArticle(article);
         articleComment.setUserId(articleCommentRequestDto.getUserId());
+
         try{
             ProfileRequestDto profileRequestDto = userServiceClient.userFindProfile(articleCommentRequestDto.getUserId());
             articleComment.setNickName(profileRequestDto.getNickName());

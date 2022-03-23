@@ -3,11 +3,13 @@ package com.ssafy.escapesvr.dto;
 import com.ssafy.escapesvr.entity.Article;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
+@AllArgsConstructor
 @ApiModel(description = "유저게시판 응답 DTO 클래스")
 public class ArticleResponseDto {
 

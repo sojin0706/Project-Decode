@@ -27,7 +27,7 @@ public class ArticleCommentRequestDto {
     private String content; //댓글 내용
 
     @ApiModelProperty(value = "유저게시판 작성글 번호(articleId)", required = true)
-    @NotBlank
+    @NotNull
     private Long articleId; //게시글 번호
 
     @ApiModelProperty(value = "유저게시판 댓글 작성자 번호(userId)", required = true)

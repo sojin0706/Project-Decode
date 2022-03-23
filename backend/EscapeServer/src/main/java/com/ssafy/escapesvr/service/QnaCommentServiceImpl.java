@@ -5,12 +5,14 @@ import com.ssafy.escapesvr.client.UserServiceClient;
 import com.ssafy.escapesvr.dto.ProfileRequestDto;
 import com.ssafy.escapesvr.dto.QnaCommentRequestDto;
 import com.ssafy.escapesvr.dto.QnaCommentResponseDto;
+import com.ssafy.escapesvr.dto.QnaNoticeResponseDto;
 import com.ssafy.escapesvr.entity.QnaComment;
 import com.ssafy.escapesvr.entity.QnaNotice;
 import com.ssafy.escapesvr.repository.QnaCommentRepository;
 import com.ssafy.escapesvr.repository.QnaNoticeRepository;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,9 +41,12 @@ public class QnaCommentServiceImpl implements QnaCommentService {
 
     //회원 별 댓글 조회
     @Override
-    public List<QnaCommentResponseDto> getMyQnaCommentList(Integer userId, Pageable pageable) {
-        List<QnaComment> myQnaComments = qnaCommentRepository.findByUserIdOrderByCreatedAtDesc(userId);
-        return myQnaComments.stream().map(QnaCommentResponseDto::new).collect(Collectors.toList());
+    public Page<QnaCommentResponseDto> getMyQnaCommentList(Integer userId, Pageable pageable) {
+
+        Page<QnaComment> myQnaComments = qnaCommentRepository.findByUserIdOrderByCreatedAtDesc(userId, pageable);
+        Page<QnaCommentResponseDto> myQnaComment = myQnaComments.map(o-> new QnaCommentResponseDto(o.getId(), o.getContent(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getQnaNotice().getId(), o.getNickName(), o.getUserImage()));
+        return myQnaComment;
+
     }
 
     //댓글 작성

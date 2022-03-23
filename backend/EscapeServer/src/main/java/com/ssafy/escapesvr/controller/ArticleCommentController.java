@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -32,7 +33,7 @@ public class ArticleCommentController {
     private final ArticleService articleService;
 
 
-    //댓글 작성
+    //유저게시판 댓글 작성
     @ApiOperation(value = "유저게시글 댓글 작성", notes = "게시글에 댓글을 작성한다", response = Map.class)
     @PostMapping
     public ResponseEntity<String> insertArticleComment(@RequestBody @ApiParam(value = "댓글 작성 모델")  @Valid ArticleCommentRequestDto articleCommentRequestDto) {
@@ -73,7 +74,7 @@ public class ArticleCommentController {
     public ResponseEntity<Map<String, Object>> getMyArticleCommentList(@PathVariable("userId") @ApiParam(value = "회원번호") Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable) {
 
         Map<String, Object> result = new HashMap<>();
-        List<ArticleCommentResponseDto> myArticleCommentList = null;
+        Page<ArticleCommentResponseDto> myArticleCommentList = null;
         HttpStatus status = null;
         try {
             myArticleCommentList = articleCommentService.getMyArticleCommentList(userId, pageable);
