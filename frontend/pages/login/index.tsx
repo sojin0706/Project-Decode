@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  Form,
-  Input,
-  Radio,
-  Menu,
-  Grid,
-  Button,
-  Checkbox,
-} from "semantic-ui-react";
+import { Form, Input, Grid, Button } from "semantic-ui-react";
 
 // components
 import IsLogin from "../../src/lib/customLogin";
+import Router, { useRouter } from "next/router";
 
 export default function Index() {
   // 유저 정보 불러오기
@@ -43,9 +36,23 @@ export default function Index() {
   const [sex, setSex] = useState("M");
 
   const handleChangeSex = (e: any) => {
-    console.log(e.target);
     setSex(e.target.value);
   };
+
+  // 연령대 선택
+  const ages = [
+    { key: 1, text: "10대 이하", value: 10},
+    { key: 2, text: "20대", value: 20},
+    { key: 3, text: "30대", value: 30},
+    { key: 4, text: "40대 이상", value: 40},
+  ]
+
+  const [age, setAge] = useState(10)
+  
+  const handleChangeAges = (e: any) => {
+    setAge(e.target.value)
+  }
+
 
   // 지역 선택
   const bigPlace = [
@@ -57,9 +64,7 @@ export default function Index() {
     { key: 6, text: "전라", value: "전라" },
     { key: 7, text: "제주", value: "제주" },
   ];
-
   const [selectedBigPlace, setSelectedBigPlace] = useState("서울");
-
   const [smallPlace, setSmallPlace] = useState([]);
   const [selectedSmallPlace, setselectedSmallPlace] = useState("");
 
@@ -74,20 +79,6 @@ export default function Index() {
         setselectedSmallPlace(data[0]);
       });
   }, []);
-
-  const genre = [
-    { key: "thrill", text: "스릴러", value: 0 },
-    { key: "romance", text: "로맨스", value: 0 },
-    { key: "reasoning", text: "추리", value: 0 },
-    { key: "sffantasy", text: "SF/판타지", value: 0 },
-    { key: "adventure", text: "모험/액션", value: 0 },
-    { key: "comedy", text: "코미디", value: 0 },
-    { key: "crime", text: "범죄", value: 0 },
-    { key: "horror", text: "공포", value: 0 },
-    { key: "adult", text: "19금", value: 0 },
-    { key: "drama", text: "감성/드라마", value: 0 },
-  ];
-
   const handleChangeBig = (e: any) => {
     axios
       .get(
@@ -101,6 +92,20 @@ export default function Index() {
   const handleChangeSmall = (e: any) => {
     setselectedSmallPlace(e.target.value);
   };
+
+  // 장르 선택
+  const genre = [
+    { key: "thrill", text: "스릴러", value: 0 },
+    { key: "romance", text: "로맨스", value: 0 },
+    { key: "reasoning", text: "추리", value: 0 },
+    { key: "sffantasy", text: "SF/판타지", value: 0 },
+    { key: "adventure", text: "모험/액션", value: 0 },
+    { key: "comedy", text: "코미디", value: 0 },
+    { key: "crime", text: "범죄", value: 0 },
+    { key: "horror", text: "공포", value: 0 },
+    { key: "adult", text: "19금", value: 0 },
+    { key: "drama", text: "감성/드라마", value: 0 },
+  ];
 
   const score = [
     { key: 1, text: "1점", value: 1 },
@@ -150,6 +155,46 @@ export default function Index() {
   const handleChangeDrama = (e: any) => {
     setDrama(e.target.value);
   };
+
+  // 정보수정
+  const router = useRouter()
+  const edit = (e:any)=> {
+    var Token: any = null;
+    if (typeof window !== "undefined") Token = localStorage.getItem("token");
+
+    e.preventDefault();
+    axios({
+      url:"http://j6c203.p.ssafy.io:8081/user/recommend",
+      method: "put",
+      headers: { Authorization: `Bearer ${Token}` },
+      data: {
+        "age": 0,
+        "gender": "string",
+        "large_region": "string",
+        "nick_name": "string",
+        "preference_genre": {
+          "adult": 0,
+          "adventure": 0,
+          "comedy": 0,
+          "crime": 0,
+          "drama": 0,
+          "horror": 0,
+          "reasoning": 0,
+          "romance": 0,
+          "sf_fantasy": 0,
+          "thrill": 0
+        },
+        "small_region": "string"
+      },
+    })
+    .then(() => {
+      router.push("/");
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+  
 
   return (
     <>
@@ -207,6 +252,18 @@ export default function Index() {
 
               <br></br>
 
+              <div>
+                <p>연령대 {age}</p>
+                <select onChange={(e) => {handleChangeAges(e)}}>
+                  {ages.map((a, i) => {
+                    return (<option value={a.value} key={i}>
+                      {a.text}
+                    </option>
+                    )
+                  })}
+                </select>
+              </div>
+              <br></br>
               <div>
                 <p>대분류 지역을 선택하세요</p>
                 <select onChange={(e) => handleChangeBig(e)}>
