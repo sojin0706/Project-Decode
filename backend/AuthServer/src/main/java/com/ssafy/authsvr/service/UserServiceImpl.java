@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -25,13 +28,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String findNickNameUser(Integer userId) {
-        return userRepository.findById(userId).getNickName();
+        return userRepository.findUserById(userId).getNickName();
     }
 
     @Override
     @Transactional
-    public void ModifiyRecommendInfoUser(UserRequestDto.profileRequest profileRequest) {
-        User user = userRepository.findById(profileRequest.getId());
+    public void ModifyRecommendInfoUser(UserRequestDto.profileRequest profileRequest) {
+        User user = userRepository.findUserById(profileRequest.getId());
+//        List<String> location = new ArrayList<>();
+//        location.add(profileRequest.getLargeRegion());
+//        location.add(profileRequest.getSmallRegion());
         // TODO: 1. 몽고에 추가만 해서 유저 PK값으로 조회한것 중에서 최신 순이 가장 최근에 수정한 거임
 
         // TODO: 2. 몽고, mysql 둘다 넣음
@@ -44,12 +50,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserReponseDto.ProfileResponse findProfileUser(Integer userId) {
-        return UserReponseDto.ProfileResponse.profileResponse(userRepository.findById(userId));
+        return UserReponseDto.ProfileResponse.profileResponse(userRepository.findUserById(userId));
     }
 
     @Override
     public UserReponseDto.AllProfileResponse findAllProfileUser(Integer userId) {
-        return UserReponseDto.AllProfileResponse.allProfileResponse(userRepository.findById(userId),
+        return UserReponseDto.AllProfileResponse.allProfileResponse(userRepository.findUserById(userId),
                                                     genrePreferenceRepository.findGenreById(userId));
     }
 

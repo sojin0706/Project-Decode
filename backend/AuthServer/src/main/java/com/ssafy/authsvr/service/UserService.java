@@ -10,7 +10,7 @@ public interface UserService {
 
     String findNickNameUser(Integer userId);
 
-    void ModifiyRecommendInfoUser(UserRequestDto.profileRequest profileRequest);
+    void ModifyRecommendInfoUser(UserRequestDto.profileRequest profileRequest);
 
     UserReponseDto.ProfileResponse findProfileUser(Integer userId);
 
