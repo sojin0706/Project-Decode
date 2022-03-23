@@ -3,30 +3,30 @@ package com.ssafy.authsvr.payload.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public class UserRequestDto {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserProfileRequest {
 
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class profileRequest {
-        @NotNull
-        private Integer id;
-        @NotBlank
-        private String nickName;
-        @NotNull
-        private Integer age;
-        @NotBlank
-        private String gender;
+    @NotNull
+    private Integer id;
+    @NotBlank
+    private String nickName;
+    @NotNull
+    private Integer age;
+    @NotBlank
+    private String gender;
 
-        private preferenceGenre preferenceGenre;
-        @NotBlank
-        private String largeRegion;
-        @NotBlank
-        private String smallRegion;
-    }
+    private preferenceGenre preferenceGenre;
+
+    @NotBlank
+    private String largeRegion;
+    @NotBlank
+    private String smallRegion;
 
     @Data
     @AllArgsConstructor

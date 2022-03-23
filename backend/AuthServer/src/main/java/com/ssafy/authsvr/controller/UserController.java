@@ -1,7 +1,8 @@
 package com.ssafy.authsvr.controller;
 
-import com.ssafy.authsvr.payload.response.UserReponseDto;
-import com.ssafy.authsvr.payload.request.UserRequestDto;
+import com.ssafy.authsvr.payload.request.UserProfileRequest;
+import com.ssafy.authsvr.payload.response.UserDetailProfileResponse;
+import com.ssafy.authsvr.payload.response.UserProfileResponse;
 import com.ssafy.authsvr.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class UserController {
 
     @ApiOperation(value = "로그인시 추가 정보 및 프로필 회원정보 변경", notes = "추가 회원정보 업데이트")
     @PutMapping("/recommend")
-    public ResponseEntity<String> userRecommendInfoModify(@RequestBody @Valid UserRequestDto.profileRequest profileRequest) {
+    public ResponseEntity<String> userRecommendInfoModify(@RequestBody @Valid UserProfileRequest profileRequest) {
         log.info("userRecommendInfoModify");
 
         if (ObjectUtils.isEmpty(profileRequest)) {
@@ -49,7 +50,7 @@ public class UserController {
 
     @ApiOperation(value = "회원 프로필 정보 조회", notes = "회원 PK값으로 프로필 정보 조회 - 이미지와 닉네임")
     @GetMapping("/profile/{id}")
-    public ResponseEntity<UserReponseDto.ProfileResponse> userFindProfile(@PathVariable("id") Integer id) {
+    public ResponseEntity<UserProfileResponse> userFindProfile(@PathVariable("id") Integer id) {
         log.info("userFindProfile");
 
         return ResponseEntity
@@ -59,7 +60,7 @@ public class UserController {
 
     @ApiOperation(value = "회원 프로필 전체 조회", notes = "회원 PK값으로 프로필 전체 조회")
     @GetMapping("/allProfile/{id}")
-    public ResponseEntity<UserReponseDto.AllProfileResponse> userFindAllProfile(@PathVariable("id") Integer id) {
+    public ResponseEntity<UserDetailProfileResponse> userFindAllProfile(@PathVariable("id") Integer id) {
         log.info("userFindAllProfile");
 
         return ResponseEntity

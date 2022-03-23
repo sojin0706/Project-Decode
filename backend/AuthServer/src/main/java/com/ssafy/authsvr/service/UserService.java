@@ -1,7 +1,8 @@
 package com.ssafy.authsvr.service;
 
-import com.ssafy.authsvr.payload.response.UserReponseDto;
-import com.ssafy.authsvr.payload.request.UserRequestDto;
+import com.ssafy.authsvr.payload.request.UserProfileRequest;
+import com.ssafy.authsvr.payload.response.UserDetailProfileResponse;
+import com.ssafy.authsvr.payload.response.UserProfileResponse;
 import com.ssafy.authsvr.entity.User;
 
 public interface UserService {
@@ -10,9 +11,9 @@ public interface UserService {
 
     String findNickNameUser(Integer userId);
 
-    void ModifyRecommendInfoUser(UserRequestDto.profileRequest profileRequest);
+    void ModifyRecommendInfoUser(UserProfileRequest profileRequest);
 
-    UserReponseDto.ProfileResponse findProfileUser(Integer userId);
+    UserProfileResponse findProfileUser(Integer userId);
 
-    UserReponseDto.AllProfileResponse findAllProfileUser(Integer userId);
+    UserDetailProfileResponse findAllProfileUser(Integer userId);
 }
