@@ -37,7 +37,7 @@ public class InformationController {
 
     @ApiOperation(value = "대분류에 해당하는 소분류 리스트", notes = "대분류 별 소분류 리스트", response = Map.class)
     @GetMapping("/region")
-    public ResponseEntity<Map<String, Object>> getDetail(@RequestParam @ApiParam(value = "대분류 지역") String largeRegion){
+    public ResponseEntity<Map<String, Object>> getDetail(@RequestParam(required = false) @ApiParam(value = "대분류 지역") String largeRegion){
         Map<String, Object> result = new HashMap<>();
         List<String>smallRegions=null;
         HttpStatus httpStatus = null;

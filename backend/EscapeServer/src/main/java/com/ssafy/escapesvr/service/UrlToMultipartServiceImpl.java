@@ -43,28 +43,23 @@ public class UrlToMultipartServiceImpl implements UrlToMultipartService{
     public void changeUrl(){
         List<Theme> themeList=themeRepo.findAll();
 
-        for(Theme theme:themeList){
-            FileItem fileItem=null;
-            try{
-                //url을 inputstream으로 변경
-                InputStream inputStream =   new URL(theme.getPosterUrl()).openStream();
-                // url -> jpg로 변환후 파일 생성
-                File file = File.createTempFile("poster_", ".jpg", new File("C:\\Users\\multicampus\\Documents\\example"));
-                byte[] binary = IOUtils.toByteArray(inputStream);
-                FileUtils.writeByteArrayToFile(file, binary);
-                FileInputStream input = new FileInputStream(file);
-                theme.setPosterUrl("https://escape-bucket.s3.ap-northeast-2.amazonaws.com/"+file.getName());
-                amazonS3.amazonS3Client().putObject(bucket,file.getName(),file);
-                themeRepo.save(theme);
+//        for(Theme theme:themeList){
+        FileItem fileItem=null;
+        try{
+            //url을 inputstream으로 변경
+            InputStream inputStream =   new URL(themeList.get(0).getPosterUrl()).openStream();
+            // url -> jpg로 변환후 파일 생성
+            File file = File.createTempFile("poster_", ".jpg", new File("C:\\Users\\multicampus\\Documents\\example"));
+            byte[] binary = IOUtils.toByteArray(inputStream);
+            FileUtils.writeByteArrayToFile(file, binary);
+            FileInputStream input = new FileInputStream(file);
+            themeList.get(0).setPosterUrl("https://escape-bucket.s3.ap-northeast-2.amazonaws.com/"+file.getName());
+            amazonS3.amazonS3Client().putObject(bucket,file.getName(),file);
+            themeRepo.save(themeList.get(0));
 
-            }catch (IOException e){
-                System.out.println(e);
-            }
-        //    MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
+        }catch (IOException e){
+            System.out.println(e);
         }
+        //    MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
     }
-
-
-
-
 }
