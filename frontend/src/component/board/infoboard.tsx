@@ -127,6 +127,7 @@ export default function Infoboard() {
                 setSmallRegionOptions(tempRegion)
             })
             .catch((e: any) => {
+                alert('잠시후 다시 시도해주세요')
                 console.log(e)
             })
     }
@@ -188,7 +189,7 @@ export default function Infoboard() {
                     {difficulty} 이하<br />
                     <Rating rating={difficulty} maxRating={5}/>
                 </Grid.Column>
-                <Grid.Column width={4}>
+                <Grid.Column width={5}>
                     <Header as='h5'>탈출 시간</Header>
                     <input
                         type='range'
@@ -226,7 +227,7 @@ export default function Infoboard() {
                     <Header as='h4'>시간</Header>
                 </Grid.Column>
                 </Grid.Row>
-                {themeInfo.map((theme: any, index) => {
+                {themeInfo?themeInfo.map((theme: any, index) => {
                     return (
                         <Grid.Row key={theme.theme_id}>
                             <Grid.Column width={2}>
@@ -254,7 +255,7 @@ export default function Infoboard() {
                             </Grid.Column>
                         </Grid.Row>
                     );
-                })} 
+                }):''} 
             </Grid>
             <Grid centered>
                 <Pagination
