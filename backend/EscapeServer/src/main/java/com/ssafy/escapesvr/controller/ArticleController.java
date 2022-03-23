@@ -79,7 +79,7 @@ public class ArticleController {
     //게시글 검색
     @ApiOperation(value = "유저게시판 게시글 검색", notes = "유저게시판 게시글 검색한 리스트를 불러온다", response = Map.class)
     @PostMapping("/board")
-    public ResponseEntity<Map<String, Object>> postList(@RequestParam(required = false) @ApiParam(value = "게시글 검색에 필요한 지역 정보") String smallRegion, @ApiParam(value = "게시글 검색에 사용한 필터(제목,내용,작성자)와 내용") SearchDto searchDto)  {
+    public ResponseEntity<Map<String, Object>> postList(@RequestParam(required = false) @ApiParam(value = "게시글 검색에 필요한 지역 정보") String smallRegion, @ApiParam(value = "게시글 검색에 사용한 필터(제목,내용,작성자)와 해당 내용(값)") SearchDto searchDto)  {
 
         Map<String, Object> result = new HashMap<>();
         List<ArticleResponseDto> articleList = null;
