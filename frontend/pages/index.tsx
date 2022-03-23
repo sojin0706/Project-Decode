@@ -14,16 +14,16 @@ const Home: NextPage = () => {
           <Grid.Column width={12}>
             <Grid centered columns={4}>
               <Grid.Column>
-                <Image src = "https://yologuys.com/Escape_img/theme/1753.jpg;"></Image> 
+                <Image src = "https://yologuys.com/Escape_img/theme/1753.jpg;" alt='test'></Image> 
               </Grid.Column>
               <Grid.Column>
-                <Image src = "https://yologuys.com/Escape_img/theme/1753.jpg;"></Image> 
+                <Image src = "https://yologuys.com/Escape_img/theme/1753.jpg;" alt='test'></Image> 
               </Grid.Column>
               <Grid.Column>
-                <Image src = "https://yologuys.com/Escape_img/theme/1753.jpg;"></Image> 
+                <Image src = "https://yologuys.com/Escape_img/theme/1753.jpg;" alt='test'></Image> 
               </Grid.Column>
               <Grid.Column>
-                <Image src = "https://yologuys.com/Escape_img/theme/1753.jpg;"></Image> 
+                <Image src = "https://yologuys.com/Escape_img/theme/1753.jpg;" alt='test'></Image> 
               </Grid.Column>
             </Grid>
             <Grid centered columns={5}>
