@@ -15,9 +15,9 @@ export default function Detail({theme, isImage, w, h}: any){
 
     const loadDetailInfomation = async () => {
         await allAxios
-            .get(`/information/detail/${theme.theme_id}`, {
+            .get(`/information/detail/${theme.themeId}`, {
                 params: {
-                    themeId: theme.theme_id
+                    themeId: theme.themeId
                 }
             })
             .then(({ data }) => {
@@ -62,7 +62,7 @@ export default function Detail({theme, isImage, w, h}: any){
                 </Modal.Content>
                 <Modal.Actions>
                     <br />
-                    <Reviewboard themeIds={theme.theme_id}/>
+                    <Reviewboard themeIds={theme.themeId}/>
                     <br />
                     <Button 
                         content='close'
