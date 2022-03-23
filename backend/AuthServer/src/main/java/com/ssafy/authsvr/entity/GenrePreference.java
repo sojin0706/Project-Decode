@@ -1,9 +1,11 @@
 package com.ssafy.authsvr.entity;
 
 import com.ssafy.authsvr.payload.request.UserRequestDto;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
@@ -40,8 +42,9 @@ public class GenrePreference {
     @OneToOne(mappedBy = "genrePreference")
     private User user;
 
-    @Builder
-    public GenrePreference(Integer id, Integer thrill, Integer romance, Integer reasoning, Integer sfFantasy, Integer adventure, Integer comedy, Integer crime, Integer horror, Integer adult, Integer drama, User user) {
+    @Builder(access = AccessLevel.PRIVATE)
+    private GenrePreference(Integer id, Integer thrill, Integer romance, Integer reasoning, Integer sfFantasy,
+                            Integer adventure, Integer comedy, Integer crime, Integer horror, Integer adult, Integer drama, User user) {
         this.id = id;
         this.thrill = thrill;
         this.romance = romance;

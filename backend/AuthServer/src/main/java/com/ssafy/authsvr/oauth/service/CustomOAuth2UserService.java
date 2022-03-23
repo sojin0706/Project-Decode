@@ -9,6 +9,7 @@ import com.ssafy.authsvr.oauth.info.OAuth2UserInfo;
 import com.ssafy.authsvr.oauth.info.OAuth2UserInfoFactory;
 import com.ssafy.authsvr.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -61,7 +62,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private User createUser(OAuth2UserInfo userInfo, ProviderType providerType) {
         LocalDateTime now = LocalDateTime.now();
+
         User user = new User(
+                Integer.valueOf(RandomStringUtils.randomNumeric(8)),
                 userInfo.getId(),
                 userInfo.getName(),
                 userInfo.getEmail(),
@@ -69,9 +72,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 providerType,
                 RoleType.USER,
                 now,
-                now,
-                null,
-                null
+                now
         );
 
         return userRepository.saveAndFlush(user);
