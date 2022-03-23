@@ -51,6 +51,7 @@ export default function Infoboard() {
     }, [])
 
     function selectedRegion(e: any){
+        setPages(0)
         setSmallRegion(null)
         if (e.target.textContent === '전체'){
             loadSmallRegion(null)
@@ -62,6 +63,7 @@ export default function Infoboard() {
     }
 
     function selectedSmallRegion(e: any){
+        setPages(0)
         setSmallRegion(e.target.textContent)
     }
 
@@ -82,6 +84,10 @@ export default function Infoboard() {
     }
 
     function changeMinute(e: any){
+        if (e.target.value>70){
+            setMinute(360)
+            return
+        }
         setMinute(e.target.value)
     }
 
@@ -126,7 +132,6 @@ export default function Infoboard() {
     }
 
     function movePage(e: any) {
-        console.log(e)
         if(e.target.type == "nextItem"){
             if (pages >= totalPages-1){
                 return
@@ -159,19 +164,19 @@ export default function Infoboard() {
                         <Select placeholder='장르' options={genreOptions} onChange={selectedGenre}/>
                     </Grid.Column>
                 </Grid.Row>
-                <Grid.Column width={3}>
+                <Grid.Column width={4}>
                     <Header as='h5'>인원수</Header>
                     <input
                         type='range'
                         min={1}
-                        max={5}
+                        max={8}
                         value={person}
                         onChange={changePerson}
                         />
-                    {person}명 이하
-                    <Rating rating={person} maxRating={5}/>
+                    {person}명 이하<br />
+                    <Rating rating={person} maxRating={8}/>
                 </Grid.Column>
-                <Grid.Column width={3}>
+                <Grid.Column width={4}>
                     <Header as='h5'>난이도</Header>
                     <input
                         type='range'
@@ -180,10 +185,10 @@ export default function Infoboard() {
                         value={difficulty}
                         onChange={changeDifficulty}
                         />
-                    {difficulty} 이하
+                    {difficulty} 이하<br />
                     <Rating rating={difficulty} maxRating={5}/>
                 </Grid.Column>
-                <Grid.Column width={3}>
+                <Grid.Column width={4}>
                     <Header as='h5'>탈출 시간</Header>
                     <input
                         type='range'
@@ -193,13 +198,13 @@ export default function Infoboard() {
                         value={minute}
                         onChange={changeMinute}
                         />
-                    {minute}분 이하
+                    {minute>70?"전체시간":minute+"분 이하"}<br />
                     <Rating rating={minute/10} maxRating={8}/>
                 </Grid.Column>
             </Grid>
             <Grid celled centered stackable>
                 <Grid.Row>
-                <Grid.Column width={1}>
+                <Grid.Column width={2}>
                     <Header as='h4'>번호</Header>
                 </Grid.Column>
                 <Grid.Column width={2}>
@@ -208,7 +213,7 @@ export default function Infoboard() {
                 <Grid.Column width={2}>
                     <Header as='h4'>장르</Header>
                 </Grid.Column>
-                <Grid.Column width={5}>
+                <Grid.Column width={4}>
                     <Header as='h4'>테마명</Header>
                 </Grid.Column>
                 <Grid.Column width={2}>
@@ -224,7 +229,7 @@ export default function Infoboard() {
                 {themeInfo.map((theme: any, index) => {
                     return (
                         <Grid.Row key={theme.theme_id}>
-                            <Grid.Column width={1}>
+                            <Grid.Column width={2}>
                                 <Header as='h4'>{index+pages*10+1}</Header>
                             </Grid.Column>
                             <Grid.Column width={2}>
@@ -233,14 +238,16 @@ export default function Infoboard() {
                             <Grid.Column width={2}>
                                 <Header as='h4'>{theme.genre}</Header>
                             </Grid.Column>
-                            <Grid.Column width={5}>
+                            <Grid.Column width={4}>
                                 <Detail theme={theme} isImage={false} w={150} h={200}/>
                             </Grid.Column>
                             <Grid.Column width={2}>
                                 <Header as='h4'>{theme.maxNumber}명</Header>
                             </Grid.Column>
                             <Grid.Column width={2}>
-                                <Header as='h4'>{theme.level}</Header>
+                                <Header as='h4'>{theme.level>4
+                                ?<Rating icon='star' rating={1} maxRating={1} size={'huge'} disabled/>
+                                :<Rating rating={theme.level} maxRating={theme.level} size={'mini'} disabled/>}</Header>
                             </Grid.Column>
                             <Grid.Column width={2}>
                                 <Header as='h4'>{theme.time}분</Header>
@@ -259,6 +266,7 @@ export default function Infoboard() {
                         siblingRange={2}
                         totalPages={totalPages}
                         onClick={movePage}
+                        activePage={pages+1}
                     />
             </Grid>
             

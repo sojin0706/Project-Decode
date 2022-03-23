@@ -11,7 +11,7 @@ export default function Detail({theme, isImage, w, h}: any){
 
     useEffect(() => {
         loadDetailInfomation()
-    }, [])
+    }, [theme])
 
     const loadDetailInfomation = async () => {
         if (theme.themeId){
@@ -47,9 +47,9 @@ export default function Detail({theme, isImage, w, h}: any){
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <Modal.Description>
                         <Header as='h2'>{theme.theme_name.slice(0, 12)}<br/>{theme.theme_name.slice(12, 24)}</Header>
-                        <Header as='h3'>난이도 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Rating icon='heart' defaultRating={themeDetail.level} maxRating={themeDetail.level} /></Header>
+                        <Header as='h3'>난이도 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Rating icon='heart' defaultRating={themeDetail.level} maxRating={themeDetail.level} disabled/></Header>
                         <Header as='h3'>장르 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {themeDetail.genre}</Header>
-                        <Header as='h3'>추천 인원 &nbsp;&nbsp;&nbsp;&nbsp; {themeDetail.numberIsTwo?'2, ':''}{themeDetail.numberIsThree?'3, ':''}{themeDetail.numberIsFour?'4, ':''}{themeDetail.numberIsFive?'5':''}명</Header>
+                        <Header as='h3'>추천 인원 &nbsp;&nbsp;&nbsp;&nbsp; {themeDetail.numberIsTwo?'2 ':''}&nbsp;{themeDetail.numberIsThree?'3 ':''}&nbsp;{themeDetail.numberIsFour?'4 ':''}&nbsp;{themeDetail.numberIsFive?'5':''}명</Header>
                         <Header as='h3'>최대 인원 &nbsp;&nbsp;&nbsp;&nbsp; {themeDetail.maxNumber}명</Header>
                         <Header as='h3'>시간 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {themeDetail.time}분</Header>
                     </Modal.Description>

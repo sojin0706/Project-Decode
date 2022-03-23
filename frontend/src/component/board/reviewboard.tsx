@@ -172,7 +172,7 @@ export default function Reviewboard({ themeIds }: any){
                                 <Header as='h5'>{review.userNickName}</Header>
                             </Grid.Column>
                             <Grid.Column width={2}>
-                                <Header as='h5'><Rating icon='star' defaultRating={review.myScore} maxRating={review.myScore} /></Header>
+                                <Header as='h5'><Rating icon='star' defaultRating={review.myScore} maxRating={review.myScore} disabled/></Header>
                             </Grid.Column>
                             <Grid.Column width={2}>
                                 <Header as='h5'>{review.createdAt[0]}.{review.createdAt[1]}.{review.createdAt[2]}.</Header>
