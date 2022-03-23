@@ -9,6 +9,6 @@ export default function Authentication() {
   }
   useEffect(() => {
     router.push("/");
-  }, []);
+  }, );
   return <></>;
 }
