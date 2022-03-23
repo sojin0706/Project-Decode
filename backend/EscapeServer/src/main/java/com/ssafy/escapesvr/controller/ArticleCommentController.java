@@ -33,7 +33,7 @@ public class ArticleCommentController {
     private final ArticleService articleService;
 
 
-    //댓글 작성
+    //유저게시판 댓글 작성
     @ApiOperation(value = "유저게시글 댓글 작성", notes = "게시글에 댓글을 작성한다", response = Map.class)
     @PostMapping
     public ResponseEntity<String> insertArticleComment(@RequestBody @ApiParam(value = "댓글 작성 모델")  @Valid ArticleCommentRequestDto articleCommentRequestDto) {
