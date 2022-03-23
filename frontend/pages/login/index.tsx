@@ -5,6 +5,7 @@ import { Form, Input, Grid, Button } from "semantic-ui-react";
 // components
 import IsLogin from "../../src/lib/customLogin";
 import Router, { useRouter } from "next/router";
+import allAxios from "../../src/lib/allAxios";
 
 export default function Index() {
   // 유저 정보 불러오기
@@ -15,7 +16,7 @@ export default function Index() {
     if (isLogin()) {
       var Token: any = null;
       if (typeof window !== "undefined") Token = localStorage.getItem("token");
-
+      console.log(Token)
       axios
         .get("http://j6c203.p.ssafy.io:8081/auth/users", {
           headers: { Authorization: `Bearer ${Token}` },
@@ -32,6 +33,13 @@ export default function Index() {
     }
   }, []);
 
+  // 닉네임
+  const [nick, setNick] = useState(userInfo.name);
+
+  const handleChangeNick = (e: any) => {
+    setNick(e.target.value);
+  };
+
   // 성별 선택
   const [sex, setSex] = useState("M");
 
@@ -41,18 +49,17 @@ export default function Index() {
 
   // 연령대 선택
   const ages = [
-    { key: 1, text: "10대 이하", value: 10},
-    { key: 2, text: "20대", value: 20},
-    { key: 3, text: "30대", value: 30},
-    { key: 4, text: "40대 이상", value: 40},
-  ]
+    { key: 1, text: "10대 이하", value: 10 },
+    { key: 2, text: "20대", value: 20 },
+    { key: 3, text: "30대", value: 30 },
+    { key: 4, text: "40대 이상", value: 40 },
+  ];
 
-  const [age, setAge] = useState(10)
-  
+  const [age, setAge] = useState(10);
+
   const handleChangeAges = (e: any) => {
-    setAge(e.target.value)
-  }
-
+    setAge(e.target.value);
+  };
 
   // 지역 선택
   const bigPlace = [
@@ -85,6 +92,7 @@ export default function Index() {
         `http://j6c203.p.ssafy.io:8082/information/region?largeRegion=${e.target.value}`
       )
       .then(({ data }) => {
+        setSelectedBigPlace(e.target.value);
         setSmallPlace(data.smallRegions);
       });
   };
@@ -157,49 +165,65 @@ export default function Index() {
   };
 
   // 정보수정
-  const router = useRouter()
-  const edit = (e:any)=> {
-    var Token: any = null;
-    if (typeof window !== "undefined") Token = localStorage.getItem("token");
-
+  const router = useRouter();
+  const edit = (e: any) => {
+    // var Token: any = null;
+    // if (typeof window !== "undefined") Token = localStorage.getItem("token");
     e.preventDefault();
-    axios({
-      url:"http://j6c203.p.ssafy.io:8081/user/recommend",
-      method: "put",
-      headers: { Authorization: `Bearer ${Token}` },
-      data: {
-        "age": 0,
-        "gender": "string",
-        "large_region": "string",
-        "nick_name": "string",
-        "preference_genre": {
-          "adult": 0,
-          "adventure": 0,
-          "comedy": 0,
-          "crime": 0,
-          "drama": 0,
-          "horror": 0,
-          "reasoning": 0,
-          "romance": 0,
-          "sf_fantasy": 0,
-          "thrill": 0
-        },
-        "small_region": "string"
+    const body = {
+      age: age,
+      gender: sex,
+      id: userInfo.id,
+      large_region: selectedBigPlace,
+      nick_name: nick,
+      preference_genre: {
+        adult: scoreAdult,
+        adventure: scoreAdventure,
+        comedy: scoreComedy,
+        crime: scoreCrime,
+        drama: scoreDrama,
+        horror: scoreHorror,
+        reasoning: scoreReasoning,
+        romance: scoreRomance,
+        sf_fantasy: scoreSffantasy,
+        thrill: scoreThrill,
       },
-    })
-    .then(() => {
-      router.push("/");
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }
-  
+      small_region: selectedSmallPlace,
+    }
+    console.log(body)
+    axios
+      .put(
+        `http://j6c203.p.ssafy.io:8081/user/recommend`, body
+      )
+      .then(({ data }) => {
+        console.log("success")
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+      
+    // axios({
+    //   url: "http://j6c203.p.ssafy.io:8081/user/recommend",
+    //   method: "put",
+    //   // headers: { Authorization: `Bearer ${Token}` },
+    //   data: {
+       
+    //   },
+    // })
+    //   .then(() => {
+    //     router.push("/");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+  };
 
   return (
     <>
       <h1>{selectedBigPlace}</h1>
       <h1>{selectedSmallPlace}</h1>
+      <h1>ID : {userInfo.id}</h1>
+      <h1>이름 : {userInfo.name}</h1>
       <Grid>
         <Grid.Row>
           <Grid.Column width={6}></Grid.Column>
@@ -208,7 +232,13 @@ export default function Index() {
               <Form.Group inline>
                 <Form.Field>
                   <label>닉네임</label>
-                  <Input placeholder={userInfo.name} />
+                  <Input
+                    placeholder="닉네임을 입력해주세요"
+                    onChange={(e) => {
+                      handleChangeNick(e);
+                    }}
+                  />
+                  <p>닉확인용: {nick}</p>
                 </Form.Field>
               </Form.Group>
 
@@ -254,12 +284,17 @@ export default function Index() {
 
               <div>
                 <p>연령대 {age}</p>
-                <select onChange={(e) => {handleChangeAges(e)}}>
+                <select
+                  onChange={(e) => {
+                    handleChangeAges(e);
+                  }}
+                >
                   {ages.map((a, i) => {
-                    return (<option value={a.value} key={i}>
-                      {a.text}
-                    </option>
-                    )
+                    return (
+                      <option value={a.value} key={i}>
+                        {a.text}
+                      </option>
+                    );
                   })}
                 </select>
               </div>
@@ -416,7 +451,7 @@ export default function Index() {
               </div>
 
               <br></br>
-              <Button primary>작성</Button>
+              <Button primary onClick={edit}>작성</Button>
             </Form>
           </Grid.Column>
           <Grid.Column width={6}></Grid.Column>
