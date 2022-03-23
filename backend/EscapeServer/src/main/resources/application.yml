@@ -3,14 +3,14 @@ server:
 #  port: 0
 
 eureka:
-#  instance:
-#    instance-id: ${spring.application.name}:flushed:{spring.application.instance_id:${random.value}}
+  #  instance:
+  #    instance-id: ${spring.application.name}:flushed:{spring.application.instance_id:${random.value}}
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
       defaultZone: http://j6c203.p.ssafy.io:8761/eureka
-
+      
 spring:
   application:
     name: escape-server
