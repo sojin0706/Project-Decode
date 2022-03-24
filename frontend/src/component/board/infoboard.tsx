@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Grid, Header, Pagination, Rating, Select } from 'semantic-ui-react'
+import { Grid, Header, Pagination, Rating, Select, Radio } from 'semantic-ui-react'
 import allAxios from '../../lib/allAxios';
 import Detail from '../modal/detail';
 
@@ -40,11 +40,12 @@ export default function Infoboard() {
     const [person, setPerson] = useState(5)
     const [difficulty, setDifficulty] = useState(3)
     const [minute, setMinute] = useState(60)
+    const [onePerson, setOnePerson] = useState(0)
     
 
     useEffect(() => {
         loadInfomation(pages)
-    }, [person, difficulty, minute, pages, genres, region, smallRegion])
+    }, [person, difficulty, minute, pages, genres, region, smallRegion, onePerson])
 
     useEffect(() => {
         loadSmallRegion(null)
@@ -68,6 +69,7 @@ export default function Infoboard() {
     }
 
     function selectedGenre(e: any) {
+        setPages(0)
         if (e.target.textContent === '전체'){
             setGenres(null)
             return
@@ -76,14 +78,17 @@ export default function Infoboard() {
     }
 
     function changePerson(e: any){
+        setPages(0)
         setPerson(e.target.value)
     }
 
     function changeDifficulty(e: any){
+        setPages(0)
         setDifficulty(e.target.value)
     }
 
     function changeMinute(e: any){
+        setPages(0)
         if (e.target.value>70){
             setMinute(360)
             return
@@ -91,16 +96,26 @@ export default function Infoboard() {
         setMinute(e.target.value)
     }
 
+    function checkOnePerson(){
+        setPages(0)
+        if (onePerson){
+            setOnePerson(0)
+            return
+        }
+        setOnePerson(1)
+    }
+
     const loadInfomation = async (pages: Number) => {
         await allAxios
             .get("/information", {
                 params: {
+                    genre: genres,
+                    isSingleplay: onePerson,
+                    largeRegion: region,
                     maxLevel: difficulty,
                     maxNumber: person,
                     maxTime: minute,
-                    page: pages,
-                    genre: genres,
-                    largeRegion: region,
+                    page: pages,  
                     smallRegion: smallRegion,
                 }
             })
@@ -169,7 +184,7 @@ export default function Infoboard() {
                     <Header as='h5'>인원수</Header>
                     <input
                         type='range'
-                        min={1}
+                        min={2}
                         max={8}
                         value={person}
                         onChange={changePerson}
@@ -202,6 +217,10 @@ export default function Infoboard() {
                     {minute>70?"전체시간":minute+"분 이하"}<br />
                     <Rating rating={minute/10} maxRating={8}/>
                 </Grid.Column>
+                <Grid.Column width={3}>
+                    <Header as='h5'>1인 가능 여부</Header>
+                    <Radio label={onePerson?'1인 가능':''} onClick={checkOnePerson} checked={onePerson?true:false}/>
+                </Grid.Column>
             </Grid>
             <Grid celled centered stackable>
                 <Grid.Row>
@@ -229,7 +248,7 @@ export default function Infoboard() {
                 </Grid.Row>
                 {themeInfo?themeInfo.map((theme: any, index) => {
                     return (
-                        <Grid.Row key={theme.theme_id}>
+                        <Grid.Row key={theme.themeId}>
                             <Grid.Column width={2}>
                                 <Header as='h4'>{index+pages*10+1}</Header>
                             </Grid.Column>
@@ -260,7 +279,6 @@ export default function Infoboard() {
             <Grid centered>
                 <Pagination
                         boundaryRange={0}
-                        defaultActivePage={1}
                         ellipsisItem={null}
                         firstItem={null}
                         lastItem={null}
