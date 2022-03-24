@@ -40,7 +40,7 @@ export default function Index() {
 
   // props test
   const [test, setTest] = useState('please')
-
+  console.log(userInfo)
   return (
     <>
       <Grid stackable>
