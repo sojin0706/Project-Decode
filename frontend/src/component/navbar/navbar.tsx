@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 // components
-import userAxios from "../../lib/userAxios";
 import LoginModal from "../login/loginModal";
 import IsLogin from "../../lib/customLogin";
 
@@ -52,7 +51,6 @@ export default function Navbar() {
         })
         .then(({ data }) => {
           console.log("데이터");
-          console.log(data);
           console.log(data.body.user)
           setUserInfo(data.body.user)
         })
@@ -63,7 +61,11 @@ export default function Navbar() {
     }
   }, []);
 
-
+  if (userInfo.small_region === null && router.pathname !== "/login") {
+    router.push("/login")
+    console.log("추가정보입력x")
+  }
+  
   return (
     <nav>
       <Link href="/">
