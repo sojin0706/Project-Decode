@@ -7,7 +7,7 @@ import React from 'react'
   
 import styles from "../../styles/notice/notice.module.css";
 
-export default function notice() {
+export default function Notice() {
 
 return (
     <>
@@ -26,7 +26,7 @@ return (
                 </Grid.Column>
                 <Grid.Column width={3}>
                 <div className={styles.bt_wrap}>
-                    <a className={styles.on}>글 작성</a>
+                    <div className={styles.on}>글 작성</div>
                 </div>
                 </Grid.Column>
             </Grid>

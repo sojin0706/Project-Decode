@@ -7,7 +7,7 @@ import React from 'react'
   
 import styles from "../../styles/notice/detail.module.css";
 
-export default function notice_detail() {
+export default function Notice_detail() {
 
 return (
     <>
