@@ -61,20 +61,28 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
         }
         return new PageImpl<>(myReviewResponseDtos, pageable,cnt);
     }
-
-    // auth로 전달- 내가 깬 장르
+    //내가깬장르
     @Override
     public Map<String, Integer> getMyGenre(Integer userId) {
         List<ThemeReview>reviews=themeReviewRepo.findAllByUserId(userId);
         Map<String,Integer>genres=new HashMap<>();
+        Map<Integer,Integer>ids=new HashMap<>();
         for (ThemeReview review : reviews) {
             Theme theme=review.getTheme();
-            String genre=theme.getGenre();
-            // 있으면 기존의것에+1 없으면 그냥 1
-            genres.put(genre, genres.containsKey(genre) ? genres.get(genre) + 1 : 1);
+            // 테마의 아이디
+            Integer id=theme.getId();
+            if(!ids.containsKey(id)){
+                ids.put(id,1);
+                String genre=theme.getGenre();
+                // 있으면 기존의것에+1 없으면 그냥 1
+                genres.put(genre, genres.containsKey(genre) ? genres.get(genre) + 1 : 1);
+            }else{
+                continue;
+            }
         }
         return genres;
     }
+
 
     // 포스터
     @Override
