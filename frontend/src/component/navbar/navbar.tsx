@@ -26,22 +26,10 @@ export default function Navbar() {
 
   const [userInfo, setUserInfo]: any = useState([]);
 
-  // useEffect(() => {
-  //   if (IsLogin()) {
-  //     userAxios
-  //       .get(`/api/auth/users`)
-  //       .then(({ data }) => {
-  //         setUserInfo(data.body.user);
-  //       })
-  //       .catch((e: any) => {
-  //         alert("로그인 시간이 만료되었습니다.");
-  //         autoLogout();
-  //       });
-  //   }
-  // }, []);
 
   useEffect(() => {
-    if (isLogin()) {
+    console.log(IsLogin())
+    if (IsLogin()) {
       var Token: any = null;
       if (typeof window !== "undefined") Token = localStorage.getItem("token");
 
@@ -52,6 +40,9 @@ export default function Navbar() {
         .then(({ data }) => {
           console.log("데이터");
           console.log(data.body.user)
+          if (data.body.user.small_region === null && IsLogin()){
+            router.push("/login")
+          }
           setUserInfo(data.body.user)
         })
         .catch((e: any) => {
@@ -59,12 +50,18 @@ export default function Navbar() {
           console.log(e);
         });
     }
-  }, []);
+  }, [IsLogin()]);
 
-  if (userInfo.small_region === null && router.pathname !== "/login") {
-    router.push("/login")
-    console.log("추가정보입력x")
-  }
+  useEffect(() => {
+    if (isLogin() && userInfo.small_region === null){
+      router.push("/login")
+      alert('회원 정보를 입력해주세요')
+    }
+    if (!IsLogin() && router.pathname==='/login'){
+      router.push('/')
+    }
+  }, [router.pathname])
+  
   
   return (
     <nav>
@@ -102,14 +99,6 @@ export default function Navbar() {
       ) : (
         <LoginModal />
       )}
-
-      {/* {IsLogin ? (
-        <Link href="/">
-          <a onClick={logout}>Logout</a>
-        </Link>
-      ) : (
-        <LoginModal />
-      )} */}
 
       <style jsx>{`
         a {
