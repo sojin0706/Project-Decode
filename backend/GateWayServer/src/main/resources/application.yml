@@ -45,7 +45,7 @@ spring:
 #          uri: lb://AUTH-SERVER
           uri: http://localhost:3000
           predicates:
-            - Path=/frontend/**
+            - Path=/auth-server/**
           filters:
             #            - AddRequestHeader=auth-request, auth-request-header2
             #            - AddResponseHeader=auth-response, auth-response-header2
