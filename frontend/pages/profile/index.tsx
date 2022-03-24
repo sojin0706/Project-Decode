@@ -25,10 +25,8 @@ export default function Index() {
           headers: { Authorization: `Bearer ${Token}` },
         })
         .then(({ data }) => {
-          console.log("데이터");
-          console.log(data);
-          console.log(data.body.user)
           setUserInfo(data.body.user)
+          console.log(data.body.user)
         })
         .catch((e: any) => {
           console.log("에러");
@@ -36,13 +34,10 @@ export default function Index() {
         });
     }
   }, []);
-  console.log(userInfo)
 
-  // props test
-  const [test, setTest] = useState('please')
-  console.log(userInfo)
   return (
     <>
+      <h1>{userInfo.name}</h1>
       <Grid stackable>
         <Grid.Row>
           {/* 여백 */}
@@ -62,7 +57,7 @@ export default function Index() {
               {/* 닉네임, 이메일 */}
               <Grid.Column width={5}>
                 <br></br>
-                <NickMail test={test}/>
+                <NickMail userInfo={userInfo}/>
                 <Graph/>
               </Grid.Column>
 
@@ -80,7 +75,7 @@ export default function Index() {
             <Grid centered columns={4}>
               {/* 프로필정보 */}
               <Grid.Column width={6}>
-                <UserInfo/>
+                <UserInfo userInfo={userInfo}/>
               </Grid.Column>
 
               {/* 작성글 리스트 */}

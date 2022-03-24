@@ -51,9 +51,6 @@ export default function Navbar() {
           headers: { Authorization: `Bearer ${Token}` },
         })
         .then(({ data }) => {
-          console.log("데이터");
-          console.log(data);
-          console.log(data.body.user)
           setUserInfo(data.body.user)
         })
         .catch((e: any) => {
