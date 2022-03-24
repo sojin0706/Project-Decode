@@ -2,6 +2,7 @@ package com.ssafy.authsvr.entity;
 
 import com.ssafy.authsvr.oauth.domain.ProviderType;
 import com.ssafy.authsvr.oauth.domain.RoleType;
+import com.ssafy.authsvr.payload.request.UserProfileRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -77,7 +78,12 @@ public class User {
         this.name = name;
     }
 
-    public void setUserGenreInfoModified(GenrePreference genrePreference) {
+    public void setUserGenreInfoModified(GenrePreference genrePreference, UserProfileRequest profileRequest) {
+        this.nickName = profileRequest.getNickName();
+        this.age = profileRequest.getAge();
+        this.gender = profileRequest.getGender();
+        this.largeRegion = profileRequest.getLargeRegion();
+        this.smallRegion = profileRequest.getSmallRegion();
         this.genrePreference = genrePreference;
     }
 
