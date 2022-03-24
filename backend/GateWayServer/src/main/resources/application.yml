@@ -32,24 +32,24 @@ spring:
               - PUT
               - OPTIONS
               - DELETE
-
-      default-filters:
-        - name: GlobalFilter
-          args:
-            baseMessage: Spring Cloud Gateway Global filter
-            preLogger: true
-            postLogger: true
+#
+#      default-filters:
+#        - name: GlobalFilter
+#          args:
+#            baseMessage: Spring Cloud Gateway Global filter
+#            preLogger: true
+#            postLogger: true
       routes:
         - id: auth-server
-          # ??? localhost:8081? ?? lb? ?? eureka ????? ????? ????? eureka? ?????? ??
-#          uri: lb://AUTH-SERVER
-          uri: http://localhost:3000
+          # 포워딩 주소
+          uri: http://j6c203.p.ssafy.io:8081/
+          # 조건절
           predicates:
             - Path=/auth-server/**
           filters:
             #            - AddRequestHeader=auth-request, auth-request-header2
             #            - AddResponseHeader=auth-response, auth-response-header2
-            - RewritePath=/frontend/(?<path>.*),/$\{path}
+            - RewritePath=/auth-server/(?<path>.*),/$\{path}
 #            - name: CustomFilter
 #            - name: LoggingFilter
 #              args:
@@ -57,15 +57,16 @@ spring:
 #                preLogger: true
 #                postLogger: true
         - id: escape-server
-          uri: lb://ESCAPE-SERVER
+          uri: http://j6c203.p.ssafy.io:8082/
           predicates:
-            - Path=/**
+            - Path=/escape-server/**
           filters:
+            - RewritePath=/escape-server/(?<path>.*),/$\{path}
             #            - AddRequestHeader=api-request, api-request-header2
             #            - AddResponseHeader=api-response, api-response-header2
-            - name: CustomFilter
-            - name: LoggingFilter
-              args:
-                baseMessage: Spring Cloud Gateway Logging filter
-                preLogger: true
-                postLogger: true
+#            - name: CustomFilter
+#            - name: LoggingFilter
+#              args:
+#                baseMessage: Spring Cloud Gateway Logging filter
+#                preLogger: true
+#                postLogger: true
