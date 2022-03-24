@@ -61,10 +61,10 @@ export default function Navbar() {
     }
   }, []);
 
-  // if (userInfo.preference === null && router.pathname !== "/login") {
-  //   router.push("/login")
-  //   console.log("추가정보입력x")
-  // }
+  if (userInfo.small_region === null && router.pathname !== "/login") {
+    router.push("/login")
+    console.log("추가정보입력x")
+  }
   
   return (
     <nav>

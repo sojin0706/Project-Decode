@@ -196,26 +196,11 @@ export default function Index() {
         `http://j6c203.p.ssafy.io:8081/user/recommend`, body
       )
       .then(({ data }) => {
-        console.log("success")
+        router.push("/")
       })
       .catch((err)=>{
         console.log(err)
       })
-      
-    // axios({
-    //   url: "http://j6c203.p.ssafy.io:8081/user/recommend",
-    //   method: "put",
-    //   // headers: { Authorization: `Bearer ${Token}` },
-    //   data: {
-       
-    //   },
-    // })
-    //   .then(() => {
-    //     router.push("/");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   };
 
   return (
