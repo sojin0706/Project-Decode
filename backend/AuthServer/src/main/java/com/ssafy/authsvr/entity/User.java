@@ -36,10 +36,6 @@ public class User {
 
     private String name;
 
-    private String introduction;
-
-    private String phoneNumber;
-
     private LocalDateTime createdAt;
 
     private LocalDateTime modifiedAt;

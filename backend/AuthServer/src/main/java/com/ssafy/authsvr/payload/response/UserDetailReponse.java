@@ -6,7 +6,6 @@ import com.ssafy.authsvr.oauth.domain.RoleType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 
 @Getter
@@ -28,10 +27,6 @@ public class UserDetailReponse {
 
     private String name;
 
-    private String introduction;
-
-    private String phoneNumber;
-
     private LocalDateTime createdAt;
 
     private LocalDateTime modifiedAt;
@@ -43,8 +38,6 @@ public class UserDetailReponse {
     private String largeRegion;
 
     private String smallRegion;
-
-    private String preference;
 
     public static UserDetailReponse detailResponse(User user){
         return UserDetailReponse.builder()
@@ -58,21 +51,17 @@ public class UserDetailReponse {
                 .roleType(user.getRoleType())
                 .createdAt(user.getCreatedAt().plusHours(9))
                 .modifiedAt(user.getModifiedAt().plusHours(9))
-                .introduction(user.getIntroduction())
-                .phoneNumber(user.getPhoneNumber())
                 .gender(user.getGender())
                 .age(user.getAge())
                 .largeRegion(user.getLargeRegion())
                 .smallRegion(user.getSmallRegion())
-//                    .preference(user.getPreference())
                 .build();
     }
 
     @Builder
     public UserDetailReponse(Integer id, String email,  String image, ProviderType providerType, RoleType roleType,
-                          String tokenId, String nickName, String name, String introduction, String phoneNumber,
-                          LocalDateTime createdAt, LocalDateTime modifiedAt, String gender, Integer age, String largeRegion,
-                          String smallRegion, String preference) {
+                          String tokenId, String nickName, String name, LocalDateTime createdAt, LocalDateTime modifiedAt,
+                             String gender, Integer age, String largeRegion, String smallRegion) {
         this.id = id;
         this.email = email;
         this.image = image;
@@ -81,14 +70,11 @@ public class UserDetailReponse {
         this.tokenId = tokenId;
         this.nickName = nickName;
         this.name = name;
-        this.introduction = introduction;
-        this.phoneNumber = phoneNumber;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
         this.gender = gender;
         this.age = age;
         this.largeRegion = largeRegion;
         this.smallRegion = smallRegion;
-        this.preference = preference;
     }
 }

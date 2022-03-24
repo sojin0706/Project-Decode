@@ -1,13 +1,11 @@
 package com.ssafy.authsvr.entity;
 
 import com.ssafy.authsvr.payload.request.UserProfileRequest;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.util.List;
