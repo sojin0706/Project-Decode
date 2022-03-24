@@ -43,9 +43,8 @@ public class GenrePreference {
     private User user;
 
     @Builder(access = AccessLevel.PRIVATE)
-    private GenrePreference(Integer id, Integer thrill, Integer romance, Integer reasoning, Integer sfFantasy,
+    private GenrePreference(Integer thrill, Integer romance, Integer reasoning, Integer sfFantasy,
                             Integer adventure, Integer comedy, Integer crime, Integer horror, Integer adult, Integer drama, User user) {
-        this.id = id;
         this.thrill = thrill;
         this.romance = romance;
         this.reasoning = reasoning;
@@ -61,7 +60,6 @@ public class GenrePreference {
 
     public static GenrePreference genrePreferenceBuild(UserProfileRequest.preferenceGenre genre, User user) {
         return GenrePreference.builder()
-                .id(user.getId())
                 .thrill(genre.getThrill())
                 .romance(genre.getRomance())
                 .reasoning(genre.getReasoning())
