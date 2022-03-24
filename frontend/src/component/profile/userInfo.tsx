@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
 
 export default function UserInfo(props:any) {
-  useEffect(()=> {
-    if (JSON.stringify(props.userInfo.gender) === JSON.stringify("W")) {
-      console.log('남잔데영?')
-    } else {
-      console.log('여잔데여?')
-    }
-  })
+  // useEffect(()=> {
+  //   if (JSON.stringify(props.userInfo.gender) === JSON.stringify("W")) {
+  //     console.log('남잔데영?')
+  //   } else {
+  //     console.log('여잔데여?')
+  //   }
+  // })
   return (
     <>
       {/* <p>테스트 : {mw}</p> */}

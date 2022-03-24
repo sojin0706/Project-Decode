@@ -14,6 +14,7 @@ import IsLogin from "../../src/lib/customLogin";
 export default function Index() {
   const isLogin = IsLogin;
   const [userInfo, setUserInfo]: any = useState([]);
+  console.log('idx렌더링 횟수')
 
   useEffect(() => {
     if (isLogin()) {
@@ -54,17 +55,13 @@ export default function Index() {
                 <Image src= "/images/test_chr.png" alt='test'></Image>
               </Grid.Column>
 
-              {/* 닉네임, 이메일 */}
-              <Grid.Column width={5}>
+              {/* 닉네임, 이메일, 그래프*/}
+              <Grid.Column width={9}>
                 <br></br>
                 <NickMail userInfo={userInfo}/>
-                <Graph/>
+                <Graph userInfo={userInfo}/>
               </Grid.Column>
 
-              {/* 그래프 */}
-              <Grid.Column width={4}>
-                <Graph/>
-              </Grid.Column>
 
               {/* 최근클리어 */}
               <Grid.Column width={4}>
