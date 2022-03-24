@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         GenrePreference genrePreference = GenrePreference.genrePreferenceBuild(profileRequest.getPreferenceGenre(),user);
         genrePreferenceRepository.save(genrePreference);
 
-        user.setUserGenreInfoModified(genrePreference);
+        user.setUserGenreInfoModified(genrePreference,profileRequest);
         userRepository.save(user);
 
     }
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetailProfileResponse findAllProfileUser(Integer userId) {
         User user = userRepository.findUserById(userId);
-        
+
         return UserDetailProfileResponse.allProfileResponse(user,
                                                     genrePreferenceRepository.findGenreById(user.getGenrePreference().getId()));
     }
