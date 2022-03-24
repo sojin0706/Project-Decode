@@ -171,7 +171,7 @@ export default function Index() {
     // if (typeof window !== "undefined") Token = localStorage.getItem("token");
     e.preventDefault();
     const body = {
-      age: age,
+      age: Number(age),
       gender: sex,
       id: userInfo.id,
       large_region: selectedBigPlace,
