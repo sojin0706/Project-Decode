@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 // components
-import userAxios from "../../lib/userAxios";
 import LoginModal from "../login/loginModal";
 import IsLogin from "../../lib/customLogin";
 
@@ -13,7 +12,6 @@ export default function Navbar() {
 
   function logout() {
     localStorage.removeItem("token");
-    // localStorage.removeItem("userID");
     router.reload();
   }
 
@@ -26,20 +24,6 @@ export default function Navbar() {
   const isLogin = IsLogin;
 
   const [userInfo, setUserInfo]: any = useState([]);
-
-  // useEffect(() => {
-  //   if (IsLogin()) {
-  //     userAxios
-  //       .get(`/api/auth/users`)
-  //       .then(({ data }) => {
-  //         setUserInfo(data.body.user);
-  //       })
-  //       .catch((e: any) => {
-  //         alert("로그인 시간이 만료되었습니다.");
-  //         autoLogout();
-  //       });
-  //   }
-  // }, []);
 
   useEffect(() => {
     if (isLogin()) {
@@ -97,14 +81,6 @@ export default function Navbar() {
       ) : (
         <LoginModal />
       )}
-
-      {/* {IsLogin ? (
-        <Link href="/">
-          <a onClick={logout}>Logout</a>
-        </Link>
-      ) : (
-        <LoginModal />
-      )} */}
 
       <style jsx>{`
         a {

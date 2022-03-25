@@ -14,7 +14,6 @@ import IsLogin from "../../src/lib/customLogin";
 export default function Index() {
   const isLogin = IsLogin;
   const [userInfo, setUserInfo]: any = useState([]);
-  console.log('idx렌더링 횟수')
 
   useEffect(() => {
     if (isLogin()) {
@@ -27,7 +26,6 @@ export default function Index() {
         })
         .then(({ data }) => {
           setUserInfo(data.body.user)
-          console.log(data.body.user)
         })
         .catch((e: any) => {
           console.log("에러");
@@ -83,7 +81,7 @@ export default function Index() {
             </Grid>
 
             {/* 클리어한 테마 리스트들 */}
-            <ClearList/>
+            <ClearList userInfo={userInfo}/>
           </Grid.Column>
 
           {/* 여백 */}

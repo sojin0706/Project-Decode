@@ -17,7 +17,6 @@ const genreLst = [
 ];
 
 export default function Graph(props: any) {
-  console.log('그래프 렌더링 횟수')
   var test = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   const [genreCnt, setGenreCnt] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
   const [myData, setMyData]: any = useState()
@@ -26,16 +25,12 @@ export default function Graph(props: any) {
       .get(`http://j6c203.p.ssafy.io:8082/review/mygenre/${props.userInfo.id}`)
       .then((data) => {
         setMyData(data.data)
-        console.log('success')
-        console.log(data.data)
         Object.keys(myData).map((d:any, i:number)=> {
           genreLst.map((g: any, j: number) => {
             if (d == g.key) {
               var tmpArray = [...genreCnt]
               tmpArray[j] = myData[d]
               test[j] = myData[d]
-              // setGenreCnt(tmpArray)
-              console.log(test)
             }
           })
         })
@@ -44,20 +39,8 @@ export default function Graph(props: any) {
         setGenreCnt(test)
       })
       .catch((e: any) => {
-        console.log("graph error");
       });
   }, [props]);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://j6c203.p.ssafy.io:8082/review/mygenre/${props.userInfo.id}`)
-  //     .then((data) => {
-  //       console.log(data.data)
-  //     })
-  //     .catch((e: any) => {
-  //       console.log("graph error")
-  //     });
-  // }, );
 
   // 그래프 챠트
   const MyChart = () => {
