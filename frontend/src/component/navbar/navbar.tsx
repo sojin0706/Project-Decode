@@ -37,9 +37,7 @@ export default function Navbar() {
   useEffect(() => {
     if (IsLogin()) {
       getUserInfo();
-      console.log('로그인 했고 유저정보 불러왔다.')
     } else {
-      console.log("로그인안함")
       if (router.pathname === "/login") {
         router.push("/");
       }
@@ -47,11 +45,9 @@ export default function Navbar() {
   }, [router.pathname]);
 
   useEffect(() => {
-    console.log('userinfo 갱신했다')
     if (userInfo.small_region === "asdf") {
       router.push("/login");
     } else {
-      console.log('라우터 푸시하기 전', router.pathname)
       if (router.pathname === "/login") {
         router.push("/");
       }
