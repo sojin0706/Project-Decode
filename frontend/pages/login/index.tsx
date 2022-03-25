@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Form, Input, Grid, Button } from "semantic-ui-react";
-
+import userAxios from "../../src/lib/userAxios";
 // components
 import IsLogin from "../../src/lib/customLogin";
 import Router, { useRouter } from "next/router";
@@ -9,29 +9,17 @@ import allAxios from "../../src/lib/allAxios";
 
 export default function Index() {
   // 유저 정보 불러오기
-  const isLogin = IsLogin;
   const [userInfo, setUserInfo]: any = useState([]);
-
-  useEffect(() => {
-    if (isLogin()) {
-      var Token: any = null;
-      if (typeof window !== "undefined") Token = localStorage.getItem("token");
-      console.log(Token)
-      axios
-        .get("http://j6c203.p.ssafy.io:8081/auth/users", {
-          headers: { Authorization: `Bearer ${Token}` },
-        })
-        .then(({ data }) => {
-          console.log("데이터");
-          console.log(data.body.user);
-          setUserInfo(data.body.user);
-        })
-        .catch((e: any) => {
-          console.log("에러");
-          console.log(e);
-        });
-    }
-  }, []);
+  
+  const getUserInfo = async() => {
+    userAxios.get(`/auth/users`)
+    .then((data) => {
+      setUserInfo(data.data.body.user)
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+  }
 
   // 닉네임
   const [nick, setNick] = useState(userInfo.name);
@@ -41,10 +29,10 @@ export default function Index() {
   };
 
   // 성별 선택
-  const [sex, setSex] = useState("M");
+  const [gender, setGender] = useState("M");
 
-  const handleChangeSex = (e: any) => {
-    setSex(e.target.value);
+  const handleChangeGender = (e: any) => {
+    setGender(e.target.value);
   };
 
   // 연령대 선택
@@ -76,6 +64,7 @@ export default function Index() {
   const [selectedSmallPlace, setselectedSmallPlace] = useState("");
 
   useEffect(() => {
+    getUserInfo()
     axios
       .get(`http://j6c203.p.ssafy.io:8082/information/region?largeRegion=서울`)
       .then(({ data }) => {
@@ -172,7 +161,7 @@ export default function Index() {
     e.preventDefault();
     const body = {
       age: Number(age),
-      gender: sex,
+      gender: gender,
       id: userInfo.id,
       large_region: selectedBigPlace,
       nick_name: nick,
@@ -190,13 +179,14 @@ export default function Index() {
       },
       small_region: selectedSmallPlace,
     }
-    console.log(body)
     axios
       .put(
         `http://j6c203.p.ssafy.io:8081/user/recommend`, body
       )
       .then(({ data }) => {
+        console.log('suces')
         router.push("/")
+        console.log(userInfo.small_region)
       })
       .catch((err)=>{
         console.log(err)
@@ -232,14 +222,14 @@ export default function Index() {
                 <Form.Radio
                   label="Man"
                   value="M"
-                  checked={sex === "M"}
-                  onChange={handleChangeSex}
+                  checked={gender === "M"}
+                  onChange={handleChangeGender}
                 />
                 <Form.Radio
                   label="Woman"
                   value="W"
-                  checked={sex === "W"}
-                  onChange={handleChangeSex}
+                  checked={gender === "W"}
+                  onChange={handleChangeGender}
                 />
               </Form.Group>
 
@@ -251,8 +241,8 @@ export default function Index() {
                   value={"M"}
                   name="platform"
                   type="radio"
-                  checked={sex === "M"}
-                  onChange={handleChangeSex}
+                  checked={gender === "M"}
+                  onChange={handleChangeGender}
                 />
                 <span> 여 </span>
                 <input
@@ -260,8 +250,8 @@ export default function Index() {
                   value={"W"}
                   name="platform"
                   type="radio"
-                  checked={sex === "W"}
-                  onChange={handleChangeSex}
+                  checked={gender === "W"}
+                  onChange={handleChangeGender}
                 />
               </div>
 
