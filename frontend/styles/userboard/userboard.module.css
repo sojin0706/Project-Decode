@@ -80,7 +80,7 @@
 }
 
 .board_list .num {
-  width: 15%;
+  width: 10%;
 }
 
 .board_list .title {
@@ -98,7 +98,7 @@
 }
 
 .board_list .date {
-  width: 15%;
+  width: 20%;
 }
 
 .board_page {
@@ -113,4 +113,8 @@
 
 .regionfilter {
   margin-top: 25px;
+}
+
+.boardListContent .title {
+  cursor: pointer;
 }

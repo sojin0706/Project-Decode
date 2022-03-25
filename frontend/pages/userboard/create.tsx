@@ -8,6 +8,7 @@ import allAxios from "../../src/lib/allAxios";
 import axios from "axios";
 import { useEffect, useState } from 'react';
 import IsLogin from "../../src/lib/customLogin";
+import userAxios from "../../src/lib/userAxios";
 import Router from "next/router";
 
 
@@ -78,23 +79,15 @@ export default function Userboard_create() {
     }, [])
 
     const loadUser = async() => {
-        if (IsLogin()) {
-            var Token: any = null;
-            if (typeof window !== "undefined") {
-                Token = localStorage.getItem("token");
-            }
-      
-            axios
-              .get("http://j6c203.p.ssafy.io:8081/auth/users", {
-                headers: { Authorization: `Bearer ${Token}` },
-              })
-              .then(({ data }) => {
+        if (IsLogin()){
+            userAxios.get(`/auth/users`)
+            .then(({ data }) => {
                 setUserInfo(data.body.user)
-              })
-              .catch((e: any) => {
-                console.log(e);
-                alert('로그인 시간이 만료되었습니다.')
-              });
+            })
+            .catch((e) => {
+            console.log(e);
+            alert('로그인 시간이 만료되었습니다.')
+            });
           }
         }
     // 글 작성

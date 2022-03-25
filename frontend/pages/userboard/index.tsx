@@ -32,20 +32,22 @@ const regionOptions = [
     { key: '제주', value: '제주', text: '제주' },
 ]
 
-export default function Userboard({ id }:any) {
-    // 로그인 유저 정보
-    const [user, setUser] = useState()
+export default function Userboard() {
     
     // 지역선택
     const [region, setRegion] = useState(null)
-    const [smallRegion, setSmallRegion] = useState(null)
+    const [smallRegionselect, setSmallRegionselect] = useState(null)
     const [smallRegionOptions, setSmallRegionOptions] = useState([{ key: '전체', value: '전체', text: '전체' }])
     
     // 게시글 정보
-    const [userboard, setUserboard] = useState({
-        id: ""
-    })
-
+    const [userboard, setUserboard] = useState([])
+    const [pages, setPages] = useState(0)  //바뀌는 page
+    const [totalPages, setTotalPages] = useState(10) // 최대 page
+    const [title, setTitle] = useState('')
+    const [id, setId] = useState(0)
+    const [createdAt, setCreatedAt] = useState([])
+    const [nickName, setNickName] = useState('')
+    const [smallRegion, setSmallRegion] = useState('')
 
     //지역 선택
     useEffect(() => {
@@ -53,7 +55,7 @@ export default function Userboard({ id }:any) {
     }, [])
 
     function selectedRegion(e: any){
-        setSmallRegion(null)
+        setSmallRegionselect(null)
         if (e.target.textContent === '전체'){
             loadSmallRegion(null)
             setRegion(null)
@@ -64,7 +66,7 @@ export default function Userboard({ id }:any) {
     }
 
     function selectedSmallRegion(e: any){
-        setSmallRegion(e.target.textContent)
+        setSmallRegionselect(e.target.textContent)
     }
 
     const loadSmallRegion = async (region: any) => {
@@ -85,9 +87,50 @@ export default function Userboard({ id }:any) {
             })
     }
 
-    // 게시글 정보 받아오기
+    // 게시글 정보 
+    useEffect(() => {
+        loadUserboard(pages)
+    }, [pages, id, title, createdAt, nickName, smallRegion])
 
 
+    const loadUserboard = async (pages:Number) => {
+        await allAxios
+            .get(`/article`, {
+                params: {
+                    title: title,
+                    id: id,
+                    smallRegion: smallRegion,
+                    nickName: nickName,
+                    createdAt: createdAt,
+                    page: pages,
+                }
+            })
+            .then(({data}) => {
+                setTotalPages(data.articleList.totalPages)
+                setUserboard(data.articleList.content)
+        })
+        .catch((e) => {
+            console.log(e)
+        })
+    }
+
+    // 페이지
+    function movePage(e: any) {
+        console.log(e)
+        if(e.target.type == "nextItem"){
+            if (pages >= totalPages-1){
+                return
+            }
+            setPages(pages+1)
+        } else if (e.target.type === "prevItem"){
+            if (pages < 1){
+                return
+            }
+            setPages(Number(pages-1))
+        } else if (e.target.type === 'pageItem'){
+            setPages(e.target.textContent-1)
+        }
+    }
 
     // 글 작성 버튼 연결
     const goUserWrite = async() => {
@@ -99,15 +142,16 @@ export default function Userboard({ id }:any) {
         }
     }
 
+
 return (
     <>
- <Grid>
+ <Grid stackable>
     <Grid.Column width={2}></Grid.Column>
     <Grid.Column width={12}>
     <div className={styles.board_wrap}>    
      
         <div className={styles.userboardtop}>
-            <Grid>
+            <Grid stackable>
                 <Grid.Column width={10}>
                 <div className={styles.board_title}>
                     <strong>유저게시판</strong>
@@ -150,19 +194,24 @@ return (
         <div className={styles.board_list_wrap}>
             <div className={styles.board_list}>
                 <div className={styles.top}>
-                    <div className={styles.type}>지역</div>
                     <div className={styles.num}>번호</div>
+                    <div className={styles.type}>지역</div>
                     <div className={styles.title}>제목</div>
                     <div className={styles.writer}>글쓴이</div>
                     <div className={styles.date}>작성일</div>
                 </div>
-                <div>
-                    <div className={styles.type}>강남</div>
-                    <div className={styles.num}>1</div>
-                    <div className={styles.title}>제목test</div>
-                    <div className={styles.writer}>하루</div>
-                    <div className={styles.date}>2022.03.14</div>
-                </div>
+                {console.log(userboard)}
+                {userboard?userboard.map((board:any) => {
+                    return (
+                        <div className={styles.boardListContent}>
+                        <div className={styles.num}>{board.id}</div>
+                        <div className={styles.type}>{board.smallRegion}</div>
+                        <div className={styles.title} onClick={() => Router.push(`/userboard/${board.id}`)}>{board.title}</div>
+                        <div className={styles.writer}>{board.nickName}</div>
+                        <div className={styles.date}>{board.createdAt[0]}.{board.createdAt[1]}.{board.createdAt[2]}</div>
+                        </div>
+                    );
+                }):''}
 
             </div>
             <div className={styles.board_page}>
@@ -173,7 +222,8 @@ return (
             firstItem={null}
             lastItem={null}
             siblingRange={2}
-            totalPages={10}
+            totalPages={totalPages}
+            onClick={movePage}
              />
 
             </div>
