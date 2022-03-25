@@ -1,13 +1,6 @@
-import Script from "next/script";
-import Head from "next/head";
 export default function explain() {
   return (
     <>
-      <Head>
-        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-        {/* <script>AOS.init();</script> */}
-      </Head>
-      <Script src="https://unpkg.com/aos@next/dist/aos.js" />
       <div className="item" data-aos="fade-up">
         1
       </div>
