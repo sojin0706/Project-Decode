@@ -69,12 +69,13 @@ public class ArticleServiceImpl implements ArticleService{
 
     //게시글 전체 조회
     @Override
-    public List<ArticleResponseDto> getAllArticle() {
-        Sort sort = Sort.by(Direction.DESC, "id", "createdAt");
-        List<Article> list = articleRepository.findAll(sort);
-        return list.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
-    }
+    public Page<ArticleResponseDto> getAllArticle(Pageable pageable) {
+        //Sort sort = Sort.by(Direction.DESC, "id", "createdAt");
+        Page<Article> list = articleRepository.findAll(pageable);
 
+        Page<ArticleResponseDto> articleList=list.map( o-> new ArticleResponseDto(o.getId(),o.getTitle(), o.getContent(), o.getSmallRegion(), o.getRecommend(), o.getReport(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getNickName(), o.getUserImage()));
+        return articleList;
+    }
 
     //해당 게시물 조회
     @Override
@@ -105,7 +106,7 @@ public class ArticleServiceImpl implements ArticleService{
 
     }
 
-
+    //게시글 검색
     @Override
     public List<ArticleResponseDto> postList(String smallRegion, SearchDto searchDto) {
         List<Article> articleList = articleRepository.findPageDynamicQuery(smallRegion, searchDto);

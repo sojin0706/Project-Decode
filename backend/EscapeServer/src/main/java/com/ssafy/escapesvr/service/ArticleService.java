@@ -12,7 +12,9 @@ public interface ArticleService {
 
     ArticleResponseDto save(ArticleRequestDto articleRequestDto); //게시글 저장
 
-    List<ArticleResponseDto> getAllArticle(); //모든 게시글 조회
+
+    Page<ArticleResponseDto> getAllArticle(Pageable pageable);// 모든 게시글 조회
+//    List<ArticleResponseDto> getAllArticle(); //모든 게시글 조회
     ArticleResponseDto getArticle(Long id);//하나의 게시글 조회
     Page<ArticleResponseDto> getMyArticleList(Integer userId, Pageable pageable); //회원 별 게시글 조회
 

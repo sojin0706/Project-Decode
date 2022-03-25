@@ -82,12 +82,18 @@ public class QnaNoticeServiceImpl implements QnaNoticeService{
     }
 
 
-    //게시글 조회
+
+    //모든 게시글 조회
     @Override
-    public List<QnaNoticeResponseDto> getQnaNoticeList() {
+    public Page<QnaNoticeResponseDto> getQnaNoticeList(Pageable pageable) {
+
         //공지글이 앞으로 오도록 내림차순 정렬. + 시간순 정렬.
-        List<QnaNotice> qnaNotices = qnaNoticeRepository.findAll(Sort.by(Sort.Direction.DESC, "isNotice","createdAt"));
-        return qnaNotices.stream().map(QnaNoticeResponseDto::new).collect(Collectors.toList());
+        //Page<QnaNotice> qnaNotices = qnaNoticeRepository.findAll(Sort.by(Sort.Direction.DESC, "isNotice","createdAt"),pageable);
+        Page<QnaNotice> qnaNotices = qnaNoticeRepository.findAll(pageable);
+        Page<QnaNoticeResponseDto> qnaNotice = qnaNotices.map(o -> new QnaNoticeResponseDto(o.getId(),o.getTitle(), o.getContent(),  o.getIsSecret(), o.getIsNotice(), o.getCreatedAt(), o.getModifiedAt(),o.getUserId(), o.getNickName(), o.getUserImage()));
+
+        return qnaNotice;
+
     }
 
     //회원 별 게시글 조회
@@ -101,6 +107,8 @@ public class QnaNoticeServiceImpl implements QnaNoticeService{
 
         return  myQnaNotice;
     }
+
+
 
 
 }

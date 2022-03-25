@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,13 +53,16 @@ public class QnaNoticeController {
 
     @ApiOperation(value = "모든 1:1 문의 or 공지사항 리스트 조회", notes = "1:1 문의 or 공지사항 문의 리스트를 조회한다")
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getAllQnaNoticeList() {
+    public ResponseEntity<Map<String, Object>> getAllQnaNoticeList(@PathVariable @PageableDefault(size=5) @SortDefault.SortDefaults({@SortDefault(sort="isNotice", direction = Sort.Direction.DESC), @SortDefault(sort="createdAt", direction = Sort.Direction.DESC)}) Pageable pageable) {
+
+        //(@PathVariable @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable)
+        //Sort.by(Sort.Direction.DESC, "isNotice","createdAt"),
 
         Map<String, Object> result = new HashMap<>();
-        List<QnaNoticeResponseDto> qnaNoticeList = null;
+        Page<QnaNoticeResponseDto> qnaNoticeList = null;
         HttpStatus status = null;
         try {
-            qnaNoticeList = qnaNoticeService.getQnaNoticeList();
+            qnaNoticeList = qnaNoticeService.getQnaNoticeList(pageable);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();
