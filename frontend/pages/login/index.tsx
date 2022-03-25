@@ -183,10 +183,11 @@ export default function Index() {
       .put(
         `http://j6c203.p.ssafy.io:8081/user/recommend`, body
       )
-      .then(({ data }) => {
-        console.log('suces')
+      .then(({data}) => {
+        getUserInfo()
+      })
+      .then(() => {
         router.push("/")
-        console.log(userInfo.small_region)
       })
       .catch((err)=>{
         console.log(err)

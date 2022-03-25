@@ -37,28 +37,42 @@ export default function Navbar() {
   useEffect(() => {
     if (IsLogin()) {
       getUserInfo();
-      console.log(userInfo);
-      if (userInfo.small_region === "asdf") {
-        router.push("/login");
+      console.log('로그인 했고 유저정보 불러왔다.')
+    } else {
+      console.log("로그인안함")
+      if (router.pathname === "/login") {
+        router.push("/");
       }
-      if (userInfo.small_region !== "asdf" && router.pathname === "/login"){
-        router.push("/")
-      }
-    }
-    if (!IsLogin() && router.pathname === "/login") {
-      router.push("/");
     }
   }, [router.pathname]);
 
+  useEffect(() => {
+    console.log('userinfo 갱신했다')
+    if (userInfo.small_region === "asdf") {
+      router.push("/login");
+    } else {
+      console.log('라우터 푸시하기 전', router.pathname)
+      if (router.pathname === "/login") {
+        router.push("/");
+      }
+    }
+  }, [userInfo]);
+
   // useEffect(() => {
-  //   if (IsLogin() && userInfo.small_region === "null"){
-  //     router.push("/login")
-  //     alert('회원 정보를 입력해주세요')
+  //   if (IsLogin()) {
+  //     getUserInfo();
+
+  //     if (userInfo.small_region === "asdf") {
+  //       router.push("/login");
+  //     }
+  //     if (userInfo.small_region !== "asdf" && router.pathname === "/login"){
+  //       router.push("/")
+  //     }
   //   }
-  //   if (!IsLogin() && router.pathname==='/login'){
-  //     router.push('/')
+  //   if (!IsLogin() && router.pathname === "/login") {
+  //     router.push("/");
   //   }
-  // }, [router.pathname])
+  // }, []);
 
   return (
     <nav>
