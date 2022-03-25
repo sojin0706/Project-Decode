@@ -13,6 +13,8 @@ public interface QnaNoticeService {
     void insertQnaNotice(QnaNoticeRequestDto qnaNoticeRequestDto) throws Exception;
     void updateQnaNotice(QnaNoticeRequestDto qnaNoticeRequestDto);
     void deleteQnaNotice(Long qnaId);
-    List<QnaNoticeResponseDto> getQnaNoticeList();
+
     Page<QnaNoticeResponseDto> getMyQnaList(Integer userId, Pageable pageable);
+    //List<QnaNoticeResponseDto> getQnaNoticeList();
+    Page<QnaNoticeResponseDto> getQnaNoticeList(Pageable pageable);
 }

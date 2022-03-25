@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,14 +53,14 @@ public class ArticleController {
     //게시글 전체조회
     @ApiOperation(value = "유저게시글 전체 리스트 조회", notes = "게시글 리스트를 불러온다", response = Map.class)
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getAllArticleList() {
+    public ResponseEntity<Map<String, Object>> getAllArticleList(@PageableDefault(size=5) @SortDefault.SortDefaults({@SortDefault(sort="createdAt", direction = Sort.Direction.DESC)})Pageable pageable) {
 
         Map<String, Object> result = new HashMap<>();
-        List<ArticleResponseDto> articleList = null;
+        Page<ArticleResponseDto> articleList = null;
         HttpStatus httpStatus = null;
 
         try {
-            articleList = articleService.getAllArticle();
+            articleList = articleService.getAllArticle(pageable);
             httpStatus = HttpStatus.OK;
             result.put("success", true);
 
