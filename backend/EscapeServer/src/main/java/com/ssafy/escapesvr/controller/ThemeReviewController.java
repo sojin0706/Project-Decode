@@ -1,9 +1,6 @@
 package com.ssafy.escapesvr.controller;
 
-import com.ssafy.escapesvr.dto.MyReviewResponseDto;
-import com.ssafy.escapesvr.dto.ReviewRequestDto;
-import com.ssafy.escapesvr.dto.StoreAndThemeResponseDto;
-import com.ssafy.escapesvr.dto.ThemeReviewResponseDto;
+import com.ssafy.escapesvr.dto.*;
 import com.ssafy.escapesvr.service.ThemeReviewService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -69,6 +66,25 @@ public class ThemeReviewController {
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
 
+    // auth서버 전달 - 포스터들
+    @ApiOperation(value = "내가 깬 테마의 포스터 - myprofile 포스터들", notes = "회원 아아디가 깬 장르 개수를 불러온다.",response=Map.class)
+    @GetMapping("/poster/{userId}")
+    public ResponseEntity<Map<String, Object>> getPoster(@PathVariable @ApiParam( value="회원 아이디",required = true) Integer userId,@PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=12) Pageable pageable){
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus httpStatus = null;
+        Page<PosterResponseDto>posters=null;
+        try{
+            posters=themeReviewService.getPosters(userId,pageable);
+            httpStatus = HttpStatus.OK;
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        result.put("posters",posters);
+        return new ResponseEntity<Map<String, Object>>(result, httpStatus);
+    }
+
+
     // auth서버 전달- 회원 아이디가 깬 장르 개수
     @ApiOperation(value = "내가 깬 장르 - myprofile ", notes = "회원 아아디가 깬 장르 개수를 불러온다.",response=Map.class)
     @GetMapping("/mygenre/{userId}")
@@ -82,19 +98,6 @@ public class ThemeReviewController {
         return mygenre;
     }
 
-    // auth서버 전달 - 포스터들
-    @ApiOperation(value = "내가 깬 테마의 포스터 - myprofile 포스터들", notes = "회원 아아디가 깬 장르 개수를 불러온다.",response=Map.class)
-    @GetMapping("/poster/{userId}")
-    public List<String> getPoster(@PathVariable @ApiParam( value="회원 아이디",required = true) Integer userId){
-       List<String>posters=new ArrayList<>();
-        try{
-            posters=themeReviewService.getPosters(userId);
-
-        }catch (RuntimeException e){
-            e.printStackTrace();
-        }
-        return posters;
-    }
 
 
     // 리뷰 작성
