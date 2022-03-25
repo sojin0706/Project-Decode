@@ -12,7 +12,6 @@ export default function Navbar() {
 
   function logout() {
     localStorage.removeItem("token");
-    // localStorage.removeItem("userID");
     router.reload();
   }
 
@@ -26,7 +25,6 @@ export default function Navbar() {
 
   const [userInfo, setUserInfo]: any = useState([]);
 
-
   useEffect(() => {
     console.log(IsLogin())
     if (IsLogin()) {
@@ -38,11 +36,6 @@ export default function Navbar() {
           headers: { Authorization: `Bearer ${Token}` },
         })
         .then(({ data }) => {
-          console.log("데이터");
-          console.log(data.body.user)
-          if (data.body.user.small_region === null && IsLogin()){
-            router.push("/login")
-          }
           setUserInfo(data.body.user)
         })
         .catch((e: any) => {

@@ -25,9 +25,6 @@ export default function Index() {
           headers: { Authorization: `Bearer ${Token}` },
         })
         .then(({ data }) => {
-          console.log("데이터");
-          console.log(data);
-          console.log(data.body.user)
           setUserInfo(data.body.user)
         })
         .catch((e: any) => {
@@ -36,13 +33,10 @@ export default function Index() {
         });
     }
   }, []);
-  console.log(userInfo)
-
-  // props test
-  const [test, setTest] = useState('please')
 
   return (
     <>
+      <h1>{userInfo.name}</h1>
       <Grid stackable>
         <Grid.Row>
           {/* 여백 */}
@@ -59,17 +53,13 @@ export default function Index() {
                 <Image src= "/images/test_chr.png" alt='test'></Image>
               </Grid.Column>
 
-              {/* 닉네임, 이메일 */}
-              <Grid.Column width={5}>
+              {/* 닉네임, 이메일, 그래프*/}
+              <Grid.Column width={9}>
                 <br></br>
-                <NickMail test={test}/>
-                <Graph/>
+                <NickMail userInfo={userInfo}/>
+                <Graph userInfo={userInfo}/>
               </Grid.Column>
 
-              {/* 그래프 */}
-              <Grid.Column width={4}>
-                <Graph/>
-              </Grid.Column>
 
               {/* 최근클리어 */}
               <Grid.Column width={4}>
@@ -80,7 +70,7 @@ export default function Index() {
             <Grid centered columns={4}>
               {/* 프로필정보 */}
               <Grid.Column width={6}>
-                <UserInfo/>
+                <UserInfo userInfo={userInfo}/>
               </Grid.Column>
 
               {/* 작성글 리스트 */}
@@ -91,7 +81,7 @@ export default function Index() {
             </Grid>
 
             {/* 클리어한 테마 리스트들 */}
-            <ClearList/>
+            <ClearList userInfo={userInfo}/>
           </Grid.Column>
 
           {/* 여백 */}
