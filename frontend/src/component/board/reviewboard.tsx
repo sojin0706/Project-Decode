@@ -1,8 +1,8 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Grid, Header, Icon, Pagination, Rating } from "semantic-ui-react";
 import allAxios from "../../lib/allAxios";
 import IsLogin from "../../lib/customLogin";
+import userAxios from "../../lib/userAxios";
 
 export default function Reviewboard({ themeIds }: any){
 
@@ -37,27 +37,19 @@ export default function Reviewboard({ themeIds }: any){
             console.log(e)
         })
     }
-
-    const loadUser = async () => {
-        if (IsLogin()) {
-            var Token: any = null;
-            if (typeof window !== "undefined") {
-                Token = localStorage.getItem("token");
-            }
-      
-            axios
-              .get("http://j6c203.p.ssafy.io:8081/auth/users", {
-                headers: { Authorization: `Bearer ${Token}` },
-              })
-              .then(({ data }) => {
+        
+    const loadUser = async () => {{}
+        if (IsLogin()){
+            userAxios.get(`/auth/users`)
+            .then(({ data }) => {
                 setUserInfo(data.body.user)
-              })
-              .catch((e: any) => {
-                console.log(e);
+            })
+            .catch((e) => {
+                console.log(e)
                 alert('로그인 시간이 만료되었습니다.')
-              });
-          }
+            })
         }
+    } 
 
     const reviewWrite = async() => {
         if (!myTime && myTime < 30 || myTime > 90){
