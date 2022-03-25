@@ -12,11 +12,10 @@ import Board from "../../src/component/profile/board";
 import IsLogin from "../../src/lib/customLogin";
 
 export default function Index() {
-  const isLogin = IsLogin;
   const [userInfo, setUserInfo]: any = useState([]);
 
   useEffect(() => {
-    if (isLogin()) {
+    if (IsLogin()) {
       var Token: any = null;
       if (typeof window !== "undefined") Token = localStorage.getItem("token");
 
@@ -56,8 +55,8 @@ export default function Index() {
               {/* 닉네임, 이메일, 그래프*/}
               <Grid.Column width={9}>
                 <br></br>
-                <NickMail userInfo={userInfo}/>
-                <Graph userInfo={userInfo}/>
+                <NickMail/>
+                <Graph/>
               </Grid.Column>
 
 
@@ -70,7 +69,7 @@ export default function Index() {
             <Grid centered columns={4}>
               {/* 프로필정보 */}
               <Grid.Column width={6}>
-                <UserInfo userInfo={userInfo}/>
+                <UserInfo/>
               </Grid.Column>
 
               {/* 작성글 리스트 */}
@@ -81,7 +80,7 @@ export default function Index() {
             </Grid>
 
             {/* 클리어한 테마 리스트들 */}
-            <ClearList userInfo={userInfo}/>
+            <ClearList/>
           </Grid.Column>
 
           {/* 여백 */}

@@ -1,4 +1,7 @@
 import { Grid, Image } from "semantic-ui-react";
+import { useState, useEffect } from "react";
+import IsLogin from "../../lib/customLogin";
+import axios from "axios";
 
 export default function recentClear() {
   return (

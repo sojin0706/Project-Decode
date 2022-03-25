@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import IsLogin from "../../lib/customLogin";
 import axios from "axios";
 import { Pie } from "react-chartjs-2";
 import "chart.js/auto";
@@ -20,27 +21,48 @@ export default function Graph(props: any) {
   var test = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   const [genreCnt, setGenreCnt] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
   const [myData, setMyData]: any = useState()
+  const [userInfo, setUserInfo]: any = useState([]);
+
   useEffect(() => {
-    axios
-      .get(`http://j6c203.p.ssafy.io:8082/review/mygenre/${props.userInfo.id}`)
-      .then((data) => {
-        setMyData(data.data)
-        Object.keys(myData).map((d:any, i:number)=> {
-          genreLst.map((g: any, j: number) => {
-            if (d == g.key) {
-              var tmpArray = [...genreCnt]
-              tmpArray[j] = myData[d]
-              test[j] = myData[d]
-            }
-          })
+    if (IsLogin()) {
+      var Token: any = null;
+      if (typeof window !== "undefined") Token = localStorage.getItem("token");
+
+      axios
+        .get("http://j6c203.p.ssafy.io:8081/auth/users", {
+          headers: { Authorization: `Bearer ${Token}` },
         })
-      })
-      .then((data) => {
-        setGenreCnt(test)
-      })
-      .catch((e: any) => {
-      });
-  }, [props]);
+        .then(({ data }) => {
+          setUserInfo(data.body.user)
+        })
+        .catch((e: any) => {
+          console.log("에러");
+          console.log(e);
+        });
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://j6c203.p.ssafy.io:8082/review/mygenre/${userInfo.id}`)
+  //     .then((data) => {
+  //       setMyData(data.data)
+  //       Object.keys(myData).map((d:any, i:number)=> {
+  //         genreLst.map((g: any, j: number) => {
+  //           if (d == g.key) {
+  //             var tmpArray = [...genreCnt]
+  //             tmpArray[j] = myData[d]
+  //             test[j] = myData[d]
+  //           }
+  //         })
+  //       })
+  //     })
+  //     .then((data) => {
+  //       setGenreCnt(test)
+  //     })
+  //     .catch((e: any) => {
+  //     });
+  // }, [userInfo]);
 
   // 그래프 챠트
   const MyChart = () => {
