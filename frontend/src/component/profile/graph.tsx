@@ -38,17 +38,18 @@ export default function Graph(props: any) {
     "19금",
     "감성/드라마",
   ];
-  var test = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  const [genreCnt, setGenreCnt] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-  const [myData, setMyData]: any = useState();
+  var tmparr: any = [];
+  const [genreCnt, SetGenreCnt] = useState([])
 
   useEffect(() => {
     if (userInfo !==0) {
       axios
       .get(`http://j6c203.p.ssafy.io:8082/review/mygenre/${userInfo.id}`)
       .then((data) => {
-        console.log(data.data)
-        // setMyData(JSON.stringify(data.data));
+        data.data.genre.map((d:any, i:number) => {
+          tmparr.push(d)
+        })
+        SetGenreCnt(tmparr)
       })
       .catch((e: any) => {});
     }
@@ -87,8 +88,8 @@ export default function Graph(props: any) {
             "rgb(0, 60, 180)",
             "rgb(30, 90, 150)",
             "rgb(60, 120, 120)",
-            "rgb(90, 150, 90)",
-            "rgb(120, 180, 60)",
+            "rgb(90, 150, 0)",
+            "rgb(120, 180, 0)",
             "rgb(150, 210, 0)",
             "rgb(180, 240, 0)",
             "rgb(210, 270, 0)",
