@@ -1,6 +1,7 @@
 package com.ssafy.escapesvr.service;
 
 import com.ssafy.escapesvr.dto.MyReviewResponseDto;
+import com.ssafy.escapesvr.dto.PosterResponseDto;
 import com.ssafy.escapesvr.dto.ReviewRequestDto;
 import com.ssafy.escapesvr.dto.ThemeReviewResponseDto;
 import com.ssafy.escapesvr.entity.ThemeReview;
@@ -17,5 +18,5 @@ public interface ThemeReviewService {
    Map<String,Integer> getMyGenre(Integer userId);
    void insertReview(ReviewRequestDto reviewRequestDto);
    void deleteReview(Integer themeReviewId);
-   List<String>getPosters(Integer userId);
+   Page<PosterResponseDto>getPosters(Integer userId, Pageable pageable);
 }

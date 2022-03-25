@@ -2,6 +2,7 @@ package com.ssafy.escapesvr.service;
 
 import com.ssafy.escapesvr.client.UserServiceClient;
 import com.ssafy.escapesvr.dto.MyReviewResponseDto;
+import com.ssafy.escapesvr.dto.PosterResponseDto;
 import com.ssafy.escapesvr.dto.ReviewRequestDto;
 import com.ssafy.escapesvr.dto.ThemeReviewResponseDto;
 import com.ssafy.escapesvr.entity.Theme;
@@ -61,6 +62,36 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
         }
         return new PageImpl<>(myReviewResponseDtos, pageable,cnt);
     }
+
+
+    // 포스터
+    @Override
+    public Page<PosterResponseDto> getPosters(Integer userId, Pageable pageable) {
+        List<ThemeReview>reviews=themeReviewRepo.findAllByUserId(userId,pageable);
+        List<ThemeReview>findcnts=themeReviewRepo.findAllByUserId(userId);
+        int cnt=findcnts.size();
+        List<PosterResponseDto> posters=new ArrayList<>();
+
+        Map<Integer,Integer>ids=new HashMap<>();
+
+        for (ThemeReview review : reviews) {
+            Theme theme=review.getTheme();
+
+            Integer id=theme.getId();
+            if(!ids.containsKey(id)){
+                PosterResponseDto posterResponseDto=new PosterResponseDto(theme);
+                posters.add(posterResponseDto);
+                ids.put(id,1);
+            }else{
+                continue;
+            }
+        }
+
+        return new PageImpl<>(posters, pageable,cnt);
+    }
+
+
+
     //내가깬장르
     @Override
     public Map<String, Integer> getMyGenre(Integer userId) {
@@ -83,19 +114,6 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
         return genres;
     }
 
-
-    // 포스터
-    @Override
-    public List<String> getPosters(Integer userId) {
-        List<ThemeReview>reviews=themeReviewRepo.findAllByUserId(userId);
-        List<String>posters=new ArrayList<>();
-        for (ThemeReview review : reviews) {
-            Theme theme=review.getTheme();
-            posters.add(theme.getPosterUrl());
-
-        }
-        return posters;
-    }
 
 
     //리뷰 작성
