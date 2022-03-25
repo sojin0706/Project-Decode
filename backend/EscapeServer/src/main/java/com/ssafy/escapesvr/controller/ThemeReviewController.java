@@ -88,14 +88,19 @@ public class ThemeReviewController {
     // auth서버 전달- 회원 아이디가 깬 장르 개수
     @ApiOperation(value = "내가 깬 장르 - myprofile ", notes = "회원 아아디가 깬 장르 개수를 불러온다.",response=Map.class)
     @GetMapping("/mygenre/{userId}")
-    public Map<String,Integer> getMyGenre(@PathVariable @ApiParam( value="회원 아이디",required = true) Integer userId){
-        Map<String,Integer>mygenre=new HashMap<>();
+    public ResponseEntity<Map<String, Object>> getMyGenre(@PathVariable @ApiParam( value="회원 아이디",required = true) Integer userId){
+        int[]genre=new int[10];
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus httpStatus = null;
         try{
-            mygenre=themeReviewService.getMyGenre(userId);
+            genre=themeReviewService.getMyGenre(userId);
+            httpStatus = HttpStatus.OK;
         }catch (RuntimeException e){
             e.printStackTrace();
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return mygenre;
+        result.put("genre",genre);
+        return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
 
 
