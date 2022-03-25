@@ -94,9 +94,12 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
 
     //내가깬장르
     @Override
-    public Map<String, Integer> getMyGenre(Integer userId) {
+    public int[] getMyGenre(Integer userId) {
         List<ThemeReview>reviews=themeReviewRepo.findAllByUserId(userId);
-        Map<String,Integer>genres=new HashMap<>();
+//        스릴러 로맨스 추리 SF/판타지 모험/액션  코미디 범죄  공포 19금 감성/드라마
+
+        int[]genre=new int[10];
+
         Map<Integer,Integer>ids=new HashMap<>();
         for (ThemeReview review : reviews) {
             Theme theme=review.getTheme();
@@ -104,18 +107,34 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
             Integer id=theme.getId();
             if(!ids.containsKey(id)){
                 ids.put(id,1);
-                String genre=theme.getGenre();
-                // 있으면 기존의것에+1 없으면 그냥 1
-                genres.put(genre, genres.containsKey(genre) ? genres.get(genre) + 1 : 1);
+               if(theme.getGenre().equals("스릴러")){
+                   genre[0]+=1;
+               }else if(theme.getGenre().equals("로맨스")){
+                   genre[1]+=1;
+               }else if(theme.getGenre().equals("추리")) {
+                   genre[2] += 1;
+               }else if(theme.getGenre().equals("SF/판타지")){
+                   genre[3]+=1;
+               }else if(theme.getGenre().equals("모험/액션")){
+                   genre[4]+=1;
+               }else if(theme.getGenre().equals("코미디")){
+                   genre[5]+=1;
+               }else if(theme.getGenre().equals("범죄")){
+                   genre[6]+=1;
+               }else if(theme.getGenre().equals("공포")){
+                   genre[7]+=1;
+               }else if(theme.getGenre().equals("19금")){
+                   genre[8]+=1;
+               }else if(theme.getGenre().equals("감성/드라마")){
+                   genre[9]+=1;
+               }
             }else{
                 continue;
             }
         }
-        return genres;
+        return genre;
     }
-
-
-
+    
     //리뷰 작성
     @Override
     @Transactional
