@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Grid, Header, Select } from "semantic-ui-react";
-import Region from "../../src/component/filter/region";
 import Detail from "../../src/component/modal/detail";
 import allAxios from "../../src/lib/allAxios";
 import IsLogin from "../../src/lib/customLogin";
