@@ -66,14 +66,15 @@ public class ArticleServiceImpl implements ArticleService{
 
     }
 
-    //게시글 전체 조회
-    public List<ArticleResponseDto> findAll() {
 
+    //게시글 전체 조회
+    @Override
+    public List<ArticleResponseDto> getAllArticle() {
         Sort sort = Sort.by(Direction.DESC, "id", "createdAt");
         List<Article> list = articleRepository.findAll(sort);
         return list.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
-
     }
+
 
     //해당 게시물 조회
     @Override
