@@ -10,8 +10,10 @@ import NickMail from "../../src/component/profile/nickMail";
 import UserInfo from "../../src/component/profile/userInfo";
 import Board from "../../src/component/profile/board";
 import IsLogin from "../../src/lib/customLogin";
+import { useRouter } from "next/router";
 
 export default function Index() {
+  const router = useRouter()
   const [userInfo, setUserInfo]: any = useState([]);
 
   useEffect(() => {
@@ -30,6 +32,9 @@ export default function Index() {
           console.log("에러");
           console.log(e);
         });
+    } else {
+      alert("로그인 후 사용해주세요.")
+      router.push("/")
     }
   }, []);
 
