@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import IsLogin from "../../lib/customLogin";
 import axios from "axios";
 
+import UserInfoModal from "./userInfoModal";
+
 export default function UserInfo() {
   const [userInfo, setUserInfo]: any = useState([]);
 
@@ -25,11 +27,13 @@ export default function UserInfo() {
   }, []);
   return (
     <>
-      {/* <p>테스트 : {mw}</p> */}
+      <h3>이름: {JSON.stringify(userInfo.name)}</h3>
+      <h3>닉네임: {JSON.stringify(userInfo.nick_name)}</h3>
       <h3>연령대: {JSON.stringify(userInfo.age)}</h3>
       <h3>성별: {JSON.stringify(userInfo.gender)}</h3>
       <h3>선호장르: 고민중</h3>
       <h3>활동지역: {JSON.stringify(userInfo.small_region)}</h3>
+      <UserInfoModal></UserInfoModal>
     </>
   )
 }
