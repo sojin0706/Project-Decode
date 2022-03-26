@@ -3,9 +3,7 @@ import axios from "axios";
 import { Form, Input, Grid, Button } from "semantic-ui-react";
 import userAxios from "../../src/lib/userAxios";
 // components
-import IsLogin from "../../src/lib/customLogin";
 import Router, { useRouter } from "next/router";
-import allAxios from "../../src/lib/allAxios";
 
 export default function Index() {
   // 유저 정보 불러오기
@@ -156,8 +154,6 @@ export default function Index() {
   // 정보수정
   const router = useRouter();
   const edit = (e: any) => {
-    // var Token: any = null;
-    // if (typeof window !== "undefined") Token = localStorage.getItem("token");
     e.preventDefault();
     const body = {
       age: Number(age),

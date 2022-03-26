@@ -45,7 +45,7 @@ export default function Navbar() {
   }, [router.pathname]);
 
   useEffect(() => {
-    if (userInfo.small_region === "asdf") {
+    if (userInfo.small_region === null) {
       router.push("/login");
     } else {
       if (router.pathname === "/login") {
@@ -53,22 +53,6 @@ export default function Navbar() {
       }
     }
   }, [userInfo]);
-
-  // useEffect(() => {
-  //   if (IsLogin()) {
-  //     getUserInfo();
-
-  //     if (userInfo.small_region === "asdf") {
-  //       router.push("/login");
-  //     }
-  //     if (userInfo.small_region !== "asdf" && router.pathname === "/login"){
-  //       router.push("/")
-  //     }
-  //   }
-  //   if (!IsLogin() && router.pathname === "/login") {
-  //     router.push("/");
-  //   }
-  // }, []);
 
   return (
     <nav>
