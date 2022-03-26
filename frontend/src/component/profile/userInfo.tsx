@@ -26,6 +26,8 @@ export default function UserInfo() {
   return (
     <>
       {/* <p>테스트 : {mw}</p> */}
+      <h3>이름: {JSON.stringify(userInfo.name)}</h3>
+      <h3>닉네임: {JSON.stringify(userInfo.nick_name)}</h3>
       <h3>연령대: {JSON.stringify(userInfo.age)}</h3>
       <h3>성별: {JSON.stringify(userInfo.gender)}</h3>
       <h3>선호장르: 고민중</h3>
