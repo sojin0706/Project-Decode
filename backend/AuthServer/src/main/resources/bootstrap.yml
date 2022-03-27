@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: auth-server-dev
-  cloud:
-    config:
-      uri: http://localhost:8888
-#      name: auth-server-dev
-#      profile: dev
-#      profile: native
