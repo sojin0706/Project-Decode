@@ -22,6 +22,8 @@ spring:
   profiles:
     include:
       - oauth
+      - aws
+      - credentials
   jackson:
     property-naming-strategy: SNAKE_CASE
 
@@ -37,6 +39,7 @@ eureka:
 logging:
   level.org.springframework: info
   level.org.springframework.web: info
+  level.com.amazonaws.util.EC2MetadataUtils: error
 
 cors:
   allowed-origins: "http://localhost:3000"

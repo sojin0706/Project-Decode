@@ -1,6 +1,7 @@
 package com.ssafy.authsvr.entity;
 
-import com.ssafy.authsvr.payload.request.UserProfileRequest;
+import com.ssafy.authsvr.payload.request.UserPreferenceRequest;
+import com.ssafy.authsvr.payload.request.UserPreferenceModifyReqeust;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -58,7 +59,7 @@ public class GenrePreference {
         this.user = user;
     }
 
-    public static GenrePreference genrePreferenceBuild(UserProfileRequest.preferenceGenre genre, User user) {
+    public static GenrePreference genrePreferenceBuild(UserPreferenceRequest genre, User user) {
         return GenrePreference.builder()
                 .thrill(genre.getThrill())
                 .romance(genre.getRomance())
@@ -72,5 +73,19 @@ public class GenrePreference {
                 .drama(genre.getDrama())
                 .user(user)
                 .build();
+    }
+
+    public void setGenrePreferenceInfoModified(UserPreferenceModifyReqeust preferenceModifyReqeust, User user){
+        this.thrill = preferenceModifyReqeust.getThrill();
+        this.romance = preferenceModifyReqeust.getRomance();
+        this.reasoning = preferenceModifyReqeust.getReasoning();
+        this.sfFantasy = preferenceModifyReqeust.getSfFantasy();
+        this.adventure = preferenceModifyReqeust.getAdventure();
+        this.comedy = preferenceModifyReqeust.getComedy();
+        this.crime = preferenceModifyReqeust.getCrime();
+        this.horror = preferenceModifyReqeust.getHorror();
+        this.adult = preferenceModifyReqeust.getAdult();
+        this.drama = preferenceModifyReqeust.getDrama();
+        this.user = user;
     }
 }
