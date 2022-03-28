@@ -2,12 +2,10 @@ package com.ssafy.authsvr.entity;
 
 import com.ssafy.authsvr.oauth.domain.ProviderType;
 import com.ssafy.authsvr.oauth.domain.RoleType;
-import com.ssafy.authsvr.payload.request.UserPreferenceRequest;
 import com.ssafy.authsvr.payload.request.UserProfileRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 

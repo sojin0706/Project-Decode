@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer findCountUser() {
-        return userRepository.findAllByUserCount() + preferenceDocumentRepository.findAll().size();
+        return userRepository.countAllBy() + preferenceDocumentRepository.countAllBy();
     }
 
 
