@@ -1,7 +1,6 @@
 package com.ssafy.authsvr.service;
 
 import com.ssafy.authsvr.entity.GenrePreference;
-import com.ssafy.authsvr.entity.PreferenceDocument;
 import com.ssafy.authsvr.payload.request.UserProfileRequest;
 import com.ssafy.authsvr.payload.response.UserDetailProfileResponse;
 import com.ssafy.authsvr.payload.response.UserProfileResponse;
@@ -63,6 +62,11 @@ public class UserServiceImpl implements UserService {
 
         return UserDetailProfileResponse.allProfileResponse(user,
                                                     genrePreferenceRepository.findGenreById(user.getGenrePreference().getId()));
+    }
+
+    @Override
+    public Integer findCountUser() {
+        return userRepository.findAllByUserCount()+ preferenceDocumentRepository.findAll().size();
     }
 
 }

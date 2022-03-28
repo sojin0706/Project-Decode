@@ -16,4 +16,6 @@ public interface UserService {
     UserProfileResponse findProfileUser(Integer userId);
 
     UserDetailProfileResponse findAllProfileUser(Integer userId);
+
+    Integer findCountUser();
 }

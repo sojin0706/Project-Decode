@@ -4,6 +4,7 @@ import com.ssafy.authsvr.payload.request.UserProfileRequest;
 import com.ssafy.authsvr.payload.response.UserDetailProfileResponse;
 import com.ssafy.authsvr.payload.response.UserProfileResponse;
 import com.ssafy.authsvr.service.UserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,9 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.ws.rs.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -68,4 +72,16 @@ public class UserController {
                 .body(userService.findAllProfileUser(id));
     }
 
+    @ApiOperation(value = "회원 수 조회", notes = "회원 전체 수 조회")
+    @GetMapping("/userCount")
+    public ResponseEntity<Map<String,Integer>> userFindCount(){
+        log.info("userFindCount");
+
+        Map<String,Integer> map = new HashMap<>();
+        map.put("userCount", userService.findCountUser());
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(map);
+    }
 }
