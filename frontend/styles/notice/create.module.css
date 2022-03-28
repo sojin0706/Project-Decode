@@ -23,6 +23,7 @@
   margin-top: 50px;
   text-align: center;
   font-size: 0;
+  cursor: pointer;
 }
 
 .bt_wrap div {

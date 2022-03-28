@@ -5,15 +5,80 @@ import {
     Icon,
   } from "semantic-ui-react";
 import React from 'react'
-  
-import styles from "../../styles/userboard/detail.module.css";
-
+import { useEffect, useState } from "react";
+import allAxios from "../../../src/lib/allAxios";
+import styles from "../../../styles/userboard/detail.module.css";
+import Router, { useRouter } from "next/router";
+import IsLogin from "../../../src/lib/customLogin";
+import userAxios from "../../../src/lib/userAxios";
 
 export default function Userboard_detail() {
+    const [userboardDetail,setUserboardDetail]:any = useState([])
+    const [title, setTitle] = useState('')
+    const [content, setContent] = useState('')
+    const [createdAt, setCreatedAt] = useState([])
+    const [nickName, setNickName] = useState('')
+    const [likes, setLikes] = useState(false)
+    const [userInfo, setUserInfo]: any = useState(0)
+    const router = useRouter()
+    const id = Number(router.query.id)
+    const [isLike, setisLike] = useState(false);
+
+    useEffect(() => {
+        loadUserboardDetail(id)
+    }, [id])
+
+    useEffect(() => {
+        loadUser()
+    }, [])
+
+    const loadUser = async() => {
+        if (IsLogin()){
+            userAxios.get(`/auth/users`)
+            .then(({ data }) => {
+                setUserInfo(data.body.user)
+                console.log(data.body.user)
+            })
+            .catch((e) => {
+            console.log(e);
+            alert('로그인 시간이 만료되었습니다.')
+            });
+          }
+        }
+
+    const loadUserboardDetail = async(id:Number) => {
+        await allAxios
+            .get(`/article/${id}`)
+            .then(({ data }) => {
+                console.log(data.article.createdAt)
+                setUserboardDetail(data.article)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+        }
+
+
+    const deleteuserboard = () => {
+        allAxios
+        .delete(`/article/${id}`)
+        .then(()=>{
+            alert("게시글이 삭제되었습니다.")
+            router.push("/userboard");
+        })
+        .catch(() => {
+        alert("잠시 후 다시 시도해주세요.")
+        });
+    };
+
+    // const date = userboardDetail.createdAt[0] + userboardDetail.createdAt[1] + userboardDetail.createdAt[2]
+    console.log(userboardDetail)
+
+
 
 return (
     <>
-    <Grid>
+    <Grid stackable>
     <Grid.Column width={2}></Grid.Column>
     <Grid.Column width={12}>
     <div className={styles.board_wrap}>    
@@ -30,37 +95,38 @@ return (
             <div className={styles.board_view_wrap}>
                 <div className={styles.board_view}>
                     <div className={styles.title}>
-                        글 제목
+                        {userboardDetail.title}
                     </div>
                     <div className={styles.info}>
                         <dl>
                             <dt>번호</dt>
-                            <dd>1</dd>
+                            <dd>{id}</dd>
                         </dl>
                         <dl>
                             <dt>글쓴이</dt>
-                            <dd>하루</dd>
+                            <dd>{userboardDetail.nickName}</dd>
                         </dl>
                         <dl>
                             <dt>작성일</dt>
-                            <dd>2021.03.14</dd>
+                            <dd>{String(userboardDetail.createdAt)}</dd>
+                            {/* {userboardDetail.createdAt[0]}.{userboardDetail.createdAt[1]}.{userboardDetail.createdAt[2]} */}
                         </dl>
-                        <dl>
+                        {/* <dl>
                             <dt>조회수</dt>
                             <dd>219</dd>
                         </dl>
                         <dl>
                             <dt>추천수</dt>
                             <dd>127</dd>
-                        </dl>
+                        </dl> */}
                     </div>
                     <div className={styles.board_cont}>
-                        글 내용이 들어갑니다.
+                        {userboardDetail.content}
                     </div>
                     
                 </div>
                 <div className={styles.comment}>
-                    <div className={styles.comment_review}>
+                    {/* <div className={styles.comment_review}>
                         <div className={styles.comment_reco}>
                         <Button color='orange' inverted animated='fade'>
                             <Button.Content visible>
@@ -81,19 +147,28 @@ return (
                             </Button.Content>
                         </Button>
                         </div>
-                    </div>
+                    </div> */}
                     <br />
                 <div className={styles.bt_wrap}>
-                    <div className={styles.on}>목록</div>
-                    <div>수정</div>
+                    <div className={styles.on} onClick={() => Router.back()}>목록</div>
+
+                    <div className={styles.editbutton} onClick={() => router.push(`/userboard/edit/${id}`)}> 수정</div>
+                    <div className={styles.deletebutton} onClick={deleteuserboard}>삭제</div>
+                    {/* {userInfo.id == userboardDetail.userId &&(
+                    <>
+                        <div className={styles.editbutton} onClick={() => router.push(`/userboard/edit/${id}`)}> 수정</div>
+                        <div className={styles.deletebutton} onClick={deleteuserboard}> 삭제</div>
+                    </>
+                    )} */}
+                    
                 </div>
                     <div className={styles.comments}>
                         
                         <div className={styles.comment_title}>
                             댓글쓰기
                         </div>
-                        <div className={styles.comment_cont}>
-                            <Grid verticalAlign='middle' centered>
+                        <div className={styles.comment_cont} >
+                            <Grid verticalAlign='middle' centered stackable>
                                 <Grid.Column width={1}>
                                     <Comment.Group size='massive'>
                                         <Comment>
@@ -103,7 +178,7 @@ return (
                                 </Grid.Column>
                                 <Grid.Column width={1}>
                                     <div className={styles.comment_createname}>
-                                        하루
+                                    {userInfo.nick_name}
                                     </div>
                                 </Grid.Column>
                                 <Grid.Column width={12}>

@@ -4,10 +4,79 @@ import {
     Grid,
   } from "semantic-ui-react";
 import React from 'react'
-  
+import { useEffect, useState } from "react";
+import allAxios from "../../src/lib/allAxios";
+import IsLogin from "../../src/lib/customLogin";
+import Router from "next/router";
 import styles from "../../styles/notice/notice.module.css";
 
-export default function notice() {
+export default function Notice() {
+    const [qnanotice, setQnaNotice] = useState([])
+    const [pages, setPages] = useState(0)  //바뀌는 page
+    const [totalPages, setTotalPages] = useState(10) // 최대 page
+    const [title, setTitle] = useState('')
+    const [id, setId] = useState(0)
+    const [createdAt, setCreatedAt] = useState([])
+    const [nickName, setNickName] = useState('')
+
+
+    // 게시글 정보 
+    useEffect(() => {
+        loadUserboard(pages)
+    }, [pages, id, title, createdAt, nickName])
+
+
+    const loadUserboard = async (pages: Number) => {
+        await allAxios
+            .get(`/qna`, {
+                params: {
+                    title: title,
+                    id: id,
+                    nickName: nickName,
+                    createdAt: createdAt,
+                    page: pages,
+                }
+            })
+            .then(({ data }) => {
+                console.log(data)
+                setTotalPages(data.qnaList.totalPages)
+                setQnaNotice(data.qnaList.content)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
+    // 페이지
+    function movePage(e: any) {
+        console.log(e)
+        if (e.target.type == "nextItem") {
+            if (pages >= totalPages - 1) {
+                return
+            }
+            setPages(pages + 1)
+        } else if (e.target.type === "prevItem") {
+            if (pages < 1) {
+                return
+            }
+            setPages(Number(pages - 1))
+        } else if (e.target.type === 'pageItem') {
+            setPages(e.target.textContent - 1)
+        }
+    }
+
+    // 글 작성 버튼 연결
+    const goqnaWrite = async () => {
+        if (IsLogin()) {
+            Router.push(`/notice/create`)
+        } else {
+            alert('게시글 작성은 로그인 후 이용가능합니다')
+            return
+        }
+    }
+
+
+
 
 return (
     <>
@@ -26,7 +95,7 @@ return (
                 </Grid.Column>
                 <Grid.Column width={3}>
                 <div className={styles.bt_wrap}>
-                    <a className={styles.on}>글 작성</a>
+                    <div className={styles.on} onClick={goqnaWrite}>글 작성</div>
                 </div>
                 </Grid.Column>
             </Grid>
@@ -40,6 +109,9 @@ return (
                     <div className={styles.writer}>글쓴이</div>
                     <div className={styles.date}>작성일</div>
                 </div>
+
+
+                
                 <div className={styles.top_notice}>
                     <div className={styles.type}>공지</div>
                     <div className={styles.num}>1</div>
@@ -47,14 +119,18 @@ return (
                     <div className={styles.writer}>관리자</div>
                     <div className={styles.date}>2022.03.21</div>
                 </div>
-                <div>
-                    <div className={styles.type}>Q&A</div>
-                    <div className={styles.num}>1</div>
-                    <div className={styles.title}>제목test</div>
-                    <div className={styles.writer}>하루</div>
-                    <div className={styles.date}>2022.03.14</div>
-                </div>
 
+                {qnanotice ? qnanotice.map((board:any) => {
+                return (
+                    <div className={styles.qna_notice}>
+                    <div className={styles.type}>Q&A</div>
+                    <div className={styles.num}>{board.id}</div>
+                    <div className={styles.title} onClick={() => Router.push(`/notice/${board.id}`)}>{board.title}</div>
+                    <div className={styles.writer}>{board.nickName}</div>
+                    <div className={styles.date}>{board.createdAt[0]}.{board.createdAt[1]}.{board.createdAt[2]}</div>
+                </div>
+                );
+            }) : '' }
             </div>
             <div className={styles.board_page}>
             <Pagination
@@ -64,7 +140,8 @@ return (
             firstItem={null}
             lastItem={null}
             siblingRange={2}
-            totalPages={10}
+            totalPages={totalPages}
+            onClick={movePage}
              />
 
             </div>

@@ -4,10 +4,52 @@ import {
     Grid,
   } from "semantic-ui-react";
 import React from 'react'
-  
-import styles from "../../styles/notice/detail.module.css";
+import allAxios from "../../../src/lib/allAxios";
+import { useEffect, useState } from 'react';
+import IsLogin from "../../../src/lib/customLogin";
+import userAxios from "../../../src/lib/userAxios";
+import Router from "next/router";
+import styles from "../../../styles/notice/detail.module.css";
 
-export default function notice_detail() {
+export default function Notice_detail() {
+
+    const [title, setTitle] = useState('')
+    const [content, setContent] = useState([])
+    const [userInfo, setUserInfo]: any = useState(0)
+    const [userId, setUserId] = useState(0)
+    const [qnaDetail,setQnaDetail]:any = useState([])
+
+    // 유저
+    useEffect(() => {
+        loadUser()
+    }, [])
+
+    const loadUser = async() => {
+        if (IsLogin()){
+            userAxios.get(`/auth/users`)
+            .then(({ data }) => {
+                setUserInfo(data.body.user)
+            })
+            .catch((e) => {
+            console.log(e);
+            alert('로그인 시간이 만료되었습니다.')
+            });
+          }
+        }
+
+    useEffect(() => {
+        allAxios
+            .get(`qna/{qnaId}`)
+            .then(({data}) => {
+                setQnaDetail(data.qnaList)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    })
+
+
+
 
 return (
     <>

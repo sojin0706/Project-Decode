@@ -33,6 +33,7 @@
   border: 1px solid #000;
   border-radius: 2px;
   font-size: 1.4rem;
+  cursor: pointer;
 }
 
 .bt_wrap div:first-child {
@@ -112,3 +113,9 @@
   border: 0;
   resize: vertical;
 }
+
+.board_select {
+  display: inline-flex;
+  margin-right: 10px;
+}
+

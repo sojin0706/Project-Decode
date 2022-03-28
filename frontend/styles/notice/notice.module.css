@@ -33,6 +33,7 @@
 .bt_wrap div.on {
   background: #000;
   color: #fff;
+  cursor: pointer;
 }
 
 .bt_wrap div.on2 {
@@ -111,4 +112,8 @@
 
 .top_notice {
   background-color: rgba(240, 248, 255, 0.945);
+}
+
+.qna_notice {
+  cursor: pointer;
 }
