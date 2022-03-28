@@ -5,11 +5,10 @@ import com.ssafy.escapesvr.client.UserServiceClient;
 import com.ssafy.escapesvr.dto.ProfileRequestDto;
 import com.ssafy.escapesvr.dto.QnaCommentRequestDto;
 import com.ssafy.escapesvr.dto.QnaCommentResponseDto;
-import com.ssafy.escapesvr.dto.QnaNoticeResponseDto;
+import com.ssafy.escapesvr.entity.Qna;
 import com.ssafy.escapesvr.entity.QnaComment;
-import com.ssafy.escapesvr.entity.QnaNotice;
 import com.ssafy.escapesvr.repository.QnaCommentRepository;
-import com.ssafy.escapesvr.repository.QnaNoticeRepository;
+import com.ssafy.escapesvr.repository.QnaRepository;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,15 +26,15 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class QnaCommentServiceImpl implements QnaCommentService {
 
-    private final QnaNoticeRepository qnaNoticeRepository;
+    private final QnaRepository qnaRepository;
     private final QnaCommentRepository qnaCommentRepository;
     private final UserServiceClient userServiceClient;
 
     //게시글 별 댓글 조회
     @Override
-    public List<QnaCommentResponseDto> getQnaCommentList(Long qnaNoticeId) {
-        QnaNotice qnaNotice = qnaNoticeRepository.getById(qnaNoticeId);
-        List<QnaComment> comments = qnaCommentRepository.findByQnaNotice(qnaNotice);
+    public List<QnaCommentResponseDto> getQnaCommentList(Long qnaId) {
+        Qna qna = qnaRepository.getById(qnaId);
+        List<QnaComment> comments = qnaCommentRepository.findByQna(qna);
         return comments.stream().map(QnaCommentResponseDto::new).collect(Collectors.toList());
     }
 
@@ -44,7 +43,7 @@ public class QnaCommentServiceImpl implements QnaCommentService {
     public Page<QnaCommentResponseDto> getMyQnaCommentList(Integer userId, Pageable pageable) {
 
         Page<QnaComment> myQnaComments = qnaCommentRepository.findByUserIdOrderByCreatedAtDesc(userId, pageable);
-        Page<QnaCommentResponseDto> myQnaComment = myQnaComments.map(o-> new QnaCommentResponseDto(o.getId(), o.getContent(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getQnaNotice().getId(), o.getNickName(), o.getUserImage()));
+        Page<QnaCommentResponseDto> myQnaComment = myQnaComments.map(o-> new QnaCommentResponseDto(o.getId(), o.getContent(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getQna().getId(), o.getNickName(), o.getUserImage()));
         return myQnaComment;
 
     }
@@ -53,12 +52,12 @@ public class QnaCommentServiceImpl implements QnaCommentService {
     @Transactional
     @Override
     public void insertQnaComment(QnaCommentRequestDto qnaCommentRequestDto) {
-        QnaNotice qnaNotice = qnaNoticeRepository.getById(qnaCommentRequestDto.getQnaNoticeId());
+        Qna qna = qnaRepository.getById(qnaCommentRequestDto.getQnaId());
 
         QnaComment qnaComment = new QnaComment();
         qnaComment.setContent(qnaCommentRequestDto.getContent());
         qnaComment.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
-        qnaComment.setQnaNotice(qnaNotice);
+        qnaComment.setQna(qna);
         qnaComment.setUserId(qnaCommentRequestDto.getUserId());
 
         try{

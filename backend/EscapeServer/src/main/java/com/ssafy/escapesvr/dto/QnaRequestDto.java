@@ -1,7 +1,7 @@
 package com.ssafy.escapesvr.dto;
 
 
-import com.ssafy.escapesvr.entity.QnaNotice;
+import com.ssafy.escapesvr.entity.Qna;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -10,19 +10,18 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "1:1 문의와 공지사항 관련 요청 dto")
-public class QnaNoticeRequestDto {
+@ApiModel(description = "1:1 문의 관련 요청 dto")
+public class QnaRequestDto {
 
-    @ApiModelProperty(value = "공지사항/문의글 번호", required = true)
+    @ApiModelProperty(value = "문의글 번호", required = true)
     @NotNull
-    private Long id; //공지사항/문의글 번호
+    private Long id; //문의글 번호
 
-    @ApiModelProperty(value = "공지사항/문의글 제목", required = true)
+    @ApiModelProperty(value = "문의글 제목", required = true)
     @NotBlank
     private String title; //제목
 
@@ -42,13 +41,13 @@ public class QnaNoticeRequestDto {
     @NotNull
     private Integer userId; //사용자 번호
 
-    public QnaNoticeRequestDto(QnaNotice qnaNotice){
-        this.id= qnaNotice.getId();
-        this.title= qnaNotice.getTitle();;
-        this.content= qnaNotice.getContent();
-        this.isSecret=qnaNotice.getIsSecret();
-        this.isNotice=qnaNotice.getIsNotice();
-        this.userId=qnaNotice.getUserId();
+    public QnaRequestDto(Qna qna){
+        this.id= qna.getId();
+        this.title= qna.getTitle();;
+        this.content= qna.getContent();
+        this.isSecret=qna.getIsSecret();
+        this.isNotice=qna.getIsNotice();
+        this.userId=qna.getUserId();
     }
 
 
