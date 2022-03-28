@@ -3,11 +3,11 @@ import {
     Select,
   } from "semantic-ui-react";
 import React from 'react'
-import styles from "../../styles/userboard/create.module.css";
-import allAxios from "../../src/lib/allAxios";
+import styles from "../../../styles/userboard/create.module.css";
+import allAxios from "../../../src/lib/allAxios";
 import { useEffect, useState } from 'react';
-import IsLogin from "../../src/lib/customLogin";
-import userAxios from "../../src/lib/userAxios";
+import IsLogin from "../../../src/lib/customLogin";
+import userAxios from "../../../src/lib/userAxios";
 import Router from "next/router";
 
 
@@ -23,13 +23,14 @@ const regionOptions = [
     { key: '제주', value: '제주', text: '제주' },
 ]
 
-export default function Userboard_create() {
+export default function Userboard_edit({id}: any) {
 
     const [title, setTitle] = useState('')
     const [content, setContent] = useState([])
     const [userInfo, setUserInfo]: any = useState(0)
     const [userId, setUserId] = useState(0)
-        
+    const [userboardDetail,setUserboardDetail]:any = useState([])
+
     // 지역 선택    
     const [region, setRegion] = useState(null)
     const [smallRegion, setSmallRegion] = useState(null)
@@ -89,7 +90,19 @@ export default function Userboard_create() {
             });
           }
         }
-    // 글 작성
+
+    useEffect(() => {
+        allAxios
+            .get(`userboard/{id}`)
+            .then(({data}) => {
+                setUserboardDetail(data.articleList)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    })
+
+    // 글 수정
     const userboardSubmit = async() => {
         if (title.length == 0){
             alert('제목을 작성해주세요')
@@ -106,10 +119,9 @@ export default function Userboard_create() {
                 smallRegion: smallRegion,
                 userId: userId,
             }
-    await allAxios.post('/article', body)
+    await allAxios.put('/article', body)
 
     .then(({data}) => {
-        alert("게시글이 작성되었습니다.")
         Router.push("/userboard")
     })
     .catch((e)=>{
@@ -124,6 +136,7 @@ export default function Userboard_create() {
     function userContentWrite(e: any){
         setContent(e.target.value)
     }
+
 
 return (
     <>

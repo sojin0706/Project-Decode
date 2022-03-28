@@ -150,3 +150,7 @@
 .editbutton {
   cursor: pointer;
 }
+
+.deletebutton {
+  cursor: pointer; 
+}

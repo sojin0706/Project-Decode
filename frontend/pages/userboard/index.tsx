@@ -6,7 +6,7 @@ import {
     Icon,
     Header,
     Select,
-  } from "semantic-ui-react";
+} from "semantic-ui-react";
 import { useEffect, useState } from "react";
 import React from 'react'
 import styles from "../../styles/userboard/userboard.module.css";
@@ -33,12 +33,12 @@ const regionOptions = [
 ]
 
 export default function Userboard() {
-    
+
     // 지역선택
     const [region, setRegion] = useState(null)
     const [smallRegionselect, setSmallRegionselect] = useState(null)
     const [smallRegionOptions, setSmallRegionOptions] = useState([{ key: '전체', value: '전체', text: '전체' }])
-    
+
     // 게시글 정보
     const [userboard, setUserboard] = useState([])
     const [pages, setPages] = useState(0)  //바뀌는 page
@@ -54,18 +54,18 @@ export default function Userboard() {
         loadSmallRegion(null)
     }, [])
 
-    function selectedRegion(e: any){
+    function selectedRegion(e: any) {
         setSmallRegionselect(null)
-        if (e.target.textContent === '전체'){
+        if (e.target.textContent === '전체') {
             loadSmallRegion(null)
             setRegion(null)
             return
         }
-        setRegion(e.target.textContent) 
+        setRegion(e.target.textContent)
         loadSmallRegion(e.target.textContent)
     }
 
-    function selectedSmallRegion(e: any){
+    function selectedSmallRegion(e: any) {
         setSmallRegionselect(e.target.textContent)
     }
 
@@ -78,7 +78,7 @@ export default function Userboard() {
             })
             .then(({ data }) => {
                 const tempRegion = data.smallRegions.map((regions: String) => {
-                    return {key: regions, value:regions, text: regions}
+                    return { key: regions, value: regions, text: regions }
                 })
                 setSmallRegionOptions(tempRegion)
             })
@@ -93,7 +93,7 @@ export default function Userboard() {
     }, [pages, id, title, createdAt, nickName, smallRegion])
 
 
-    const loadUserboard = async (pages:Number) => {
+    const loadUserboard = async (pages: Number) => {
         await allAxios
             .get(`/article`, {
                 params: {
@@ -105,36 +105,36 @@ export default function Userboard() {
                     page: pages,
                 }
             })
-            .then(({data}) => {
+            .then(({ data }) => {
                 setTotalPages(data.articleList.totalPages)
                 setUserboard(data.articleList.content)
-        })
-        .catch((e) => {
-            console.log(e)
-        })
+            })
+            .catch((e) => {
+                console.log(e)
+            })
     }
 
     // 페이지
     function movePage(e: any) {
         console.log(e)
-        if(e.target.type == "nextItem"){
-            if (pages >= totalPages-1){
+        if (e.target.type == "nextItem") {
+            if (pages >= totalPages - 1) {
                 return
             }
-            setPages(pages+1)
-        } else if (e.target.type === "prevItem"){
-            if (pages < 1){
+            setPages(pages + 1)
+        } else if (e.target.type === "prevItem") {
+            if (pages < 1) {
                 return
             }
-            setPages(Number(pages-1))
-        } else if (e.target.type === 'pageItem'){
-            setPages(e.target.textContent-1)
+            setPages(Number(pages - 1))
+        } else if (e.target.type === 'pageItem') {
+            setPages(e.target.textContent - 1)
         }
     }
 
     // 글 작성 버튼 연결
-    const goUserWrite = async() => {
-        if (IsLogin()){
+    const goUserWrite = async () => {
+        if (IsLogin()) {
             Router.push(`/userboard/create`)
         } else {
             alert('게시글 작성은 로그인 후 이용가능합니다')
@@ -143,96 +143,95 @@ export default function Userboard() {
     }
 
 
-return (
-    <>
- <Grid stackable>
-    <Grid.Column width={2}></Grid.Column>
-    <Grid.Column width={12}>
-    <div className={styles.board_wrap}>    
-     
-        <div className={styles.userboardtop}>
+    return (
+        <>
             <Grid stackable>
-                <Grid.Column width={10}>
-                <div className={styles.board_title}>
-                    <strong>유저게시판</strong>
-                    <div>
-                        <div className={styles.board_select}>
-                            <div className={styles.select_title}>
-                            <Header as='h5'>지역</Header>
-                            </div>
-                            <Select placeholder='지역' options={regionOptions} onChange={selectedRegion} />
+                <Grid.Column width={2}></Grid.Column>
+                <Grid.Column width={12}>
+                    <div className={styles.board_wrap}>
+
+                        <div className={styles.userboardtop}>
+                            <Grid stackable>
+                                <Grid.Column width={10}>
+                                    <div className={styles.board_title}>
+                                        <strong>유저게시판</strong>
+                                        <div>
+                                            <div className={styles.board_select}>
+                                                <div className={styles.select_title}>
+                                                    <Header as='h5'>지역</Header>
+                                                </div>
+                                                <Select placeholder='지역' options={regionOptions} onChange={selectedRegion} />
+                                            </div>
+                                            <div className={styles.board_select}>
+                                                <div className={styles.select_title}>
+                                                    <Header as='h5'>세부지역</Header>
+                                                </div>
+                                                <Select placeholder='세부지역' options={smallRegionOptions} onChange={selectedSmallRegion} />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </Grid.Column>
+                                <Grid.Column width={4}>
+                                    {/* <div className={styles.board_search}>
+                                        <Input
+                                            icon={<Icon name='search' inverted circular link />}
+                                            action={
+                                                <Dropdown button basic floating options={options} placeholder='검색' defaultValue='page' />
+                                            }
+                                            actionPosition='left'
+                                            placeholder='검색어를 입력하세요'
+                                        />
+                                    </div> */}
+                                </Grid.Column>
+                                <Grid.Column width={2}>
+                                    <div className={styles.bt_wrap}>
+                                        <div className={styles.on} onClick={goUserWrite}>글 작성</div>
+                                    </div>
+                                </Grid.Column>
+                            </Grid>
                         </div>
-                        <div className={styles.board_select}>
-                            <div className={styles.select_title}>
-                            <Header as='h5'>세부지역</Header>
+                        <div className={styles.board_list_wrap}>
+                            <div className={styles.board_list}>
+                                <div className={styles.top}>
+                                    <div className={styles.num}>번호</div>
+                                    <div className={styles.type}>지역</div>
+                                    <div className={styles.title}>제목</div>
+                                    <div className={styles.writer}>글쓴이</div>
+                                    <div className={styles.date}>작성일</div>
+                                </div>
+                                {userboard ? userboard.map((board: any) => {
+                                    return (
+                                        <div className={styles.boardListContent}>
+                                            <div className={styles.num}>{board.id}</div>
+                                            <div className={styles.type}>{board.smallRegion}</div>
+                                            <div className={styles.title} onClick={() => Router.push(`/userboard/${board.id}`)}>{board.title}</div>
+                                            <div className={styles.writer}>{board.nickName}</div>
+                                            <div className={styles.date}>{board.createdAt[0]}.{board.createdAt[1]}.{board.createdAt[2]}</div>
+                                        </div>
+                                    );
+                                }) : ''}
+
                             </div>
-                            <Select placeholder='세부지역' options={smallRegionOptions} onChange={selectedSmallRegion} />
+                            <div className={styles.board_page}>
+                                <Pagination
+                                    boundaryRange={0}
+                                    defaultActivePage={1}
+                                    ellipsisItem={null}
+                                    firstItem={null}
+                                    lastItem={null}
+                                    siblingRange={2}
+                                    totalPages={totalPages}
+                                    onClick={movePage}
+                                />
+
+                            </div>
                         </div>
                     </div>
-               </div> 
-               
                 </Grid.Column>
-                <Grid.Column width={4}>
-                    <div className={styles.board_search}>
-                        <Input
-                            icon={<Icon name='search' inverted circular link />}
-                            action={
-                                <Dropdown button basic floating options={options} placeholder='검색' defaultValue='page' />
-                            }
-                            actionPosition='left' 
-                            placeholder='검색어를 입력하세요'
-                        />
-                    </div>
-                </Grid.Column>
-                <Grid.Column width={2}>
-                <div className={styles.bt_wrap}>
-                    <div className={styles.on} onClick={goUserWrite}>글 작성</div>
-                </div>
-                </Grid.Column>
+                <Grid.Column width={2}></Grid.Column>
             </Grid>
-        </div>
-        <div className={styles.board_list_wrap}>
-            <div className={styles.board_list}>
-                <div className={styles.top}>
-                    <div className={styles.num}>번호</div>
-                    <div className={styles.type}>지역</div>
-                    <div className={styles.title}>제목</div>
-                    <div className={styles.writer}>글쓴이</div>
-                    <div className={styles.date}>작성일</div>
-                </div>
-                {console.log(userboard)}
-                {userboard?userboard.map((board:any) => {
-                    return (
-                        <div className={styles.boardListContent}>
-                        <div className={styles.num}>{board.id}</div>
-                        <div className={styles.type}>{board.smallRegion}</div>
-                        <div className={styles.title} onClick={() => Router.push(`/userboard/${board.id}`)}>{board.title}</div>
-                        <div className={styles.writer}>{board.nickName}</div>
-                        <div className={styles.date}>{board.createdAt[0]}.{board.createdAt[1]}.{board.createdAt[2]}</div>
-                        </div>
-                    );
-                }):''}
 
-            </div>
-            <div className={styles.board_page}>
-            <Pagination
-            boundaryRange={0}
-            defaultActivePage={1}
-            ellipsisItem={null}
-            firstItem={null}
-            lastItem={null}
-            siblingRange={2}
-            totalPages={totalPages}
-            onClick={movePage}
-             />
-
-            </div>
-        </div>
-    </div>
-    </Grid.Column>
-    <Grid.Column width={2}></Grid.Column>
-    </Grid>
-    
-    </>
-);
+        </>
+    );
 }
