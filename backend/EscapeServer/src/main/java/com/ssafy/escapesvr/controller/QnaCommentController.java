@@ -4,7 +4,7 @@ package com.ssafy.escapesvr.controller;
 import com.ssafy.escapesvr.dto.QnaCommentRequestDto;
 import com.ssafy.escapesvr.dto.QnaCommentResponseDto;
 import com.ssafy.escapesvr.service.QnaCommentService;
-import com.ssafy.escapesvr.service.QnaNoticeService;
+import com.ssafy.escapesvr.service.QnaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -30,7 +30,7 @@ public class QnaCommentController {
 
     private final QnaCommentService qnaCommentService;
 
-    private final QnaNoticeService qnaNoticeService;
+    private final QnaService qnaService;
 
 
     //댓글 작성
@@ -49,15 +49,15 @@ public class QnaCommentController {
     }
 
     // 게시글 댓글 조회
-    @ApiOperation(value = "Qna 게시글 댓글 조회", notes = "해당 게시글(qnaNoticeId)의 모든 댓글을 조회한다", response = Map.class)
+    @ApiOperation(value = "Qna 게시글 댓글 조회", notes = "해당 게시글(QnaId)의 모든 댓글을 조회한다", response = Map.class)
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getQnaCommentList(@RequestParam("qnaNoticeId") @ApiParam(value = "게시글 번호", required = true) Long qnaNoticeId) {
+    public ResponseEntity<Map<String, Object>> getQnaCommentList(@RequestParam("QnaId") @ApiParam(value = "게시글 번호", required = true) Long QnaId) {
 
         Map<String, Object> result = new HashMap<>();
         List<QnaCommentResponseDto> qnaCommentList = null;
         HttpStatus status = null;
         try {
-            qnaCommentList = qnaCommentService.getQnaCommentList(qnaNoticeId);
+            qnaCommentList = qnaCommentService.getQnaCommentList(QnaId);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();

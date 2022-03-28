@@ -27,7 +27,7 @@ public class QnaCommentRequestDto {
 
     @ApiModelProperty(value = "공지사항/문의글 번호", required = true)
     @NotNull
-    private Long qnaNoticeId; //문의글 번호
+    private Long QnaId; //문의글 번호
 
     @ApiModelProperty(value = "댓글 작성자 id(번호)", required = true)
     @NotNull
@@ -36,7 +36,7 @@ public class QnaCommentRequestDto {
     public QnaCommentRequestDto(QnaComment qnaComment){
         this.id = qnaComment.getId();
         this.content = qnaComment.getContent();
-        this.qnaNoticeId = qnaComment.getQnaNotice().getId();
+        this.QnaId = qnaComment.getQna().getId();
         this.userId = qnaComment.getUserId();
     }
 

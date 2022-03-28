@@ -31,8 +31,8 @@ public class QnaComment {
 
     //외래키
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "qna_notice_id")
-    private QnaNotice qnaNotice; //공지사항글 id
+    @JoinColumn(name = "qna_id")
+    private Qna qna; //qna 글 번호
 
     @NotNull
     private Integer userId;

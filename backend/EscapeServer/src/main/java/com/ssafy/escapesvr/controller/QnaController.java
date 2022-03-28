@@ -2,9 +2,9 @@ package com.ssafy.escapesvr.controller;
 
 
 
-import com.ssafy.escapesvr.dto.QnaNoticeRequestDto;
-import com.ssafy.escapesvr.dto.QnaNoticeResponseDto;
-import com.ssafy.escapesvr.service.QnaNoticeServiceImpl;
+import com.ssafy.escapesvr.dto.QnaRequestDto;
+import com.ssafy.escapesvr.dto.QnaResponseDto;
+import com.ssafy.escapesvr.service.QnaServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -20,28 +20,27 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/qnaNotice")
-@Api("1:1문의와 공지사항 컨트롤러")
-public class QnaNoticeController {
+@RequestMapping("/qna")
+@Api("1:1문의 컨트롤러")
+public class QnaController {
 
-    private final QnaNoticeServiceImpl qnaNoticeService;
+    private final QnaServiceImpl qnaService;
 
 
     //등록,수정,삭제,조회
 
     //Qna랑 공지사항 작성 : isNotice가 0이면 qna, 1이면 공지사항
-    @ApiOperation(value = "1:1 문의 or 공지사항 작성", notes = "회원이 1:1 문의글(isNotice =0) or 공지사항(isNotice = 1)을 작성한다")
+    @ApiOperation(value = "1:1 문의 작성", notes = "회원이 1:1 문의글(isNotice =0)을 작성한다")
     @PostMapping
-    public ResponseEntity<String> insertQnaNotice(@RequestBody @ApiParam(value = "문의/공지글 작성 모델") @Valid QnaNoticeRequestDto qnaNoticeRequestDto) {
+    public ResponseEntity<String> insertQna(@RequestBody @ApiParam(value = "문의글 작성 모델") @Valid QnaRequestDto qnaRequestDto) {
 
         HttpStatus status = null;
         try {
-            qnaNoticeService.insertQnaNotice(qnaNoticeRequestDto);
+            qnaService.insertQna(qnaRequestDto);
             status = HttpStatus.OK;
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,24 +50,24 @@ public class QnaNoticeController {
 
     }
 
-    @ApiOperation(value = "모든 1:1 문의 or 공지사항 리스트 조회", notes = "1:1 문의 or 공지사항 문의 리스트를 조회한다")
+    @ApiOperation(value = "모든 1:1 문의 조회", notes = "1:1 문의 리스트를 조회한다")
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getAllQnaNoticeList(@PathVariable @PageableDefault(size=5) @SortDefault.SortDefaults({@SortDefault(sort="isNotice", direction = Sort.Direction.DESC), @SortDefault(sort="createdAt", direction = Sort.Direction.DESC)}) Pageable pageable) {
+    public ResponseEntity<Map<String, Object>> getAllQnaList(@PageableDefault(size=5) @SortDefault.SortDefaults({@SortDefault(sort="isNotice", direction = Sort.Direction.DESC), @SortDefault(sort="createdAt", direction = Sort.Direction.DESC)}) Pageable pageable) {
 
         //(@PathVariable @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable)
         //Sort.by(Sort.Direction.DESC, "isNotice","createdAt"),
 
         Map<String, Object> result = new HashMap<>();
-        Page<QnaNoticeResponseDto> qnaNoticeList = null;
+        Page<QnaResponseDto> qnaList = null;
         HttpStatus status = null;
         try {
-            qnaNoticeList = qnaNoticeService.getQnaNoticeList(pageable);
+            qnaList = qnaService.getQnaList(pageable);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        result.put("qnaNoticeList", qnaNoticeList);
+        result.put("qnaList", qnaList);
 
         return new ResponseEntity<>(result, status);
     }
@@ -77,10 +76,10 @@ public class QnaNoticeController {
     @GetMapping("/profile/{userId}")
     public ResponseEntity<Map<String, Object>> getMyQnaList(@PathVariable @ApiParam(value = "회원번호") Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable) {
         Map<String, Object> result = new HashMap<>();
-        Page<QnaNoticeResponseDto> myQnaList = null;
+        Page<QnaResponseDto> myQnaList = null;
         HttpStatus status = null;
         try {
-            myQnaList = qnaNoticeService.getMyQnaList(userId, pageable);
+            myQnaList = qnaService.getMyQnaList(userId, pageable);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -92,12 +91,12 @@ public class QnaNoticeController {
     }
 
 
-    @ApiOperation(value = "1:1 문의 or 공지사항 수정", notes = "1:1 문의글(isNotice =0) or 공지사항(isNotice = 1)을 수정한다")
+    @ApiOperation(value = "1:1 문의 수정", notes = "1:1 문의글(isNotice =0)을 수정한다")
     @PutMapping
-    public ResponseEntity<String> updateQnaNotice(@RequestBody @ApiParam(value = "문의/공지글 수정 모델") @Valid QnaNoticeRequestDto qnaNoticeRequestDto) {
+    public ResponseEntity<String> updateQna(@RequestBody @ApiParam(value = "문의글 수정 모델") @Valid QnaRequestDto qnaRequestDto) {
         HttpStatus status = null;
         try {
-            qnaNoticeService.updateQnaNotice(qnaNoticeRequestDto);
+            qnaService.updateQna(qnaRequestDto);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -106,12 +105,12 @@ public class QnaNoticeController {
         return new ResponseEntity<>(status);
     }
 
-    @ApiOperation(value = "1:1 문의 or 공지사항 삭제", notes = "문의/공지글을 삭제한다")
+    @ApiOperation(value = "1:1 문의 삭제", notes = "문의글을 삭제한다")
     @DeleteMapping("/{qnaId}")
-    public ResponseEntity<String> deleteQnaNotice(@PathVariable @ApiParam(value = "문의/공지 게시글 번호") Long qnaId) {
+    public ResponseEntity<String> deleteQna(@PathVariable @ApiParam(value = "문의 게시글 번호") Long qnaId) {
         HttpStatus status = null;
         try {
-            qnaNoticeService.deleteQnaNotice(qnaId);
+            qnaService.deleteQna(qnaId);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();

@@ -17,12 +17,12 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class QnaNotice {
+public class Notice {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "qna_id")
+    @Column(name = "notice_id")
     private Long id; //공지사항글 ID
 
     @NotNull
@@ -43,14 +43,14 @@ public class QnaNotice {
     private LocalDateTime modifiedAt; //수정시간
 
     @NotNull
-    private Integer userId;
+    private Integer userId; //유저 번호
 
     private String nickName;//유저 닉네임
 
     private String userImage; //유저 프로필 사진
 
-    @OneToMany(mappedBy = "qnaNotice", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<QnaComment> comments = new ArrayList<>();
+//    @OneToMany(mappedBy = "notice", cascade = CascadeType.REMOVE, orphanRemoval = true)
+//    private List<QnaComment> comments = new ArrayList<>();
 
 
 }
