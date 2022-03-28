@@ -6,12 +6,9 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-#  data:
-#    mongodb:
-#      uri: mongodb://localhost:27017/escape
-#      username: escape
-#      password: decode
-#      authentication-database: admin
+  data:
+    mongodb:
+      uri: mongodb://j6c203.p.ssafy.io:27017/escape
   datasource:
     url: jdbc:mysql://j6c203.p.ssafy.io:3306/escape?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
     username: escape
