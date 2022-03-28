@@ -8,19 +8,20 @@ import Router, { useRouter } from "next/router";
 export default function Index() {
   // 유저 정보 불러오기
   const [userInfo, setUserInfo]: any = useState([]);
-  
-  const getUserInfo = async() => {
-    userAxios.get(`/auth/users`)
-    .then((data) => {
-      setUserInfo(data.data.body.user)
-    })
-    .catch((e) => {
-      console.log(e)
-    })
-  }
+
+  const getUserInfo = async () => {
+    userAxios
+      .get(`/auth/users`)
+      .then((data) => {
+        setUserInfo(data.data.body.user);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   // 닉네임
-  const [nick, setNick] = useState(userInfo.name);
+  const [nick, setNick] = useState("");
 
   const handleChangeNick = (e: any) => {
     setNick(e.target.value);
@@ -62,7 +63,7 @@ export default function Index() {
   const [selectedSmallPlace, setselectedSmallPlace] = useState("");
 
   useEffect(() => {
-    getUserInfo()
+    getUserInfo();
     axios
       .get(`http://j6c203.p.ssafy.io:8082/information/region?largeRegion=서울`)
       .then(({ data }) => {
@@ -154,48 +155,103 @@ export default function Index() {
   // 정보수정
   const router = useRouter();
   const edit = (e: any) => {
-    e.preventDefault();
-    const body = {
-      age: Number(age),
-      gender: gender,
-      id: userInfo.id,
-      large_region: selectedBigPlace,
-      nick_name: nick,
-      preference_genre: {
-        adult: scoreAdult,
-        adventure: scoreAdventure,
-        comedy: scoreComedy,
-        crime: scoreCrime,
-        drama: scoreDrama,
-        horror: scoreHorror,
-        reasoning: scoreReasoning,
-        romance: scoreRomance,
-        sf_fantasy: scoreSffantasy,
-        thrill: scoreThrill,
-      },
-      small_region: selectedSmallPlace,
+    if (nick === "") {
+      alert("닉네임을 입력해주세요");
     }
-    axios
-      .put(
-        `http://j6c203.p.ssafy.io:8081/user/recommend`, body
-      )
-      .then(({data}) => {
-        getUserInfo()
-      })
-      .then(() => {
-        router.push("/")
-      })
-      .catch((err)=>{
-        console.log(err)
-      })
+    if (gender === null) {
+      alert("성별을 선택해주세요");
+    }
+    if (selectedBigPlace === null) {
+      alert("큰 지역을 선택해주세요");
+    }
+    if (selectedSmallPlace === null) {
+      alert("작은 지역을 선택해주세요");
+    }
+    if (scoreThrill === null) {
+      alert("스릴러 장르 선호도를 선택해주세요");
+    }
+    if (scoreAdult === null) {
+      alert("성인 장르 선호도를 선택해주세요");
+    }
+    if (scoreAdventure === null) {
+      alert("모험/액션 장르 선호도를 선택해주세요");
+    }
+    if (scoreComedy === null) {
+      alert("코미디 장르 선호도를 선택해주세요");
+    }
+    if (scoreCrime === null) {
+      alert("범죄 장르 선호도를 선택해주세요");
+    }
+    if (scoreDrama === null) {
+      alert("감성/드라마 장르 선호도를 선택해주세요");
+    }
+    if (scoreHorror === null) {
+      alert("공포 장르 선호도를 선택해주세요");
+    }
+    if (scoreReasoning === null) {
+      alert("추리 장르 선호도를 선택해주세요");
+    }
+    if (scoreRomance === null) {
+      alert("로맨스 장르 선호도를 선택해주세요");
+    }
+    if (scoreSffantasy === null) {
+      alert("SF/판타지 장르 선호도를 선택해주세요");
+    } else {
+      e.preventDefault();
+      const body = {
+        age: Number(age),
+        gender: gender,
+        id: userInfo.id,
+        large_region: selectedBigPlace,
+        nick_name: nick,
+        preference_genre: {
+          adult: scoreAdult,
+          adventure: scoreAdventure,
+          comedy: scoreComedy,
+          crime: scoreCrime,
+          drama: scoreDrama,
+          horror: scoreHorror,
+          reasoning: scoreReasoning,
+          romance: scoreRomance,
+          sf_fantasy: scoreSffantasy,
+          thrill: scoreThrill,
+        },
+        small_region: selectedSmallPlace,
+      };
+      axios
+        .put(`http://j6c203.p.ssafy.io:8081/user/recommend`, body)
+        .then(({ data }) => {
+          getUserInfo();
+        })
+        .then(() => {
+          router.push("/");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
     <>
-      <h1>{selectedBigPlace}</h1>
-      <h1>{selectedSmallPlace}</h1>
-      <h1>ID : {userInfo.id}</h1>
+      {/* 확인용 !!!! */}
+      {/* <h1>ID : {userInfo.id}</h1>
       <h1>이름 : {userInfo.name}</h1>
+      <h1>닉네임: {nick}</h1>
+      <h1>성별: {gender}</h1>
+      <h1>연령대: {age}</h1>
+      <h1>대분류: {selectedBigPlace}</h1>
+      <h1>소분류: {selectedSmallPlace}</h1>
+      <h1>스릴러: {scoreThrill}</h1>
+      <h1>로맨스: {scoreRomance}</h1>
+      <h1>추리: {scoreThrill}</h1>
+      <h1>SF/Fantasy: {scoreSffantasy}</h1>
+      <h1>모험/액션: {scoreAdventure}</h1>
+      <h1>코미디: {scoreComedy}</h1>
+      <h1>범죄: {scoreCrime}</h1>
+      <h1>공포: {scoreHorror}</h1>
+      <h1>19금: {scoreAdult}</h1>
+      <h1>감성/드라마: {scoreDrama}</h1> */}
       <Grid>
         <Grid.Row>
           <Grid.Column width={6}></Grid.Column>
@@ -205,29 +261,12 @@ export default function Index() {
                 <Form.Field>
                   <label>닉네임</label>
                   <Input
-                    placeholder="닉네임을 입력해주세요"
+                    placeholder={userInfo.name}
                     onChange={(e) => {
                       handleChangeNick(e);
                     }}
                   />
-                  <p>닉확인용: {nick}</p>
                 </Form.Field>
-              </Form.Group>
-
-              <Form.Group inline>
-                <label>성별</label>
-                <Form.Radio
-                  label="Man"
-                  value="M"
-                  checked={gender === "M"}
-                  onChange={handleChangeGender}
-                />
-                <Form.Radio
-                  label="Woman"
-                  value="W"
-                  checked={gender === "W"}
-                  onChange={handleChangeGender}
-                />
               </Form.Group>
 
               <div>
@@ -423,7 +462,9 @@ export default function Index() {
               </div>
 
               <br></br>
-              <Button primary onClick={edit}>작성</Button>
+              <Button primary onClick={edit}>
+                작성
+              </Button>
             </Form>
           </Grid.Column>
           <Grid.Column width={6}></Grid.Column>
