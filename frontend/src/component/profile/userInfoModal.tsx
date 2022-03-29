@@ -3,11 +3,28 @@ import { Button, Image, Modal, Form, Input } from "semantic-ui-react";
 import userAxios from "../../lib/userAxios";
 import axios from "axios";
 import { useRouter } from "next/router";
-// import FormData from "form-data";
+import FormData from "form-data";
 
 export default function UserInfoModal() {
   // 유저 정보 불러오기
   const [userInfo, setUserInfo]: any = useState([]);
+  const [scoreThrill, setThrill] = useState(1);
+  const [scoreRomance, setRomance] = useState(1);
+  const [scoreReasoning, setReasoning] = useState(1);
+  const [scoreSffantasy, setSffantasy] = useState(1);
+  const [scoreAdventure, setAdventure] = useState(1);
+  const [scoreComedy, setComedy] = useState(1);
+  const [scoreCrime, setCrime] = useState(1);
+  const [scoreHorror, setHorror] = useState(1);
+  const [scoreAdult, setAdult] = useState(1);
+  const [scoreDrama, setDrama] = useState(1);
+  const [gender, setGender] = useState(userInfo.gender);
+  const [nick, setNick] = useState(userInfo.name);
+  const [selectedBigPlace, setSelectedBigPlace] = useState("서울");
+  const [smallPlace, setSmallPlace] = useState([]);
+  const [selectedSmallPlace, setselectedSmallPlace] = useState("강남");
+  // 사진파일
+  const [file, setFile]: any = useState();
 
   const getUserInfo = async () => {
     userAxios
@@ -21,14 +38,12 @@ export default function UserInfoModal() {
   };
 
   // 닉네임
-  const [nick, setNick] = useState(userInfo.name);
 
   const handleChangeNick = (e: any) => {
     setNick(e.target.value);
   };
 
   // 성별
-  const [gender, setGender] = useState(userInfo.gender);
 
   // 연령대 선택
   const ages = [
@@ -54,9 +69,6 @@ export default function UserInfoModal() {
     { key: 6, text: "전라", value: "전라" },
     { key: 7, text: "제주", value: "제주" },
   ];
-  const [selectedBigPlace, setSelectedBigPlace] = useState("서울");
-  const [smallPlace, setSmallPlace] = useState([]);
-  const [selectedSmallPlace, setselectedSmallPlace] = useState("");
 
   useEffect(() => {
     getUserInfo();
@@ -89,16 +101,7 @@ export default function UserInfoModal() {
     { key: 5, text: "5점", value: 5 },
   ];
 
-  const [scoreThrill, setThrill] = useState(1);
-  const [scoreRomance, setRomance] = useState(1);
-  const [scoreReasoning, setReasoning] = useState(1);
-  const [scoreSffantasy, setSffantasy] = useState(1);
-  const [scoreAdventure, setAdventure] = useState(1);
-  const [scoreComedy, setComedy] = useState(1);
-  const [scoreCrime, setCrime] = useState(1);
-  const [scoreHorror, setHorror] = useState(1);
-  const [scoreAdult, setAdult] = useState(1);
-  const [scoreDrama, setDrama] = useState(1);
+ 
 
   const handleChangeThrill = (e: any) => {
     setThrill(e.target.value);
@@ -135,72 +138,50 @@ export default function UserInfoModal() {
     setselectedSmallPlace(e.target.value);
   };
 
-  // 사진파일
-  const [file, setFile]: any = useState(0);
-
   const handleFile = (e: any) => {
     setFile(e.target.files[0]);
   };
 
   const edit = (e: any) => {
     e.preventDefault();
-    const profileRequest: any = {
-      age: Number(age),
 
-      gender: "남",
-      id: scoreId, 
-      large_region: selectedBigPlace,
-      nick_name: nick,
-      small_region: selectedSmallPlace,
+    let profileRequest: {id:Number, age:Number, large_region:String,
+                        nick_name:String,small_region:String} = {
+      id: 1, 
+      age: 10,
+      large_region: "dsas",
+      nick_name: "dsds",
+      small_region: "dsda",
     };
 
-
-    const preferenceRequest: any = {
-      id: userInfo.id,
-      adult: scoreAdult,
-      adventure: scoreAdventure,
-      comedy: scoreComedy,
-      crime: scoreCrime,
-      drama: scoreDrama,
-      horror: scoreHorror,
-      reasoning: scoreReasoning,
-      romance: scoreRomance,
-      sf_fantasy: scoreSffantasy,
-      thril: scoreThrill,
+    let preferenceRequest: {id:Number,adult:Number,adventure:Number,
+      comedy:Number,crime:Number,drama:Number,horror:Number,
+      reasoning:Number,romance:Number,sf_fantasy:Number,
+      thrill:Number}= {
+      id: 96,
+      adult: 1,
+      adventure: 2,
+      comedy: 3,
+      crime: 4,
+      drama: 5,
+      horror: 7,
+      reasoning: 6,
+      romance: 9,
+      sf_fantasy: 8,
+      thrill: 0,
     };
-    console.log(preferenceRequest,profileRequest)
-    // profileRequest
-    // preferenceRequest
 
-    const formData = new FormData();
-    // const formData: any = new FormData();
+    const body =  new FormData();
+
+    body.append("preferenceRequest", new Blob([JSON.stringify(preferenceRequest)],{type: "application/json"}));
+    body.append("profileRequest", new Blob([JSON.stringify(profileRequest)],{type: "application/json"}));
+    body.append("file",file);
+
     console.log(file);
     console.log(preferenceRequest);
     console.log(profileRequest);
-    // formData.append("file", file);
-    // formData.append("preferenceRequest", userInfo.id);
-    // formData.append("preferenceRequest", scoreAdult);
-    // formData.append("preferenceRequest", preferenceRequest);
-    // formData.append("preferenceRequest", scoreAdventure);
-    // formData.append("preferenceRequest", scoreComedy);
-    // formData.append("preferenceRequest", scoreCrime);
-    // formData.append("preferenceRequest", scoreDrama);
-    // formData.append("preferenceRequest", scoreHorror);
-    // formData.append("preferenceRequest", scoreReasoning);
-    // formData.append("preferenceRequest", scoreRomance);
-    // formData.append("preferenceRequest", scoreSffantasy);
-    // formData.append("preferenceRequest", scoreThrill);
-    // formData.append("profileRequest", profileRequest);
-    // for (let key of formData.preferenceRequest.keys()) {
-    //   console.log(key);
-    // }
-    
-    // // FormData의 value 확인
-    // for (let value of formData.preferenceRequest.values()) {
-    //   console.log(value);
-    // }
-    console.log(formData)
-    axios.put(`http://j6c203.p.ssafy.io:8081/user/recommend`, formData, {
+
+    axios.put("http://j6c203.p.ssafy.io:8081/user/recommend", body, {
       headers: { "Content-Type": "multipart/form-data" },
     })
     .then(() => {})
@@ -220,7 +201,10 @@ export default function UserInfoModal() {
         <Image size="medium" src="/images/test_chr.png" alt="" wrapped />
         <Modal.Description>
           <Form>
-            <input type="file" name="file" onChange={(e) => handleFile(e)} />
+            <Input type="file"
+                  accept="image/*, video/*" 
+                  name="file" 
+                  onChange={handleFile} />
             <br></br>
             <br></br>
             <Form.Group inline>
@@ -410,7 +394,7 @@ export default function UserInfoModal() {
       </Modal.Content>
       <Modal.Actions>
         <Button onClick={() => setOpen(false)}>Cancel</Button>
-        <Button onClick={edit} positive>
+        <Button control={Button} onClick={edit}>
           Ok
         </Button>
       </Modal.Actions>
