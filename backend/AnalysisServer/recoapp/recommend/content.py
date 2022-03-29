@@ -1,11 +1,13 @@
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import random
 
 
-def cb(themes):
+def cb(temp_genre, themes):
     # 테마정보 불러오기
-    theme = pd.read_csv("recommend/CF/theme.csv", encoding='cp949')
+    # theme = pd.read_csv("recommend/CF/theme.csv", encoding='cp949')
+    theme = pd.DataFrame(list(themes))
 
     # 사용안하는 데이터 제거
     theme = theme[['theme_name', 'theme_genre', 'theme_is_scared', 'theme_level',
@@ -48,11 +50,22 @@ def cb(themes):
         sim_index = genre_c_sim[target_theme_index, :top].reshape(-1)
         sim_index = sim_index[sim_index != target_theme_index]
         result = df.iloc[sim_index].sort_values('score', ascending=False)[:10]
-        print(sim_index)
         return result
 
     # 결과출력
-    print(get_recommend_theme_list(theme_top, theme_title='재개발구역: 관계자 외 출입금지'))
+    # print(get_recommend_theme_list(theme_top, theme_title='재개발구역: 관계자 외 출입금지'))
 
-    data = get_recommend_theme_list(theme_top, theme_title='재개발구역: 관계자 외 출입금지')
-    return data
+    #  영화 제목 찾기
+    theme_list = theme[theme['theme_genre'] == temp_genre]
+    random_number = random.randint(0, len(theme_list)-1)
+    name = theme_list.iloc[random_number]['theme_name']
+
+    # json 변환
+    # data = get_recommend_theme_list(theme_top, theme_title='재개발구역: 관계자 외 출입금지')
+    # json_data = data.to_json(orient='index', force_ascii=False)
+    # return json_data
+
+    # json 변환
+    data = get_recommend_theme_list(theme_top, theme_title=name)
+    json_data = data.to_json(orient='index', force_ascii=False)
+    return json_data
