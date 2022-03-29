@@ -1,8 +1,8 @@
 import {
     Button,
     Comment,
+    Divider,
     Grid,
-    Icon,
   } from "semantic-ui-react";
 import React from 'react'
 import { useEffect, useState } from "react";
@@ -14,15 +14,12 @@ import userAxios from "../../../src/lib/userAxios";
 
 export default function Userboard_detail() {
     const [userboardDetail,setUserboardDetail]:any = useState([])
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
-    const [createdAt, setCreatedAt] = useState([])
-    const [nickName, setNickName] = useState('')
     const [likes, setLikes] = useState(false)
     const [userInfo, setUserInfo]: any = useState(0)
     const router = useRouter()
     const id = Number(router.query.id)
     const [isLike, setisLike] = useState(false);
+    const [comments, setComments] = useState("")
 
     useEffect(() => {
         loadUserboardDetail(id)
@@ -37,7 +34,6 @@ export default function Userboard_detail() {
             userAxios.get(`/auth/users`)
             .then(({ data }) => {
                 setUserInfo(data.body.user)
-                console.log(data.body.user)
             })
             .catch((e) => {
             console.log(e);
@@ -50,7 +46,6 @@ export default function Userboard_detail() {
         await allAxios
             .get(`/article/${id}`)
             .then(({ data }) => {
-                console.log(data.article.createdAt)
                 setUserboardDetail(data.article)
             })
             .catch((e) => {
@@ -71,8 +66,7 @@ export default function Userboard_detail() {
         });
     };
 
-    // const date = userboardDetail.createdAt[0] + userboardDetail.createdAt[1] + userboardDetail.createdAt[2]
-    console.log(userboardDetail)
+// 댓글
 
 
 
@@ -108,8 +102,7 @@ return (
                         </dl>
                         <dl>
                             <dt>작성일</dt>
-                            <dd>{String(userboardDetail.createdAt)}</dd>
-                            {/* {userboardDetail.createdAt[0]}.{userboardDetail.createdAt[1]}.{userboardDetail.createdAt[2]} */}
+                            <dd>{userboardDetail.createdAt?userboardDetail.createdAt[0]+'.'+userboardDetail.createdAt[1]+'.'+userboardDetail.createdAt[2]:''}</dd>
                         </dl>
                         {/* <dl>
                             <dt>조회수</dt>
@@ -151,15 +144,12 @@ return (
                     <br />
                 <div className={styles.bt_wrap}>
                     <div className={styles.on} onClick={() => Router.back()}>목록</div>
-
-                    <div className={styles.editbutton} onClick={() => router.push(`/userboard/edit/${id}`)}> 수정</div>
-                    <div className={styles.deletebutton} onClick={deleteuserboard}>삭제</div>
-                    {/* {userInfo.id == userboardDetail.userId &&(
+                    {userInfo.id == userboardDetail.userId &&(
                     <>
                         <div className={styles.editbutton} onClick={() => router.push(`/userboard/edit/${id}`)}> 수정</div>
                         <div className={styles.deletebutton} onClick={deleteuserboard}> 삭제</div>
                     </>
-                    )} */}
+                    )}
                     
                 </div>
                     <div className={styles.comments}>
@@ -167,12 +157,14 @@ return (
                         <div className={styles.comment_title}>
                             댓글쓰기
                         </div>
-                        <div className={styles.comment_cont} >
+                        {userInfo.id != undefined && (
+                            <>
+                            <div className={styles.comment_cont} >
                             <Grid verticalAlign='middle' centered stackable>
                                 <Grid.Column width={1}>
                                     <Comment.Group size='massive'>
                                         <Comment>
-                                            <Comment. Avatar src='https://react.semantic-ui.com/images/avatar/small/helen.jpg' />
+                                            <Comment. Avatar src={userInfo.image} />
                                         </Comment>
                                     </Comment.Group>
                                 </Grid.Column>
@@ -183,7 +175,9 @@ return (
                                 </Grid.Column>
                                 <Grid.Column width={12}>
                                 <div>
+
                                     <textarea placeholder="댓글을 작성해주세요"></textarea>
+
                                 </div>
                                 </Grid.Column>
                                 <Grid.Column width={2}>
@@ -193,6 +187,9 @@ return (
                                 </Grid.Column>
                             </Grid>
                         </div>
+                            </>
+                        )}
+
                         <Comment.Group >
                             <Comment>
                             <Comment. Avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
@@ -208,24 +205,9 @@ return (
                                 <Comment.Action>답글 달기</Comment.Action>
                                 </Comment.Actions>
                             </Comment.Content>
-                            <Comment.Group>
-                                <Comment>
-                                <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/stevie.jpg' />
-                                <Comment.Content>
-                                    <Comment.Author as='a'>하늬</Comment.Author>
-                                    <Comment.Metadata>
-                                    <div>방금 전</div>
-                                    </Comment.Metadata>
-                                    <Comment.Text>저요</Comment.Text>
-                                    <Comment.Actions>
-                                    <Comment.Action>답글 달기</Comment.Action>
-                                    </Comment.Actions>
-                                </Comment.Content>
-                                </Comment>
-                            </Comment.Group>
                             </Comment>
                         </Comment.Group>
-    
+                        <Divider/>
                     </div>
                 </div>
 

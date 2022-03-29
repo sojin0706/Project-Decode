@@ -106,6 +106,7 @@ export default function Userboard() {
                 }
             })
             .then(({ data }) => {
+                console.log(data.articleList)
                 setTotalPages(data.articleList.totalPages)
                 setUserboard(data.articleList.content)
             })

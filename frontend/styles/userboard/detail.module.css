@@ -132,7 +132,7 @@
   border-bottom: 1px solid #000;
   margin: 10px 10px;
   width: 100%;
-  height: 50px;
+  height: 60px;
   box-sizing: border-box;
   border: 1;
   resize: vertical;
@@ -144,7 +144,8 @@
 }
 
 .comment_createname {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
+  font-weight: bold;
 }
 
 .editbutton {

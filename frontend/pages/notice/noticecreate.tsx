@@ -12,7 +12,7 @@ import userAxios from "../../src/lib/userAxios";
 import Router from "next/router";
 
 
-export default function Qnacreate() {
+export default function Noticecreate() {
 
     const [title, setTitle] = useState('')
     const [content, setContent] = useState([])
@@ -41,7 +41,7 @@ export default function Qnacreate() {
         }
 
     // 글 작성
-    const qnaSubmit = async() => {
+    const noticeSubmit = async() => {
         if (title.length == 0){
             alert('제목을 작성해주세요')
             return
@@ -60,10 +60,10 @@ export default function Qnacreate() {
                 isSecret: isSecret,
                 nickName: userInfo.nick_name,
             }
-    await allAxios.post('/qna', body)
+    await allAxios.post('/notice', body)
 
     .then(({data}) => {
-        alert("Q&A가 작성되었습니다.")
+        alert("공지사항이 작성되었습니다.")
         Router.push("/notice")
     })
     .catch((e)=>{
@@ -72,10 +72,10 @@ export default function Qnacreate() {
     }
     }
 
-    function qnaTitleWrite(e: any){
+    function noticeTitleWrite(e: any){
         setTitle(e.target.value)
     }
-    function qnaContentWrite(e: any){
+    function noticeContentWrite(e: any){
         setContent(e.target.value)
     }
 
@@ -91,9 +91,9 @@ return (
             <Grid>
                 <Grid.Column width={16}>
                 <div className={styles.board_title}>
-                    <strong>Q&A</strong>
+                    <strong>공지사항</strong>
                 </div>
-                <div>문의사항이 있으실 경우 질문을 남겨주세요</div>
+                <div>공지사항을 작성해주세요.</div>
                 </Grid.Column>
             </Grid>
         </div>
@@ -102,7 +102,7 @@ return (
                     <div className={styles.title}>
                         <dl>
                             <dt>제목</dt>
-                            <dd><input value={title} type="text" placeholder="제목 입력" onChange={qnaTitleWrite}/></dd>
+                            <dd><input value={title} type="text" placeholder="제목 입력" onChange={noticeTitleWrite}/></dd>
                         </dl>
                     </div>
                     <div className={styles.info}>
@@ -110,24 +110,16 @@ return (
                             <dt>글쓴이</dt>
                             <dd>{userInfo.nick_name}</dd>
                         </dl>
-                        <dl>
-                            <dt>
-                            비밀글
-                            </dt>
-                            <dd>
-                                <input type="checkbox" />
-                            </dd>
-                        </dl>
                     </div>
                     <div className={styles.cont}>
-                        <textarea value={content} placeholder="내용 입력" onChange={qnaContentWrite}></textarea>
+                        <textarea value={content} placeholder="내용 입력" onChange={noticeContentWrite}></textarea>
                     </div>
 
                 </div>
 
 
                 <div className={styles.bt_wrap}>
-                    <div className={styles.on} onClick={qnaSubmit}>등록</div>
+                    <div className={styles.on} onClick={noticeSubmit}>등록</div>
                     <div onClick={() => Router.back()}>취소</div>
                 </div>
             </div>

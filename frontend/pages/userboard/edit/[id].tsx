@@ -88,19 +88,20 @@ export default function Userboard_edit({id}: any) {
             console.log(e);
             alert('로그인 시간이 만료되었습니다.')
             });
-          }
+          }        
         }
-
-    useEffect(() => {
-        allAxios
-            .get(`userboard/{id}`)
-            .then(({data}) => {
-                setUserboardDetail(data.articleList)
-            })
-            .catch((e) => {
-                console.log(e)
-            })
-    })
+        
+    // useEffect(() => {
+    //     allAxios
+    //         .get(`article/{id}`)
+    //         .then(({data}) => {
+    //             console.log(data.articleList)
+    //             setUserboardDetail(data.articleList)
+    //         })
+    //         .catch((e) => {
+    //             console.log(e)
+    //         })
+    // })
 
     // 글 수정
     const userboardSubmit = async() => {
@@ -117,15 +118,16 @@ export default function Userboard_edit({id}: any) {
                 title: title,
                 content: content,
                 smallRegion: smallRegion,
-                userId: userId,
+                userId: userInfo.id,
+                nickName: userInfo.nick_name,
             }
     await allAxios.put('/article', body)
 
-    .then(({data}) => {
+    .then(() => {
         Router.push("/userboard")
     })
     .catch((e)=>{
-        console.log(e)
+        alert("잠시 후 시도해주세요")
     })    
     }
     }
