@@ -65,7 +65,7 @@ public class UserDetailReponse {
     @Builder
     public UserDetailReponse(Integer id, String email,  String image, ProviderType providerType, RoleType roleType,
                           String tokenId, String nickName, String name, LocalDateTime createdAt, LocalDateTime modifiedAt,
-                             String gender, Integer age, String largeRegion, String smallRegion, GenrePreference genrePreference) {
+                             String gender, Integer age, String largeRegion, String smallRegion, Integer genreId, GenrePreference genrePreference) {
         this.id = id;
         this.email = email;
         this.image = image;
