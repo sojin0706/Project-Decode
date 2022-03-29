@@ -147,12 +147,13 @@ export default function UserInfoModal() {
     const profileRequest: any = {
       age: Number(age),
 
-      gender: gender,
-      id: userInfo.id,
+      gender: "남",
+      id: scoreId, 
       large_region: selectedBigPlace,
       nick_name: nick,
       small_region: selectedSmallPlace,
     };
+
 
     const preferenceRequest: any = {
       id: userInfo.id,
@@ -167,7 +168,10 @@ export default function UserInfoModal() {
       sf_fantasy: scoreSffantasy,
       thril: scoreThrill,
     };
-    
+    console.log(preferenceRequest,profileRequest)
+    // profileRequest
+    // preferenceRequest
+
     const formData = new FormData();
     // const formData: any = new FormData();
     console.log(file);
@@ -195,12 +199,12 @@ export default function UserInfoModal() {
     // for (let value of formData.preferenceRequest.values()) {
     //   console.log(value);
     // }
-    // console.log(formData)
-    // axios.put(`http://j6c203.p.ssafy.io:8081/user/recommend`, formData, {
-    //   headers: { "Content-Type": "multipart/form-data" },
-    // })
-    // .then(() => {})
-    // .catch((err) => {console.log(err)})
+    console.log(formData)
+    axios.put(`http://j6c203.p.ssafy.io:8081/user/recommend`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+    .then(() => {})
+    .catch((err) => {console.log(err)})
   };
 
   const [open, setOpen] = useState(false);
