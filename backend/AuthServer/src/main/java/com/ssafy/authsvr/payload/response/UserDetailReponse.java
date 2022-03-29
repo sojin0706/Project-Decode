@@ -1,5 +1,6 @@
 package com.ssafy.authsvr.payload.response;
 
+import com.ssafy.authsvr.entity.GenrePreference;
 import com.ssafy.authsvr.entity.User;
 import com.ssafy.authsvr.oauth.domain.ProviderType;
 import com.ssafy.authsvr.oauth.domain.RoleType;
@@ -39,6 +40,8 @@ public class UserDetailReponse {
 
     private String smallRegion;
 
+    private GenrePreference genrePreference;
+
     public static UserDetailReponse detailResponse(User user){
         return UserDetailReponse.builder()
                 .id(user.getId())
@@ -55,13 +58,14 @@ public class UserDetailReponse {
                 .age(user.getAge())
                 .largeRegion(user.getLargeRegion())
                 .smallRegion(user.getSmallRegion())
+                .genrePreference(user.getGenrePreference())
                 .build();
     }
 
     @Builder
     public UserDetailReponse(Integer id, String email,  String image, ProviderType providerType, RoleType roleType,
                           String tokenId, String nickName, String name, LocalDateTime createdAt, LocalDateTime modifiedAt,
-                             String gender, Integer age, String largeRegion, String smallRegion) {
+                             String gender, Integer age, String largeRegion, String smallRegion, GenrePreference genrePreference) {
         this.id = id;
         this.email = email;
         this.image = image;
@@ -76,5 +80,6 @@ public class UserDetailReponse {
         this.age = age;
         this.largeRegion = largeRegion;
         this.smallRegion = smallRegion;
+        this.genrePreference = genrePreference;
     }
 }
