@@ -45,7 +45,7 @@ public class UserController {
     @ApiOperation(value = "프로필 회원정보 변경", notes = "회원정보 업데이트")
     @PutMapping("/recommend")
     public ResponseEntity<String> userRecommendInfoModify(@RequestPart(value = "profileRequest") @Valid UserProfileRequest profileRequest,
-                                                          @RequestPart (value = "preferenceRequest") @Valid UserPreferenceModifyReqeust preferenceModifyRequest,
+                                                          @RequestPart(value = "preferenceModifyRequest") @Valid UserPreferenceModifyReqeust preferenceModifyRequest,
                                                           @RequestPart MultipartFile file){
         log.info("userRecommendInfoModify");
 
