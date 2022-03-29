@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-
+import random as rd
 
 def cb(themes):
     # 테마정보 불러오기
@@ -11,6 +11,9 @@ def cb(themes):
     theme = theme[['theme_name', 'theme_genre', 'theme_is_scared', 'theme_level',
                    'theme_review_cnt', 'theme_score', 'theme_time', 'theme_type']]
     # print(theme)
+    ra = rd.randrange(0,len(theme[theme["theme_genre"] == "SF/판타지"]))
+
+    print(theme[theme["theme_genre"] == "SF/판타지"].iloc[ra])
 
     # 상위 비율 선택
     m = theme['theme_review_cnt'].quantile(0.01)
@@ -47,12 +50,18 @@ def cb(themes):
         target_theme_index = df[df['theme_name'] == theme_title].index.values
         sim_index = genre_c_sim[target_theme_index, :top].reshape(-1)
         sim_index = sim_index[sim_index != target_theme_index]
-        result = df.iloc[sim_index].sort_values('score', ascending=False)[:10]
-        print(sim_index)
+        result = pd.DataFrame(df.iloc[sim_index].sort_values('score', ascending=False)[:10])
+        result.reset_index(inplace = True)
+        result = result.rename(columns = {"index": "themeId"})
+        # print(result)
+        json = pd.json_normalize(result)
+        result = result.to_json(orient = 'index')
+        # print(type(result))
         return result
 
     # 결과출력
-    print(get_recommend_theme_list(theme_top, theme_title='재개발구역: 관계자 외 출입금지'))
+    # print(get_recommend_theme_list(theme_top, theme_title='재개발구역: 관계자 외 출입금지'))
 
     data = get_recommend_theme_list(theme_top, theme_title='재개발구역: 관계자 외 출입금지')
+    # print(data[data['theme_name'] == "리플레이"])
     return data

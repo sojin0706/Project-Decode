@@ -10,7 +10,7 @@ def index(request):
     users = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.users
     theme = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.theme
     review = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.review
-
+    
     result = theme.find()
     # for r in result:
     #     print(r)
