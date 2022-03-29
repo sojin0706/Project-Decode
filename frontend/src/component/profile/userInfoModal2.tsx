@@ -172,34 +172,26 @@ export default function UserInfoModal() {
     console.log(file);
     console.log(preferenceRequest);
     console.log(profileRequest);
-    // formData.append("file", file);
-    formData.append("preferenceRequest", userInfo.id);
-    formData.append("preferenceRequest", scoreAdult);
-    formData.append("preferenceRequest", preferenceRequest);
-    formData.append("preferenceRequest", scoreAdventure);
-    formData.append("preferenceRequest", scoreComedy);
-    formData.append("preferenceRequest", scoreCrime);
-    formData.append("preferenceRequest", scoreDrama);
-    formData.append("preferenceRequest", scoreHorror);
-    formData.append("preferenceRequest", scoreReasoning);
-    formData.append("preferenceRequest", scoreRomance);
-    formData.append("preferenceRequest", scoreSffantasy);
-    formData.append("preferenceRequest", scoreThrill);
+    formData.append("file", file);
+    // formData.append("preferenceRequest", preferenceRequest);
     // formData.append("profileRequest", profileRequest);
-    for (let key of formData.preferenceRequest.keys()) {
-      console.log(key);
-    }
-    
-    // FormData의 value 확인
-    for (let value of formData.preferenceRequest.values()) {
-      console.log(value);
-    }
-    // console.log(formData)
-    // axios.put(`http://j6c203.p.ssafy.io:8081/user/recommend`, formData, {
-    //   headers: { "Content-Type": "multipart/form-data" },
-    // })
-    // .then(() => {})
-    // .catch((err) => {console.log(err)})
+  
+    formData.append(
+      "preferenceRequest ",
+      new Blob([JSON.stringify(preferenceRequest)], {
+        type: "application/json",
+      })
+    );
+    formData.append(
+      "profileRequest  ",
+      new Blob([JSON.stringify(profileRequest)], { type: "application/json" })
+    );
+
+    axios.put(`http://j6c203.p.ssafy.io:8081/user/recommend`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+    .then(() => {})
+    .catch((err) => {console.log(err)})
   };
 
   const [open, setOpen] = useState(false);

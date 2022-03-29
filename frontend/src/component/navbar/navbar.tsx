@@ -15,11 +15,11 @@ export default function Navbar() {
     router.reload();
   }
 
-  // function autoLogout() {
-  //   if (IsLogin() && !userInfo.username) {
-  //     logout();
-  //   }
-  // }
+  function autoLogout() {
+    if (IsLogin() && !userInfo.username) {
+      logout();
+    }
+  }
 
   const getUserInfo = async () => {
     userAxios
