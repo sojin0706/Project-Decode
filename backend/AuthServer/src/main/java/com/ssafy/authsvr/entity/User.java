@@ -86,7 +86,6 @@ public class User {
     public void setUserGenreInfoModify(UserProfileRequest profileRequest, GenrePreference genrePreference,String image) {
         this.nickName = profileRequest.getNickName();
         this.age = profileRequest.getAge();
-        this.gender = profileRequest.getGender();
         this.largeRegion = profileRequest.getLargeRegion();
         this.smallRegion = profileRequest.getSmallRegion();
         this.genrePreference = genrePreference;
