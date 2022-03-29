@@ -8,4 +8,5 @@ import java.util.List;
 public interface SearchRepository {
 
     List<Article> findPageDynamicQuery(String smallRegion, SearchDto searchDto);
+    
 }

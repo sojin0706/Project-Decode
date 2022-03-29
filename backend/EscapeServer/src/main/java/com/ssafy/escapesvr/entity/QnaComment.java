@@ -29,13 +29,12 @@ public class QnaComment {
 
     private LocalDateTime modifiedAt;//수정시간
 
-    //외래키
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "qna_id")
     private Qna qna; //qna 글 번호
 
     @NotNull
-    private Integer userId;
+    private Integer userId; //사용자 id(번호)
 
     private String nickName;//유저 닉네임
 

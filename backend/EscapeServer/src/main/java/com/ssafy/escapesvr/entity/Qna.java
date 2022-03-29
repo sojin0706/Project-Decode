@@ -49,6 +49,8 @@ public class Qna {
 
     private String userImage; //유저 프로필 사진
 
+    
+    //qna 댓글
     @OneToMany(mappedBy = "qna", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<QnaComment> comments = new ArrayList<>();
 
