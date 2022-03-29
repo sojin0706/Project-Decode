@@ -20,6 +20,7 @@ export default function UserInfo() {
           setUserInfo(data.body.user)
         })
         .catch((e: any) => {
+          console.log("dasdasd")
           console.log("에러");
           console.log(e);
         });

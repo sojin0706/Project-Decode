@@ -3,7 +3,7 @@ import { Button, Image, Modal, Form, Input } from "semantic-ui-react";
 import userAxios from "../../lib/userAxios";
 import axios from "axios";
 import { useRouter } from "next/router";
-import FormData from "form-data";
+// import FormData from "form-data";
 
 export default function UserInfoModal() {
   // 유저 정보 불러오기
@@ -167,33 +167,34 @@ export default function UserInfoModal() {
       sf_fantasy: scoreSffantasy,
       thril: scoreThrill,
     };
-
-    const formData: any = new FormData();
+    
+    const formData = new FormData();
+    // const formData: any = new FormData();
     console.log(file);
     console.log(preferenceRequest);
     console.log(profileRequest);
     // formData.append("file", file);
-    formData.append("preferenceRequest", userInfo.id);
-    formData.append("preferenceRequest", scoreAdult);
-    formData.append("preferenceRequest", preferenceRequest);
-    formData.append("preferenceRequest", scoreAdventure);
-    formData.append("preferenceRequest", scoreComedy);
-    formData.append("preferenceRequest", scoreCrime);
-    formData.append("preferenceRequest", scoreDrama);
-    formData.append("preferenceRequest", scoreHorror);
-    formData.append("preferenceRequest", scoreReasoning);
-    formData.append("preferenceRequest", scoreRomance);
-    formData.append("preferenceRequest", scoreSffantasy);
-    formData.append("preferenceRequest", scoreThrill);
+    // formData.append("preferenceRequest", userInfo.id);
+    // formData.append("preferenceRequest", scoreAdult);
+    // formData.append("preferenceRequest", preferenceRequest);
+    // formData.append("preferenceRequest", scoreAdventure);
+    // formData.append("preferenceRequest", scoreComedy);
+    // formData.append("preferenceRequest", scoreCrime);
+    // formData.append("preferenceRequest", scoreDrama);
+    // formData.append("preferenceRequest", scoreHorror);
+    // formData.append("preferenceRequest", scoreReasoning);
+    // formData.append("preferenceRequest", scoreRomance);
+    // formData.append("preferenceRequest", scoreSffantasy);
+    // formData.append("preferenceRequest", scoreThrill);
     // formData.append("profileRequest", profileRequest);
-    for (let key of formData.preferenceRequest.keys()) {
-      console.log(key);
-    }
+    // for (let key of formData.preferenceRequest.keys()) {
+    //   console.log(key);
+    // }
     
-    // FormData의 value 확인
-    for (let value of formData.preferenceRequest.values()) {
-      console.log(value);
-    }
+    // // FormData의 value 확인
+    // for (let value of formData.preferenceRequest.values()) {
+    //   console.log(value);
+    // }
     // console.log(formData)
     // axios.put(`http://j6c203.p.ssafy.io:8081/user/recommend`, formData, {
     //   headers: { "Content-Type": "multipart/form-data" },
