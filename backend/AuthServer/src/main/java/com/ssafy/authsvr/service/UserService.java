@@ -1,7 +1,7 @@
 package com.ssafy.authsvr.service;
 
-import com.ssafy.authsvr.payload.request.UserPreferenceRequest;
 import com.ssafy.authsvr.payload.request.UserPreferenceModifyReqeust;
+import com.ssafy.authsvr.payload.request.UserProfilePreferenceRequest;
 import com.ssafy.authsvr.payload.request.UserProfileRequest;
 import com.ssafy.authsvr.payload.response.UserDetailProfileResponse;
 import com.ssafy.authsvr.payload.response.UserProfileResponse;
@@ -10,10 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService {
 
-    void AddRecommendInfoUser(UserProfileRequest profileRequest, UserPreferenceRequest preferenceRequest,
-                              MultipartFile file);
+    void AddRecommendInfoUser(UserProfilePreferenceRequest userPreferenceRequest);
 
-    void ModifyRecommendInfoUser(UserProfileRequest profileRequest, UserPreferenceModifyReqeust preferenceModifyReqeust,
+    void ModifyRecommendInfoUser(UserProfileRequest profileRequest, UserPreferenceModifyReqeust preferenceModifyRequest,
                                  MultipartFile file);
 
     User findDetailsUser(String tokenId);

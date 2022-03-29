@@ -1,7 +1,7 @@
 package com.ssafy.authsvr.entity;
 
-import com.ssafy.authsvr.payload.request.UserPreferenceRequest;
 import com.ssafy.authsvr.payload.request.UserPreferenceModifyReqeust;
+import com.ssafy.authsvr.payload.request.UserProfilePreferenceRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -59,33 +59,33 @@ public class GenrePreference {
         this.user = user;
     }
 
-    public static GenrePreference genrePreferenceBuild(UserPreferenceRequest genre, User user) {
+    public static GenrePreference genrePreferenceBuild(UserProfilePreferenceRequest genre, User user) {
         return GenrePreference.builder()
-                .thrill(genre.getThrill())
-                .romance(genre.getRomance())
-                .reasoning(genre.getReasoning())
-                .sfFantasy(genre.getSfFantasy())
-                .adventure(genre.getAdventure())
-                .comedy(genre.getComedy())
-                .crime(genre.getCrime())
-                .horror(genre.getHorror())
-                .adult(genre.getAdult())
-                .drama(genre.getDrama())
+                .thrill(genre.getUserPreference().getThrill())
+                .romance(genre.getUserPreference().getRomance())
+                .reasoning(genre.getUserPreference().getReasoning())
+                .sfFantasy(genre.getUserPreference().getSfFantasy())
+                .adventure(genre.getUserPreference().getAdventure())
+                .comedy(genre.getUserPreference().getComedy())
+                .crime(genre.getUserPreference().getCrime())
+                .horror(genre.getUserPreference().getHorror())
+                .adult(genre.getUserPreference().getAdult())
+                .drama(genre.getUserPreference().getDrama())
                 .user(user)
                 .build();
     }
 
-    public void setGenrePreferenceInfoModified(UserPreferenceModifyReqeust preferenceModifyReqeust, User user){
-        this.thrill = preferenceModifyReqeust.getThrill();
-        this.romance = preferenceModifyReqeust.getRomance();
-        this.reasoning = preferenceModifyReqeust.getReasoning();
-        this.sfFantasy = preferenceModifyReqeust.getSfFantasy();
-        this.adventure = preferenceModifyReqeust.getAdventure();
-        this.comedy = preferenceModifyReqeust.getComedy();
-        this.crime = preferenceModifyReqeust.getCrime();
-        this.horror = preferenceModifyReqeust.getHorror();
-        this.adult = preferenceModifyReqeust.getAdult();
-        this.drama = preferenceModifyReqeust.getDrama();
+    public void setGenrePreferenceInfoModified(UserPreferenceModifyReqeust preferenceModifyRequest, User user){
+        this.thrill = preferenceModifyRequest.getThrill();
+        this.romance = preferenceModifyRequest.getRomance();
+        this.reasoning = preferenceModifyRequest.getReasoning();
+        this.sfFantasy = preferenceModifyRequest.getSfFantasy();
+        this.adventure = preferenceModifyRequest.getAdventure();
+        this.comedy = preferenceModifyRequest.getComedy();
+        this.crime = preferenceModifyRequest.getCrime();
+        this.horror = preferenceModifyRequest.getHorror();
+        this.adult = preferenceModifyRequest.getAdult();
+        this.drama = preferenceModifyRequest.getDrama();
         this.user = user;
     }
 }
