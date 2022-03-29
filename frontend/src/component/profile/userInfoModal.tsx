@@ -145,43 +145,43 @@ export default function UserInfoModal() {
   const edit = (e: any) => {
     e.preventDefault();
 
-    let profileRequest: {id:Number, age:Number, large_region:String,
+    let profile: {id:Number, age:Number, large_region:String,
                         nick_name:String,small_region:String} = {
-      id: 1, 
-      age: 10,
-      large_region: "dsas",
-      nick_name: "dsds",
-      small_region: "dsda",
+      id: userInfo.id, 
+      age: age,
+      large_region: selectedBigPlace,
+      nick_name: nick,
+      small_region: selectedSmallPlace,
     };
 
-    let preferenceRequest: {id:Number,adult:Number,adventure:Number,
+    let preference: {id:Number,adult:Number,adventure:Number,
       comedy:Number,crime:Number,drama:Number,horror:Number,
       reasoning:Number,romance:Number,sf_fantasy:Number,
-      thrill:Number}= {
-      id: 96,
-      adult: 1,
-      adventure: 2,
-      comedy: 3,
-      crime: 4,
-      drama: 5,
-      horror: 7,
-      reasoning: 6,
-      romance: 9,
-      sf_fantasy: 8,
-      thrill: 0,
+      thrill:Number} = {
+      id: userInfo.profile_id,
+      adult: scoreAdult,
+      adventure: scoreAdventure,
+      comedy: scoreComedy,
+      crime: scoreCrime,
+      drama: scoreDrama,
+      horror: scoreHorror,
+      reasoning: scoreReasoning,
+      romance: scoreRomance,
+      sf_fantasy: scoreSffantasy,
+      thrill: scoreThrill,
     };
 
+    // 수정 안되면 id값 들어가있는지 확인!, /auth/users 토큰 조회에서 데이터가 안받아와질떄가 있음
+    console.log(preference)
+    console.log(profile)
     const body =  new FormData();
 
-    body.append("preferenceRequest", new Blob([JSON.stringify(preferenceRequest)],{type: "application/json"}));
-    body.append("profileRequest", new Blob([JSON.stringify(profileRequest)],{type: "application/json"}));
+    body.append("preferenceModifyRequest", new Blob([JSON.stringify(preference)],{type: "application/json"}));
+    body.append("profileRequest", new Blob([JSON.stringify(profile)],{type: "application/json"}));
     body.append("file",file);
 
-    console.log(file);
-    console.log(preferenceRequest);
-    console.log(profileRequest);
-
-    axios.put("http://j6c203.p.ssafy.io:8081/user/recommend", body, {
+    userAxios
+      .put("/user/recommend", body, {
       headers: { "Content-Type": "multipart/form-data" },
     })
     .then(() => {})
@@ -394,7 +394,7 @@ export default function UserInfoModal() {
       </Modal.Content>
       <Modal.Actions>
         <Button onClick={() => setOpen(false)}>Cancel</Button>
-        <Button control={Button} onClick={edit}>
+        <Button control={Button} onClick={edit} positive>
           Ok
         </Button>
       </Modal.Actions>
