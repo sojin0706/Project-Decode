@@ -18,8 +18,6 @@ public class UserProfileRequest {
     @NotNull
     private Integer age;
     @NotBlank
-    private String gender;
-    @NotBlank
     private String largeRegion;
     @NotBlank
     private String smallRegion;
