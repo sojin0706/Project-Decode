@@ -34,7 +34,7 @@ public class QnaCommentController {
 
 
     //댓글 작성
-    @ApiOperation(value = "Qna 게시글 댓글 작성", notes = "게시글에 댓글을 작성한다", response = Map.class)
+    @ApiOperation(value = "Qna 게시글 댓글 작성", notes = "1:1 문의 게시글에 댓글을 작성한다", response = Map.class)
     @PostMapping
     public ResponseEntity<String> insertQnaComment(@RequestBody @ApiParam(value = "댓글 작성 모델") @Valid QnaCommentRequestDto qnaCommentRequestDto) {
         HttpStatus status = null;
@@ -69,7 +69,7 @@ public class QnaCommentController {
     }
 
     //자신이 쓴 댓글 조회
-    @ApiOperation(value = "자신이 쓴 qna/공지 댓글 리스트", notes = "자신이 쓴 qna/공지 댓글 리스트을 반환한다.")
+    @ApiOperation(value = "자신이 쓴 qna 댓글 리스트", notes = "자신이 쓴 qna 댓글 리스트을 반환한다.")
     @GetMapping("/profile/{userId}")
     public ResponseEntity<Map<String, Object>> getMyQnaCommentList(@PathVariable("userId") @ApiParam(value = "회원번호") Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable) {
 

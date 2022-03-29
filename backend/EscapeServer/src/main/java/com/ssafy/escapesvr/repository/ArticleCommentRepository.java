@@ -12,4 +12,5 @@ public interface ArticleCommentRepository extends JpaRepository<ArticleComment, 
 
     List<ArticleComment> findByArticle(Article article);
     Page<ArticleComment> findByUserIdOrderByCreatedAtDesc(Integer userId, Pageable pageable);
+
 }

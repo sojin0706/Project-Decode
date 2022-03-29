@@ -34,9 +34,9 @@ public class ArticleComment {
     private Article article; //게시글 id
 
     @NotNull
-    private Integer userId;
+    private Integer userId; //사용자 번호(id)
 
-    private String nickName;//유저 닉네임
+    private String nickName; // 유저 닉네임
     private String userImage; //유저 프로필 사진
 
 

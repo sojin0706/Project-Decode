@@ -1,11 +1,7 @@
 package com.ssafy.escapesvr.repository.querydsl;
 
-import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.escapesvr.dto.ArticleRequestDto;
-import com.ssafy.escapesvr.dto.ArticleResponseDto;
 import com.ssafy.escapesvr.dto.SearchDto;
 import com.ssafy.escapesvr.entity.Article;
 import com.ssafy.escapesvr.entity.QArticle;
