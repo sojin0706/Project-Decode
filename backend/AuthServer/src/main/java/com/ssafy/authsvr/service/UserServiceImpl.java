@@ -5,8 +5,8 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.ssafy.authsvr.entity.GenrePreference;
-import com.ssafy.authsvr.payload.request.UserPreferenceRequest;
 import com.ssafy.authsvr.payload.request.UserPreferenceModifyReqeust;
+import com.ssafy.authsvr.payload.request.UserProfilePreferenceRequest;
 import com.ssafy.authsvr.payload.request.UserProfileRequest;
 import com.ssafy.authsvr.payload.response.UserDetailProfileResponse;
 import com.ssafy.authsvr.payload.response.UserProfileResponse;
@@ -46,36 +46,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void AddRecommendInfoUser(UserProfileRequest profileRequest, UserPreferenceRequest preferenceRequest,
-                                     MultipartFile file) {
+    public void AddRecommendInfoUser(UserProfilePreferenceRequest userPreferenceRequest) {
 
-        Optional<User> users = userRepository.findById(profileRequest.getId());
+        Optional<User> users = userRepository.findById(userPreferenceRequest.getId());
         User user = users.orElseThrow(NoSuchElementException::new);
-        GenrePreference genrePreference = GenrePreference.genrePreferenceBuild(preferenceRequest,user);
-        String imageUrl;
-
-        if(!file.isEmpty()){
-            imageUrl = AwsFile(file);
-        }else {
-            imageUrl = user.getImage();
-        }
-
+        GenrePreference genrePreference = GenrePreference.genrePreferenceBuild(userPreferenceRequest,user);
         GenrePreference genre = genrePreferenceRepository.save(genrePreference);
 
-        user.setUserGenreInfo(profileRequest,genre,imageUrl);
+        user.setUserGenreInfoAdd(userPreferenceRequest,genre);
     }
 
     @Override
     @Transactional
-    public void ModifyRecommendInfoUser(UserProfileRequest profileRequest, UserPreferenceModifyReqeust preferenceModifyReqeust,
+    public void ModifyRecommendInfoUser(UserProfileRequest profileRequest, UserPreferenceModifyReqeust preferenceModifyRequest,
                                         MultipartFile file) {
 
         Optional<User> users = userRepository.findById(profileRequest.getId());
         User user = users.orElseThrow(NoSuchElementException::new);
 
-        Optional<GenrePreference> genrePreferences = genrePreferenceRepository.findById(preferenceModifyReqeust.getId());
+        Optional<GenrePreference> genrePreferences = genrePreferenceRepository.findById(preferenceModifyRequest.getId());
         GenrePreference genrePreference = genrePreferences.orElseThrow(NoSuchElementException::new);
-        genrePreference.setGenrePreferenceInfoModified(preferenceModifyReqeust,user);
+        genrePreference.setGenrePreferenceInfoModified(preferenceModifyRequest,user);
 
         String imageUrl;
         if(!file.isEmpty()){
@@ -84,8 +75,7 @@ public class UserServiceImpl implements UserService {
             imageUrl = user.getImage();
         }
 
-        user.setUserGenreInfo(profileRequest,genrePreference, imageUrl);
-
+        user.setUserGenreInfoModify(profileRequest,genrePreference, imageUrl);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.ssafy.authsvr.controller;
 
-import com.ssafy.authsvr.payload.request.UserPreferenceRequest;
 import com.ssafy.authsvr.payload.request.UserPreferenceModifyReqeust;
+import com.ssafy.authsvr.payload.request.UserProfilePreferenceRequest;
 import com.ssafy.authsvr.payload.request.UserProfileRequest;
 import com.ssafy.authsvr.payload.response.UserDetailProfileResponse;
 import com.ssafy.authsvr.payload.response.UserProfileResponse;
@@ -29,16 +29,14 @@ public class UserController {
 
     @ApiOperation(value = "로그인시 추가 정보 등록", notes = "회원정보 등록")
     @PostMapping("/recommend")
-    public ResponseEntity<String> userRecommendInfoAdd(@RequestPart(value = "profileRequest") @Valid UserProfileRequest profileRequest,
-                                                       @RequestPart (value = "preferenceRequest") @Valid UserPreferenceRequest preferenceRequest,
-                                                       @RequestPart MultipartFile file){
+    public ResponseEntity<String> userRecommendInfoAdd(@RequestBody @Valid UserProfilePreferenceRequest userPreferenceRequest){
         log.info("userRecommendInfoAdd");
 
-        if(ObjectUtils.isEmpty(profileRequest) || ObjectUtils.isEmpty(preferenceRequest)){
+        if(ObjectUtils.isEmpty(userPreferenceRequest)){
             return ResponseEntity.notFound().build();
         }
 
-        userService.AddRecommendInfoUser(profileRequest,preferenceRequest,file);
+        userService.AddRecommendInfoUser(userPreferenceRequest);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body("SUCCESS");
@@ -47,15 +45,15 @@ public class UserController {
     @ApiOperation(value = "프로필 회원정보 변경", notes = "회원정보 업데이트")
     @PutMapping("/recommend")
     public ResponseEntity<String> userRecommendInfoModify(@RequestPart(value = "profileRequest") @Valid UserProfileRequest profileRequest,
-                                                          @RequestPart (value = "preferenceRequest") @Valid UserPreferenceModifyReqeust preferenceModifyReqeust,
+                                                          @RequestPart (value = "preferenceRequest") @Valid UserPreferenceModifyReqeust preferenceModifyRequest,
                                                           @RequestPart MultipartFile file){
         log.info("userRecommendInfoModify");
 
-        if (ObjectUtils.isEmpty(profileRequest) || ObjectUtils.isEmpty(preferenceModifyReqeust)) {
+        if (ObjectUtils.isEmpty(profileRequest) || ObjectUtils.isEmpty(preferenceModifyRequest)) {
             return ResponseEntity.notFound().build();
         }
 
-        userService.ModifyRecommendInfoUser(profileRequest,preferenceModifyReqeust,file);
+        userService.ModifyRecommendInfoUser(profileRequest,preferenceModifyRequest,file);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body("SUCCESS");

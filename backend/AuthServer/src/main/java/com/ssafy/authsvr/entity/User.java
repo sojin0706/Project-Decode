@@ -2,6 +2,7 @@ package com.ssafy.authsvr.entity;
 
 import com.ssafy.authsvr.oauth.domain.ProviderType;
 import com.ssafy.authsvr.oauth.domain.RoleType;
+import com.ssafy.authsvr.payload.request.UserProfilePreferenceRequest;
 import com.ssafy.authsvr.payload.request.UserProfileRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -73,14 +74,23 @@ public class User {
         this.name = name;
     }
 
-    public void setUserGenreInfo(UserProfileRequest profileRequest,GenrePreference genrePreference, String imageUrl) {
+    public void setUserGenreInfoAdd(UserProfilePreferenceRequest profileRequest, GenrePreference genrePreference) {
         this.nickName = profileRequest.getNickName();
         this.age = profileRequest.getAge();
         this.gender = profileRequest.getGender();
         this.largeRegion = profileRequest.getLargeRegion();
         this.smallRegion = profileRequest.getSmallRegion();
         this.genrePreference = genrePreference;
-        this.image = imageUrl;
+    }
+
+    public void setUserGenreInfoModify(UserProfileRequest profileRequest, GenrePreference genrePreference,String image) {
+        this.nickName = profileRequest.getNickName();
+        this.age = profileRequest.getAge();
+        this.gender = profileRequest.getGender();
+        this.largeRegion = profileRequest.getLargeRegion();
+        this.smallRegion = profileRequest.getSmallRegion();
+        this.genrePreference = genrePreference;
+        this.image = image;
     }
 
 }
