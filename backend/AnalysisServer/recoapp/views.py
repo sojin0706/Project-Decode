@@ -2,20 +2,31 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 import pymongo
 from .recommend.content import cb
+from .recommend.review import cf
 # Create your views here.
 
 
 @api_view(['GET'])
 def index(request):
-    users = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.users
+    user = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.users
     theme = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.theme
     review = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.review
 
-    result = theme.find()
-    # for r in result:
+    # 출력 확인용 코드
+    # for r in themes:
     #     print(r)
 
-    results = cb(result)
+    temp_genre = '로맨스'
+
+    # cb 코드
+    themes = theme.find()
+    results = cb(temp_genre, themes)
+
+    # cf 코드
+    # themes = theme.find()
+    # reviews = review.find()
+    # results = cf(reviews, themes)
+
     context = {
         'results': results,
     }
