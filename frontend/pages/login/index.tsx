@@ -170,31 +170,62 @@ export default function Index() {
     // var Token: any = null;
     // if (typeof window !== "undefined") Token = localStorage.getItem("token");
     e.preventDefault();
-    const body = {
+    // const body = {
+    //   age: Number(age),
+    //   gender: sex,
+    //   id: userInfo.id,
+    //   large_region: selectedBigPlace,
+    //   nick_name: nick,
+    //   preference_genre: {
+    //     adult: scoreAdult,
+    //     adventure: scoreAdventure,
+    //     comedy: scoreComedy,
+    //     crime: scoreCrime,
+    //     drama: scoreDrama,
+    //     horror: scoreHorror,
+    //     reasoning: scoreReasoning,
+    //     romance: scoreRomance,
+    //     sf_fantasy: scoreSffantasy,
+    //     thrill: scoreThrill,
+    //   },
+    //   small_region: selectedSmallPlace,
+    // }
+    const body = new FormData();
+
+    let profileRequest : { thrill:Number, romance:Number,reasoning:Number,
+                        sf_fantasy:Number,adventrue:Number,crime:Number,comedy:Number,horror:Number,
+                        adult:Number, drama:Number} = {
+                          adult: scoreAdult,
+                          adventrue: scoreAdventure,
+                          comedy: scoreComedy,
+                          crime: scoreCrime,
+                          drama: scoreDrama,
+                          horror: scoreHorror,
+                          reasoning: scoreReasoning,
+                          romance: scoreRomance,
+                          sf_fantasy: scoreSffantasy,
+                          thrill: scoreThrill,
+                        }
+
+    let preferenceRequest : {id:Number, nick_name:String, age:Number,gender:String,large_region:String,small_region:String} = {
+      id: userInfo.id,
+      nick_name: nick,
       age: Number(age),
       gender: sex,
-      id: userInfo.id,
       large_region: selectedBigPlace,
-      nick_name: nick,
-      preference_genre: {
-        adult: scoreAdult,
-        adventure: scoreAdventure,
-        comedy: scoreComedy,
-        crime: scoreCrime,
-        drama: scoreDrama,
-        horror: scoreHorror,
-        reasoning: scoreReasoning,
-        romance: scoreRomance,
-        sf_fantasy: scoreSffantasy,
-        thrill: scoreThrill,
-      },
-      small_region: selectedSmallPlace,
+      small_region: selectedSmallPlace
     }
+    body.append("profileRequest",new Blob([JSON.stringify(profileRequest)],{type: "application/json"}))
+    body.append("preferenceRequest",new Blob([JSON.stringify(preferenceRequest)],{type: "application/json"}))
+    body.append("file", "adas")
+    // console.log(form)
+
+
     console.log(body)
     axios
-      .put(
-        `http://j6c203.p.ssafy.io:8081/user/recommend`, body
-      )
+      .post(`http://j6c203.p.ssafy.io:8081/user/recommend`, body, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
       .then(({ data }) => {
         router.push("/")
       })
