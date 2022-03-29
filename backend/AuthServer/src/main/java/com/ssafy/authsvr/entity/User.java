@@ -53,7 +53,7 @@ public class User {
     private GenrePreference genrePreference;
 
     public User(Integer id, String tokenId, String name, String email, String image, ProviderType providerType,
-                RoleType roleType, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+                RoleType roleType, LocalDateTime createdAt, LocalDateTime modifiedAt, GenrePreference genrePreference) {
         this.id = id;
         this.tokenId = tokenId;
         this.name = name;
@@ -64,6 +64,7 @@ public class User {
         this.createdAt = createdAt;
         this.nickName = name;
         this.modifiedAt = modifiedAt;
+        this.genrePreference = genrePreference;
     }
 
     public void setUserProfileImageModified(String image) {
