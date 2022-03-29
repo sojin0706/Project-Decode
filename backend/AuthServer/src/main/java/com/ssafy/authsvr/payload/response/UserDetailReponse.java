@@ -40,7 +40,7 @@ public class UserDetailReponse {
 
     private String smallRegion;
 
-    private GenrePreference genrePreference;
+    private Integer profileId;
 
     public static UserDetailReponse detailResponse(User user){
         return UserDetailReponse.builder()
@@ -58,14 +58,14 @@ public class UserDetailReponse {
                 .age(user.getAge())
                 .largeRegion(user.getLargeRegion())
                 .smallRegion(user.getSmallRegion())
-                .genrePreference(user.getGenrePreference())
+                .profileId(user.getGenrePreference().getId())
                 .build();
     }
 
     @Builder
     public UserDetailReponse(Integer id, String email,  String image, ProviderType providerType, RoleType roleType,
                           String tokenId, String nickName, String name, LocalDateTime createdAt, LocalDateTime modifiedAt,
-                             String gender, Integer age, String largeRegion, String smallRegion, Integer genreId, GenrePreference genrePreference) {
+                             String gender, Integer age, String largeRegion, String smallRegion, Integer genreId, Integer profileId) {
         this.id = id;
         this.email = email;
         this.image = image;
@@ -80,6 +80,6 @@ public class UserDetailReponse {
         this.age = age;
         this.largeRegion = largeRegion;
         this.smallRegion = smallRegion;
-        this.genrePreference = genrePreference;
+        this.profileId = profileId;
     }
 }
