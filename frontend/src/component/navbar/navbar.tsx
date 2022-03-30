@@ -16,7 +16,7 @@ export default function Navbar() {
   }
 
   function autoLogout() {
-    if (IsLogin() && userInfo === 0) {
+    if (IsLogin() && localStorage.token !== "undefined") {
       logout();
     }
   }

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Authentication() {
   const router = useRouter();
@@ -7,8 +7,13 @@ export default function Authentication() {
   if (typeof window !== "undefined") {
     localStorage.setItem("token", String(router.query.token));
   }
+
   useEffect(() => {
-    router.push("/");
+    if (localStorage.token !== "undefined"){
+      // router.push("/");
+      location.href = "http://localhost:3000/"
+    }
   }, );
+
   return <></>;
 }
