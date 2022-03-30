@@ -1,9 +1,11 @@
 package com.ssafy.escapesvr.service;
 
 import com.ssafy.escapesvr.client.UserServiceClient;
+import com.ssafy.escapesvr.dto.NoticeResponseDto;
 import com.ssafy.escapesvr.dto.ProfileRequestDto;
 import com.ssafy.escapesvr.dto.QnaRequestDto;
 import com.ssafy.escapesvr.dto.QnaResponseDto;
+import com.ssafy.escapesvr.entity.Notice;
 import com.ssafy.escapesvr.entity.Qna;
 import com.ssafy.escapesvr.repository.QnaRepository;
 import feign.FeignException;
@@ -54,9 +56,9 @@ public class QnaServiceImpl implements QnaService {
     //게시글 수정
     @Transactional
     @Override
-    public void updateQna(QnaRequestDto qnaRequestDto) {
+    public void updateQna(QnaRequestDto qnaRequestDto, Long id) {
 
-        Qna qna = qnaRepository.getById(qnaRequestDto.getId());
+        Qna qna = qnaRepository.getById(id);
 
         qna.setTitle(qnaRequestDto.getTitle());
         qna.setContent(qnaRequestDto.getContent());
@@ -72,8 +74,8 @@ public class QnaServiceImpl implements QnaService {
     //게시글 삭제
     @Transactional
     @Override
-    public void deleteQna(Long qnaId) {
-        qnaRepository.deleteById(qnaId);
+    public void deleteQna(Long id) {
+        qnaRepository.deleteById(id);
     }
 
 
@@ -88,6 +90,17 @@ public class QnaServiceImpl implements QnaService {
         Page<QnaResponseDto> qna = qnas.map(o -> new QnaResponseDto(o.getId(),o.getTitle(), o.getContent(),  o.getIsSecret(), o.getIsNotice(), o.getCreatedAt(), o.getModifiedAt(),o.getUserId(), o.getNickName(), o.getUserImage()));
 
         return qna;
+
+    }
+
+    //해당 게시물 조회
+    @Override
+    public QnaResponseDto getQna(Long id) {
+
+        Qna qna = qnaRepository.getById(id);
+        QnaResponseDto qnaResponseDto = new QnaResponseDto(qna);
+
+        return qnaResponseDto;
 
     }
 
