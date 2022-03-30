@@ -9,9 +9,11 @@ import org.springframework.data.domain.Pageable;
 public interface NoticeService {
 
     void insertNotice(NoticeRequestDto noticeRequestDto) throws Exception;
-    void updateNotice(NoticeRequestDto noticeRequestDto);
-    void deleteNotice(Long noticeId);
+    void updateNotice(NoticeRequestDto noticeRequestDto, Long id);
+    void deleteNotice(Long id);
 
     Page<NoticeResponseDto> getMyNoticeList(Integer userId, Pageable pageable);
     Page<NoticeResponseDto> getNoticeList(Pageable pageable);
+
+    NoticeResponseDto getNotice(Long id);
 }

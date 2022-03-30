@@ -2,6 +2,7 @@ package com.ssafy.escapesvr.controller;
 
 
 
+import com.ssafy.escapesvr.dto.ArticleResponseDto;
 import com.ssafy.escapesvr.dto.NoticeRequestDto;
 import com.ssafy.escapesvr.dto.NoticeResponseDto;
 import com.ssafy.escapesvr.service.NoticeServiceImpl;
@@ -90,13 +91,38 @@ public class NoticeController {
         return new ResponseEntity<>(result, status);
     }
 
+    //게시글 번호(id)에 해당하는 게시글 조회
+    @ApiOperation(value = "공지게시판 해당 게시물 조회", notes = "게시글 번호(id)에 해당하는 게시글을 불러온다", response = Map.class)
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> getNotice(@PathVariable @ApiParam(value = "게시글 번호", required = true) Long id) {
+
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus httpStatus = null;
+        NoticeResponseDto notice = null;
+
+        try {
+            notice = noticeService.getNotice(id);
+            httpStatus = HttpStatus.OK;
+            result.put("success", true);
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+
+        }
+        result.put("notice", notice);
+        return new ResponseEntity<Map<String, Object>>(result, httpStatus);
+
+    }
+
 
     @ApiOperation(value = "공지사항 수정", notes = "공지사항(isNotice = 1)을 수정한다")
-    @PutMapping
-    public ResponseEntity<String> updateNotice(@RequestBody @ApiParam(value = "공지글 수정 모델") @Valid NoticeRequestDto noticeRequestDto) {
+    @PutMapping ("/{id}")
+    public ResponseEntity<String> updateNotice(@PathVariable @ApiParam(value = "게시글 번호", required = true) final Long id, @RequestBody @ApiParam(value = "공지글 수정 모델") @Valid NoticeRequestDto noticeRequestDto) {
         HttpStatus status = null;
         try {
-            noticeService.updateNotice(noticeRequestDto);
+            noticeService.updateNotice(noticeRequestDto, id);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -106,11 +132,11 @@ public class NoticeController {
     }
 
     @ApiOperation(value = "공지사항 삭제", notes = "공지글을 삭제한다")
-    @DeleteMapping("/{noticeId}")
-    public ResponseEntity<String> deleteNotice(@PathVariable @ApiParam(value = "공지 게시글 번호") Long noticeId) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteNotice(@PathVariable @ApiParam(value = "공지 게시글 번호") Long id) {
         HttpStatus status = null;
         try {
-            noticeService.deleteNotice(noticeId);
+            noticeService.deleteNotice(id);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();
