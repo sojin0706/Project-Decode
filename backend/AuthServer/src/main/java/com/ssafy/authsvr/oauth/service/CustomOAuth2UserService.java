@@ -69,6 +69,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
             GenrePreference genre = genrePreferenceRepository.save(genrePreference);
             genreUser.setGenrePreference(genre);
+            userRepository.save(genreUser);
         }
 
         return UserPrincipal.create(savedUser, user.getAttributes());
