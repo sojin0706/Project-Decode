@@ -4,14 +4,14 @@ from sklearn.metrics.pairwise import cosine_similarity
 import random
 
 
-def cb(temp_genre, themes):
+def cb(id, genre, themes):
     # 테마정보 불러오기
     # theme = pd.read_csv("recommend/CF/theme.csv", encoding='cp949')
     theme = pd.DataFrame(list(themes))
 
     # 사용안하는 데이터 제거
     theme = theme[['theme_name', 'theme_genre', 'theme_is_scared', 'theme_level',
-                   'theme_review_cnt', 'theme_score', 'theme_time', 'theme_type']]
+                   'theme_review_cnt', 'theme_score', 'theme_time', 'theme_type', 'themeId']]
     # print(theme)
 
     # 상위 비율 선택
@@ -56,7 +56,7 @@ def cb(temp_genre, themes):
     # print(get_recommend_theme_list(theme_top, theme_title='재개발구역: 관계자 외 출입금지'))
 
     #  영화 제목 찾기
-    theme_list = theme[theme['theme_genre'] == temp_genre]
+    theme_list = theme[theme['theme_genre'] == genre]
     random_number = random.randint(0, len(theme_list)-1)
     name = theme_list.iloc[random_number]['theme_name']
     # print(name)
@@ -67,6 +67,14 @@ def cb(temp_genre, themes):
     # return json_data
 
     # json 변환
+    # data = get_recommend_theme_list(theme_top, theme_title=name)
+    # json_data = data.to_json(orient='index', force_ascii=False)
+    # return json_data
+
+    # json 변환
     data = get_recommend_theme_list(theme_top, theme_title=name)
     json_data = data.to_json(orient='index', force_ascii=False)
-    return json_data
+    new_data = []
+    for r in data.index:
+        new_data.append(r+1)
+    return new_data
