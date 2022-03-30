@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Button, Image, Modal, Form, Input } from "semantic-ui-react";
 import userAxios from "../../lib/userAxios";
 import axios from "axios";
-import { useRouter } from "next/router";
-import FormData from "form-data";
 
 export default function UserInfoModal() {
   // 유저 정보 불러오기
