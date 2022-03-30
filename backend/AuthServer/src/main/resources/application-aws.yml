@@ -2,7 +2,7 @@ cloud:
   aws:
     s3:
       bucket: escape-user-bucket
-      url: https://escape-user-bucket.s3.ap-northeast-2.amazonaws.com/
+      url: https://escape-user-bucket.s3.ap-northeast-2.amazonaws.com
 
     region:
       static: ap-northeast-2

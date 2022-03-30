@@ -2,6 +2,7 @@ package com.ssafy.escapesvr.service;
 
 import com.ssafy.escapesvr.client.UserServiceClient;
 import com.ssafy.escapesvr.dto.*;
+import com.ssafy.escapesvr.entity.Article;
 import com.ssafy.escapesvr.entity.Notice;
 import com.ssafy.escapesvr.entity.Qna;
 import com.ssafy.escapesvr.repository.NoticeRepository;
@@ -54,9 +55,9 @@ public class NoticeServiceImpl implements NoticeService {
     //게시글 수정
     @Transactional
     @Override
-    public void updateNotice(NoticeRequestDto noticeRequestDto) {
+    public void updateNotice(NoticeRequestDto noticeRequestDto, Long id) {
 
-        Notice notice = noticeRepository.getById(noticeRequestDto.getId());
+        Notice notice = noticeRepository.getById(id);
 
         notice.setTitle(noticeRequestDto.getTitle());
         notice.setContent(noticeRequestDto.getContent());
@@ -72,8 +73,8 @@ public class NoticeServiceImpl implements NoticeService {
     //게시글 삭제
     @Transactional
     @Override
-    public void deleteNotice(Long noticeId) {
-        noticeRepository.deleteById(noticeId);
+    public void deleteNotice(Long id) {
+        noticeRepository.deleteById(id);
     }
 
 
@@ -89,6 +90,16 @@ public class NoticeServiceImpl implements NoticeService {
 
         return notice;
 
+    }
+
+    //해당 게시물 조회
+    @Override
+    public NoticeResponseDto getNotice(Long id) {
+
+        Notice notice = noticeRepository.getById(id);
+        NoticeResponseDto noticeResponseDto = new NoticeResponseDto(notice);
+
+        return noticeResponseDto;
     }
 
     //회원 별 게시글 조회
