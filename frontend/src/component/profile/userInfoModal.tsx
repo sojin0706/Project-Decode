@@ -144,18 +144,34 @@ export default function UserInfoModal() {
 
   const edit = (e: any) => {
     e.preventDefault();
-    const profileRequest: any = {
-      age: Number(age),
-
-      gender: gender,
+    let profile: {
+      id: Number,
+      age: Number,
+      large_region: String,
+      nick_name: String,
+      small_region: String,
+    } = {
       id: userInfo.id,
+      age: age,
       large_region: selectedBigPlace,
       nick_name: nick,
       small_region: selectedSmallPlace,
     };
 
-    const preferenceRequest: any = {
-      id: userInfo.id,
+    let preference: {
+      id: Number,
+      adult: Number,
+      adventure: Number,
+      comedy: Number,
+      crime: Number,
+      drama: Number,
+      horror: Number,
+      reasoning: Number,
+      romance: Number,
+      sf_fantasy: Number,
+      thrill: Number,
+    } = {
+      id: userInfo.profile_id,
       adult: scoreAdult,
       adventure: scoreAdventure,
       comedy: scoreComedy,
@@ -165,41 +181,32 @@ export default function UserInfoModal() {
       reasoning: scoreReasoning,
       romance: scoreRomance,
       sf_fantasy: scoreSffantasy,
-      thril: scoreThrill,
+      thrill: scoreThrill,
     };
 
-    const formData: any = new FormData();
-    console.log(file);
-    console.log(preferenceRequest);
-    console.log(profileRequest);
-    // formData.append("file", file);
-    formData.append("preferenceRequest", userInfo.id);
-    formData.append("preferenceRequest", scoreAdult);
-    formData.append("preferenceRequest", preferenceRequest);
-    formData.append("preferenceRequest", scoreAdventure);
-    formData.append("preferenceRequest", scoreComedy);
-    formData.append("preferenceRequest", scoreCrime);
-    formData.append("preferenceRequest", scoreDrama);
-    formData.append("preferenceRequest", scoreHorror);
-    formData.append("preferenceRequest", scoreReasoning);
-    formData.append("preferenceRequest", scoreRomance);
-    formData.append("preferenceRequest", scoreSffantasy);
-    formData.append("preferenceRequest", scoreThrill);
-    // formData.append("profileRequest", profileRequest);
-    for (let key of formData.preferenceRequest.keys()) {
-      console.log(key);
-    }
-    
-    // FormData의 value 확인
-    for (let value of formData.preferenceRequest.values()) {
-      console.log(value);
-    }
-    // console.log(formData)
-    // axios.put(`http://j6c203.p.ssafy.io:8081/user/recommend`, formData, {
-    //   headers: { "Content-Type": "multipart/form-data" },
-    // })
-    // .then(() => {})
-    // .catch((err) => {console.log(err)})
+    // 수정 안되면 id값 들어가있는지 확인, /auth/users 토큰 조회에서 데이터가 안받아와질떄가 있음
+    console.log(preference);
+    console.log(profile);
+    const body = new FormData();
+
+    body.append(
+      "preferenceModifyRequest",
+      new Blob([JSON.stringify(preference)], { type: "application/json" })
+    );
+    body.append(
+      "profileRequest",
+      new Blob([JSON.stringify(profile)], { type: "application/json" })
+    );
+    body.append("file", file);
+
+    userAxios
+      .put("/user/recommend", body, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then(() => {})
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const [open, setOpen] = useState(false);

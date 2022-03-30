@@ -146,7 +146,6 @@ export default function UserInfoModal() {
     e.preventDefault();
     const profileRequest: any = {
       age: Number(age),
-
       gender: gender,
       id: userInfo.id,
       large_region: selectedBigPlace,
