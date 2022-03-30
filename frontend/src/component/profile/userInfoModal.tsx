@@ -180,8 +180,8 @@ export default function UserInfoModal() {
     body.append("profileRequest", new Blob([JSON.stringify(profile)],{type: "application/json"}));
     body.append("file",file);
 
-    userAxios
-      .put("/user/recommend", body, {
+    axios
+      .put("http://j6c203.p.ssafy.io:8081/user/recommend", body, {
       headers: { "Content-Type": "multipart/form-data" },
     })
     .then(() => {})
