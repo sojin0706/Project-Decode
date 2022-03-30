@@ -15,6 +15,8 @@ export default function Qna_detail() {
 
     const [userInfo, setUserInfo]: any = useState([])
     const [qnaDetail,setQnaDetail]:any = useState([])
+    const [comments, setComments]:any = useState('')
+    const [comentInfo, setComentInfo]:any = useState([])
     const router = useRouter()
     const id = Number(router.query.id)
 
@@ -23,9 +25,7 @@ export default function Qna_detail() {
         loadUser()
     }, [])
 
-    useEffect(() => {
-        loadqnaDetail(id)
-    }, [id])
+
 
     const loadUser = async() => {
         if (IsLogin()){
@@ -40,6 +40,11 @@ export default function Qna_detail() {
             });
           }
         }
+    
+    // qna
+    useEffect(() => {
+        loadqnaDetail(id)
+    }, [id])
 
     const loadqnaDetail = async(id:Number) => {
         await allAxios
@@ -53,7 +58,7 @@ export default function Qna_detail() {
             })      
     }
 
-    const deleteUserboard = () => {
+    const deleteqna = () => {
         allAxios
         .delete(`/qna/{id}`)
         .then(()=>{
@@ -64,6 +69,36 @@ export default function Qna_detail() {
         alert("잠시 후 다시 시도해주세요.")
         });
     };
+
+    // 댓글
+    const submitComment = async() => {
+        if (comments.length == 0 || comments.length > 100){
+            alert('댓글은 1자 이상 100자 이하로 작성해주세요')
+            return
+        }
+        if (IsLogin()){
+            const body = {
+                content: comments,
+                id: qnaDetail.id,
+                qnaId: qnaDetail.id,
+                userId: userInfo.id,
+            }
+        await allAxios.post(`/qnaComment`, body)
+        .then(() => {
+            alert('리뷰가 작성되었습니다.')
+
+        })
+        .catch((e) => {
+            console.log(e)
+            alert('잠시 후 다시 시도해주세요')
+        })
+        }
+    }
+
+    function writeComment(e: any){
+        setComments(e.target.value)
+    }
+
 
 
 return (
@@ -115,35 +150,41 @@ return (
                     {userInfo.id == qnaDetail.userId &&(
                     <>
                         <div className={styles.editbutton} onClick={() => router.push(`/notice/editQna/${id}`)}> 수정</div>
-                        <div className={styles.deletebutton} onClick={deleteUserboard}> 삭제</div>
+                        <div className={styles.deletebutton} onClick={deleteqna}> 삭제</div>
                     </>
                     )}
                 </div>
                 <div className={styles.comment_cont}>
-                            <Grid verticalAlign='middle' centered>
-                                <Grid.Column width={1}>
-                                    <Comment.Group size='massive'>
-                                        <Comment>
-                                            <Comment. Avatar src={userInfo.image} />
-                                        </Comment>
-                                    </Comment.Group>
-                                </Grid.Column>
-                                <Grid.Column width={1}>
-                                    <div className={styles.comment_createname}>
-                                        하루
-                                    </div>
-                                </Grid.Column>
-                                <Grid.Column width={12}>
-                                <div>
-                                    <textarea placeholder="댓글을 작성해주세요"></textarea>
+                    <div className={styles.comment_title}>
+                        댓글쓰기
+                    </div>
+                        {userInfo.id?
+                            <Grid verticalAlign='middle' centered stackable>
+                            <Grid.Column width={1}>
+                                <Comment.Group size='massive'>
+                                    <Comment>
+                                        <Comment. Avatar src={userInfo.image} />
+                                    </Comment>
+                                </Comment.Group>
+                            </Grid.Column>
+                            <Grid.Column width={1}>
+                                <div className={styles.comment_createname}>
+                                    {userInfo.nick_name}
                                 </div>
-                                </Grid.Column>
-                                <Grid.Column width={2}>
-                                    <div className={styles.comment_button}>
-                                        <Button color='black'> 작성 </Button>
-                                    </div>
-                                </Grid.Column>
-                            </Grid>
+                            </Grid.Column>
+                            <Grid.Column width={12}>
+                            <div>
+                                <textarea value={comments} placeholder="댓글을 작성해주세요" onChange={writeComment}></textarea>
+                            </div>
+                            </Grid.Column>
+                            <Grid.Column width={2}>
+                                <div className={styles.comment_button}>
+                                    <Button color='black' onClick={submitComment}> 작성 </Button>
+                                </div>
+                            </Grid.Column>
+                        </Grid>
+                        :''}
+                                    
                         
                         <Comment.Group >
                             <Comment>
@@ -156,25 +197,7 @@ return (
                                 <Comment.Text>
                                 <p>방탈출 함께 해요</p>
                                 </Comment.Text>
-                                <Comment.Actions>
-                                <Comment.Action>답글 달기</Comment.Action>
-                                </Comment.Actions>
                             </Comment.Content>
-                            <Comment.Group>
-                                <Comment>
-                                <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/stevie.jpg' />
-                                <Comment.Content>
-                                    <Comment.Author as='a'>하늬</Comment.Author>
-                                    <Comment.Metadata>
-                                    <div>방금 전</div>
-                                    </Comment.Metadata>
-                                    <Comment.Text>저요</Comment.Text>
-                                    <Comment.Actions>
-                                    <Comment.Action>답글 달기</Comment.Action>
-                                    </Comment.Actions>
-                                </Comment.Content>
-                                </Comment>
-                            </Comment.Group>
                             </Comment>
                         </Comment.Group>
                         </div>

@@ -119,66 +119,7 @@ return (
                     </>
                     )}
                 </div>
-                <div className={styles.comment_cont}>
-                            <Grid verticalAlign='middle' centered>
-                                <Grid.Column width={1}>
-                                    <Comment.Group size='massive'>
-                                        <Comment>
-                                            <Comment. Avatar src={userInfo.image} />
-                                        </Comment>
-                                    </Comment.Group>
-                                </Grid.Column>
-                                <Grid.Column width={1}>
-                                    <div className={styles.comment_createname}>
-                                        하루
-                                    </div>
-                                </Grid.Column>
-                                <Grid.Column width={12}>
-                                <div>
-                                    <textarea placeholder="댓글을 작성해주세요"></textarea>
-                                </div>
-                                </Grid.Column>
-                                <Grid.Column width={2}>
-                                    <div className={styles.comment_button}>
-                                        <Button color='black'> 작성 </Button>
-                                    </div>
-                                </Grid.Column>
-                            </Grid>
-                        
-                        <Comment.Group >
-                            <Comment>
-                            <Comment. Avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-                            <Comment.Content>
-                                <Comment.Author as='a'>하랑</Comment.Author>
-                                <Comment.Metadata>
-                                <div>하루 전</div>
-                                </Comment.Metadata>
-                                <Comment.Text>
-                                <p>방탈출 함께 해요</p>
-                                </Comment.Text>
-                                <Comment.Actions>
-                                <Comment.Action>답글 달기</Comment.Action>
-                                </Comment.Actions>
-                            </Comment.Content>
-                            <Comment.Group>
-                                <Comment>
-                                <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/stevie.jpg' />
-                                <Comment.Content>
-                                    <Comment.Author as='a'>하늬</Comment.Author>
-                                    <Comment.Metadata>
-                                    <div>방금 전</div>
-                                    </Comment.Metadata>
-                                    <Comment.Text>저요</Comment.Text>
-                                    <Comment.Actions>
-                                    <Comment.Action>답글 달기</Comment.Action>
-                                    </Comment.Actions>
-                                </Comment.Content>
-                                </Comment>
-                            </Comment.Group>
-                            </Comment>
-                        </Comment.Group>
-                        </div>
-                    </div>
+                </div>
             </div>
     
     </Grid.Column>
