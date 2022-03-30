@@ -46,7 +46,7 @@ public class UserController {
     @PutMapping("/recommend")
     public ResponseEntity<String> userRecommendInfoModify(@RequestPart(value = "profileRequest") @Valid UserProfileRequest profileRequest,
                                                           @RequestPart(value = "preferenceModifyRequest") @Valid UserPreferenceModifyReqeust preferenceModifyRequest,
-                                                          @RequestPart MultipartFile file){
+                                                          @RequestPart(required = false) MultipartFile file){
         log.info("userRecommendInfoModify");
 
         if (ObjectUtils.isEmpty(profileRequest) || ObjectUtils.isEmpty(preferenceModifyRequest)) {
