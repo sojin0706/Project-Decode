@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
-import json
 from sklearn.metrics.pairwise import cosine_similarity
+import random
 
 
-def cf(reviews, themes):
+def cf(temp_genre, reviews, themes):
     # with open("recommend/CF/reviews2.json", encoding="utf-8-sig") as fp:
     #     data = json.loads(''.join(line.strip() for line in fp))
     data = reviews
@@ -23,7 +23,7 @@ def cf(reviews, themes):
 
     # 테이블 생성 및 빈칸 0으로 채우기
     theme_user_rating = user_theme_rating.pivot_table(
-        'rating', index='theme_name', columns='userId')
+        'rating', index='themeId', columns='userId')
     theme_user_rating = theme_user_rating.fillna(0)
     # print(user_theme_rating)
 
@@ -43,7 +43,22 @@ def cf(reviews, themes):
     # 결과 찾기
     # print(get_item_based_collabor('히말라야'))
 
+    #  영화 제목 찾기
+    theme_list = theme[theme['theme_genre'] == temp_genre]
+    random_number = random.randint(0, len(theme_list)-1)
+    # name = theme_list.iloc[random_number]['theme_name']
+    # print(name)
+
     # json 변환
-    data = get_item_based_collabor('히말라야')
+    # data = get_item_based_collabor('히말라야')
+    # json_data = data.to_json(orient='index', force_ascii=False)
+    # return json_data
+
+    # json 변환
+    data = get_item_based_collabor(random_number)
     json_data = data.to_json(orient='index', force_ascii=False)
+    # data2 = []
+    # for key, value in json_data.item():
+    #     data2.append(key)
+    print(type(json_data))
     return json_data

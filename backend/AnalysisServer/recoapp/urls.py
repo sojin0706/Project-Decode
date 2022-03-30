@@ -5,4 +5,6 @@ appname = "recoapp"
 
 urlpatterns = [
     path('', views.index),
+    path('cb', views.CB),
+    path('cf', views.CF),
 ]
