@@ -23,13 +23,11 @@ def index(request):
 
     # cb 코드
     # themes = theme.find()
-    # results = cb(temp_genre, themes)
+    # results = cb(temp_id, temp_genre, themes)
 
     # cf 코드
     themes = theme.find()
     reviews = review.find()
-
-    # results = cf(id, temp_genre, reviews, themes)
     results = cf(temp_id, temp_genre, reviews, themes)
 
     context = {
@@ -40,8 +38,22 @@ def index(request):
 
 
 @api_view(['GET'])
-def CB(request):
-    pass
+def CB(request, id, genre):
+    theme = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.theme
+
+    themes = theme.find()
+    results = cb(id, genre, themes)
+
+    genre_name = ["스릴러", "로맨스", "추리", "SF/판타지",
+                  "모험/액션", "코미디", "범죄", "공포", "19금", "감성/드라마"]
+
+    if genre not in genre_name:
+        return
+
+    context = {
+        'results': results,
+    }
+    return Response(results)
 
 
 @api_view(['GET'])
