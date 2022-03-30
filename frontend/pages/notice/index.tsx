@@ -1,4 +1,3 @@
-
 import {
     Pagination,
     Grid,
@@ -10,10 +9,9 @@ import IsLogin from "../../src/lib/customLogin";
 import Router from "next/router";
 import styles from "../../styles/notice/notice.module.css";
 import userAxios from "../../src/lib/userAxios";
-import axios from "axios";
 
 export default function Notice() {
-    const [qnanotice, setQnaNotice] = useState([])
+    const [qna, setQna] = useState([])
     const [pages, setPages] = useState(0)  //바뀌는 page
     const [totalPages, setTotalPages] = useState(10) // 최대 page
     const [title, setTitle] = useState('')
@@ -22,52 +20,38 @@ export default function Notice() {
     const [nickName, setNickName] = useState('')
     const [userInfo, setUserInfo]: any = useState([])
     const [notice, setNotice] = useState([])
+    const [noticeTitle, setNoticeTitle] = useState('')
+    const [noticeId, setNoticeId] = useState(0)
+    const [noticeNickName, setNoticeNickName] = useState('')
+    const [noticeCreatedAt, setNoticeCreatedAt] = useState([])
 
     // 유저
-    // useEffect(() => {
-    //     loadUser()
-    // }, [])
-
-    // const loadUser = async() => {
-    //     if (IsLogin()){
-    //         userAxios.get(`/auth/users`)
-    //         .then(({ data }) => {
-    //             console.log(data.body.user)
-    //             setUserInfo(data.body.user)
-    //         })
-    //         .catch((e) => {
-    //         console.log(e);
-    //         alert('로그인 시간이 만료되었습니다.')
-    //         });
-    //       }
-    //     }
-
     useEffect(() => {
-        if (IsLogin()) {
-          var Token: any = null;
-          if (typeof window !== "undefined") Token = localStorage.getItem("token");
-    
-          axios
-            .get("http://j6c203.p.ssafy.io:8081/auth/users", {
-              headers: { Authorization: `Bearer ${Token}` },
-            })
+        loadUser()
+    }, [])
+
+    const loadUser = async() => {
+        if (IsLogin()){
+            userAxios.get(`/auth/users`)
             .then(({ data }) => {
-              setUserInfo(data.body.user)
+                console.log(data.body.user)
+                setUserInfo(data.body.user)
             })
-            .catch((e: any) => {
-              console.log("에러");
-              console.log(e);
+            .catch((e) => {
+            console.log(e);
+            alert('로그인 시간이 만료되었습니다.')
             });
+          }
         }
-      }, []);
+
 
     // 게시글 정보 (qna)
     useEffect(() => {
-        loadUserboard(pages)
+        loadqnaboard(pages)
     }, [pages, id, title, createdAt, nickName])
 
 
-    const loadUserboard = async (pages: Number) => {
+    const loadqnaboard = async (pages: Number) => {
         await allAxios
             .get(`/qna`, {
                 params: {
@@ -81,7 +65,7 @@ export default function Notice() {
             .then(({ data }) => {
                 console.log(data)
                 setTotalPages(data.qnaList.totalPages)
-                setQnaNotice(data.qnaList.content)
+                setQna(data.qnaList.content)
             })
             .catch((e) => {
                 console.log(e)
@@ -89,28 +73,28 @@ export default function Notice() {
     }
     // 공지사항
     useEffect(() => {
-        loadNotice(pages)
-    }, [pages, id, title, createdAt, nickName])
+        loadNotice(id)
+    }, [id, title, createdAt, nickName])
 
-    const loadNotice = async (pages: Number) => {
+    const loadNotice = async (id: Number) => {
         await allAxios
             .get(`/notice`, {
                 params: {
-                    title: title,
-                    id: id,
-                    nickName: nickName,
-                    createdAt: createdAt,
-                    page: pages,
+                    title: noticeTitle,
+                    id: noticeId,
+                    nickName: noticeNickName,
+                    createdAt: noticeCreatedAt,
                 }
             })
             .then(({ data }) => {
-                console.log(data)
+                console.log(data.noticeList.content)
                 setNotice(data.noticeList.content)
             })
             .catch((e) => {
                 console.log(e)
             })
     }
+
 
     // 페이지
     function movePage(e: any) {
@@ -132,7 +116,7 @@ export default function Notice() {
 
     // 글 작성 버튼 연결
     const goqnaWrite = async () => {
-        if (IsLogin() && userInfo.id == 47635037) {
+        if (IsLogin() && userInfo.id == 46441431) {
             Router.push(`/notice/noticecreate`)
         } else if(IsLogin()) {
             Router.push(`/notice/create`)
@@ -178,16 +162,19 @@ return (
                 </div>
 
 
-                
-                <div className={styles.top_notice}>
-                    <div className={styles.type}>공지</div>
-                    <div className={styles.num}>번호</div>
-                    <div className={styles.title}>제목</div>
-                    <div className={styles.writer}>관리자</div>
-                    <div className={styles.date}>2022.03.21</div>
-                </div>
+                {notice? notice.map((board:any) => {
+                    return(
+                        <div className={styles.top_notice}>
+                        <div className={styles.type}>공지</div>
+                        <div className={styles.num}>{board.id}</div>
+                        <div className={styles.title} onClick={() => Router.push(`/notice/notice/${board.id}`)}>{board.title}</div>
+                        <div className={styles.writer}>{board.nickName}</div>
+                        <div className={styles.date}>{board.createdAt[0]}.{board.createdAt[1]}.{board.createdAt[2]}</div>
+                        </div>
+                    );
+                }) : ''}
 
-                {qnanotice ? qnanotice.map((board:any) => {
+                {qna ? qna.map((board:any) => {
                 return (
                     <div className={styles.qna_notice}>
                     <div className={styles.type}>Q&A</div>

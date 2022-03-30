@@ -11,10 +11,10 @@ import userAxios from "../../../../src/lib/userAxios";
 import Router, { useRouter } from "next/router";
 import styles from "../../../../styles/notice/detail.module.css";
 
-export default function Qna_detail() {
+export default function Notice_detail() {
 
     const [userInfo, setUserInfo]: any = useState([])
-    const [qnaDetail,setQnaDetail]:any = useState([])
+    const [noticeDetail,setNoticeDetail]:any = useState([])
     const router = useRouter()
     const id = Number(router.query.id)
 
@@ -24,7 +24,7 @@ export default function Qna_detail() {
     }, [])
 
     useEffect(() => {
-        loadqnaDetail(id)
+        loadnoticeDetail(id)
     }, [id])
 
     const loadUser = async() => {
@@ -41,24 +41,24 @@ export default function Qna_detail() {
           }
         }
 
-    const loadqnaDetail = async(id:Number) => {
+    const loadnoticeDetail = async(id:Number) => {
         await allAxios
-            .get(`/qna/${id}`)
+            .get(`/notice/${id}`)
             .then(({ data }) => {
-                console.log(data.qna)
-                setQnaDetail(data.qna)
+                console.log(data.notice)
+                setNoticeDetail(data.notice)
             })
             .catch((e) => {
                 console.log(e)
             })      
     }
 
-    const deleteUserboard = () => {
+    const deleteNotice = () => {
         allAxios
-        .delete(`/qna/{id}`)
+        .delete(`/notice/{id}`)
         .then(()=>{
             alert("게시글이 삭제되었습니다.")
-            router.push("/userboard");
+            router.push("/notice");
         })
         .catch(() => {
         alert("잠시 후 다시 시도해주세요.")
@@ -85,7 +85,7 @@ return (
             <div className={styles.board_view_wrap}>
                 <div className={styles.board_view}>
                     <div className={styles.title}>
-                        {qnaDetail.title}
+                        {noticeDetail.title}
                     </div>
                     <div className={styles.info}>
                         <dl>
@@ -94,11 +94,11 @@ return (
                         </dl>
                         <dl>
                             <dt>글쓴이</dt>
-                            <dd>{qnaDetail.nickName}</dd>
+                            <dd>{noticeDetail.nickName}</dd>
                         </dl>
                         <dl>
                             <dt>작성일</dt>
-                            <dd>{qnaDetail.createdAt?qnaDetail.createdAt[0]+'.'+qnaDetail.createdAt[1]+'.'+qnaDetail.createdAt[2]:''}</dd>
+                            <dd>{noticeDetail.createdAt?noticeDetail.createdAt[0]+'.'+noticeDetail.createdAt[1]+'.'+noticeDetail.createdAt[2]:''}</dd>
                         </dl>
                         {/* <dl>
                             <dt>조회</dt>
@@ -106,16 +106,16 @@ return (
                         </dl> */}
                     </div>
                     <div className={styles.cont}>
-                        {qnaDetail.content}
+                        {noticeDetail.content}
                     </div>
                     
                 </div>
                 <div className={styles.bt_wrap}>
                     <div className={styles.on} onClick={() => Router.back()}>목록</div>
-                    {userInfo.id == qnaDetail.userId &&(
+                    {userInfo.id == noticeDetail.userId &&(
                     <>
                         <div className={styles.editbutton} onClick={() => router.push(`/notice/editQna/${id}`)}> 수정</div>
-                        <div className={styles.deletebutton} onClick={deleteUserboard}> 삭제</div>
+                        <div className={styles.deletebutton} onClick={deleteNotice}> 삭제</div>
                     </>
                     )}
                 </div>
