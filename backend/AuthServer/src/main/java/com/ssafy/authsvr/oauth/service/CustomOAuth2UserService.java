@@ -1,5 +1,6 @@
 package com.ssafy.authsvr.oauth.service;
 
+import com.ssafy.authsvr.entity.GenrePreference;
 import com.ssafy.authsvr.entity.User;
 import com.ssafy.authsvr.oauth.domain.ProviderType;
 import com.ssafy.authsvr.oauth.domain.RoleType;
@@ -7,6 +8,7 @@ import com.ssafy.authsvr.oauth.domain.UserPrincipal;
 import com.ssafy.authsvr.oauth.exception.OAuthProviderMissMatchException;
 import com.ssafy.authsvr.oauth.info.OAuth2UserInfo;
 import com.ssafy.authsvr.oauth.info.OAuth2UserInfoFactory;
+import com.ssafy.authsvr.repository.GenrePreferenceRepository;
 import com.ssafy.authsvr.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.RandomStringUtils;
@@ -18,12 +20,15 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private final UserRepository userRepository;
+    private final GenrePreferenceRepository genrePreferenceRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -55,6 +60,15 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             updateUser(savedUser, userInfo);
         } else {
             savedUser = createUser(userInfo, providerType);
+
+            Optional<User> genreUsers = userRepository.findById(savedUser.getId());
+            User genreUser = genreUsers.orElseThrow(NoSuchElementException::new);
+
+            GenrePreference genrePreference = new GenrePreference(
+                    0,0,0,0,0,0,0,0,0,0,genreUser);
+
+            GenrePreference genre = genrePreferenceRepository.save(genrePreference);
+            genreUser.setGenrePreference(genre);
         }
 
         return UserPrincipal.create(savedUser, user.getAttributes());
