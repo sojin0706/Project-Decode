@@ -4,30 +4,34 @@ import {
     Grid,
   } from "semantic-ui-react";
 import React from 'react'
-import allAxios from "../../../src/lib/allAxios";
+import allAxios from "../../../../src/lib/allAxios";
 import { useEffect, useState } from 'react';
-import IsLogin from "../../../src/lib/customLogin";
-import userAxios from "../../../src/lib/userAxios";
-import Router from "next/router";
-import styles from "../../../styles/notice/detail.module.css";
+import IsLogin from "../../../../src/lib/customLogin";
+import userAxios from "../../../../src/lib/userAxios";
+import Router, { useRouter } from "next/router";
+import styles from "../../../../styles/notice/detail.module.css";
 
 export default function Notice_detail() {
 
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState([])
-    const [userInfo, setUserInfo]: any = useState(0)
-    const [userId, setUserId] = useState(0)
+    const [userInfo, setUserInfo]: any = useState([])
     const [qnaDetail,setQnaDetail]:any = useState([])
+    const router = useRouter()
+    const id = Number(router.query.id)
 
     // 유저
     useEffect(() => {
         loadUser()
     }, [])
 
+    useEffect(() => {
+        loadqnaDetail(id)
+    }, [id])
+
     const loadUser = async() => {
         if (IsLogin()){
             userAxios.get(`/auth/users`)
             .then(({ data }) => {
+                console.log(data.body.user)
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
@@ -37,18 +41,29 @@ export default function Notice_detail() {
           }
         }
 
-    useEffect(() => {
-        allAxios
-            .get(`qna/{qnaId}`)
-            .then(({data}) => {
-                setQnaDetail(data.qnaList)
+    const loadqnaDetail = async(id:Number) => {
+        await allAxios
+            .get(`/qna/${id}`)
+            .then(({ data }) => {
+                console.log(data.qna)
+                setQnaDetail(data.qna)
             })
             .catch((e) => {
                 console.log(e)
-            })
-    })
+            })      
+    }
 
-
+    const deleteUserboard = () => {
+        allAxios
+        .delete(`/qna/{id}`)
+        .then(()=>{
+            alert("게시글이 삭제되었습니다.")
+            router.push("/userboard");
+        })
+        .catch(() => {
+        alert("잠시 후 다시 시도해주세요.")
+        });
+    };
 
 
 return (
@@ -70,41 +85,46 @@ return (
             <div className={styles.board_view_wrap}>
                 <div className={styles.board_view}>
                     <div className={styles.title}>
-                        글 제목
+                        {qnaDetail.title}
                     </div>
                     <div className={styles.info}>
                         <dl>
                             <dt>번호</dt>
-                            <dd>1</dd>
+                            <dd>{id}</dd>
                         </dl>
                         <dl>
                             <dt>글쓴이</dt>
-                            <dd>하루</dd>
+                            <dd>{qnaDetail.nickName}</dd>
                         </dl>
                         <dl>
                             <dt>작성일</dt>
-                            <dd>2021.03.14</dd>
+                            <dd>{qnaDetail.createdAt?qnaDetail.createdAt[0]+'.'+qnaDetail.createdAt[1]+'.'+qnaDetail.createdAt[2]:''}</dd>
                         </dl>
-                        <dl>
+                        {/* <dl>
                             <dt>조회</dt>
                             <dd>127</dd>
-                        </dl>
+                        </dl> */}
                     </div>
                     <div className={styles.cont}>
-                        글 내용이 들어갑니다.
+                        {qnaDetail.content}
                     </div>
                     
                 </div>
                 <div className={styles.bt_wrap}>
-                    <div className={styles.on}>목록</div>
-                    <div>수정</div>
+                    <div className={styles.on} onClick={() => Router.back()}>목록</div>
+                    {userInfo.id == qnaDetail.userId &&(
+                    <>
+                        <div className={styles.editbutton} onClick={() => router.push(`/notice/editQna/${id}`)}> 수정</div>
+                        <div className={styles.deletebutton} onClick={deleteUserboard}> 삭제</div>
+                    </>
+                    )}
                 </div>
                 <div className={styles.comment_cont}>
                             <Grid verticalAlign='middle' centered>
                                 <Grid.Column width={1}>
                                     <Comment.Group size='massive'>
                                         <Comment>
-                                            <Comment. Avatar src='https://react.semantic-ui.com/images/avatar/small/helen.jpg' />
+                                            <Comment. Avatar src={userInfo.image} />
                                         </Comment>
                                     </Comment.Group>
                                 </Grid.Column>

@@ -104,7 +104,8 @@ export default function Userboard_create() {
                 title: title,
                 content: content,
                 smallRegion: smallRegion,
-                userId: userId,
+                userId: userInfo.id,
+                nickName: userInfo.nick_name,
             }
     await allAxios.post('/article', body)
 
@@ -124,6 +125,7 @@ export default function Userboard_create() {
     function userContentWrite(e: any){
         setContent(e.target.value)
     }
+
 
 return (
     <>

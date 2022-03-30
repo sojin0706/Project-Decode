@@ -29,6 +29,7 @@
   border: 1px solid #000;
   border-radius: 2px;
   font-size: 1.4rem;
+  cursor: pointer;
 }
 
 .bt_wrap div:first-child {
