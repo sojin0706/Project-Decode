@@ -56,9 +56,12 @@ def cf(temp_genre, reviews, themes):
 
     # json 변환
     data = get_item_based_collabor(random_number)
-    json_data = data.to_json(orient='index', force_ascii=False)
+    json_data = data.to_json(orient='index', force_ascii=False) 
     # data2 = []
+
+    result = [i for i in data.index]
+    print(result)
+    # print(json_data)
     # for key, value in json_data.item():
     #     data2.append(key)
-    print(type(json_data))
-    return json_data
+    return result
