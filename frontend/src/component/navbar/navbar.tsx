@@ -46,7 +46,7 @@ export default function Navbar() {
   }, [router.pathname]);
 
   useEffect(() => {
-    if (userInfo.small_region === "강남") {
+    if (userInfo.small_region === "강남" || userInfo.small_region === null) {
       router.push("/login");
     } else {
       if (router.pathname === "/login") {
