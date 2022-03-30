@@ -44,7 +44,7 @@ public class GenrePreference {
     private User user;
 
     @Builder(access = AccessLevel.PRIVATE)
-    private GenrePreference(Integer thrill, Integer romance, Integer reasoning, Integer sfFantasy,
+    public GenrePreference(Integer thrill, Integer romance, Integer reasoning, Integer sfFantasy,
                             Integer adventure, Integer comedy, Integer crime, Integer horror, Integer adult, Integer drama, User user) {
         this.thrill = thrill;
         this.romance = romance;

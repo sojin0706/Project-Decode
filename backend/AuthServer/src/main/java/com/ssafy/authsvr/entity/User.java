@@ -92,4 +92,8 @@ public class User {
         this.image = image;
     }
 
+    public void setGenrePreference(GenrePreference genrePreference){
+        this.genrePreference = genrePreference;
+    }
+
 }
