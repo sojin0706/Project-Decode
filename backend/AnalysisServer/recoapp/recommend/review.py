@@ -4,13 +4,12 @@ from sklearn.metrics.pairwise import cosine_similarity
 import random
 
 
-def cf(temp_genre, reviews, themes):
+def cf(id, genre, reviews, themes):
     # with open("recommend/CF/reviews2.json", encoding="utf-8-sig") as fp:
     #     data = json.loads(''.join(line.strip() for line in fp))
-    data = reviews
 
     # 유저 리뷰 정보
-    reviews = pd.json_normalize(data)
+    reviews = pd.json_normalize(reviews)
     # print(reviews)
 
     # 테마 정보
@@ -44,7 +43,7 @@ def cf(temp_genre, reviews, themes):
     # print(get_item_based_collabor('히말라야'))
 
     #  영화 제목 찾기
-    theme_list = theme[theme['theme_genre'] == temp_genre]
+    theme_list = theme[theme['theme_genre'] == genre]
     random_number = random.randint(0, len(theme_list)-1)
     # name = theme_list.iloc[random_number]['theme_name']
     # print(name)
@@ -55,13 +54,13 @@ def cf(temp_genre, reviews, themes):
     # return json_data
 
     # json 변환
-    data = get_item_based_collabor(random_number)
-    json_data = data.to_json(orient='index', force_ascii=False) 
-    # data2 = []
+    # data = get_item_based_collabor(random_number)
+    # json_data = data.to_json(orient='index', force_ascii=False)
+    # return json_data
 
-    result = [i for i in data.index]
-    print(result)
-    # print(json_data)
-    # for key, value in json_data.item():
-    #     data2.append(key)
-    return result
+    # 테마 아이디 리스트로 변환
+    data = get_item_based_collabor(random_number)
+    new_data = []
+    for i in data.index:
+        new_data.append(i)
+    return new_data
