@@ -46,7 +46,7 @@ export default function Navbar() {
   }, [router.pathname]);
 
   useEffect(() => {
-    if (userInfo.small_region === "강남" || userInfo.small_region === null) {
+    if (userInfo.small_region === 0) {
       router.push("/login");
     } else {
       if (router.pathname === "/login") {
@@ -84,6 +84,7 @@ export default function Navbar() {
           userboard
         </a>
       </Link>
+      <div>
       {IsLogin() ? (
         <Link href="/">
           <a onClick={logout}>Logout</a>
@@ -91,7 +92,7 @@ export default function Navbar() {
       ) : (
         <LoginModal />
       )}
-
+      </div>
       <style jsx>{`
         a {
           text-decoration: none;
