@@ -19,16 +19,26 @@ def index(request):
     temp_genre = '로맨스'
 
     # cb 코드
-    themes = theme.find()
-    results = cb(temp_genre, themes)
+    # themes = theme.find()
+    # results = cb(temp_genre, themes)
 
     # cf 코드
-    # themes = theme.find()
-    # reviews = review.find()
-    # results = cf(reviews, themes)
+    themes = theme.find()
+    reviews = review.find()
+    results = cf(temp_genre, reviews, themes)
 
     context = {
         'results': results,
     }
 
     return render(request, 'recoapp/index.html', context)
+
+
+@api_view(['GET'])
+def CB(request):
+    pass
+
+
+@api_view(['GET'])
+def CF(request):
+    pass

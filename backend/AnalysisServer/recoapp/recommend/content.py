@@ -59,6 +59,7 @@ def cb(temp_genre, themes):
     theme_list = theme[theme['theme_genre'] == temp_genre]
     random_number = random.randint(0, len(theme_list)-1)
     name = theme_list.iloc[random_number]['theme_name']
+    # print(name)
 
     # json 변환
     # data = get_recommend_theme_list(theme_top, theme_title='재개발구역: 관계자 외 출입금지')
