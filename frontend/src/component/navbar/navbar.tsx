@@ -28,6 +28,7 @@ export default function Navbar() {
         setUserInfo(data.data.body.user);
       })
       .catch((e) => {
+        window.location.reload()
         console.log(e);
       });
   };
