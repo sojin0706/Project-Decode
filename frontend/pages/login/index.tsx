@@ -198,13 +198,14 @@ export default function Index() {
       alert("SF/판타지 장르 선호도를 선택해주세요");
     } else {
       e.preventDefault();
+
       const body = {
         age: Number(age),
         gender: gender,
         id: userInfo.id,
         large_region: selectedBigPlace,
         nick_name: nick,
-        preference_genre: {
+        user_preference: {
           adult: scoreAdult,
           adventure: scoreAdventure,
           comedy: scoreComedy,
@@ -218,8 +219,10 @@ export default function Index() {
         },
         small_region: selectedSmallPlace,
       };
+
+      console.log(body)
       axios
-        .put(`http://j6c203.p.ssafy.io:8081/user/recommend`, body)
+        .post(`http://j6c203.p.ssafy.io:8081/user/recommend`, body)
         .then(({ data }) => {
           getUserInfo();
         })

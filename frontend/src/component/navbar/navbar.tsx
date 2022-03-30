@@ -16,7 +16,7 @@ export default function Navbar() {
   }
 
   function autoLogout() {
-    if (IsLogin() && !userInfo.username) {
+    if (IsLogin() && userInfo === 0) {
       logout();
     }
   }
@@ -33,7 +33,7 @@ export default function Navbar() {
       });
   };
 
-  const [userInfo, setUserInfo]: any = useState([]);
+  const [userInfo, setUserInfo]: any = useState(0);
 
   useEffect(() => {
     if (IsLogin()) {
@@ -46,7 +46,7 @@ export default function Navbar() {
   }, [router.pathname]);
 
   useEffect(() => {
-    if (userInfo.small_region === "asdf") {
+    if (userInfo.small_region === "강남") {
       router.push("/login");
     } else {
       if (router.pathname === "/login") {
