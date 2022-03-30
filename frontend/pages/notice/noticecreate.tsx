@@ -16,7 +16,7 @@ export default function Noticecreate() {
 
     const [title, setTitle] = useState('')
     const [content, setContent] = useState([])
-    const [userInfo, setUserInfo]: any = useState(0)
+    const [userInfo, setUserInfo]: any = useState([])
     const [userId, setUserId] = useState(0)
     const [isNotice, setIsNotice] = useState(false)
     const [isSecret, setIsSecret] = useState(false)

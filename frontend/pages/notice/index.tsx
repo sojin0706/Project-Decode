@@ -10,6 +10,7 @@ import IsLogin from "../../src/lib/customLogin";
 import Router from "next/router";
 import styles from "../../styles/notice/notice.module.css";
 import userAxios from "../../src/lib/userAxios";
+import axios from "axios";
 
 export default function Notice() {
     const [qnanotice, setQnaNotice] = useState([])
@@ -19,27 +20,46 @@ export default function Notice() {
     const [id, setId] = useState(0)
     const [createdAt, setCreatedAt] = useState([])
     const [nickName, setNickName] = useState('')
-    const [userInfo, setUserInfo]: any = useState(0)
+    const [userInfo, setUserInfo]: any = useState([])
     const [notice, setNotice] = useState([])
 
     // 유저
-    useEffect(() => {
-        loadUser()
-    }, [])
+    // useEffect(() => {
+    //     loadUser()
+    // }, [])
 
-    const loadUser = async() => {
-        if (IsLogin()){
-            userAxios.get(`/auth/users`)
-            .then(({ data }) => {
-                console.log(data.body.user)
-                setUserInfo(data.body.user)
+    // const loadUser = async() => {
+    //     if (IsLogin()){
+    //         userAxios.get(`/auth/users`)
+    //         .then(({ data }) => {
+    //             console.log(data.body.user)
+    //             setUserInfo(data.body.user)
+    //         })
+    //         .catch((e) => {
+    //         console.log(e);
+    //         alert('로그인 시간이 만료되었습니다.')
+    //         });
+    //       }
+    //     }
+
+    useEffect(() => {
+        if (IsLogin()) {
+          var Token: any = null;
+          if (typeof window !== "undefined") Token = localStorage.getItem("token");
+    
+          axios
+            .get("http://j6c203.p.ssafy.io:8081/auth/users", {
+              headers: { Authorization: `Bearer ${Token}` },
             })
-            .catch((e) => {
-            console.log(e);
-            alert('로그인 시간이 만료되었습니다.')
+            .then(({ data }) => {
+              setUserInfo(data.body.user)
+            })
+            .catch((e: any) => {
+              console.log("에러");
+              console.log(e);
             });
-          }
         }
+      }, []);
 
     // 게시글 정보 (qna)
     useEffect(() => {

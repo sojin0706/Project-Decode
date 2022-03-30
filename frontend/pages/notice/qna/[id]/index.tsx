@@ -13,7 +13,7 @@ import styles from "../../../../styles/notice/detail.module.css";
 
 export default function Notice_detail() {
 
-    const [userInfo, setUserInfo]: any = useState(0)
+    const [userInfo, setUserInfo]: any = useState([])
     const [qnaDetail,setQnaDetail]:any = useState([])
     const router = useRouter()
     const id = Number(router.query.id)
@@ -31,6 +31,7 @@ export default function Notice_detail() {
         if (IsLogin()){
             userAxios.get(`/auth/users`)
             .then(({ data }) => {
+                console.log(data.body.user)
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
@@ -42,10 +43,10 @@ export default function Notice_detail() {
 
     const loadqnaDetail = async(id:Number) => {
         await allAxios
-            .get(`qna/${id}`)
-            .then(({data}) => {
-                console.log(data)
-                setQnaDetail(data.qnaList)
+            .get(`/qna/${id}`)
+            .then(({ data }) => {
+                console.log(data.qna)
+                setQnaDetail(data.qna)
             })
             .catch((e) => {
                 console.log(e)
@@ -54,7 +55,7 @@ export default function Notice_detail() {
 
     const deleteUserboard = () => {
         allAxios
-        .delete(`qna/{qnaId}`)
+        .delete(`/qna/{id}`)
         .then(()=>{
             alert("게시글이 삭제되었습니다.")
             router.push("/userboard");
@@ -84,12 +85,12 @@ return (
             <div className={styles.board_view_wrap}>
                 <div className={styles.board_view}>
                     <div className={styles.title}>
-                        글 제목
+                        {qnaDetail.title}
                     </div>
                     <div className={styles.info}>
                         <dl>
                             <dt>번호</dt>
-                            <dd>{qnaDetail.id}</dd>
+                            <dd>{id}</dd>
                         </dl>
                         <dl>
                             <dt>글쓴이</dt>
@@ -105,7 +106,7 @@ return (
                         </dl> */}
                     </div>
                     <div className={styles.cont}>
-                        글 내용이 들어갑니다.
+                        {qnaDetail.content}
                     </div>
                     
                 </div>
@@ -113,7 +114,7 @@ return (
                     <div className={styles.on} onClick={() => Router.back()}>목록</div>
                     {userInfo.id == qnaDetail.userId &&(
                     <>
-                        <div className={styles.editbutton} onClick={() => router.push(`/userboard/edit/${id}`)}> 수정</div>
+                        <div className={styles.editbutton} onClick={() => router.push(`/notice/editQna/${id}`)}> 수정</div>
                         <div className={styles.deletebutton} onClick={deleteUserboard}> 삭제</div>
                     </>
                     )}
