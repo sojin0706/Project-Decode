@@ -1,11 +1,17 @@
+from multiprocessing import connection
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import pymongo
 from .recommend.content import cb
 from .recommend.review import cf
+import pymysql.cursors
 
 # Create your views here.
+# mysql 연결
+conn = pymysql.connect(host='j6c203.p.ssafy.io', port=3306,
+                       user='escape', password='escape', db='escape', charset='utf8')
+curs = conn.cursor()
 
 
 @api_view(['GET'])
@@ -42,13 +48,20 @@ def CB(request, id, genre):
     theme = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.theme
 
     themes = theme.find()
-    results = cb(id, genre, themes)
 
     genre_name = ["스릴러", "로맨스", "추리", "SF/판타지",
                   "모험/액션", "코미디", "범죄", "공포", "19금", "감성/드라마"]
 
     if genre not in genre_name:
         return
+
+    results = cb(id, genre, themes)
+
+    # mysql에 데이터 전달
+    sql = "insert into recommend_genre(user_id, top_one, top_two, top_three, top_four, top_five, top_six) values(%s,%s,%s,%s,%s,%s,%s)"
+    curs.execute(sql, (int(id), int(results[0]), int(results[1]), int(
+        results[2]), int(results[3]), int(results[4]), int(results[5])))
+    conn.commit()
 
     context = {
         'results': results,
@@ -58,7 +71,6 @@ def CB(request, id, genre):
 
 @api_view(['GET'])
 def CF(request, id, genre):
-    print(genre)
     theme = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.theme
     review = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.review
 
@@ -72,6 +84,12 @@ def CF(request, id, genre):
     themes = theme.find()
     reviews = review.find()
     results = cf(id, genre, reviews, themes)
+
+    # mysql에 데이터 전달
+    sql = "insert into recommend_like(user_id, top_one, top_two, top_three, top_four, top_five, top_six) values(%s,%s,%s,%s,%s,%s,%s)"
+    curs.execute(sql, (int(id), int(results[0]), int(results[1]), int(
+        results[2]), int(results[3]), int(results[4]), int(results[5])))
+    conn.commit()
 
     context = {
         'results': results,
@@ -101,6 +119,15 @@ def CF2(request, id, genre, gender, age):
     reviews = review.find({"gender": gender, 'age': age})
     results = cf(id, genre, reviews, themes)
 
+    # mysql에 데이터 전달
+    # conn = pymysql.connect(host='j6c203.p.ssafy.io', port=3306,
+    #                        user='escape', password='escape', db='escape', charset='utf8')
+    # curs = conn.cursor()
+
+    sql = "insert into recommend_gender_age(user_id, top_one, top_two, top_three, top_four, top_five, top_six) values(%s,%s,%s,%s,%s,%s,%s)"
+    curs.execute(sql, (int(id), int(results[0]), int(results[1]), int(
+        results[2]), int(results[3]), int(results[4]), int(results[5])))
+    conn.commit()
     context = {
         'results': results,
     }
