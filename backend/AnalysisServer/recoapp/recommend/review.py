@@ -4,7 +4,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import random
 
 
-def cf(id, genre, reviews, themes):
+def cf(genre, reviews, themes):
     # with open("recommend/CF/reviews2.json", encoding="utf-8-sig") as fp:
     #     data = json.loads(''.join(line.strip() for line in fp))
 
