@@ -48,8 +48,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void AddRecommendInfoUser(UserProfilePreferenceRequest userPreferenceRequest) {
 
-        Optional<User> users = userRepository.findById(userPreferenceRequest.getId());
-        User user = users.orElseThrow(NoSuchElementException::new);
+        Optional<User> userOptional = userRepository.findById(userPreferenceRequest.getId());
+        User user = userOptional.orElseThrow(NoSuchElementException::new);
         GenrePreference genrePreference = GenrePreference.genrePreferenceBuild(userPreferenceRequest,user);
         GenrePreference genre = genrePreferenceRepository.save(genrePreference);
 
@@ -61,8 +61,8 @@ public class UserServiceImpl implements UserService {
     public void ModifyRecommendInfoUser(UserProfileRequest profileRequest, UserPreferenceModifyReqeust preferenceModifyRequest,
                                         MultipartFile file) {
 
-        Optional<User> users = userRepository.findById(profileRequest.getId());
-        User user = users.orElseThrow(NoSuchElementException::new);
+        Optional<User> userOptional = userRepository.findById(profileRequest.getId());
+        User user = userOptional.orElseThrow(NoSuchElementException::new);
 
         Optional<GenrePreference> genrePreferences = genrePreferenceRepository.findById(preferenceModifyRequest.getId());
         GenrePreference genrePreference = genrePreferences.orElseThrow(NoSuchElementException::new);
@@ -80,28 +80,31 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findDetailsUser(String tokenId) {
+
         return userRepository.findByTokenId(tokenId);
     }
 
 
     @Override
     public String findNickNameUser(Integer userId) {
-        Optional<User> users = userRepository.findById(userId);
-        return users.orElseThrow(NoSuchElementException::new).getNickName();
+        Optional<User> userOptional = userRepository.findById(userId);
+        return userOptional.orElseThrow(NoSuchElementException::new).getNickName();
     }
 
     @Override
     public UserProfileResponse findProfileUser(Integer userId) {
-        Optional<User> users = userRepository.findById(userId);
-        return UserProfileResponse.profileResponse(users.orElseThrow(NoSuchElementException::new));
+        Optional<User> userOptional = userRepository.findById(userId);
+        return UserProfileResponse.profileResponse(userOptional.orElseThrow(NoSuchElementException::new));
     }
 
     @Override
     public UserDetailProfileResponse findAllProfileUser(Integer userId) {
-        Optional<User> users = userRepository.findById(userId);
-        User user = users.orElseThrow(NoSuchElementException::new);
-        return UserDetailProfileResponse.allProfileResponse(user,
-                                                    genrePreferenceRepository.findGenreById(user.getGenrePreference().getId()));
+        Optional<User> userOptional = userRepository.findById(userId);
+        User user = userOptional.orElseThrow(NoSuchElementException::new);
+        Optional<GenrePreference> genrePreferences = genrePreferenceRepository.findById(userId);
+        GenrePreference genrePreference = genrePreferences.orElseThrow(NoSuchElementException::new);
+
+        return UserDetailProfileResponse.allProfileResponse(user,genrePreference);
     }
 
     @Override

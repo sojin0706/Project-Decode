@@ -1,6 +1,5 @@
 package com.ssafy.authsvr.payload.response;
 
-import com.ssafy.authsvr.entity.GenrePreference;
 import com.ssafy.authsvr.entity.User;
 import com.ssafy.authsvr.oauth.domain.ProviderType;
 import com.ssafy.authsvr.oauth.domain.RoleType;
