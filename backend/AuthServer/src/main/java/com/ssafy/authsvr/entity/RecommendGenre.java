@@ -9,27 +9,26 @@ import javax.persistence.*;
 @Entity
 @Table(name = "recommend_genre")
 @Getter
-@Setter
 @NoArgsConstructor
 public class RecommendGenre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="recommend_genre_id")
-    private Integer recommendLikeId;
+    private Integer id;
 
-    private Integer topOne;
+    private Integer genreOne;
 
-    private Integer topTwo;
+    private Integer genreTwo;
 
-    private Integer topThree;
+    private Integer genreThree;
 
-    private Integer topFour;
+    private Integer genreFour;
 
-    private Integer topFive;
+    private Integer genreFive;
 
-    private Integer topSix;
+    private Integer genreSix;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 }
