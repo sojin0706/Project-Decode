@@ -54,7 +54,7 @@ public class ArticleServiceImpl implements ArticleService{
 
         article.setUserId(articleRequestDto.getUserId());
         article.setTitle(articleRequestDto.getTitle());
-        article.setContent(articleRequestDto.getTitle());
+        article.setContent(articleRequestDto.getContent());
         article.setSmallRegion(articleRequestDto.getSmallRegion());
         article.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
         article.setRecommend(0);
