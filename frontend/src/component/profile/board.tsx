@@ -61,8 +61,30 @@ export default function Board() {
         })
       })
       .then(() => {
-        console.log(tmpUserBoard)
         setUserBoard(tmpUserBoard)
+      })
+    }
+  },[userInfo])
+  
+  // 댓글 불러오기
+  const [comment, setComment] = useState([])
+  const tmpComment:any = []
+  useEffect(() => {
+    if (userInfo !== 0) {
+      axios.get(`http://j6c203.p.ssafy.io:8082/comment/profile/${userInfo.id}`)
+      .then(({data}) => {
+        console.log(data.myArticleCommentList.content)
+        data.myArticleCommentList.content.map((d:any, i:number) => {
+          tmpComment.push(d)
+          axios.get(`http://j6c203.p.ssafy.io:8082/article/${d.articleId}`)
+          .then(({data}) => {
+            tmpComment[i].userImage = data.article.title
+            console.log(tmpComment[i].userImage)
+          })
+        })
+      })
+      .then(() => {
+        setComment(tmpComment)
       })
     }
   },[userInfo])
@@ -90,7 +112,15 @@ const panes = [
   },
   {
     menuItem: '댓글',
-    render: () => <Tab.Pane attached={false}>내가 작성한 댓글</Tab.Pane>,
+    render: () => <Tab.Pane attached={false}>내가 작성한 댓글
+        <ul>
+      {comment.map((d:any, i: number) => {
+        return (
+          <li key={i} onClick = {() => {router.push(`/userboard/${d.articleId}`)}} style = {{cursor: 'pointer'}}> 글 제목: {d.userImage} 댓글 내용: {d.content}</li>
+        )
+      })}
+    </ul>
+    </Tab.Pane>,
   },
   {
     menuItem: 'Q&A',
