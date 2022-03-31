@@ -2,8 +2,10 @@ import { List, Tab } from 'semantic-ui-react'
 import { useState, useEffect } from "react";
 import IsLogin from "../../lib/customLogin";
 import axios from "axios";
+import { useRouter } from 'next/router';
 
-export default function board() {
+export default function Board() {
+  const router = useRouter()
   const [userInfo, setUserInfo]: any = useState(0);
 
   useEffect(() => {
@@ -47,6 +49,23 @@ export default function board() {
     }
   },[userInfo])
 
+  // 유저게시판 불러오기
+  const [userBoard, setUserBoard] = useState([])
+  const tmpUserBoard:any = []
+  useEffect(() => {
+    if (userInfo !== 0) {
+      axios.get(`http://j6c203.p.ssafy.io:8082/article/profile/${userInfo.id}`)
+      .then(({data}) => {
+        data.myArticleList.content.map((d:any, i:number) => {
+          tmpUserBoard.push(d)
+        })
+      })
+      .then(() => {
+        console.log(tmpUserBoard)
+        setUserBoard(tmpUserBoard)
+      })
+    }
+  },[userInfo])
 
 const panes = [
   {
@@ -59,7 +78,15 @@ const panes = [
   },
   {
     menuItem: '유저 게시판',
-    render: () => <Tab.Pane attached={false}>내가 작성한 유저 게시판 글</Tab.Pane>,
+    render: () => <Tab.Pane attached={false}>내가 작성한 유저 게시판 글
+    <ul>
+      {userBoard.map((d:any, i: number) => {
+        return (
+          <li key={i} onClick = {() => {router.push(`/userboard/${d.id}`)}} style = {{cursor: 'pointer'}}>번호: {d.id} 제목: {d.title} 내용: {d.content}</li>
+        )
+      })}
+    </ul>
+    </Tab.Pane>,
   },
   {
     menuItem: '댓글',

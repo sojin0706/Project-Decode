@@ -31,7 +31,7 @@ export default function Index() {
         });
     }
   }, []);
-  console.log(userInfo.image);
+  
   return (
     <>
       <Grid stackable>
