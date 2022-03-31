@@ -58,7 +58,7 @@ def CB(request, id, genre):
     results = cb(id, genre, themes)
 
     # mysql에 데이터 전달
-    sql = "insert into recommend_genre(user_id, top_one, top_two, top_three, top_four, top_five, top_six) values(%s,%s,%s,%s,%s,%s,%s)"
+    sql = "insert into recommend_genre(user_id, genre_one, genre_two, genre_three, genre_four, genre_five, genre_six) values(%s,%s,%s,%s,%s,%s,%s)"
     curs.execute(sql, (int(id), int(results[0]), int(results[1]), int(
         results[2]), int(results[3]), int(results[4]), int(results[5])))
     conn.commit()
@@ -86,7 +86,7 @@ def CF(request, id, genre):
     results = cf(id, genre, reviews, themes)
 
     # mysql에 데이터 전달
-    sql = "insert into recommend_like(user_id, top_one, top_two, top_three, top_four, top_five, top_six) values(%s,%s,%s,%s,%s,%s,%s)"
+    sql = "insert into recommend_like(user_id, like_one, like_two, like_three, like_four, like_five, like_six) values(%s,%s,%s,%s,%s,%s,%s)"
     curs.execute(sql, (int(id), int(results[0]), int(results[1]), int(
         results[2]), int(results[3]), int(results[4]), int(results[5])))
     conn.commit()
@@ -124,7 +124,7 @@ def CF2(request, id, genre, gender, age):
     #                        user='escape', password='escape', db='escape', charset='utf8')
     # curs = conn.cursor()
 
-    sql = "insert into recommend_gender_age(user_id, top_one, top_two, top_three, top_four, top_five, top_six) values(%s,%s,%s,%s,%s,%s,%s)"
+    sql = "insert into recommend_gender_age(user_id, gender_age_one, gender_age_two, gender_age_three, gender_age_four, gender_age_five, gender_age_six) values(%s,%s,%s,%s,%s,%s,%s)"
     curs.execute(sql, (int(id), int(results[0]), int(results[1]), int(
         results[2]), int(results[3]), int(results[4]), int(results[5])))
     conn.commit()
