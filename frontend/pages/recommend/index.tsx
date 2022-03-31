@@ -90,13 +90,13 @@ export default function Recommend(){
                     <Grid.Column width={2}/>
                     <Grid.Column width={12}>
                         <Header as='h3'>[유저] 님이 좋아하실만한 테마를 준비해봤어요!</Header>
-                        <Detail theme={thema} isImage={true} w={150} h={200}/>
+                        <Detail themeId={thema.themeId} isImage={true} w={150} h={200}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <Detail theme={thema} isImage={true} w={150} h={200}/>
+                        <Detail themeId={thema.themeId} isImage={true} w={150} h={200}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <Detail theme={thema} isImage={true} w={150} h={200}/>
+                        <Detail themeId={thema.themeId} isImage={true} w={150} h={200}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <Detail theme={thema} isImage={true} w={150} h={200}/>
+                        <Detail themeId={thema.themeId} isImage={true} w={150} h={200}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </Grid.Column>
                     <Grid.Column width={2}/>

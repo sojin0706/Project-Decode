@@ -4,21 +4,21 @@ import allAxios from '../../lib/allAxios';
 import Reviewboard from '../board/reviewboard';
 import Kakaomap from '../kakaomap/kmap';
 
-export default function Detail({theme, isImage, w, h}: any){
+export default function Detail({themeId, isImage, w, h}: any){
 
     const [open, setOpen] = useState(false)
     const [themeDetail, setThemeDetail]: any = useState([])
 
     useEffect(() => {
         loadDetailInfomation()
-    }, [theme])
+    }, [themeId])
 
     const loadDetailInfomation = async () => {
-        if (theme.themeId){
+        if (themeId){
             await allAxios
-                .get(`/information/detail/${theme.themeId}`, {
+                .get(`/information/detail/${themeId}`, {
                     params: {
-                        themeId: theme.themeId
+                        themeId: themeId
                     }
                 })
                 .then(({ data }) => {
@@ -39,14 +39,14 @@ export default function Detail({theme, isImage, w, h}: any){
                 trigger={isImage?
                     <button style={{ backgroundColor: "white", border: "white", cursor: "pointer"}}><img src={themeDetail.posterUrl} alt="url" width={w} height={h} /></button>
                 :
-                    <Button>{theme.theme_name}</Button>
+                    <Button>{themeDetail.themeName}</Button>
                 }
                 >
                 <Modal.Content image>
                     <img src={themeDetail.posterUrl} alt="이미지가 없습니다" width="250px" height="350px"/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <Modal.Description>
-                        <Header as='h2'>{theme.theme_name.slice(0, 12)}<br/>{theme.theme_name.slice(12, 24)}</Header>
+                        <Header as='h2'>{themeDetail.themeName?themeDetail.themeName.slice(0, 12):''}<br/>{themeDetail.themeName?themeDetail.themeName.slice(12, 24):''}</Header>
                         <Header as='h3'>난이도 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Rating icon='heart' defaultRating={themeDetail.level} maxRating={themeDetail.level} disabled/></Header>
                         <Header as='h3'>장르 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {themeDetail.genre}</Header>
                         <Header as='h3'>추천 인원 &nbsp;&nbsp;&nbsp;&nbsp; {themeDetail.numberIsTwo?'2 ':''}&nbsp;{themeDetail.numberIsThree?'3 ':''}&nbsp;{themeDetail.numberIsFour?'4 ':''}&nbsp;{themeDetail.numberIsFive?'5':''}명</Header>
@@ -64,7 +64,7 @@ export default function Detail({theme, isImage, w, h}: any){
                 </Modal.Content>
                 <Modal.Actions>
                     <br />
-                    <Reviewboard themeIds={theme.themeId}/>
+                    <Reviewboard themeIds={themeId}/>
                     <br />
                     <Button 
                         content='close'

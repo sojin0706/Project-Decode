@@ -259,7 +259,7 @@ export default function Infoboard() {
                                 <Header as='h4'>{theme.genre}</Header>
                             </Grid.Column>
                             <Grid.Column width={4}>
-                                <Detail theme={theme} isImage={false} w={150} h={200}/>
+                                <Detail themeId={theme.themeId} isImage={false} w={150} h={200}/>
                             </Grid.Column>
                             <Grid.Column width={2}>
                                 <Header as='h4'>{theme.maxNumber}명</Header>
