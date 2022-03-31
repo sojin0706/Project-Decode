@@ -44,6 +44,7 @@ public class HomeController {
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
 
+    @ApiOperation(value = "비회원일때 추천 테마", notes = "비회원일때 추천하는 테마를 조회한다.", response = Map.class)
     @GetMapping("/nonmember")
     public ResponseEntity<Map<String,Object>> getNonMember(){
         Map<String, Object> result = new HashMap<>();
