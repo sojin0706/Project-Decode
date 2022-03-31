@@ -52,6 +52,15 @@ public class User {
     @JoinColumn(name = "genre_preference_id")
     private GenrePreference genrePreference;
 
+    @OneToOne(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private RecommendLike recommendLike;
+
+    @OneToOne(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private RecommendGenderAge recommendGenderAge;
+
+    @OneToOne(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private RecommendGenre recommendGenre;
+
     public User(Integer id, String tokenId, String name, String email, String image, ProviderType providerType,
                 RoleType roleType, LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.id = id;
