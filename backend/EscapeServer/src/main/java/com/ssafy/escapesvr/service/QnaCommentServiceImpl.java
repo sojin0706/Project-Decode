@@ -2,9 +2,11 @@ package com.ssafy.escapesvr.service;
 
 
 import com.ssafy.escapesvr.client.UserServiceClient;
+import com.ssafy.escapesvr.dto.ArticleCommentResponseDto;
 import com.ssafy.escapesvr.dto.ProfileRequestDto;
 import com.ssafy.escapesvr.dto.QnaCommentRequestDto;
 import com.ssafy.escapesvr.dto.QnaCommentResponseDto;
+import com.ssafy.escapesvr.entity.ArticleComment;
 import com.ssafy.escapesvr.entity.Qna;
 import com.ssafy.escapesvr.entity.QnaComment;
 import com.ssafy.escapesvr.repository.QnaCommentRepository;
@@ -29,6 +31,16 @@ public class QnaCommentServiceImpl implements QnaCommentService {
     private final QnaRepository qnaRepository;
     private final QnaCommentRepository qnaCommentRepository;
     private final UserServiceClient userServiceClient;
+
+    //댓글 전체 조회
+    @Override
+    public Page<QnaCommentResponseDto> getQnaComment(Pageable pageable) {
+        Page<QnaComment> list = qnaCommentRepository.findAll(pageable);
+
+        Page<QnaCommentResponseDto> qnaCommentList=list.map( o-> new QnaCommentResponseDto(o.getId(), o.getContent(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getQna().getId(), o.getNickName(), o.getUserImage()));
+        return qnaCommentList;
+    }
+
 
     //게시글 별 댓글 조회
     @Override
@@ -76,7 +88,7 @@ public class QnaCommentServiceImpl implements QnaCommentService {
     //댓글 수정
     @Transactional
     @Override
-    public void updateQnaComment(QnaCommentRequestDto qnaCommentRequestDto) {
+    public void updateQnaComment(QnaCommentRequestDto qnaCommentRequestDto, Long id) {
         QnaComment qnaComment = qnaCommentRepository.getById(qnaCommentRequestDto.getId());
         qnaComment.setContent(qnaCommentRequestDto.getContent());
         qnaComment.setModifiedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
@@ -89,4 +101,7 @@ public class QnaCommentServiceImpl implements QnaCommentService {
     public void deleteQnaComment(Long qnaCommentId) {
         qnaCommentRepository.deleteById(qnaCommentId);
     }
+
+
+
 }
