@@ -25,13 +25,16 @@ SECRET_KEY = 'django-insecure-s4vg0&kn3n^le32yc0p7!y5%%ztg*#n9%@apqaic16!q+#^+mb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [u'localhost','j6c203.p.ssafy.io']
+ALLOWED_HOSTS = [u'localhost', 'j6c203.p.ssafy.io']
 
 # Application definition
 
 INSTALLED_APPS = [
     'recoapp',
 
+    "corsheaders",
+
+    "corsheaders.middleware.CorsMiddleware",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,6 +52,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
 
 ROOT_URLCONF = 'AnalysisServer.urls'
 
