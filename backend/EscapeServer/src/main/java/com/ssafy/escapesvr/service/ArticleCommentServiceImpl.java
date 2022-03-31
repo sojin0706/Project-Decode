@@ -27,6 +27,14 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     private final ArticleCommentRepository articleCommentRepository;
     private final UserServiceClient userServiceClient;
 
+    //댓글 전체 조회
+    @Override
+    public Page<ArticleCommentResponseDto> getArticleComment(Pageable pageable) {
+        Page<ArticleComment> list = articleCommentRepository.findAll(pageable);
+
+        Page<ArticleCommentResponseDto> articleCommentList=list.map( o-> new ArticleCommentResponseDto(o.getId(), o.getContent(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getArticle().getId(), o.getNickName(), o.getUserImage()));
+        return articleCommentList;
+    }
 
     //게시글 당 댓글 조회
     @Override
@@ -52,8 +60,6 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     public void insertArticleComment(ArticleCommentRequestDto articleCommentRequestDto) {
         Article article = articleRepository.getById(articleCommentRequestDto.getArticleId());
 
-
-
         ArticleComment articleComment = new ArticleComment();
         articleComment.setContent(articleCommentRequestDto.getContent());
         articleComment.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
@@ -75,7 +81,19 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     //댓글 수정
     @Transactional
     @Override
-    public void updateArticleComment(ArticleCommentRequestDto articleCommentRequestDto) {
+    public void updateArticleComment(ArticleCommentRequestDto articleCommentRequestDto, Long id) {
+        //넘어오는 파라미터가 수정할 댓글모델 + 게시물 번호
+
+
+        //1. DB에서 해당 게시물id에 해당하는 게시물을 가져오고
+        Article article = articleRepository.getById(id);
+
+
+        //2. 해당 게시물에 달린 댓글들을 조회를 해서
+        List<ArticleComment> comments = article.getComments();
+
+
+        //3. 그중에 댓글id(articleCommentDto에 있음)가 일치하는걸 찾아서 수정
         ArticleComment articleComment = articleCommentRepository.getById(articleCommentRequestDto.getId());
         articleComment.setContent(articleCommentRequestDto.getContent());
         articleComment.setModifiedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
@@ -89,9 +107,6 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     public void deleteArticleComment(Long commentId) {
         articleCommentRepository.deleteById(commentId);
     }
-
-
-
 
 
 

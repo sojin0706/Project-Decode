@@ -13,8 +13,8 @@ public interface ArticleCommentService {
     List<ArticleCommentResponseDto> getArticleCommentList(Long articleId);
     Page<ArticleCommentResponseDto> getMyArticleCommentList(Integer userId, Pageable pageable);
     void insertArticleComment(ArticleCommentRequestDto articleCommentRequestDto);
-    void updateArticleComment(ArticleCommentRequestDto articleCommentRequestDto);
+    void updateArticleComment(ArticleCommentRequestDto articleCommentRequestDto, Long id);
     void deleteArticleComment(Long commentId);
 
-
+    Page<ArticleCommentResponseDto> getArticleComment(Pageable pageable);
 }

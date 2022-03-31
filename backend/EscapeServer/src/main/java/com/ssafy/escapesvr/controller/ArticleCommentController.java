@@ -3,6 +3,7 @@ package com.ssafy.escapesvr.controller;
 
 import com.ssafy.escapesvr.dto.ArticleCommentRequestDto;
 import com.ssafy.escapesvr.dto.ArticleCommentResponseDto;
+import com.ssafy.escapesvr.dto.ArticleResponseDto;
 import com.ssafy.escapesvr.service.ArticleCommentService;
 import com.ssafy.escapesvr.service.ArticleService;
 import io.swagger.annotations.Api;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,16 +50,44 @@ public class ArticleCommentController {
         return new ResponseEntity<>(status);
     }
 
-    //해당 게시글의 모든 댓글 조회
-    @ApiOperation(value = "유저게시글 댓글 조회", notes = "해당 게시글(articleId)의 모든 댓글을 조회한다", response = Map.class)
+    //게시글 댓글 전체조회
+    @ApiOperation(value = "유저게시판 댓글 전체 리스트 조회", notes = "전체 게시글 댓글 리스트를 불러온다", response = Map.class)
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getArticleCommentList(@RequestParam("articleId") @ApiParam(value = "게시글 번호", required = true) Long articleId) {
+    public ResponseEntity<Map<String, Object>> getAllArticleCommentList(@PageableDefault(size=5) @SortDefault.SortDefaults({@SortDefault(sort="createdAt", direction = Sort.Direction.DESC)})Pageable pageable) {
+
+        Map<String, Object> result = new HashMap<>();
+        Page<ArticleCommentResponseDto> articleCommentList = null;
+        HttpStatus httpStatus = null;
+
+        try {
+            articleCommentList = articleCommentService.getArticleComment(pageable);
+            httpStatus = HttpStatus.OK;
+            result.put("success", true);
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+
+        }
+
+        result.put("articleCommentList", articleCommentList);
+
+        return new ResponseEntity<Map<String, Object>>(result, httpStatus);
+
+    }
+
+
+    //해당 게시글의 모든 댓글 조회
+    @ApiOperation(value = "유저 게시글 댓글 조회", notes = "해당 게시글(id)의 모든 댓글을 조회한다", response = Map.class)
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> getArticleCommentList(@PathVariable @ApiParam(value = "게시글 번호", required = true) Long id) {
 
         Map<String, Object> result = new HashMap<>();
         List<ArticleCommentResponseDto> articleCommentList = null;
         HttpStatus status = null;
         try {
-            articleCommentList = articleCommentService.getArticleCommentList(articleId);
+            articleCommentList = articleCommentService.getArticleCommentList(id);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -91,11 +121,11 @@ public class ArticleCommentController {
 
     //댓글 수정
     @ApiOperation(value = "유저게시글 댓글 수정", notes = "댓글(commentId가 일치하는)을 수정한다", response = Map.class)
-    @PutMapping
-    public ResponseEntity<String> updateArticleComment(@RequestBody @ApiParam(value = "댓글 수정 모델") @Valid ArticleCommentRequestDto articleCommentRequestDto) {
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateArticleComment(@PathVariable @ApiParam(value = "게시글 번호", required = true) final Long id, @RequestBody @ApiParam(value = "댓글 수정 모델") @Valid ArticleCommentRequestDto articleCommentRequestDto) {
         HttpStatus status = null;
         try {
-            articleCommentService.updateArticleComment(articleCommentRequestDto);
+            articleCommentService.updateArticleComment(articleCommentRequestDto, id);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();
