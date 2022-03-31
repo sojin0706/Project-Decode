@@ -9,11 +9,15 @@ import java.util.List;
 
 public interface QnaCommentService {
 
-    List<QnaCommentResponseDto> getQnaCommentList(Long QnaId);
-    Page<QnaCommentResponseDto> getMyQnaCommentList(Integer userId, Pageable pageable);
+    /* 조회 */
+    List<QnaCommentResponseDto> getQnaCommentList(Long QnaId); //해당 게시물 조회
+    Page<QnaCommentResponseDto> getMyQnaCommentList(Integer userId, Pageable pageable); //회원별 모든 게시글 조회
+    Page<QnaCommentResponseDto> getQnaComment(Pageable pageable); //모든 게시글 조회
+
+    /* 저장, 수정, 삭제 */
     void insertQnaComment(QnaCommentRequestDto qnaCommentRequestDto);
     void updateQnaComment(QnaCommentRequestDto qnaCommentRequestDto, Long id);
     void deleteQnaComment(Long qnaCommentId);
 
-    Page<QnaCommentResponseDto> getQnaComment(Pageable pageable);
+
 }
