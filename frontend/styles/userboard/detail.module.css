@@ -155,3 +155,7 @@
 .deletebutton {
   cursor: pointer; 
 }
+
+.commentslocation {
+  margin-left: 50px;
+}
