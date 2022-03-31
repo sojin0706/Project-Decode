@@ -28,13 +28,13 @@ def index(request):
     temp_genre = '로맨스'
 
     # cb 코드
-    # themes = theme.find()
-    # results = cb(temp_id, temp_genre, themes)
+    themes = theme.find()
+    results = cb(temp_genre, themes)
 
     # cf 코드
-    themes = theme.find()
-    reviews = review.find()
-    results = cf(temp_id, temp_genre, reviews, themes)
+    # themes = theme.find()
+    # reviews = review.find()
+    # results = cf(temp_genre, reviews, themes)
 
     context = {
         'results': results,
@@ -55,33 +55,27 @@ def CB(request, id, genre):
     if genre not in genre_name:
         return
 
-    results = cb(id, genre, themes)
+    results = cb(genre, themes)
 
     # genre_one, genre_two, genre_three, genre_four, genre_five, genre_six
 
-    #mysql에 데이터 전달
-    sql="select user_id from recommend_genre where user_id=%s"
-    curs.execute(sql,(id))
+    # mysql에 데이터 전달
+    sql = "select user_id from recommend_genre where user_id=%s"
+    curs.execute(sql, (id))
 
     row = curs.fetchall()
-    print(row)
-
 
     if(not row):
         sql = "insert into recommend_genre(user_id, genre_one, genre_two, genre_three, genre_four, genre_five, genre_six) values(%s,%s,%s,%s,%s,%s,%s)"
         curs.execute(sql, (int(id), int(results[0]), int(results[1]), int(
-        results[2]), int(results[3]), int(results[4]), int(results[5])))
-        conn.commit()
-    else:
-        sql = "update recommend_genre set genre_one=%s, genre_two=%s, genre_three=%s, genre_four=%s, genre_five=%s, genre_six=%s"
-        curs.execute(sql, (int(results[0]), int(results[1]), int(
             results[2]), int(results[3]), int(results[4]), int(results[5])))
         conn.commit()
+    else:
+        sql = "update recommend_genre set genre_one=%s, genre_two=%s, genre_three=%s, genre_four=%s, genre_five=%s, genre_six=%s where user_id=%s"
+        curs.execute(sql, (int(results[0]), int(results[1]), int(
+            results[2]), int(results[3]), int(results[4]), int(results[5]), int(id)))
+        conn.commit()
 
-
-    context = {
-        'results': results,
-    }
     return Response(results)
 
 
@@ -99,32 +93,25 @@ def CF(request, id, genre):
     # temp_genre = '로맨스'
     themes = theme.find()
     reviews = review.find()
-    results = cf(id, genre, reviews, themes)
+    results = cf(genre, reviews, themes)
 
-
-    #mysql에 데이터 전달
-    sql="select user_id from recommend_like where user_id=%s"
-    curs.execute(sql,(id))
+    # mysql에 데이터 전달
+    sql = "select user_id from recommend_like where user_id=%s"
+    curs.execute(sql, (id))
 
     row = curs.fetchall()
-    print(row)
 
     if(not row):
         sql = "insert into recommend_like(user_id, like_one, like_two, like_three, like_four, like_five, like_six) values(%s,%s,%s,%s,%s,%s,%s)"
         curs.execute(sql, (int(id), int(results[0]), int(results[1]), int(
-        results[2]), int(results[3]), int(results[4]), int(results[5])))
-        conn.commit()
-    else:
-        sql = "update recommend_like set like_one=%s, like_two=%s, like_three=%s, like_four=%s, like_five=%s, like_six=%s"
-        curs.execute(sql, (int(results[0]), int(results[1]), int(
             results[2]), int(results[3]), int(results[4]), int(results[5])))
         conn.commit()
+    else:
+        sql = "update recommend_like set like_one=%s, like_two=%s, like_three=%s, like_four=%s, like_five=%s, like_six=%s  where user_id=%s"
+        curs.execute(sql, (int(results[0]), int(results[1]), int(
+            results[2]), int(results[3]), int(results[4]), int(results[5]), int(id)))
+        conn.commit()
 
-  
-
-    context = {
-        'results': results,
-    }
     return Response(results)
 
 
@@ -148,28 +135,23 @@ def CF2(request, id, genre, gender, age):
     # temp_genre = '로맨스'
     themes = theme.find()
     reviews = review.find({"gender": gender, 'age': age})
-    results = cf(id, genre, reviews, themes)
+    results = cf(genre, reviews, themes)
 
-    #mysql에 데이터 전달
-    sql="select user_id from recommend_gender_age where user_id=%s"
-    curs.execute(sql,(id))
+    # mysql에 데이터 전달
+    sql = "select user_id from recommend_gender_age where user_id=%s"
+    curs.execute(sql, (id))
 
     row = curs.fetchall()
-    print(row)
 
     if(not row):
         sql = "insert into recommend_gender_age(user_id, gender_age_one, gender_age_two, gender_age_three, gender_age_four, gender_age_five, gender_age_six) values(%s,%s,%s,%s,%s,%s,%s)"
         curs.execute(sql, (int(id), int(results[0]), int(results[1]), int(
-        results[2]), int(results[3]), int(results[4]), int(results[5])))
-        conn.commit()
-    else:
-        sql = "update recommend_gender_age set gender_age_one=%s, gender_age_two=%s, gender_age_three=%s, gender_age_four=%s, gender_age_five=%s, gender_age_six=%s"
-        curs.execute(sql, (int(results[0]), int(results[1]), int(
             results[2]), int(results[3]), int(results[4]), int(results[5])))
         conn.commit()
-    
+    else:
+        sql = "update recommend_gender_age set gender_age_one=%s, gender_age_two=%s, gender_age_three=%s, gender_age_four=%s, gender_age_five=%s, gender_age_six=%s  where user_id=%s"
+        curs.execute(sql, (int(results[0]), int(results[1]), int(
+            results[2]), int(results[3]), int(results[4]), int(results[5]), int(id)))
+        conn.commit()
 
-    context = {
-        'results': results,
-    }
     return Response(results)

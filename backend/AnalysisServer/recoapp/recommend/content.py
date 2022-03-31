@@ -4,7 +4,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import random
 
 
-def cb(id, genre, themes):
+def cb(genre, themes):
     # 테마정보 불러오기
     # theme = pd.read_csv("recommend/CF/theme.csv", encoding='cp949')
     theme = pd.DataFrame(list(themes))
