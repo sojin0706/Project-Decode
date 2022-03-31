@@ -137,11 +137,11 @@ public class ArticleCommentController {
     //댓글 삭제
     @ApiOperation(value = "유저게시글 댓글 삭제", notes = "댓글(commentId가 일치하는)을 삭제한다", response = Map.class)
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteArticleComment(@PathVariable("id") @ApiParam(value = "댓글 번호", required = true) Long commentId) {
+    public ResponseEntity<String> deleteArticleComment(@PathVariable("id") @ApiParam(value = "댓글 번호", required = true) Long id) {
 
         HttpStatus status = null;
         try {
-            articleCommentService.deleteArticleComment(commentId);
+            articleCommentService.deleteArticleComment(id);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();
