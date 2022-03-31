@@ -201,7 +201,9 @@ export default function UserInfoModal() {
       .put("/user/recommend", body, {
         headers: { "Content-Type": "multipart/form-data" },
       })
-      .then(() => {})
+      .then(() => {
+        window.location.reload()
+      })
       .catch((err) => {
         console.log(err);
       });
