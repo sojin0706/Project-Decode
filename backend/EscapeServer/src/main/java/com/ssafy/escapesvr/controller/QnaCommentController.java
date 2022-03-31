@@ -1,10 +1,9 @@
 package com.ssafy.escapesvr.controller;
 
 
-import com.ssafy.escapesvr.dto.ArticleResponseDto;
 import com.ssafy.escapesvr.dto.QnaCommentRequestDto;
 import com.ssafy.escapesvr.dto.QnaCommentResponseDto;
-import com.ssafy.escapesvr.entity.ArticleComment;
+import com.ssafy.escapesvr.dto.QnaCommentUpdateRequestDto;
 import com.ssafy.escapesvr.service.QnaCommentService;
 import com.ssafy.escapesvr.service.QnaService;
 import io.swagger.annotations.Api;
@@ -122,10 +121,10 @@ public class QnaCommentController {
     //댓글 수정
     @ApiOperation(value = "Qna 게시글 댓글 수정", notes = "댓글(qnaCommentId가 일치하는)을 수정한다", response = Map.class)
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateQnaComment(@PathVariable @ApiParam(value = "게시글 번호", required = true) final Long id, @RequestBody @ApiParam(value = "댓글 수정 모델") QnaCommentRequestDto qnaCommentRequestDto) {
+    public ResponseEntity<String> updateQnaComment(@PathVariable @ApiParam(value = "게시글 번호", required = true) final Long id, @RequestBody @ApiParam(value = "댓글 수정 모델") QnaCommentUpdateRequestDto qnaCommentUpdateRequestDto) {
         HttpStatus status = null;
         try {
-            qnaCommentService.updateQnaComment(qnaCommentRequestDto, id);
+            qnaCommentService.updateQnaComment(qnaCommentUpdateRequestDto, id);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();

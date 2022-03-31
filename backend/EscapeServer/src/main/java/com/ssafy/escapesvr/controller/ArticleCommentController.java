@@ -3,6 +3,7 @@ package com.ssafy.escapesvr.controller;
 
 import com.ssafy.escapesvr.dto.ArticleCommentRequestDto;
 import com.ssafy.escapesvr.dto.ArticleCommentResponseDto;
+import com.ssafy.escapesvr.dto.ArticleCommentUpdateRequestDto;
 import com.ssafy.escapesvr.dto.ArticleResponseDto;
 import com.ssafy.escapesvr.service.ArticleCommentService;
 import com.ssafy.escapesvr.service.ArticleService;
@@ -122,10 +123,10 @@ public class ArticleCommentController {
     //댓글 수정
     @ApiOperation(value = "유저게시글 댓글 수정", notes = "댓글(commentId가 일치하는)을 수정한다", response = Map.class)
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateArticleComment(@PathVariable @ApiParam(value = "게시글 번호", required = true) final Long id, @RequestBody @ApiParam(value = "댓글 수정 모델") @Valid ArticleCommentRequestDto articleCommentRequestDto) {
+    public ResponseEntity<String> updateArticleComment(@PathVariable @ApiParam(value = "게시글 번호", required = true) final Long id, @RequestBody @ApiParam(value = "댓글 수정 모델") @Valid ArticleCommentUpdateRequestDto articleCommentUpdateRequestDto) {
         HttpStatus status = null;
         try {
-            articleCommentService.updateArticleComment(articleCommentRequestDto, id);
+            articleCommentService.updateArticleComment(articleCommentUpdateRequestDto, id);
             status = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();

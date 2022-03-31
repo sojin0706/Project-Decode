@@ -2,6 +2,7 @@ package com.ssafy.escapesvr.service;
 
 import com.ssafy.escapesvr.dto.ArticleCommentRequestDto;
 import com.ssafy.escapesvr.dto.ArticleCommentResponseDto;
+import com.ssafy.escapesvr.dto.ArticleCommentUpdateRequestDto;
 import com.ssafy.escapesvr.dto.QnaCommentResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,7 @@ public interface ArticleCommentService {
 
     /* 저장, 수정, 삭제 */
     void insertArticleComment(ArticleCommentRequestDto articleCommentRequestDto);
-    void updateArticleComment(ArticleCommentRequestDto articleCommentRequestDto, Long id);
+    void updateArticleComment(ArticleCommentUpdateRequestDto articleCommentUpdateRequestDto, Long id);
     void deleteArticleComment(Long commentId);
 
 }

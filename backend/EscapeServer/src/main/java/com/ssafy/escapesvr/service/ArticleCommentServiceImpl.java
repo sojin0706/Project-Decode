@@ -81,25 +81,25 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     //댓글 수정
     @Transactional
     @Override
-    public void updateArticleComment(ArticleCommentRequestDto articleCommentRequestDto, Long id) {
-        //넘어오는 파라미터가 수정할 댓글모델 + 게시물 번호
+    public void updateArticleComment(ArticleCommentUpdateRequestDto articleCommentUpdateRequestDto, Long id) {
+        //넘어오는 파라미터가 수정 댓글모델 , 게시물 번호
 
-
-        //1. DB에서 해당 게시물id에 해당하는 게시물을 가져오고
-        Article article = articleRepository.getById(id);
-
-
-        //2. 해당 게시물에 달린 댓글들을 조회를 해서
-        List<ArticleComment> comments = article.getComments();
-
+//        //1. DB에서 해당 게시물id에 해당하는 게시물을 가져오고
+//        Article article = articleRepository.getById(id);
+//
+//        //2. 해당 게시물에 달린 댓글들을 조회를 해서
+//        List<ArticleComment> comments = article.getComments();
+//
 
         //3. 그중에 댓글id(articleCommentDto에 있음)가 일치하는걸 찾아서 수정
-        ArticleComment articleComment = articleCommentRepository.getById(articleCommentRequestDto.getId());
-        articleComment.setContent(articleCommentRequestDto.getContent());
+        ArticleComment articleComment = articleCommentRepository.getById(articleCommentUpdateRequestDto.getId());
+        articleComment.setContent(articleCommentUpdateRequestDto.getContent());
         articleComment.setModifiedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
         articleCommentRepository.save(articleComment);
 
     }
+
+
 
     //댓글 삭제
     @Transactional

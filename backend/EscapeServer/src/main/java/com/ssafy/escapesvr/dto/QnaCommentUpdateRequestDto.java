@@ -15,8 +15,11 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(description = "qna/공지 댓글 관련 요청 dto")
-public class QnaCommentRequestDto {
+public class QnaCommentUpdateRequestDto {
 
+    @ApiModelProperty(value = "공지사항/문의글 댓글 번호", required = true)
+    @NotNull
+    private Long id; //댓글 번호
 
     @ApiModelProperty(value = "공지사항/문의글 댓글 내용", required = true)
     @NotBlank
@@ -30,7 +33,8 @@ public class QnaCommentRequestDto {
     @NotNull
     private Integer userId; //사용자 id
 
-    public QnaCommentRequestDto(QnaComment qnaComment){
+    public QnaCommentUpdateRequestDto(QnaComment qnaComment){
+        this.id = qnaComment.getId();
         this.content = qnaComment.getContent();
         this.QnaId = qnaComment.getQna().getId();
         this.userId = qnaComment.getUserId();
