@@ -172,7 +172,31 @@ public class ArticleServiceImpl implements ArticleService{
 
     }
 
+    // 추천 취소
+    @Override
+    public Integer cancelRecommendArticle(Long id) {
 
+        Article article = articleRepository.getById(id);
+
+        article.setRecommend((article.getRecommend()-1));
+        article = articleRepository.save(article);
+
+        return article.getRecommend();
+
+    }
+
+    // 신고 취소
+    @Override
+    public Integer cancleReportArticle(Long id) {
+
+        Article article = articleRepository.getById(id);
+
+        article.setRecommend((article.getRecommend()-1));
+        article = articleRepository.save(article);
+
+        return article.getReport();
+
+    }
 
 
 }

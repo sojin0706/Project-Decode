@@ -200,8 +200,9 @@ public class ArticleController {
     public ResponseEntity<Map<String, Object>> recommendArticle(@PathVariable @ApiParam(value = "게시글 번호", required = true) final Long id){
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
+        Integer recommend = null;
         try {
-            articleService.recommendArticle(id);
+            recommend = articleService.recommendArticle(id);
             httpStatus = HttpStatus.OK;
             result.put("success", true);
         }catch (RuntimeException e) {
@@ -209,6 +210,27 @@ public class ArticleController {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             result.put("success", false);
         }
+        result.put("recommend", recommend);
+        return new ResponseEntity<Map<String, Object>>(result, httpStatus);
+
+    }
+
+    @ApiOperation(value = "게시글 추천 취소", notes = "게시글 번호(id)에 해당하는 게시물 추천을 취소한다.(추천 수 감소)", response = Map.class)
+    @DeleteMapping("/recommend/{id}")
+    public ResponseEntity<Map<String, Object>> cancelRecommendArticle(@PathVariable @ApiParam(value = "게시글 번호", required = true) final Long id){
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus httpStatus = null;
+        Integer recommend = null;
+        try {
+            articleService.cancelRecommendArticle(id);
+            httpStatus = HttpStatus.OK;
+            result.put("success", true);
+        }catch (RuntimeException e) {
+            e.printStackTrace();
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+        }
+        result.put("recommend", recommend);
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
 
     }
@@ -218,6 +240,7 @@ public class ArticleController {
     public ResponseEntity<Map<String, Object>> reportArticle(@PathVariable @ApiParam(value = "게시글 번호", required = true) final Long id){
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
+        Integer report = null;
         try {
             articleService.reportArticle(id);
             httpStatus = HttpStatus.OK;
@@ -227,9 +250,31 @@ public class ArticleController {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             result.put("success", false);
         }
+        result.put("report", report);
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
 
     }
+
+    @ApiOperation(value = "게시글 신고 취소", notes = "게시글 번호(id)에 해당하는 게시물 신고를 취소한다.(신고 수 감소)", response = Map.class)
+    @DeleteMapping("/report/{id}")
+    public ResponseEntity<Map<String, Object>> cancleReportArticle(@PathVariable @ApiParam(value = "게시글 번호", required = true) final Long id){
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus httpStatus = null;
+        Integer report = null;
+        try {
+            articleService.cancleReportArticle(id);
+            httpStatus = HttpStatus.OK;
+            result.put("success", true);
+        }catch (RuntimeException e) {
+            e.printStackTrace();
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
+        }
+        result.put("report", report);
+        return new ResponseEntity<Map<String, Object>>(result, httpStatus);
+
+    }
+
 
 
 

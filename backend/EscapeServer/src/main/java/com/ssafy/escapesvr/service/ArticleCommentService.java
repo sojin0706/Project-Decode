@@ -10,11 +10,14 @@ import java.util.List;
 
 public interface ArticleCommentService {
 
-    List<ArticleCommentResponseDto> getArticleCommentList(Long articleId);
-    Page<ArticleCommentResponseDto> getMyArticleCommentList(Integer userId, Pageable pageable);
+    /* 조회 */
+    List<ArticleCommentResponseDto> getArticleCommentList(Long articleId); //게시물 별 댓글 전체 조회
+    Page<ArticleCommentResponseDto> getMyArticleCommentList(Integer userId, Pageable pageable); //회원 별 댓글 전체 조회
+    Page<ArticleCommentResponseDto> getArticleComment(Pageable pageable); //댓글 전체 조회
+
+    /* 저장, 수정, 삭제 */
     void insertArticleComment(ArticleCommentRequestDto articleCommentRequestDto);
     void updateArticleComment(ArticleCommentRequestDto articleCommentRequestDto, Long id);
     void deleteArticleComment(Long commentId);
 
-    Page<ArticleCommentResponseDto> getArticleComment(Pageable pageable);
 }
