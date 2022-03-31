@@ -136,8 +136,8 @@ public class QnaCommentController {
 
     //댓글 삭제
     @ApiOperation(value = "Qna 게시글 댓글 삭제", notes = "댓글(qnaCommentId가 일치하는)을 삭제한다", response = Map.class)
-    @DeleteMapping("/{qnaCommentId}")
-    public ResponseEntity<String> deleteQnaComment(@PathVariable("qnaCommentId") @ApiParam(value = "댓글 번호", required = true) Long qnaCommentId) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteQnaComment(@PathVariable("id") @ApiParam(value = "댓글 번호", required = true) Long qnaCommentId) {
         HttpStatus status = null;
         try {
             qnaCommentService.deleteQnaComment(qnaCommentId);
