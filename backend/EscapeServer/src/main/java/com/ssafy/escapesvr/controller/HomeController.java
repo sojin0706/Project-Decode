@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,22 @@ public class HomeController {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         result.put("count", count);
+        return new ResponseEntity<Map<String, Object>>(result, httpStatus);
+    }
+
+    @GetMapping("/nonmember")
+    public ResponseEntity<Map<String,Object>> getNonMember(){
+        Map<String, Object> result = new HashMap<>();
+        List<Integer>themes=new ArrayList<>();
+        HttpStatus httpStatus = null;
+        try {
+           themes= homeService.getNonMember();
+            httpStatus = HttpStatus.OK;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        result.put("themes", themes);
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
     }
 
