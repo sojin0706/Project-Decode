@@ -62,7 +62,7 @@ export default function Qnacreate() {
             }
     await allAxios.post('/qna', body)
 
-    .then(({data}) => {
+    .then(() => {
         alert("Q&A가 작성되었습니다.")
         Router.push("/notice")
     })

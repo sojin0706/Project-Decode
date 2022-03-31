@@ -3,6 +3,7 @@ import {
     Comment,
     Divider,
     Grid,
+    Icon,
   } from "semantic-ui-react";
 import React from 'react'
 import { useEffect, useState } from "react";
@@ -19,11 +20,7 @@ export default function Userboard_detail() {
     const router = useRouter()
     const id = Number(router.query.id)
     const [isLike, setisLike] = useState(false);
-    const [comments, setComments] = useState("")
-
-    useEffect(() => {
-        loadUserboardDetail(id)
-    }, [id])
+    const [comments, setComments]:any = useState('')
 
     useEffect(() => {
         loadUser()
@@ -42,10 +39,17 @@ export default function Userboard_detail() {
           }
         }
 
+    // 게시글 정보
+
+    useEffect(() => {
+        loadUserboardDetail(id)
+    }, [id])
+
     const loadUserboardDetail = async(id:Number) => {
         await allAxios
             .get(`/article/${id}`)
             .then(({ data }) => {
+                console.log(data.article)
                 setUserboardDetail(data.article)
             })
             .catch((e) => {
@@ -66,7 +70,34 @@ export default function Userboard_detail() {
         });
     };
 
-// 댓글
+    // 댓글
+    const submitComment = async() => {
+        if (comments.length == 0 || comments.length > 100){
+            alert('댓글은 1자 이상 100자 이하로 작성해주세요')
+            return
+        }
+        if (IsLogin()){
+            const body = {
+                content: comments,
+                id: userboardDetail.id,
+                articleId: userboardDetail.id,
+                userId: userInfo.id,
+            }
+        await allAxios.post(`/comment`, body)
+        .then(() => {
+            alert('리뷰가 작성되었습니다.')
+
+        })
+        .catch((e) => {
+            console.log(e)
+            alert('잠시 후 다시 시도해주세요')
+        })
+        }
+    }
+
+    function writeComment(e: any){
+        setComments(e.target.value)
+    }
 
 
 
@@ -97,9 +128,14 @@ return (
                             <dd>{id}</dd>
                         </dl>
                         <dl>
+                            <dt>지역</dt>
+                            <dd>{userboardDetail.smallRegion}</dd>
+                        </dl>
+                        <dl>
                             <dt>글쓴이</dt>
                             <dd>{userboardDetail.nickName}</dd>
                         </dl>
+
                         <dl>
                             <dt>작성일</dt>
                             <dd>{userboardDetail.createdAt?userboardDetail.createdAt[0]+'.'+userboardDetail.createdAt[1]+'.'+userboardDetail.createdAt[2]:''}</dd>
@@ -119,7 +155,7 @@ return (
                     
                 </div>
                 <div className={styles.comment}>
-                    {/* <div className={styles.comment_review}>
+                    <div className={styles.comment_review}>
                         <div className={styles.comment_reco}>
                         <Button color='orange' inverted animated='fade'>
                             <Button.Content visible>
@@ -140,7 +176,7 @@ return (
                             </Button.Content>
                         </Button>
                         </div>
-                    </div> */}
+                    </div>
                     <br />
                 <div className={styles.bt_wrap}>
                     <div className={styles.on} onClick={() => Router.back()}>목록</div>
@@ -157,39 +193,34 @@ return (
                         <div className={styles.comment_title}>
                             댓글쓰기
                         </div>
-                        {userInfo.id != undefined && (
-                            <>
-                            <div className={styles.comment_cont} >
-                            <Grid verticalAlign='middle' centered stackable>
-                                <Grid.Column width={1}>
-                                    <Comment.Group size='massive'>
-                                        <Comment>
-                                            <Comment. Avatar src={userInfo.image} />
-                                        </Comment>
-                                    </Comment.Group>
-                                </Grid.Column>
-                                <Grid.Column width={1}>
-                                    <div className={styles.comment_createname}>
-                                    {userInfo.nick_name}
+                        <div className={styles.comment_cont} >
+                            {userInfo.id?
+                                <Grid verticalAlign='middle' centered stackable>
+                                    <Grid.Column width={1}>
+                                        <Comment.Group size='massive'>
+                                            <Comment>
+                                                <Comment. Avatar src={userInfo.image} />
+                                            </Comment>
+                                        </Comment.Group>
+                                    </Grid.Column>
+                                    <Grid.Column width={1}>
+                                        <div className={styles.comment_createname}>
+                                        {userInfo.nick_name}
+                                        </div>
+                                    </Grid.Column>
+                                    <Grid.Column width={12}>
+                                    <div>
+                                        <textarea value={comments} placeholder="댓글을 작성해주세요" onChange={writeComment}></textarea>
                                     </div>
-                                </Grid.Column>
-                                <Grid.Column width={12}>
-                                <div>
-
-                                    <textarea placeholder="댓글을 작성해주세요"></textarea>
-
-                                </div>
-                                </Grid.Column>
-                                <Grid.Column width={2}>
-                                    <div className={styles.comment_button}>
-                                        <Button color='black'> 작성 </Button>
-                                    </div>
-                                </Grid.Column>
-                            </Grid>
+                                    </Grid.Column>
+                                    <Grid.Column width={2}>
+                                        <div className={styles.comment_button}>
+                                            <Button color='black' onClick={submitComment}> 작성 </Button>
+                                        </div>
+                                    </Grid.Column>
+                                </Grid>
+                            :''}
                         </div>
-                            </>
-                        )}
-
                         <Comment.Group >
                             <Comment>
                             <Comment. Avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
@@ -201,9 +232,6 @@ return (
                                 <Comment.Text>
                                 <p>방탈출 함께 해요</p>
                                 </Comment.Text>
-                                <Comment.Actions>
-                                <Comment.Action>답글 달기</Comment.Action>
-                                </Comment.Actions>
                             </Comment.Content>
                             </Comment>
                         </Comment.Group>

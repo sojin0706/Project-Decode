@@ -127,3 +127,9 @@
 .comment_cont {
   padding: 70px 0;
 }
+
+.comment_title {
+  border-bottom: 1px solid #000;
+  line-height: 160%;
+  font-size: 1.4rem;
+}
