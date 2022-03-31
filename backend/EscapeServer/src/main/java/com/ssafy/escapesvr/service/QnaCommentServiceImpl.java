@@ -2,10 +2,7 @@ package com.ssafy.escapesvr.service;
 
 
 import com.ssafy.escapesvr.client.UserServiceClient;
-import com.ssafy.escapesvr.dto.ArticleCommentResponseDto;
-import com.ssafy.escapesvr.dto.ProfileRequestDto;
-import com.ssafy.escapesvr.dto.QnaCommentRequestDto;
-import com.ssafy.escapesvr.dto.QnaCommentResponseDto;
+import com.ssafy.escapesvr.dto.*;
 import com.ssafy.escapesvr.entity.ArticleComment;
 import com.ssafy.escapesvr.entity.Qna;
 import com.ssafy.escapesvr.entity.QnaComment;
@@ -88,9 +85,10 @@ public class QnaCommentServiceImpl implements QnaCommentService {
     //댓글 수정
     @Transactional
     @Override
-    public void updateQnaComment(QnaCommentRequestDto qnaCommentRequestDto, Long id) {
-        QnaComment qnaComment = qnaCommentRepository.getById(qnaCommentRequestDto.getId());
-        qnaComment.setContent(qnaCommentRequestDto.getContent());
+    public void updateQnaComment(QnaCommentUpdateRequestDto qnaCommentUpdateRequestDto, Long id) {
+
+        QnaComment qnaComment = qnaCommentRepository.getById(qnaCommentUpdateRequestDto.getId());
+        qnaComment.setContent(qnaCommentUpdateRequestDto.getContent());
         qnaComment.setModifiedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
         qnaCommentRepository.save(qnaComment);
     }

@@ -1,7 +1,6 @@
 package com.ssafy.escapesvr.dto;
 
 
-import com.ssafy.escapesvr.entity.Article;
 import com.ssafy.escapesvr.entity.ArticleComment;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,8 +15,11 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(description = "유저게시판 댓글 관련 요청 dto")
-public class ArticleCommentRequestDto {
+public class ArticleCommentUpdateRequestDto {
 
+    @ApiModelProperty(value = "유저게시판 댓글 번호", required = true)
+    @NotNull
+    private Long id; //댓글 번호
 
     @ApiModelProperty(value = "유저게시판 댓글 내용", required = true)
     @NotBlank
@@ -31,7 +33,8 @@ public class ArticleCommentRequestDto {
     @NotNull
     private Integer userId; //사용자 id
 
-    public ArticleCommentRequestDto(ArticleComment articleComment){
+    public ArticleCommentUpdateRequestDto(ArticleComment articleComment){
+        this.id = articleComment.getId();
         this.content = articleComment.getContent();
         this.articleId = articleComment.getArticle().getId();
         this.userId = articleComment.getUserId();
