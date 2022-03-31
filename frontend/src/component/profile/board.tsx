@@ -36,7 +36,6 @@ export default function Board() {
         .get(`http://j6c203.p.ssafy.io:8082/review/myreview/${userInfo.id}`)
         .then(({ data }) => {
           data.review.content.map((d: any, i: number) => {
-            console.log(d);
             tmpReview.push(d);
           });
         })
@@ -59,7 +58,6 @@ export default function Board() {
           });
         })
         .then(() => {
-          console.log(tmpUserBoard);
           setUserBoard(tmpUserBoard);
         });
     }
