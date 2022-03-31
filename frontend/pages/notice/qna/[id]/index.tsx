@@ -10,6 +10,7 @@ import IsLogin from "../../../../src/lib/customLogin";
 import userAxios from "../../../../src/lib/userAxios";
 import Router, { useRouter } from "next/router";
 import styles from "../../../../styles/notice/detail.module.css";
+import Notice from "../..";
 
 export default function Qna_detail() {
 
@@ -31,7 +32,6 @@ export default function Qna_detail() {
         if (IsLogin()){
             userAxios.get(`/auth/users`)
             .then(({ data }) => {
-                console.log(data.body.user)
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
@@ -71,6 +71,26 @@ export default function Qna_detail() {
     };
 
     // 댓글
+    // useEffect(() => {
+    //     loadcomment(id)
+    // }, [id])
+
+    // const loadcomment = async(id:Number) => {
+    //     await allAxios
+    //         .get(`/qnaComment/${id}`)
+    //         .then(({ data }) => {
+    //             console.log(data.commentList)
+    //             setComentInfo(data.commentList)
+    //         })
+    //         .catch((e) => {
+    //             console.log(e)
+    //         })      
+    // }  
+
+
+
+
+
     const submitComment = async() => {
         if (comments.length == 0 || comments.length > 100){
             alert('댓글은 1자 이상 100자 이하로 작성해주세요')
@@ -185,12 +205,13 @@ return (
                         </Grid>
                         :''}
                                     
-                        
-                        <Comment.Group >
+                        {/* {comentInfo? comentInfo.map((comment:any) => {
+                            return( */}
+                            <Comment.Group >
                             <Comment>
                             <Comment. Avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
                             <Comment.Content>
-                                <Comment.Author as='a'>하랑</Comment.Author>
+                                <Comment.Author as='a'></Comment.Author>
                                 <Comment.Metadata>
                                 <div>하루 전</div>
                                 </Comment.Metadata>
@@ -200,6 +221,9 @@ return (
                             </Comment.Content>
                             </Comment>
                         </Comment.Group>
+
+                         {/* );
+                        }) : ''} */}
                         </div>
                     </div>
             </div>

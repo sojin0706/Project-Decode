@@ -3,6 +3,7 @@ import {
     Comment,
     Divider,
     Grid,
+    Icon,
   } from "semantic-ui-react";
 import React from 'react'
 import { useEffect, useState } from "react";
@@ -154,7 +155,7 @@ return (
                     
                 </div>
                 <div className={styles.comment}>
-                    {/* <div className={styles.comment_review}>
+                    <div className={styles.comment_review}>
                         <div className={styles.comment_reco}>
                         <Button color='orange' inverted animated='fade'>
                             <Button.Content visible>
@@ -175,7 +176,7 @@ return (
                             </Button.Content>
                         </Button>
                         </div>
-                    </div> */}
+                    </div>
                     <br />
                 <div className={styles.bt_wrap}>
                     <div className={styles.on} onClick={() => Router.back()}>목록</div>

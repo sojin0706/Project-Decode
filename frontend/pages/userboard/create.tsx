@@ -26,7 +26,7 @@ const regionOptions = [
 export default function Userboard_create() {
 
     const [title, setTitle] = useState('')
-    const [content, setContent] = useState([])
+    const [content, setContent] = useState('')
     const [userInfo, setUserInfo]: any = useState(0)
     const [userId, setUserId] = useState(0)
         
@@ -89,6 +89,7 @@ export default function Userboard_create() {
             });
           }
         }
+        
     // 글 작성
     const userboardSubmit = async() => {
         if (title.length == 0){

@@ -90,18 +90,23 @@ export default function Userboard_edit({id}: any) {
             });
           }        
         }
-        
+    
+    // 게시글 정보
     // useEffect(() => {
-    //     allAxios
-    //         .get(`article/{id}`)
-    //         .then(({data}) => {
-    //             console.log(data.articleList)
-    //             setUserboardDetail(data.articleList)
+    //     loadUserboardDetail(id)
+    // }, [id])
+
+    // const loadUserboardDetail = async(id:Number) => {
+    //     await allAxios
+    //         .get(`/article/${id}`)
+    //         .then(({ data }) => {
+    //             console.log(data.article)
+    //             setUserboardDetail(data.article)
     //         })
     //         .catch((e) => {
     //             console.log(e)
     //         })
-    // })
+    //     }
 
     // 글 수정
     const userboardSubmit = async() => {
