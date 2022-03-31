@@ -106,24 +106,6 @@ export default function Board() {
 
   const panes = [
     {
-      menuItem: "리뷰",
-      render: () => (
-        <Tab.Pane attached={false}>
-          <ul>
-            {review.map((d: any, i: number) => {
-              return (
-                <li key={i} style={{ cursor: "pointer" }}>
-                  번호: {d.themeReviewId} 테마:{" "}
-                  <Detail themeId={d.themeId} isImage={false} w={150} h={200} />{" "}
-                  내용: {d.reviewContent} 내가 준 평점: {d.myScore}
-                </li>
-              );
-            })}
-          </ul>
-        </Tab.Pane>
-      ),
-    },
-    {
       menuItem: "유저 게시판",
       render: () => (
         <Tab.Pane attached={false}>

@@ -220,7 +220,7 @@ export default function Index() {
         small_region: selectedSmallPlace,
       };
 
-      console.log(body)
+      console.log(body);
       axios
         .post(`http://j6c203.p.ssafy.io:8081/user/recommend`, body)
         .then(({ data }) => {

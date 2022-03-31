@@ -2,7 +2,7 @@ import { Grid, Image } from "semantic-ui-react";
 import { useState, useEffect } from "react";
 import IsLogin from "../../lib/customLogin";
 import axios from "axios";
-import Detail from "../modal/detail";
+import ClearPoster from "./clearListModal";
 
 export default function ClearList() {
   const [userInfo, setUserInfo]: any = useState(0);
@@ -47,15 +47,14 @@ export default function ClearList() {
     }
   }, [userInfo]);
 
-
   return (
     <>
       <Grid columns={4}>
         {myClearLst.map((p: any, i: number) => {
           return (
             <Grid.Column key={i}>
-              <Image src={p[2]} alt={p[1]} />
-              <Detail themeId={p[0]} isImage={false} w={150} h={200}/>
+              {/* <Image src={p[2]} alt={p[1]} /> */}
+              <ClearPoster themeId={p[0]} isImage={false} w={150} h={200} />
             </Grid.Column>
           );
         })}

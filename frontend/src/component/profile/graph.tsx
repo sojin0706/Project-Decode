@@ -39,21 +39,21 @@ export default function Graph(props: any) {
     "감성/드라마",
   ];
   var tmparr: any = [];
-  const [genreCnt, SetGenreCnt] = useState([])
+  const [genreCnt, SetGenreCnt] = useState([]);
 
   useEffect(() => {
-    if (userInfo !==0) {
+    if (userInfo !== 0) {
       axios
-      .get(`http://j6c203.p.ssafy.io:8082/review/mygenre/${userInfo.id}`)
-      .then((data) => {
-        data.data.genre.map((d:any, i:number) => {
-          tmparr.push(d)
+        .get(`http://j6c203.p.ssafy.io:8082/review/mygenre/${userInfo.id}`)
+        .then((data) => {
+          data.data.genre.map((d: any, i: number) => {
+            tmparr.push(d);
+          });
+          SetGenreCnt(tmparr);
         })
-        SetGenreCnt(tmparr)
-      })
-      .catch((e: any) => {});
+        .catch((e: any) => {});
     }
-  }, [userInfo])
+  }, [userInfo]);
 
   // useEffect(() => {
   // }, [myData]);

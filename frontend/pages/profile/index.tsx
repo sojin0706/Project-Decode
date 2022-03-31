@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 // Components
 import IsLogin from "../../src/lib/customLogin";
 import Graph from "../../src/component/profile/graph";
-import RecentClear from "../../src/component/profile/recentClear";
 import ClearList from "../../src/component/profile/clearList";
 import UserInfo from "../../src/component/profile/userInfo";
 import Board from "../../src/component/profile/board";
@@ -31,7 +30,7 @@ export default function Index() {
         });
     }
   }, []);
-  
+
   return (
     <>
       <Grid stackable>
@@ -52,9 +51,7 @@ export default function Index() {
                 <UserInfo />
               </Grid.Column>
 
-              <Grid.Column width={4}>
-                <RecentClear />
-              </Grid.Column>
+              <Grid.Column width={4}></Grid.Column>
             </Grid>
 
             <Grid centered columns={4}>

@@ -202,7 +202,7 @@ export default function UserInfoModal() {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then(() => {
-        window.location.reload()
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);

@@ -16,7 +16,7 @@ export default function UserImage() {
           headers: { Authorization: `Bearer ${Token}` },
         })
         .then(({ data }) => {
-          setUserInfo(data.body.user)
+          setUserInfo(data.body.user);
         })
         .catch((e: any) => {
           console.log("에러");
@@ -25,10 +25,9 @@ export default function UserImage() {
     }
   }, []);
 
-
-  return(
+  return (
     <>
-      <Image src= "/images/test_chr.png" alt='test'></Image>
+      <Image src="/images/test_chr.png" alt="test"></Image>
     </>
-  )
+  );
 }

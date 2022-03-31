@@ -17,7 +17,7 @@ export default function UserInfo() {
           headers: { Authorization: `Bearer ${Token}` },
         })
         .then(({ data }) => {
-          setUserInfo(data.body.user)
+          setUserInfo(data.body.user);
         })
         .catch((e: any) => {
           console.log("에러");
@@ -35,5 +35,5 @@ export default function UserInfo() {
       <h3>활동지역: {JSON.stringify(userInfo.small_region)}</h3>
       <UserInfoModal></UserInfoModal>
     </>
-  )
+  );
 }

@@ -85,13 +85,13 @@ export default function Navbar() {
         </a>
       </Link>
       <div>
-      {IsLogin() ? (
-        <Link href="/">
-          <a onClick={logout}>Logout</a>
-        </Link>
-      ) : (
-        <LoginModal />
-      )}
+        {IsLogin() ? (
+          <Link href="/">
+            <a onClick={logout}>Logout</a>
+          </Link>
+        ) : (
+          <LoginModal />
+        )}
       </div>
       <style jsx>{`
         a {

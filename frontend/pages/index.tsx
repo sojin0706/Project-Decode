@@ -1,9 +1,9 @@
-import type { NextPage } from 'next'
-import { Grid, GridColumn, Image } from "semantic-ui-react"
+import type { NextPage } from "next";
+import { Grid, GridColumn, Image } from "semantic-ui-react";
 
 // Component
-import Data from '../src/component/main/data'
-import Explain from '../src/component/main/explain'
+import Data from "../src/component/main/data";
+import Explain from "../src/component/main/explain";
 
 const Home: NextPage = () => {
   return (
@@ -14,28 +14,40 @@ const Home: NextPage = () => {
           <Grid.Column width={12}>
             <Grid centered columns={4}>
               <Grid.Column>
-                <Image src = "https://yologuys.com/Escape_img/theme/1753.jpg;" alt='test'></Image> 
+                <Image
+                  src="https://yologuys.com/Escape_img/theme/1753.jpg;"
+                  alt="test"
+                ></Image>
               </Grid.Column>
               <Grid.Column>
-                <Image src = "https://yologuys.com/Escape_img/theme/1753.jpg;" alt='test'></Image> 
+                <Image
+                  src="https://yologuys.com/Escape_img/theme/1753.jpg;"
+                  alt="test"
+                ></Image>
               </Grid.Column>
               <Grid.Column>
-                <Image src = "https://yologuys.com/Escape_img/theme/1753.jpg;" alt='test'></Image> 
+                <Image
+                  src="https://yologuys.com/Escape_img/theme/1753.jpg;"
+                  alt="test"
+                ></Image>
               </Grid.Column>
               <Grid.Column>
-                <Image src = "https://yologuys.com/Escape_img/theme/1753.jpg;" alt='test'></Image> 
+                <Image
+                  src="https://yologuys.com/Escape_img/theme/1753.jpg;"
+                  alt="test"
+                ></Image>
               </Grid.Column>
             </Grid>
             <Grid centered columns={5}>
-              <Data/>
+              <Data />
             </Grid>
-            <Explain/>
+            <Explain />
           </Grid.Column>
           <Grid.Column width={2}></Grid.Column>
         </Grid.Row>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

@@ -21,8 +21,8 @@ export default function FourPosters() {
         .then(({ data }) => {
           console.log("데이터");
           console.log(data);
-          console.log(data.body.user)
-          setUserInfo(data.body.user)
+          console.log(data.body.user);
+          setUserInfo(data.body.user);
         })
         .catch((e: any) => {
           console.log("에러");
@@ -33,7 +33,6 @@ export default function FourPosters() {
 
   return (
     <>
-    
       <Grid centered columns={4}>
         <Grid.Column>
           <Image></Image>
