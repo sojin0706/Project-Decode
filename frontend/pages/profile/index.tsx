@@ -7,7 +7,6 @@ import Graph from "../../src/component/profile/graph";
 import ClearList from "../../src/component/profile/clearList";
 import UserInfo from "../../src/component/profile/userInfo";
 import Board from "../../src/component/profile/board";
-import UserImage from "../../src/component/profile/userImage";
 
 export default function Index() {
   const [userInfo, setUserInfo]: any = useState([]);

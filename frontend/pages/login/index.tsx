@@ -159,7 +159,7 @@ export default function Index() {
 
   }, [scoreThrill,scoreRomance,scoreReasoning,scoreSffantasy,scoreAdventure,scoreComedy,scoreCrime,scoreHorror,scoreAdult,scoreDrama])
   
-  const [genreIdx, setGenreIdx] = useState(0)
+  const [genreIdx, setGenreIdx] = useState(1)
 
   useEffect(() => {
     const maxScore = Math.max.apply(null, scorearr);
@@ -289,7 +289,7 @@ const cf2 = async() => {
           cf1()
         })
         .then(() => {
-          // router.push("/")
+          router.push("/")
         })
         .catch((err) => {
           console.log(err);

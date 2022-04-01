@@ -28,7 +28,6 @@ export default function ClearPoster({ themeId, isImage, w, h }: any) {
         });
     }
   };
-  console.log(themeDetail);
   return (
     <>
       <Modal

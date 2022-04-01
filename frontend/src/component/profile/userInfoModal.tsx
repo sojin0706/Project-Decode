@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Image, Modal, Form, Input } from "semantic-ui-react";
 import userAxios from "../../lib/userAxios";
 import axios from "axios";
+import recoAxios from "../../lib/recoAxios";
 
 export default function UserInfoModal() {
   // 유저 정보 불러오기
@@ -99,42 +100,108 @@ export default function UserInfoModal() {
   const [scoreDrama, setDrama] = useState(1);
 
   const handleChangeThrill = (e: any) => {
-    setThrill(e.target.value);
+    setThrill(Number(e.target.value));
   };
   const handleChangeRomance = (e: any) => {
-    setRomance(e.target.value);
+    setRomance(Number(e.target.value));
   };
   const handleChangeReasoning = (e: any) => {
-    setReasoning(e.target.value);
+    setReasoning(Number(e.target.value));
   };
   const handleChangeSffantasy = (e: any) => {
-    setSffantasy(e.target.value);
+    setSffantasy(Number(e.target.value));
   };
   const handleChangeAdventure = (e: any) => {
-    setAdventure(e.target.value);
+    setAdventure(Number(e.target.value));
   };
   const handleChangeComedy = (e: any) => {
-    setComedy(e.target.value);
+    setComedy(Number(e.target.value));
   };
   const handleChangeCrime = (e: any) => {
-    setCrime(e.target.value);
+    setCrime(Number(e.target.value));
   };
   const handleChangeHorror = (e: any) => {
-    setHorror(e.target.value);
+    setHorror(Number(e.target.value));
   };
   const handleChangeAdult = (e: any) => {
-    setAdult(e.target.value);
+    setAdult(Number(e.target.value));
   };
   const handleChangeDrama = (e: any) => {
-    setDrama(e.target.value);
+    setDrama(Number(e.target.value));
   };
 
   const handleChangeSmall = (e: any) => {
     setselectedSmallPlace(e.target.value);
   };
 
+  const genre = [
+    { key: "thrill", text: "스릴러", value: 0 },
+    { key: "romance", text: "로맨스", value: 0 },
+    { key: "reasoning", text: "추리", value: 0 },
+    { key: "sffantasy", text: "SF판타지", value: 0 },
+    { key: "adventure", text: "모험액션", value: 0 },
+    { key: "comedy", text: "코미디", value: 0 },
+    { key: "crime", text: "범죄", value: 0 },
+    { key: "horror", text: "공포", value: 0 },
+    { key: "adult", text: "19금", value: 0 },
+    { key: "drama", text: "감성드라마", value: 0 },
+  ];
+
+  const [scorearr, setScorearr] = useState([scoreThrill,scoreRomance,scoreReasoning,scoreSffantasy,scoreAdventure,scoreComedy,scoreCrime,scoreHorror,scoreAdult,scoreDrama])
+  useEffect(() => {
+    setScorearr([scoreThrill,scoreRomance,scoreReasoning,scoreSffantasy,scoreAdventure,scoreComedy,scoreCrime,scoreHorror,scoreAdult,scoreDrama])
+
+  }, [scoreThrill,scoreRomance,scoreReasoning,scoreSffantasy,scoreAdventure,scoreComedy,scoreCrime,scoreHorror,scoreAdult,scoreDrama])
+  
+  const [genreIdx, setGenreIdx] = useState(1)
+
+  useEffect(() => {
+    const maxScore = Math.max.apply(null, scorearr);
+    setGenreIdx(scorearr.indexOf(Number(maxScore)))
+  },[scorearr])
+  
+  const cb = async() => {
+    await recoAxios
+        .get(`/cb/${userInfo.id}/${genre[genreIdx].text}/`)
+        .then((data) => {
+            console.log('success')
+            console.log(data)
+        })
+        .catch((e) => {
+            console.log('fail')
+            console.log(e)
+        })
+}
+
+const cf1 = async() => {
+  await recoAxios
+      .get(`/cf/${userInfo.id}/${genre[genreIdx].text}/`)
+      .then((data) => {
+          console.log('success')
+          console.log(data)
+      })
+      .catch((e) => {
+          console.log('fail')
+          console.log(e)
+      })
+}
+
+const cf2 = async() => {
+  console.log(genre[genreIdx].text)
+  await recoAxios
+      .get(`/cf/${userInfo.id}/${genre[genreIdx].text}/${userInfo.gender}/${userInfo.age}/`)
+      .then((data) => {
+          console.log('success')
+          console.log(data)
+      })
+      .catch((e) => {
+          console.log('fail')
+          console.log(e)
+      })
+}
+
   // 사진파일
-  const [file, setFile]: any = useState(0);
+  const [file, setFile]: any = useState(null);
 
   const handleFile = (e: any) => {
     setFile(e.target.files[0]);
@@ -183,8 +250,6 @@ export default function UserInfoModal() {
     };
 
     // 수정 안되면 id값 들어가있는지 확인, /auth/users 토큰 조회에서 데이터가 안받아와질떄가 있음
-    console.log(preference);
-    console.log(profile);
     const body = new FormData();
 
     body.append(
@@ -200,6 +265,11 @@ export default function UserInfoModal() {
     userAxios
       .put("/user/recommend", body, {
         headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then(() => {
+        cb()
+        cf2()
+        cf1()
       })
       .then(() => {
         window.location.reload();
