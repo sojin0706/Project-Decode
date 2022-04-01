@@ -16,7 +16,7 @@ curs = conn.cursor()
 
 @api_view(['GET'])
 def index(request):
-    user = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.users
+    # user = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.users
     theme = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.theme
     review = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.review
 
@@ -24,7 +24,6 @@ def index(request):
     # for r in themes:
     #     print(r)
 
-    temp_id = 1
     temp_genre = '로맨스'
 
     # cb 코드
@@ -49,15 +48,22 @@ def CB(request, id, genre):
 
     themes = theme.find()
 
-    genre_name = ["스릴러", "로맨스", "추리", "SF/판타지",
-                  "모험/액션", "코미디", "범죄", "공포", "19금", "감성/드라마"]
+    genre_name = ["스릴러", "로맨스", "추리", "SF판타지",
+                  "모험액션", "코미디", "범죄", "공포", "19금", "감성드라마"]
 
     if genre not in genre_name:
         return
 
-    results = cb(genre, themes)
+    new_genre = genre
 
-    # genre_one, genre_two, genre_three, genre_four, genre_five, genre_six
+    if genre == "SF판타지":
+        new_genre = "SF/판타지"
+    elif genre == "모험액션":
+        new_genre = "모험/액션"
+    elif genre == "감성드라마":
+        new_genre = "감성/드라마"
+
+    results = cb(new_genre, themes)
 
     # mysql에 데이터 전달
     sql = "select user_id from recommend_genre where user_id=%s"
@@ -76,7 +82,7 @@ def CB(request, id, genre):
             results[2]), int(results[3]), int(results[4]), int(results[5]), int(id)))
         conn.commit()
 
-    return Response(results)
+    return Response('success')
 
 
 @api_view(['GET'])
@@ -84,16 +90,24 @@ def CF(request, id, genre):
     theme = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.theme
     review = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.review
 
-    genre_name = ["스릴러", "로맨스", "추리", "SF/판타지",
-                  "모험/액션", "코미디", "범죄", "공포", "19금", "감성/드라마"]
+    genre_name = ["스릴러", "로맨스", "추리", "SF판타지",
+                  "모험액션", "코미디", "범죄", "공포", "19금", "감성드라마"]
 
     if genre not in genre_name:
         return
 
-    # temp_genre = '로맨스'
+    new_genre = genre
+
+    if genre == "SF판타지":
+        new_genre = "SF/판타지"
+    elif genre == "모험액션":
+        new_genre = "모험/액션"
+    elif genre == "감성드라마":
+        new_genre = "감성/드라마"
+
     themes = theme.find()
     reviews = review.find()
-    results = cf(genre, reviews, themes)
+    results = cf(new_genre, reviews, themes)
 
     # mysql에 데이터 전달
     sql = "select user_id from recommend_like where user_id=%s"
@@ -112,7 +126,7 @@ def CF(request, id, genre):
             results[2]), int(results[3]), int(results[4]), int(results[5]), int(id)))
         conn.commit()
 
-    return Response(results)
+    return Response('success')
 
 
 @api_view(['GET'])
@@ -120,8 +134,8 @@ def CF2(request, id, genre, gender, age):
     theme = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.theme
     review = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.review
 
-    genre_name = ["스릴러", "로맨스", "추리", "SF/판타지",
-                  "모험/액션", "코미디", "범죄", "공포", "19금", "감성/드라마"]
+    genre_name = ["스릴러", "로맨스", "추리", "SF판타지",
+                  "모험액션", "코미디", "범죄", "공포", "19금", "감성드라마"]
 
     if genre not in genre_name:
         return
@@ -132,10 +146,19 @@ def CF2(request, id, genre, gender, age):
     if age not in [10, 20, 30, 40]:
         return
 
+    new_genre = genre
+
+    if genre == "SF판타지":
+        new_genre = "SF/판타지"
+    elif genre == "모험액션":
+        new_genre = "모험/액션"
+    elif genre == "감성드라마":
+        new_genre = "감성/드라마"
+
     # temp_genre = '로맨스'
     themes = theme.find()
     reviews = review.find({"gender": gender, 'age': age})
-    results = cf(genre, reviews, themes)
+    results = cf(new_genre, reviews, themes)
 
     # mysql에 데이터 전달
     sql = "select user_id from recommend_gender_age where user_id=%s"
@@ -154,4 +177,4 @@ def CF2(request, id, genre, gender, age):
             results[2]), int(results[3]), int(results[4]), int(results[5]), int(id)))
         conn.commit()
 
-    return Response(results)
+    return Response('success')
