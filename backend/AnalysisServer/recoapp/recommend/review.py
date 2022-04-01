@@ -33,9 +33,12 @@ def cf(genre, reviews, themes):
     #  영화 제목 찾기
     theme_list = theme[theme['theme_genre'] == genre]
     random_number = random.randint(1, len(theme_list)-1)
+    themeId_list = []
+    for i in theme_list['themeId']:
+        themeId_list.append(i)
 
     # 테마 아이디 리스트로 변환
-    data = get_item_based_collabor(random_number)
+    data = get_item_based_collabor(themeId_list[random_number])
     new_data = []
     for i in data.index:
         new_data.append(i)
