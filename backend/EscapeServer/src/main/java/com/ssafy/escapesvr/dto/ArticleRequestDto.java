@@ -29,11 +29,11 @@ public class ArticleRequestDto {
     @NotNull
     private Integer userId; //작성자
 
-//    @ApiModelProperty(value = "유저게시판 지역 말머리", required = true)
-//    @NotBlank
-//    private String largeRegion; //지역 대분류
+    @ApiModelProperty(value = "유저게시판 지역 대분류", required = true)
+    @NotBlank
+    private String largeRegion; //지역 대분류
 
-    @ApiModelProperty(value = "유저게시판 지역 말머리", required = true)
+    @ApiModelProperty(value = "유저게시판 지역 소분류", required = true)
     @NotBlank
     private String smallRegion; //지역 소분류
 
@@ -51,6 +51,7 @@ public class ArticleRequestDto {
                 .title(title)
                 .content(content)
                 .userId(userId)
+                .largeRegion(largeRegion)
                 .smallRegion(smallRegion)
                 .build();
     }
