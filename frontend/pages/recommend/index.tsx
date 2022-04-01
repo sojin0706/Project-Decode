@@ -4,6 +4,8 @@ import { Grid, Header, Select } from "semantic-ui-react";
 import Detail from "../../src/component/modal/detail";
 import allAxios from "../../src/lib/allAxios";
 import IsLogin from "../../src/lib/customLogin";
+import getrecoAxios from "../../src/lib/getrecoAxios";
+import userAxios from "../../src/lib/userAxios";
 
 const regionOptions = [
     { key: '전체', value: '전체', text: '전체' },
@@ -23,19 +25,25 @@ export default function Recommend(){
     const [region, setRegion] = useState(null)
     const [smallRegion, setSmallRegion] = useState(null)
     const [smallRegionOptions, setSmallRegionOptions] = useState([{ key: '전체', value: '전체', text: '전체' }])
-
-    const thema = {
-        themeId: 2,
-        theme_name: '완전한 사랑',
-    }
+    const [userInfo, setUserInfo]: any = useState([])
+    const [myRecommend, setMyRecommend]: any = useState([])
+    const [ageRecommend, setAgeRecommend]: any = useState([])
+    const [genreRecommend, setGenreRecommend]: any = useState([])
 
     useEffect(() => {
         // if (!IsLogin()){
         //     alert('로그인 후 이용해주세요')
         //     router.push('/')
         // }
+        loadUser()
         loadSmallRegion(null)
     }, [])
+
+    useEffect(() => {
+        loadMyRecommend()
+        loadAgeRecommend()
+        loadgenreRecommend()
+    }, [userInfo.id])
 
     function selectedRegion(e: any){
         setSmallRegion(null)
@@ -70,6 +78,59 @@ export default function Recommend(){
             })
     }
 
+    const loadUser = async () => {
+    if (IsLogin()){
+            userAxios.get(`/auth/users`)
+            .then(({ data }) => {
+                setUserInfo(data.body.user)
+            })
+            .catch((e) => {
+                console.log(e)
+                alert('로그인 시간이 만료되었습니다.')
+            })
+        }
+    } 
+
+    const loadMyRecommend = async () => {
+        if(userInfo.id){
+            getrecoAxios.get(`/recommend/like/${userInfo.id}`)
+            // getrecoAxios.get(`/recommend/like/1`)
+            .then(({ data }) => {
+                setMyRecommend(data)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+        }
+    }
+
+
+    const loadAgeRecommend = async () => {
+        if(userInfo.id){
+            getrecoAxios.get(`/recommend/genderAge/${userInfo.id}`)
+            // getrecoAxios.get(`/recommend/genderAge/1`)
+            .then(({ data }) => {
+                setAgeRecommend(data)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+        }
+    }
+
+    const loadgenreRecommend = async () => {
+        if(userInfo.id){
+            getrecoAxios.get(`/recommend/genre/${userInfo.id}`)
+            // getrecoAxios.get(`/recommend/genre/1`)
+            .then(({ data }) => {
+                console.log(data)
+                setGenreRecommend(data)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+        }
+    }
 
     return (
         <>
@@ -86,17 +147,49 @@ export default function Recommend(){
                     </Grid.Column>
                     <Grid.Column width={2}/>
                 </Grid.Row>
+                {userInfo.id?
+                <>
                 <Grid.Row>
                     <Grid.Column width={2}/>
                     <Grid.Column width={12}>
-                        <Header as='h3'>[유저] 님이 좋아하실만한 테마를 준비해봤어요!</Header>
-                        <Detail themeId={thema.themeId} isImage={true} w={150} h={200}/>
+                        <Header as='h3'>{userInfo.nick_name} 님이 좋아하실만한 테마를 준비해봤어요!</Header>
+                        <Detail themeId={myRecommend.like_one} isImage={true} w={150} h={200}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <Detail themeId={thema.themeId} isImage={true} w={150} h={200}/>
+                        <Detail themeId={myRecommend.like_two} isImage={true} w={150} h={200}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <Detail themeId={thema.themeId} isImage={true} w={150} h={200}/>
+                        <Detail themeId={myRecommend.like_three} isImage={true} w={150} h={200}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <Detail themeId={thema.themeId} isImage={true} w={150} h={200}/>
+                        <Detail themeId={myRecommend.like_four} isImage={true} w={150} h={200}/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </Grid.Column>
+                    <Grid.Column width={2}/>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column width={2}/>
+                    <Grid.Column width={12}>
+                        <Header as='h3'>{userInfo.nick_name} 님과 같은 {userInfo.age}대 {userInfo.gender==='M'?"남자":"여자"}들이 좋아하는 방에 도전해보세요!</Header>
+                        <Detail themeId={ageRecommend.gender_age_one} isImage={true} w={150} h={200}/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <Detail themeId={ageRecommend.gender_age_two} isImage={true} w={150} h={200}/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <Detail themeId={ageRecommend.gender_age_three} isImage={true} w={150} h={200}/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <Detail themeId={ageRecommend.gender_age_four} isImage={true} w={150} h={200}/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </Grid.Column>
+                    <Grid.Column width={2}/>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column width={2}/>
+                    <Grid.Column width={12}>
+                        <Header as='h3'>{userInfo.nick_name} 님이 좋아하는 장르를 모아봤어요!</Header>
+                        <Detail themeId={genreRecommend.genre_one} isImage={true} w={150} h={200}/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <Detail themeId={genreRecommend.genre_two} isImage={true} w={150} h={200}/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <Detail themeId={genreRecommend.genre_three} isImage={true} w={150} h={200}/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <Detail themeId={genreRecommend.genre_four} isImage={true} w={150} h={200}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </Grid.Column>
                     <Grid.Column width={2}/>
@@ -143,6 +236,13 @@ export default function Recommend(){
                     </Grid.Column>
                     <Grid.Column width={2}/>
                 </Grid.Row>
+                </>:
+                <Grid.Row>
+                    <Grid.Column width={2} />
+                    <Grid.Column width={12}><Header as='h3'>추천 정보를 보시려면 로그인해주세요</Header></Grid.Column>
+                    <Grid.Column width={2} />
+                </Grid.Row>
+                }
             </Grid>
             
             {/* 2차 디자인 */}
