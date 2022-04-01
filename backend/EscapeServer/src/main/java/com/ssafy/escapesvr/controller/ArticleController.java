@@ -39,7 +39,7 @@ public class ArticleController {
         HttpStatus httpStatus = null;
         try {
             ArticleResponseDto articleResponseDto = articleService.save(articleRequestDto);
-            httpStatus = HttpStatus.OK;
+            httpStatus = HttpStatus.CREATED;
             result.put("article", articleResponseDto);
             result.put("success", true);
         } catch (RuntimeException e) {

@@ -57,7 +57,7 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     //댓글 작성
     @Transactional
     @Override
-    public void insertArticleComment(ArticleCommentRequestDto articleCommentRequestDto) {
+    public ArticleCommentResponseDto  insertArticleComment(ArticleCommentRequestDto articleCommentRequestDto) {
         Article article = articleRepository.getById(articleCommentRequestDto.getArticleId());
 
         ArticleComment articleComment = new ArticleComment();
@@ -75,7 +75,9 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
         }
 
 
-        articleCommentRepository.save(articleComment);
+        articleComment = articleCommentRepository.save(articleComment);
+
+        return new ArticleCommentResponseDto(articleComment);
     }
 
     //댓글 수정

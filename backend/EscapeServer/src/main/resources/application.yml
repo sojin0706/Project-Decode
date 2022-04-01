@@ -4,6 +4,7 @@ server:
 
 eureka:
   #  instance:
+  #  instance:
   #    instance-id: ${spring.application.name}:flushed:{spring.application.instance_id:${random.value}}
   client:
     register-with-eureka: true

@@ -29,9 +29,14 @@ public class ArticleRequestDto {
     @NotNull
     private Integer userId; //작성자
 
+//    @ApiModelProperty(value = "유저게시판 지역 말머리", required = true)
+//    @NotBlank
+//    private String largeRegion; //지역 대분류
+
     @ApiModelProperty(value = "유저게시판 지역 말머리", required = true)
     @NotBlank
-    private String smallRegion; //지역
+    private String smallRegion; //지역 소분류
+
 
 //    @Builder
 //    public ArticleCreateRequestDto(String title, String content, Integer userId, String smallRegion){
