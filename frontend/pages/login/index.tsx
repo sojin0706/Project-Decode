@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Form, Input, Grid, Button } from "semantic-ui-react";
 import userAxios from "../../src/lib/userAxios";
+import recoAxios from "../../src/lib/recoAxios";
 // components
 import Router, { useRouter } from "next/router";
 
@@ -28,7 +29,7 @@ export default function Index() {
   };
 
   // 성별 선택
-  const [gender, setGender] = useState("M");
+  const [gender, setGender] = useState("남");
 
   const handleChangeGender = (e: any) => {
     setGender(e.target.value);
@@ -94,13 +95,13 @@ export default function Index() {
     { key: "thrill", text: "스릴러", value: 0 },
     { key: "romance", text: "로맨스", value: 0 },
     { key: "reasoning", text: "추리", value: 0 },
-    { key: "sffantasy", text: "SF/판타지", value: 0 },
-    { key: "adventure", text: "모험/액션", value: 0 },
+    { key: "sffantasy", text: "SF판타지", value: 0 },
+    { key: "adventure", text: "모험액션", value: 0 },
     { key: "comedy", text: "코미디", value: 0 },
     { key: "crime", text: "범죄", value: 0 },
     { key: "horror", text: "공포", value: 0 },
     { key: "adult", text: "19금", value: 0 },
-    { key: "drama", text: "감성/드라마", value: 0 },
+    { key: "drama", text: "감성드라마", value: 0 },
   ];
 
   const score = [
@@ -122,35 +123,91 @@ export default function Index() {
   const [scoreDrama, setDrama] = useState(1);
 
   const handleChangeThrill = (e: any) => {
-    setThrill(e.target.value);
+    setThrill(Number(e.target.value));
   };
   const handleChangeRomance = (e: any) => {
-    setRomance(e.target.value);
+    setRomance(Number(e.target.value));
   };
   const handleChangeReasoning = (e: any) => {
-    setReasoning(e.target.value);
+    setReasoning(Number(e.target.value));
   };
   const handleChangeSffantasy = (e: any) => {
-    setSffantasy(e.target.value);
+    setSffantasy(Number(e.target.value));
   };
   const handleChangeAdventure = (e: any) => {
-    setAdventure(e.target.value);
+    setAdventure(Number(e.target.value));
   };
   const handleChangeComedy = (e: any) => {
-    setComedy(e.target.value);
+    setComedy(Number(e.target.value));
   };
   const handleChangeCrime = (e: any) => {
-    setCrime(e.target.value);
+    setCrime(Number(e.target.value));
   };
   const handleChangeHorror = (e: any) => {
-    setHorror(e.target.value);
+    setHorror(Number(e.target.value));
   };
   const handleChangeAdult = (e: any) => {
-    setAdult(e.target.value);
+    setAdult(Number(e.target.value));
   };
   const handleChangeDrama = (e: any) => {
-    setDrama(e.target.value);
+    setDrama(Number(e.target.value));
   };
+
+  const [scorearr, setScorearr] = useState([scoreThrill,scoreRomance,scoreReasoning,scoreSffantasy,scoreAdventure,scoreComedy,scoreCrime,scoreHorror,scoreAdult,scoreDrama])
+  useEffect(() => {
+    setScorearr([scoreThrill,scoreRomance,scoreReasoning,scoreSffantasy,scoreAdventure,scoreComedy,scoreCrime,scoreHorror,scoreAdult,scoreDrama])
+
+  }, [scoreThrill,scoreRomance,scoreReasoning,scoreSffantasy,scoreAdventure,scoreComedy,scoreCrime,scoreHorror,scoreAdult,scoreDrama])
+  
+  const [genreIdx, setGenreIdx] = useState(0)
+
+  useEffect(() => {
+    const maxScore = Math.max.apply(null, scorearr);
+    setGenreIdx(scorearr.indexOf(Number(maxScore)))
+  },[scorearr])
+  
+  const cb = async() => {
+    await recoAxios
+        .get(`/cb/${userInfo.id}/${genre[genreIdx].text}/`)
+        .then((data) => {
+            console.log('success')
+            console.log(data)
+        })
+        .catch((e) => {
+            console.log('fail')
+            console.log(e)
+        })
+}
+
+const cf1 = async() => {
+  await recoAxios
+      .get(`/cf/${userInfo.id}/${genre[genreIdx].text}/`)
+      .then((data) => {
+          console.log('success')
+          console.log(data)
+      })
+      .catch((e) => {
+          console.log('fail')
+          console.log(e)
+      })
+}
+
+const cf2 = async() => {
+  console.log(genre[genreIdx].text)
+  await recoAxios
+      .get(`/cf/${userInfo.id}/${genre[genreIdx].text}/${gender}/${age}/`)
+      .then((data) => {
+          console.log('success')
+          console.log(data)
+      })
+      .catch((e) => {
+          console.log('fail')
+          console.log(e)
+      })
+}
+
+
+
 
   // 정보수정
   const router = useRouter();
@@ -197,6 +254,19 @@ export default function Index() {
     if (scoreSffantasy === null) {
       alert("SF/판타지 장르 선호도를 선택해주세요");
     } else {
+      console.log('1!!!!!!!!!!!!!!!!', genre[genreIdx])
+      
+      console.log('2!!!!!!!!!!!!!!!!', genre[genreIdx])
+      
+      console.log('3!!!!!!!!!!!!!!!!', genre[genreIdx])
+      alert('hi')
+      setTimeout(function() {
+        cb()
+        cf2()
+        cf1()
+      }, 3000)
+      
+      console.log('4!!!!!!!!!!!!!!!!', genre[genreIdx])
       e.preventDefault();
 
       const body = {
@@ -227,7 +297,7 @@ export default function Index() {
           getUserInfo();
         })
         .then(() => {
-          router.push("/");
+          // router.push("/");
         })
         .catch((err) => {
           console.log(err);
@@ -277,19 +347,19 @@ export default function Index() {
                 <span> 남 </span>
                 <input
                   id={"a"}
-                  value={"M"}
+                  value={"남"}
                   name="platform"
                   type="radio"
-                  checked={gender === "M"}
+                  checked={gender === "남"}
                   onChange={handleChangeGender}
                 />
                 <span> 여 </span>
                 <input
                   id={"a"}
-                  value={"W"}
+                  value={"여"}
                   name="platform"
                   type="radio"
-                  checked={gender === "W"}
+                  checked={gender === "여"}
                   onChange={handleChangeGender}
                 />
               </div>
