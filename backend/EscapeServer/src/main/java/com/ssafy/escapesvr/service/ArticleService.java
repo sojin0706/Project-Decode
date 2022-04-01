@@ -21,7 +21,8 @@ public interface ArticleService {
     void deleteArticle(Long id); //게시글 아이디로 게시글 삭제
 
     /* 검색 */
-    List<ArticleResponseDto> postList(String smallRegion, SearchDto searchDto); //게시글 검색
+//    List<ArticleResponseDto> postList(String smallRegion, SearchDto searchDto); //게시글 검색
+    List<ArticleResponseDto> postList(String largeRegion , String smallRegion); //게시글 검색
 
     /* 추천, 신고 기능 */
     Integer recommendArticle(Long id); // 게시글 아이디로 추천 수 증가

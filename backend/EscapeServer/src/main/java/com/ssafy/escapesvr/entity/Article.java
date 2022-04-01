@@ -31,7 +31,10 @@ public class Article {
     private Integer userId; //사용자id
 
     @NotNull
-    private String smallRegion; //지역
+    private String largeRegion; //지역대분류
+
+    @NotNull
+    private String smallRegion; //지역소분류
 
     private int recommend; //추천개수
 
@@ -64,22 +67,23 @@ public class Article {
 
     //빌더
     @Builder
-    public Article(String title, String content, String smallRegion, Integer userId) {
+    public Article(String title, String content, String largeRegion, String smallRegion, Integer userId) {
         this.title= title;
         this.content= content;
+        this.largeRegion = largeRegion;
         this.smallRegion = smallRegion;
         this.userId = userId;
     }
 
     //게시글 수정
-    public void update(String title, String content, String smallRegion, Integer userId) {
+    public void update(String title, String content, String largeRegion, String smallRegion, Integer userId) {
         this.title = title;
         this.content = content;
+        this.largeRegion = largeRegion;
         this.smallRegion = smallRegion;
         this.userId = userId;
         this.modifiedAt = LocalDateTime.now();
     }
-
 
 
 }

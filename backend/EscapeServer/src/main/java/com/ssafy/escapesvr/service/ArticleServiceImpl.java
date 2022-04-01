@@ -55,6 +55,7 @@ public class ArticleServiceImpl implements ArticleService{
         article.setUserId(articleRequestDto.getUserId());
         article.setTitle(articleRequestDto.getTitle());
         article.setContent(articleRequestDto.getContent());
+        article.setLargeRegion(articleRequestDto.getLargeRegion());
         article.setSmallRegion(articleRequestDto.getSmallRegion());
         article.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
         article.setRecommend(0);
@@ -73,7 +74,7 @@ public class ArticleServiceImpl implements ArticleService{
         //Sort sort = Sort.by(Direction.DESC, "id", "createdAt");
         Page<Article> list = articleRepository.findAll(pageable);
 
-        Page<ArticleResponseDto> articleList=list.map( o-> new ArticleResponseDto(o.getId(),o.getTitle(), o.getContent(), o.getSmallRegion(), o.getRecommend(), o.getReport(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getNickName(), o.getUserImage()));
+        Page<ArticleResponseDto> articleList=list.map( o-> new ArticleResponseDto(o.getId(),o.getTitle(), o.getContent(), o.getLargeRegion(), o.getSmallRegion(), o.getRecommend(), o.getReport(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getNickName(), o.getUserImage()));
         return articleList;
     }
 
@@ -97,7 +98,7 @@ public class ArticleServiceImpl implements ArticleService{
 
         Page<Article> myArticleList = articleRepository.findByUserId(userId,pageable);
 
-        Page<ArticleResponseDto> myArticle=myArticleList.map( o-> new ArticleResponseDto(o.getId(),o.getTitle(), o.getContent(), o.getSmallRegion(), o.getRecommend(), o.getReport(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getNickName(), o.getUserImage()));
+        Page<ArticleResponseDto> myArticle=myArticleList.map( o-> new ArticleResponseDto(o.getId(),o.getTitle(), o.getContent(), o.getLargeRegion(), o.getSmallRegion(), o.getRecommend(), o.getReport(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getNickName(), o.getUserImage()));
 
        // return myArticleList.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
 
@@ -106,10 +107,17 @@ public class ArticleServiceImpl implements ArticleService{
 
     }
 
+//    //게시글 검색
+//    @Override
+//    public List<ArticleResponseDto> postList(String smallRegion, SearchDto searchDto) {
+//        List<Article> articleList = articleRepository.findPageDynamicQuery(smallRegion, searchDto);
+//        return articleList.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
+//    }
+
     //게시글 검색
     @Override
-    public List<ArticleResponseDto> postList(String smallRegion, SearchDto searchDto) {
-        List<Article> articleList = articleRepository.findPageDynamicQuery(smallRegion, searchDto);
+    public List<ArticleResponseDto> postList(String largeRegion, String smallRegion) {
+        List<Article> articleList = articleRepository.findPageDynamicQuery(largeRegion, smallRegion);
         return articleList.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
     }
 
@@ -123,6 +131,7 @@ public class ArticleServiceImpl implements ArticleService{
         article.setUserId(articleRequestDto.getUserId());
         article.setTitle(articleRequestDto.getTitle());
         article.setContent(articleRequestDto.getTitle());
+        article.setLargeRegion(articleRequestDto.getLargeRegion());
         article.setSmallRegion(articleRequestDto.getSmallRegion());
         article.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toLocalDateTime());
         article.setRecommend(0);

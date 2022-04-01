@@ -22,8 +22,11 @@ public class ArticleResponseDto {
     @ApiModelProperty(value = "유저게시판 글 내용", required = true)
     private String content; // 내용
 
-    @ApiModelProperty(value = "유저게시판 지역 말머리", required = true)
-    private String smallRegion; //지역
+    @ApiModelProperty(value = "유저게시판 지역 대분류", required = true)
+    private String largeRegion; //지역 대분류
+
+    @ApiModelProperty(value = "유저게시판 지역 소분류", required = true)
+    private String smallRegion; //지역 소분류
 
     @ApiModelProperty(value = "유저게시판 작성자 id(번호)", required = true)
     private Integer userId; // 작성자
@@ -50,6 +53,7 @@ public class ArticleResponseDto {
         this.id = entity.getId();
         this.title = entity.getTitle();
         this.content = entity.getContent();
+        this.largeRegion = entity.getLargeRegion();
         this.smallRegion = entity.getSmallRegion();
         this.recommend = entity.getRecommend();
         this.report = entity.getReport();
