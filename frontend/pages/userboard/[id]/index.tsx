@@ -278,6 +278,7 @@ return (
                                         </Comment>
                                     </Grid.Column>
                                     <Grid.Column width={1}>
+                                    {userInfo.id == comment.userId? 
                                     <Button color='red' inverted animated='fade' onClick={function(){commentDelete(comment.id)}}>
                                         <Button.Content visible>
                                             <Icon name='trash' key={comment.id} />
@@ -286,6 +287,7 @@ return (
                                             삭제
                                         </Button.Content>
                                     </Button>
+                                    :''} 
                                     </Grid.Column>
                                 </Grid>
 

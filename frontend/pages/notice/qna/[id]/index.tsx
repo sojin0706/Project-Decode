@@ -102,6 +102,7 @@ export default function Qna_detail() {
         await allAxios.post(`/qnaComment`, body)
         .then(() => {
             alert('리뷰가 작성되었습니다.')
+
         })
         .catch((e) => {
             console.log(e)
@@ -121,6 +122,7 @@ export default function Qna_detail() {
             }
         })
         .then(() => {
+            loadcomment(0)
             alert('리뷰가 삭제되었습니다.')
         })
         .catch((e) => {
@@ -164,10 +166,10 @@ return (
                             <dt>작성일</dt>
                             <dd>{qnaDetail.createdAt?qnaDetail.createdAt[0]+'.'+qnaDetail.createdAt[1]+'.'+qnaDetail.createdAt[2]:''}</dd>
                         </dl>
-                        <dl>
+                        {/* <dl>
                             <dt>조회</dt>
                             <dd>127</dd>
-                        </dl>
+                        </dl> */}
                     </div>
                     <div className={styles.cont}>
                         {qnaDetail.content}
@@ -187,7 +189,7 @@ return (
                     <div className={styles.comment_title}>
                         댓글
                     </div>
-                        {userInfo.id == 46441431?
+                        {userInfo.id?
                             <Grid verticalAlign='middle' centered stackable>
                             <Grid.Column width={1}>
                                 <Comment.Group size='massive'>
@@ -240,15 +242,16 @@ return (
                                         </Comment>
                                     </Grid.Column>
                                     <Grid.Column width={1}>
-                                    <Button color='red' inverted animated='fade' onClick={function(){commentDelete(comment.id)}}>
+                                    {userInfo.id == comment.userId? 
+                                        <Button color='red' inverted animated='fade' onClick={function(){commentDelete(comment.id)}}>
                                         <Button.Content visible>
                                             <Icon name='trash' key={comment.id} />
                                         </Button.Content>
                                         <Button.Content hidden>
                                             삭제
                                         </Button.Content>
-                                    </Button>
-                                        {/* <Button basic inverted color='red' onClick={function(){commentDelete(comment.id)}}><Icon key={comment.id} name="trash" color="red" /></Button> */}
+                                        </Button>
+                                    :''}
                                     </Grid.Column>
                                 </Grid>
 

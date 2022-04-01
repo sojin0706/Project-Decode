@@ -1,6 +1,7 @@
 import {
     Pagination,
     Grid,
+    Icon,
   } from "semantic-ui-react";
 import React from 'react'
 import { useEffect, useState } from "react";
@@ -11,7 +12,7 @@ import styles from "../../styles/notice/notice.module.css";
 import userAxios from "../../src/lib/userAxios";
 
 export default function Notice() {
-    const [qna, setQna] = useState([])
+    const [qna, setQna]:any = useState([])
     const [pages, setPages] = useState(0)  //바뀌는 page
     const [totalPages, setTotalPages] = useState(10) // 최대 page
     const [title, setTitle] = useState('')
@@ -24,6 +25,7 @@ export default function Notice() {
     const [noticeId, setNoticeId] = useState(0)
     const [noticeNickName, setNoticeNickName] = useState('')
     const [noticeCreatedAt, setNoticeCreatedAt] = useState([])
+    const [isSecret, setIsSecret] = useState<boolean>(false)
 
     // 유저
     useEffect(() => {
@@ -48,7 +50,7 @@ export default function Notice() {
     // 게시글 정보 (qna)
     useEffect(() => {
         loadqnaboard(pages)
-    }, [pages, id, title, createdAt, nickName])
+    }, [pages, id, title, createdAt, nickName, isSecret])
 
 
     const loadqnaboard = async (pages: Number) => {
@@ -59,6 +61,7 @@ export default function Notice() {
                     id: id,
                     nickName: nickName,
                     createdAt: createdAt,
+                    isSecret: isSecret,
                     page: pages,
                 }
             })
@@ -126,6 +129,12 @@ export default function Notice() {
         }
     }
 
+    // 비밀글 연결
+    const moveSecretTitle = async () => {
+            alert("비밀글입니다.")
+        }
+
+
 
 
 
@@ -179,7 +188,22 @@ return (
                     <div className={styles.qna_notice}>
                     <div className={styles.type}>Q&A</div>
                     <div className={styles.num}>{board.id}</div>
-                    <div className={styles.title} onClick={() => Router.push(`/notice/qna/${board.id}`)}>{board.title}</div>
+                    {board.isSecret == true && (userInfo.id ==  46441431 || userInfo.id ==board.userId)? 
+                        <div className={styles.title} onClick={() => Router.push(`/notice/qna/${board.id}`)}>{board.title}
+                        <Icon name='lock' />
+                        </div>
+                    :''}
+                    {board.isSecret == true && (userInfo.id !=  46441431 && userInfo.id != board.userId)? 
+                        <div className={styles.title} onClick={moveSecretTitle}>{board.title}
+                        <Icon name='lock' />
+                        </div>
+                    :''}
+                        {board.isSecret != true? 
+                        <div className={styles.title} onClick={() => Router.push(`/notice/qna/${board.id}`)}>{board.title}
+                        </div>
+                    :''}
+                    
+
                     <div className={styles.writer}>{board.nickName}</div>
                     <div className={styles.date}>{board.createdAt[0]}.{board.createdAt[1]}.{board.createdAt[2]}</div>
                 </div>
