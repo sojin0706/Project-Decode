@@ -39,16 +39,21 @@ public class ArticleCommentController {
     //유저게시판 댓글 작성
     @ApiOperation(value = "유저게시글 댓글 작성", notes = "게시글에 댓글을 작성한다", response = Map.class)
     @PostMapping
-    public ResponseEntity<String> insertArticleComment(@RequestBody @ApiParam(value = "댓글 작성 모델")  @Valid ArticleCommentRequestDto articleCommentRequestDto) {
-        HttpStatus status = null;
+    public  ResponseEntity<Map<String, Object>>  insertArticleComment(@RequestBody @ApiParam(value = "댓글 작성 모델")  @Valid ArticleCommentRequestDto articleCommentRequestDto) {
+        Map<String, Object> result = new HashMap<>();
+        HttpStatus httpStatus = null;
         try {
-            articleCommentService.insertArticleComment(articleCommentRequestDto);
-            status = HttpStatus.OK;
+            ArticleCommentResponseDto articleCommentResponseDto  = articleCommentService.insertArticleComment(articleCommentRequestDto);
+            result.put("articleComment", articleCommentResponseDto);
+            result.put("success", true);
+            httpStatus = HttpStatus.OK;
         } catch (RuntimeException e) {
             e.printStackTrace();
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+            result.put("success", false);
         }
-        return new ResponseEntity<>(status);
+        return new ResponseEntity<Map<String, Object>>(result, httpStatus);
+      //  return new ResponseEntity<>(status);
     }
 
     //게시글 댓글 전체조회
