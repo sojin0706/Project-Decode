@@ -254,19 +254,6 @@ const cf2 = async() => {
     if (scoreSffantasy === null) {
       alert("SF/판타지 장르 선호도를 선택해주세요");
     } else {
-      console.log('1!!!!!!!!!!!!!!!!', genre[genreIdx])
-      
-      console.log('2!!!!!!!!!!!!!!!!', genre[genreIdx])
-      
-      console.log('3!!!!!!!!!!!!!!!!', genre[genreIdx])
-      alert('hi')
-      setTimeout(function() {
-        cb()
-        cf2()
-        cf1()
-      }, 3000)
-      
-      console.log('4!!!!!!!!!!!!!!!!', genre[genreIdx])
       e.preventDefault();
 
       const body = {
@@ -297,7 +284,12 @@ const cf2 = async() => {
           getUserInfo();
         })
         .then(() => {
-          // router.push("/");
+          cb()
+          cf2()
+          cf1()
+        })
+        .then(() => {
+          // router.push("/")
         })
         .catch((err) => {
           console.log(err);
