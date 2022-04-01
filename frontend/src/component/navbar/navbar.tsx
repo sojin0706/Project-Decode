@@ -42,6 +42,10 @@ export default function Navbar() {
       if (router.pathname === "/login") {
         router.push("/");
       }
+      if (router.pathname === "/profile") {
+        alert('로그인을 해주세요.')
+        router.push("/")
+      }
     }
   }, [router.pathname]);
 
@@ -56,12 +60,10 @@ export default function Navbar() {
   }, [userInfo]);
 
   return (
+    
     <nav>
       <Link href="/">
         <a className={router.pathname === "/" ? "active" : ""}>Home</a>
-      </Link>
-      <Link href="/login">
-        <a className={router.pathname === "/login" ? "active" : ""}>login</a>
       </Link>
       <Link href="/profile">
         <a className={router.pathname === "/profile" ? "active" : ""}>
