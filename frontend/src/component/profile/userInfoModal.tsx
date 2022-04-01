@@ -212,11 +212,14 @@ const cf2 = async() => {
 
   useEffect(() => {
     if (userInfo !== 0) {
-      setFile(new File([userInfo.image], userInfo.image,{type: "image/jpeg"}))
-      console.log('here!!!', new File([userInfo.image], userInfo.image,{type: "image/jpeg"}))
+      const newBlob = new Blob([new Uint8Array(userInfo.image)]);
+      const newFile = new File([newBlob], userInfo.image, {type: userInfo.image})
+
+      setFile(newFile)
       setThumbnail(userInfo.image)
     }
   },[userInfo])
+
 
 
   const handleFile = (e: any) => {
