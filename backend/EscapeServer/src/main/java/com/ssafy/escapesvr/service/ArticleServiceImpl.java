@@ -107,10 +107,17 @@ public class ArticleServiceImpl implements ArticleService{
 
     }
 
+//    //게시글 검색
+//    @Override
+//    public List<ArticleResponseDto> postList(String smallRegion, SearchDto searchDto) {
+//        List<Article> articleList = articleRepository.findPageDynamicQuery(smallRegion, searchDto);
+//        return articleList.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
+//    }
+
     //게시글 검색
     @Override
-    public List<ArticleResponseDto> postList(String smallRegion, SearchDto searchDto) {
-        List<Article> articleList = articleRepository.findPageDynamicQuery(smallRegion, searchDto);
+    public List<ArticleResponseDto> postList(String largeRegion, String smallRegion) {
+        List<Article> articleList = articleRepository.findPageDynamicQuery(largeRegion, smallRegion);
         return articleList.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
     }
 
