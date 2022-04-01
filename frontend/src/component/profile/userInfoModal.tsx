@@ -6,7 +6,7 @@ import recoAxios from "../../lib/recoAxios";
 
 export default function UserInfoModal() {
   // 유저 정보 불러오기
-  const [userInfo, setUserInfo]: any = useState([]);
+  const [userInfo, setUserInfo]: any = useState(0);
 
   const getUserInfo = async () => {
     userAxios
@@ -25,9 +25,6 @@ export default function UserInfoModal() {
   const handleChangeNick = (e: any) => {
     setNick(e.target.value);
   };
-
-  // 성별
-  const [gender, setGender] = useState(userInfo.gender);
 
   // 연령대 선택
   const ages = [
@@ -200,12 +197,49 @@ const cf2 = async() => {
       })
 }
 
+  // const setThumbnail = (e:any) => {
+  //   var reader = new FileReader();
+
+  //   reader.onload = function(e) {
+  //     var img = document.getElementById('img');
+  //     img.src = e.target.result
+  //   }
+  // }
+
   // 사진파일
-  const [file, setFile]: any = useState(null);
+  const [file, setFile]: any = useState(0);
+  const [thumbnail, setThumbnail] = useState(0);
+
+  useEffect(() => {
+    if (userInfo !== 0) {
+      setFile(new File([userInfo.image], userInfo.image,{type: "image/jpeg"}))
+      console.log('here!!!', new File([userInfo.image], userInfo.image,{type: "image/jpeg"}))
+      setThumbnail(userInfo.image)
+    }
+  },[userInfo])
+
 
   const handleFile = (e: any) => {
-    setFile(e.target.files[0]);
+    const imgFile = e.target.files[0]
+    if (imgFile === undefined) {
+      setFile(new File([userInfo.image], userInfo.image,{type: "image/jpeg"}))
+      console.log('언디파인드라서 바꿈')
+    } else {
+      setFile(imgFile);
+    }
+    console.log('here!!!', imgFile)
   };
+
+  console.log(file)
+
+  useEffect(() => {
+    console.log('type!!!', typeof(file))
+    console.log(file)
+  },[file])
+
+
+  
+  
 
   const edit = (e: any) => {
     e.preventDefault();
@@ -251,7 +285,6 @@ const cf2 = async() => {
 
     // 수정 안되면 id값 들어가있는지 확인, /auth/users 토큰 조회에서 데이터가 안받아와질떄가 있음
     const body = new FormData();
-
     body.append(
       "preferenceModifyRequest",
       new Blob([JSON.stringify(preference)], { type: "application/json" })
@@ -289,7 +322,7 @@ const cf2 = async() => {
     >
       <Modal.Header>회원 정보 수정</Modal.Header>
       <Modal.Content image scrolling>
-        <Image size="medium" src="/images/test_chr.png" alt="" wrapped />
+        <Image id="thu" size="medium" src={file.name} alt="" wrapped />
         <Modal.Description>
           <Form>
             <input type="file" name="file" onChange={(e) => handleFile(e)} />
