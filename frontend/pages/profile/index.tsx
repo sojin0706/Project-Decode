@@ -31,46 +31,53 @@ export default function Index() {
     }
   }, []);
 
-  return (
-    <>
-      <Grid stackable>
-        <Grid.Row>
-          {/* 여백 */}
-          <Grid.Column width={2}></Grid.Column>
-
-          <Grid.Column width={12}>
-            <Grid centered columns={4}>
-              <Grid.Column width={5}>
-                <Image src={userInfo.image} alt="profileImage"></Image>
-              </Grid.Column>
-
-              <Grid.Column width={1}></Grid.Column>
-
-              <Grid.Column width={6}>
-                <br></br>
-                <UserInfo />
-              </Grid.Column>
-
-              <Grid.Column width={4}></Grid.Column>
-            </Grid>
-
-            <Grid centered columns={4}>
-              <Grid.Column width={8}>
-                <Graph />
-              </Grid.Column>
-
-              <Grid.Column width={8}>
-                <Board />
-              </Grid.Column>
-            </Grid>
-
-            <ClearList />
-          </Grid.Column>
-
-          {/* 여백 */}
-          <Grid.Column width={2}></Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </>
-  );
+  if (IsLogin()) {
+    return (
+      <>
+        <Grid stackable>
+          <Grid.Row>
+            {/* 여백 */}
+            <Grid.Column width={2}></Grid.Column>
+  
+            <Grid.Column width={12}>
+              <Grid centered columns={4}>
+                <Grid.Column width={5}>
+                  <Image src={userInfo.image} alt="profileImage"></Image>
+                </Grid.Column>
+  
+                <Grid.Column width={1}></Grid.Column>
+  
+                <Grid.Column width={6}>
+                  <br></br>
+                  <UserInfo />
+                </Grid.Column>
+  
+                <Grid.Column width={4}></Grid.Column>
+              </Grid>
+  
+              <Grid centered columns={4}>
+                <Grid.Column width={8}>
+                  <Graph />
+                </Grid.Column>
+  
+                <Grid.Column width={8}>
+                  <Board />
+                </Grid.Column>
+              </Grid>
+  
+              <ClearList />
+            </Grid.Column>
+  
+            {/* 여백 */}
+            <Grid.Column width={2}></Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </>
+    );
+  } else {
+    return (
+      <></>
+    )
+  }
+  
 }
