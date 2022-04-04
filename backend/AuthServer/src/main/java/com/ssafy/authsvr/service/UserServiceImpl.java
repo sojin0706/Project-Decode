@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService {
     public UserDetailProfileResponse findAllProfileUser(Integer userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         User user = userOptional.orElseThrow(NoSuchElementException::new);
-        Optional<GenrePreference> genrePreferences = genrePreferenceRepository.findById(userId);
+        Optional<GenrePreference> genrePreferences = genrePreferenceRepository.findById(user.getGenrePreference().getId());
         GenrePreference genrePreference = genrePreferences.orElseThrow(NoSuchElementException::new);
 
         return UserDetailProfileResponse.allProfileResponse(user,genrePreference);
