@@ -24,8 +24,8 @@ def index(request):
     temp_id = 1
 
     # cb 코드
-    # themes = theme.find()
-    # results = cb(temp_genre, themes)
+    themes = theme.find()
+    results = cb(temp_genre, themes)
 
     # cf 코드
     # themes = theme.find()
@@ -33,9 +33,9 @@ def index(request):
     # results = cf(temp_genre, reviews, themes)
 
     # svd 코드
-    themes = theme.find()
-    reviews = review.find()
-    results = svd(temp_id, reviews, themes)
+    # themes = theme.find()
+    # reviews = review.find()
+    # results = svd(temp_id, reviews, themes)
 
     context = {
         'results': results,
