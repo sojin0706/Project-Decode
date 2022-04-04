@@ -76,45 +76,18 @@ public class ArticleController {
         return new ResponseEntity<Map<String, Object>>(result, httpStatus);
 
     }
-//    //게시글 검색
-//    @ApiOperation(value = "유저게시판 게시글 검색", notes = "유저게시판 게시글 검색한 리스트를 불러온다", response = Map.class)
-//    @PostMapping("/board")
-//    public ResponseEntity<Map<String, Object>> postList(@RequestParam(required = false) @ApiParam(value = "지역 정보(지역소분류 ex)강남)") String smallRegion, @ApiParam(value = "게시글 검색 필터(제목,내용,작성자 중 선택한 사항)와 해당 검색 내용(value)") SearchDto searchDto)  {
-//
-//        Map<String, Object> result = new HashMap<>();
-//        List<ArticleResponseDto> articleList = null;
-//        HttpStatus httpStatus = null;
-//
-//        try {
-//            articleList = articleService.postList(smallRegion,searchDto);
-//            httpStatus = HttpStatus.OK;
-//            result.put("success", true);
-//
-//        } catch (RuntimeException e) {
-//            e.printStackTrace();
-//            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-//            result.put("success", false);
-//
-//        }
-//
-//        result.put("articleList", articleList);
-//
-//        return new ResponseEntity<Map<String, Object>>(result, httpStatus);
-//
-//    }
-
 
     //게시글 검색
     @ApiOperation(value = "유저게시판 게시글 검색", notes = "유저게시판 게시글 검색한 리스트를 불러온다", response = Map.class)
     @PostMapping("/board")
-    public ResponseEntity<Map<String, Object>> postList(@RequestParam(required = false) @ApiParam(value = "대분류 지역") String largeRegion , @RequestParam(required = false) @ApiParam(value = "지역 정보(지역소분류 ex)강남)") String smallRegion)  {
+    public ResponseEntity<Map<String, Object>> postList(@PageableDefault(size=5) @SortDefault.SortDefaults({@SortDefault(sort="createdAt", direction = Sort.Direction.DESC)})Pageable pageable , @RequestParam(required = false) @ApiParam(value = "대분류 지역") String largeRegion , @RequestParam(required = false) @ApiParam(value = "지역 정보(지역소분류 ex)강남)") String smallRegion)  {
 
         Map<String, Object> result = new HashMap<>();
-        List<ArticleResponseDto> articleList = null;
+        Page<ArticleResponseDto> articleList = null;
         HttpStatus httpStatus = null;
 
         try {
-            articleList = articleService.postList(largeRegion , smallRegion);
+            articleList = articleService.postList(largeRegion , smallRegion ,pageable);
             httpStatus = HttpStatus.OK;
             result.put("success", true);
 
