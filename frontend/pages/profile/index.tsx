@@ -37,46 +37,61 @@ export default function Index() {
           <Grid.Row>
             {/* 여백 */}
             <Grid.Column width={2}></Grid.Column>
-  
-            <Grid.Column width={12}>
-              <Grid centered columns={4}>
-                <Grid.Column width={5}>
+
+            {/* 왼쪽 프로필사진, 정보, 그래프 */}
+            <Grid.Column width={6}>
+              <Grid centered>
+                <Grid.Column width={10}>
                   <Image src={userInfo.image} alt="profileImage"></Image>
                 </Grid.Column>
-  
-                <Grid.Column width={1}></Grid.Column>
-  
                 <Grid.Column width={6}>
                   <br></br>
-                  <UserInfo />
-                </Grid.Column>
-  
-                <Grid.Column width={4}></Grid.Column>
-              </Grid>
-  
-              <Grid centered columns={4}>
-                <Grid.Column width={8}>
-                  <Graph />
-                </Grid.Column>
-  
-                <Grid.Column width={8}>
-                  <Board />
+                  <UserInfo></UserInfo>
                 </Grid.Column>
               </Grid>
-  
-              <ClearList />
+              <Graph></Graph>
             </Grid.Column>
-  
+
+            {/* 오른쪽 클리어리스트, 게시글 */}
+            <Grid.Column width={6}>
+              <Board></Board>
+              <br></br>
+              <ClearList></ClearList>
+            </Grid.Column>
+
             {/* 여백 */}
             <Grid.Column width={2}></Grid.Column>
           </Grid.Row>
         </Grid>
       </>
     );
+    <Grid.Column width={12}>
+      <Grid centered columns={3}>
+        <Grid.Column width={5}>
+          <Image src={userInfo.image} alt="profileImage"></Image>
+        </Grid.Column>
+
+        <Grid.Column width={3}>
+          <br></br>
+          <UserInfo />
+        </Grid.Column>
+
+        <Grid.Column width={8}>
+          <ClearList></ClearList>
+          <Board></Board>
+        </Grid.Column>
+      </Grid>
+
+      <Grid centered columns={4}>
+        <Grid.Column width={8}>
+          <Graph></Graph>
+        </Grid.Column>
+        <Grid.Column width={8}></Grid.Column>
+      </Grid>
+
+      <ClearList />
+    </Grid.Column>;
   } else {
-    return (
-      <></>
-    )
+    return <></>;
   }
-  
 }
