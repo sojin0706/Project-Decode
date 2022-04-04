@@ -144,105 +144,117 @@ export default function UserInfoModal() {
     { key: "drama", text: "감성드라마", value: 0 },
   ];
 
-  const [scorearr, setScorearr] = useState([scoreThrill,scoreRomance,scoreReasoning,scoreSffantasy,scoreAdventure,scoreComedy,scoreCrime,scoreHorror,scoreAdult,scoreDrama])
+  const [scorearr, setScorearr] = useState([
+    scoreThrill,
+    scoreRomance,
+    scoreReasoning,
+    scoreSffantasy,
+    scoreAdventure,
+    scoreComedy,
+    scoreCrime,
+    scoreHorror,
+    scoreAdult,
+    scoreDrama,
+  ]);
   useEffect(() => {
-    setScorearr([scoreThrill,scoreRomance,scoreReasoning,scoreSffantasy,scoreAdventure,scoreComedy,scoreCrime,scoreHorror,scoreAdult,scoreDrama])
+    setScorearr([
+      scoreThrill,
+      scoreRomance,
+      scoreReasoning,
+      scoreSffantasy,
+      scoreAdventure,
+      scoreComedy,
+      scoreCrime,
+      scoreHorror,
+      scoreAdult,
+      scoreDrama,
+    ]);
+  }, [
+    scoreThrill,
+    scoreRomance,
+    scoreReasoning,
+    scoreSffantasy,
+    scoreAdventure,
+    scoreComedy,
+    scoreCrime,
+    scoreHorror,
+    scoreAdult,
+    scoreDrama,
+  ]);
 
-  }, [scoreThrill,scoreRomance,scoreReasoning,scoreSffantasy,scoreAdventure,scoreComedy,scoreCrime,scoreHorror,scoreAdult,scoreDrama])
-  
-  const [genreIdx, setGenreIdx] = useState(1)
+  const [genreIdx, setGenreIdx] = useState(1);
 
   useEffect(() => {
     const maxScore = Math.max.apply(null, scorearr);
-    setGenreIdx(scorearr.indexOf(Number(maxScore)))
-  },[scorearr])
-  
-  const cb = async() => {
-    await recoAxios
-        .get(`/cb/${userInfo.id}/${genre[genreIdx].text}/`)
-        .then((data) => {
-            console.log('success')
-            console.log(data)
-        })
-        .catch((e) => {
-            console.log('fail')
-            console.log(e)
-        })
-}
+    setGenreIdx(scorearr.indexOf(Number(maxScore)));
+  }, [scorearr]);
 
-const cf1 = async() => {
-  await recoAxios
+  const cb = async () => {
+    await recoAxios
+      .get(`/cb/${userInfo.id}/${genre[genreIdx].text}/`)
+      .then((data) => {
+        console.log("success");
+        console.log(data);
+      })
+      .catch((e) => {
+        console.log("fail");
+        console.log(e);
+      });
+  };
+
+  const cf1 = async () => {
+    await recoAxios
       .get(`/cf/${userInfo.id}/${genre[genreIdx].text}/`)
       .then((data) => {
-          console.log('success')
-          console.log(data)
+        console.log("success");
+        console.log(data);
       })
       .catch((e) => {
-          console.log('fail')
-          console.log(e)
-      })
-}
+        console.log("fail");
+        console.log(e);
+      });
+  };
 
-const cf2 = async() => {
-  console.log(genre[genreIdx].text)
-  await recoAxios
-      .get(`/cf/${userInfo.id}/${genre[genreIdx].text}/${userInfo.gender}/${userInfo.age}/`)
+  const cf2 = async () => {
+    console.log(genre[genreIdx].text);
+    await recoAxios
+      .get(
+        `/cf/${userInfo.id}/${genre[genreIdx].text}/${userInfo.gender}/${userInfo.age}/`
+      )
       .then((data) => {
-          console.log('success')
-          console.log(data)
+        console.log("success");
+        console.log(data);
       })
       .catch((e) => {
-          console.log('fail')
-          console.log(e)
-      })
-}
-
-  // const setThumbnail = (e:any) => {
-  //   var reader = new FileReader();
-
-  //   reader.onload = function(e) {
-  //     var img = document.getElementById('img');
-  //     img.src = e.target.result
-  //   }
-  // }
+        console.log("fail");
+        console.log(e);
+      });
+  };
 
   // 사진파일
   const [file, setFile]: any = useState(0);
-  const [thumbnail, setThumbnail] = useState(0);
 
   useEffect(() => {
     if (userInfo !== 0) {
       const newBlob = new Blob([new Uint8Array(userInfo.image)]);
-      const newFile = new File([newBlob], userInfo.image, {type: userInfo.image})
+      const newFile = new File([newBlob], userInfo.image, {
+        type: userInfo.image,
+      });
 
-      setFile(newFile)
-      setThumbnail(userInfo.image)
+      setFile(newFile);
     }
-  },[userInfo])
-
-
+  }, [userInfo]);
 
   const handleFile = (e: any) => {
-    const imgFile = e.target.files[0]
+    const imgFile = e.target.files[0];
     if (imgFile === undefined) {
-      setFile(new File([userInfo.image], userInfo.image,{type: "image/jpeg"}))
-      console.log('언디파인드라서 바꿈')
+      setFile(
+        new File([userInfo.image], userInfo.image, { type: "image/jpeg" })
+      );
     } else {
       setFile(imgFile);
     }
-    console.log('here!!!', imgFile)
   };
-
-  console.log(file)
-
-  useEffect(() => {
-    console.log('type!!!', typeof(file))
-    console.log(file)
-  },[file])
-
-
-  
-  
 
   const edit = (e: any) => {
     e.preventDefault();
@@ -303,9 +315,9 @@ const cf2 = async() => {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then(() => {
-        cb()
-        cf2()
-        cf1()
+        cb();
+        cf2();
+        cf1();
       })
       .then(() => {
         window.location.reload();
@@ -314,14 +326,13 @@ const cf2 = async() => {
         console.log(err);
       });
   };
-
   const [open, setOpen] = useState(false);
   return (
     <Modal
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button>정보 수정</Button>}
+      trigger={<Button primary>정보 수정</Button>}
     >
       <Modal.Header>회원 정보 수정</Modal.Header>
       <Modal.Content image scrolling>
