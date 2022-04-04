@@ -12,12 +12,17 @@ eureka:
     service-url:
       defaultZone: http://j6c203.p.ssafy.io:8761/eureka
 
+
+
 spring:
   application:
     name: escape-server
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  data:
+    mongodb:
+      uri: mongodb://j6c203.p.ssafy.io:27017/escape
   datasource:
     url: jdbc:mysql://j6c203.p.ssafy.io:3306/escape?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
     username: escape
@@ -25,7 +30,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
       use-new-id-generator-mappings: true
     show-sql: true
     properties:

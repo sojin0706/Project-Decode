@@ -1,5 +1,6 @@
 package com.ssafy.escapesvr.service;
 
+import com.netflix.discovery.converters.Auto;
 import com.ssafy.escapesvr.client.UserServiceClient;
 import com.ssafy.escapesvr.dto.MyReviewResponseDto;
 import com.ssafy.escapesvr.dto.PosterResponseDto;
@@ -7,9 +8,12 @@ import com.ssafy.escapesvr.dto.ReviewRequestDto;
 import com.ssafy.escapesvr.dto.ThemeReviewResponseDto;
 import com.ssafy.escapesvr.entity.Theme;
 import com.ssafy.escapesvr.entity.ThemeReview;
+import com.ssafy.escapesvr.entity.ThemeReviewDocument;
 import com.ssafy.escapesvr.repository.ThemeRepository;
+import com.ssafy.escapesvr.repository.ThemeReviewDocumentRepository;
 import com.ssafy.escapesvr.repository.ThemeReviewRepository;
 import feign.FeignException;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -36,6 +40,9 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
 
     @Autowired
     UserServiceClient userServiceClient;
+
+    @Autowired
+    ThemeReviewDocumentRepository themeReviewDocumentRepository;
 
     //테마의 리뷰리스트
     @Override
@@ -140,13 +147,20 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
     @Transactional
     public void insertReview(ReviewRequestDto reviewRequestDto) {
         ThemeReview themeReview=new ThemeReview();
+        ThemeReviewDocument themeReviewDocument=new ThemeReviewDocument();
+        String gender="";
+        Integer age=null;
         Theme theme=themeRepo.getById(reviewRequestDto.getThemeId());
 
         themeReview.setUserId(reviewRequestDto.getUserId());
-        // reviewRequestDto의 userId를 이용해서 nickname을 구해온 후, 저장
-//        themeReview.setUserNickName("임시 저장");
+
         try{
             String nickname = userServiceClient.userFindNickName(reviewRequestDto.getUserId());
+            Map<String,Object> maps=userServiceClient.userFindGenderAge(reviewRequestDto.getUserId());
+            Object genders=maps.get("gender");
+            Object ages=maps.get("age");
+            gender=genders.toString();
+            age=(Integer)ages;
             themeReview.setUserNickName(nickname);
         }catch (FeignException e){
             e.printStackTrace();
@@ -162,9 +176,21 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
         theme.setScore((theme.getScore()*theme.getReviewCnt()+ reviewRequestDto.getMyScore())/(theme.getReviewCnt()+1));
         themeReview.setTheme(theme);
 
+
+        themeReviewDocument.setThemeId(theme.getId());
+
+        themeReviewDocument.setUserId(reviewRequestDto.getUserId());
+        themeReviewDocument.setRating(reviewRequestDto.getMyScore());
+        themeReviewDocument.setGender(gender);
+        themeReviewDocument.setAge(age);
+
         //저장
         themeReviewRepo.save(themeReview);
+        themeReviewDocumentRepository.save(themeReviewDocument);
         themeRepo.save(theme);
+
+        themeReviewDocument.setReviewId(themeReview.getId());
+        themeReviewDocumentRepository.save(themeReviewDocument);
     }
 
     //리뷰 삭제
@@ -180,7 +206,7 @@ public class ThemeReviewServiceImpl implements ThemeReviewService{
 
         //리뷰 지우기
         themeReviewRepo.deleteById(themeReviewId);
-
+        themeReviewDocumentRepository.deleteByReviewId(themeReviewId);
         //저장
         themeRepo.save(theme);
 
