@@ -166,7 +166,7 @@ export default function Infoboard() {
 
     return(
         <>
-            <Grid stackableb>
+            <Grid stackable>
                 <Grid.Row>
                     <Grid.Column width={5}>
                         <Header as='h5'>지역</Header>
