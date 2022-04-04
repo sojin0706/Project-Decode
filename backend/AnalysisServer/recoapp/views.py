@@ -28,18 +28,17 @@ def index(request):
     temp_genre = '로맨스'
 
     # cb 코드
-    # themes = theme.find()
+    themes = theme.find()
     # results = cb(temp_genre, themes)
+
+    reviews = review.find()
+    results = cfm2(temp_genre,reviews,themes)
 
     # cf 코드
     # themes = theme.find()
     # reviews = review.find()
     # results = cf(temp_genre, reviews, themes)
 
-    # cfm2 코드
-    themes=theme.find()
-    reviews=review.find()
-    results=cfm2(temp_genre,reviews,themes)
 
     context = {
         'results': results,
