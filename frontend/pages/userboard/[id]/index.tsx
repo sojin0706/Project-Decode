@@ -15,11 +15,12 @@ import userAxios from "../../../src/lib/userAxios";
 
 export default function Userboard_detail() {
     const [userboardDetail,setUserboardDetail]:any = useState([])
-    const [likes, setLikes] = useState(false)
+    // const [likesInfo, setLikesInfo]:any = useState(0)
     const [userInfo, setUserInfo]: any = useState(0)
     const router = useRouter()
     const id = Number(router.query.id)
-    const [isLike, setisLike] = useState(false);
+    // const [like, setLike] = useState(0);
+    // const [disLike, setDisLike] = useState(0);
     const [comments, setComments]:any = useState('')
     const [commentInfo, setCommentInfo]:any = useState([])
 
@@ -31,6 +32,7 @@ export default function Userboard_detail() {
         if (IsLogin()){
             userAxios.get(`/auth/users`)
             .then(({ data }) => {
+                console.log(data.body.user)
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
@@ -131,6 +133,33 @@ export default function Userboard_detail() {
         })
     }
 
+    // 좋아요
+    // useEffect(() => {
+    //     loadlikes(id)
+    // }, [id])
+
+    // const loadlikes = async(id:Number) => {
+    //     await allAxios
+    //         .post(`/article/recommend/${id}`, {
+    //             params: {
+    //                 recommend: like,
+    //             }
+    //         })
+    //         .then(({ data }) => {
+    //             setLikesInfo(data)
+    //             console.log(data)
+    //         })
+    //         .catch((e) => {
+    //             console.log(e)
+    //         })
+    //     }
+    
+
+
+
+
+
+
 return (
     <>
     <Grid stackable>
@@ -173,10 +202,10 @@ return (
                         {/* <dl>
                             <dt>조회수</dt>
                             <dd>219</dd>
-                        </dl>
-                        <dl>
+                        </dl> */}
+                        {/* <dl>
                             <dt>추천수</dt>
-                            <dd>127</dd>
+                            <dd>{likesInfo.recommend}</dd>
                         </dl> */}
                     </div>
                     <div className={styles.board_cont}>
@@ -185,9 +214,9 @@ return (
                     
                 </div>
                 <div className={styles.comment}>
-                    <div className={styles.comment_review}>
+                    {/* <div className={styles.comment_review}>
                         <div className={styles.comment_reco}>
-                        <Button color='orange' inverted animated='fade'>
+                        <Button color='orange' inverted animated='fade' onClick={()=>userboardLikes()}>
                             <Button.Content visible>
                                 <Icon name='thumbs up outline' />
                             </Button.Content>
@@ -206,7 +235,7 @@ return (
                             </Button.Content>
                         </Button>
                         </div>
-                    </div>
+                    </div> */}
                     <br />
                 <div className={styles.bt_wrap}>
                     <div className={styles.on} onClick={() => Router.back()}>목록</div>
@@ -281,7 +310,7 @@ return (
                                     {userInfo.id == comment.userId? 
                                     <Button color='red' inverted animated='fade' onClick={function(){commentDelete(comment.id)}}>
                                         <Button.Content visible>
-                                            <Icon name='trash' key={comment.id} />
+                                            <Icon name='trash alternate outline' key={comment.id} />
                                         </Button.Content>
                                         <Button.Content hidden>
                                             삭제

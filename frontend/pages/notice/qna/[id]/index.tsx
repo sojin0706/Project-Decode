@@ -130,6 +130,19 @@ export default function Qna_detail() {
         })
     }
 
+    // 우회 막기
+    useEffect(() => {
+        if (qnaDetail.isSecret == true){
+            if (userInfo.id != qnaDetail.userId){}
+            else if (userInfo.id != 46441431){}
+            else{
+                router.push("/notice");
+                alert("비밀글입니다")
+            }
+        }
+        else {
+        }
+    })
 
 
 return (
@@ -245,7 +258,7 @@ return (
                                     {userInfo.id == comment.userId? 
                                         <Button color='red' inverted animated='fade' onClick={function(){commentDelete(comment.id)}}>
                                         <Button.Content visible>
-                                            <Icon name='trash' key={comment.id} />
+                                            <Icon name='trash alternate outline' key={comment.id} />
                                         </Button.Content>
                                         <Button.Content hidden>
                                             삭제

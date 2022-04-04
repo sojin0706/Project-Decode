@@ -12,12 +12,12 @@ import userAxios from "../../src/lib/userAxios";
 import Router from "next/router";
 
 
+
 export default function Qnacreate() {
 
     const [title, setTitle] = useState('')
     const [content, setContent] = useState([])
     const [userInfo, setUserInfo]: any = useState([])
-    const [userId, setUserId] = useState(0)
     const [isNotice, setIsNotice] = useState(false)
     const [isSecret, setIsSecret] = useState<boolean>(false)
     const [id, setId] = useState(0)
@@ -84,6 +84,12 @@ export default function Qnacreate() {
         setIsSecret(e.target.checked);
       };
 
+    useEffect(() => {
+        if (!IsLogin()){
+            Router.push("/notice");
+            alert("게시글 작성은 로그인 후 이용가능합니다.")                
+        }
+    })
 
 return (
     <>

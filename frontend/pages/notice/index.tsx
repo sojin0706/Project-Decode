@@ -124,7 +124,7 @@ export default function Notice() {
         } else if(IsLogin()) {
             Router.push(`/notice/create`)
         }else {
-            alert('게시글 작성은 로그인 후 이용가능합니다')
+            alert('게시글 작성은 로그인 후 이용가능합니다.')
             return
         }
     }
