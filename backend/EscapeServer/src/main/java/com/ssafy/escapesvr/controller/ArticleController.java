@@ -79,7 +79,7 @@ public class ArticleController {
 
     //게시글 검색
     @ApiOperation(value = "유저게시판 게시글 검색", notes = "유저게시판 게시글 검색한 리스트를 불러온다", response = Map.class)
-    @PostMapping("/board")
+    @GetMapping("/board")
     public ResponseEntity<Map<String, Object>> postList(@PageableDefault(size=5) @SortDefault.SortDefaults({@SortDefault(sort="createdAt", direction = Sort.Direction.DESC)})Pageable pageable , @RequestParam(required = false) @ApiParam(value = "대분류 지역") String largeRegion , @RequestParam(required = false) @ApiParam(value = "지역 정보(지역소분류 ex)강남)") String smallRegion)  {
 
         Map<String, Object> result = new HashMap<>();
