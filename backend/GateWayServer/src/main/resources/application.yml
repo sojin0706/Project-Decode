@@ -67,3 +67,16 @@ spring:
                 baseMessage: Spring Cloud Gateway Logging filter
                 preLogger: true
                 postLogger: true
+        - id: analysis-server
+            uri: lb://ANALYSIS-SERVER
+            predicates:
+              - Path=/**
+            filters:
+              #            - AddRequestHeader=api-request, api-request-header2
+              #            - AddResponseHeader=api-response, api-response-header2
+              - name: CustomFilter
+              - name: LoggingFilter
+                args:
+                  baseMessage: Spring Cloud Gateway Logging filter
+                  preLogger: true
+                  postLogger: true
