@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Grid, Header, Pagination, Rating, Select, Radio } from 'semantic-ui-react'
 import allAxios from '../../lib/allAxios';
 import Detail from '../modal/detail';
+import styles from '../../../styles/info/infoboard.module.css'
 
 const regionOptions = [
     { key: '전체', value: '전체', text: '전체' },
@@ -165,7 +166,7 @@ export default function Infoboard() {
 
     return(
         <>
-            <Grid stackable>
+            <Grid stackableb>
                 <Grid.Row>
                     <Grid.Column width={5}>
                         <Header as='h5'>지역</Header>
@@ -225,52 +226,52 @@ export default function Infoboard() {
             <Grid celled centered stackable>
                 <Grid.Row>
                 <Grid.Column width={2}>
-                    <Header as='h4'>번호</Header>
+                    <Header as='h4' textAlign='center'>번호</Header>
                 </Grid.Column>
                 <Grid.Column width={2}>
-                    <Header as='h4'>지역</Header>
+                    <Header as='h4' textAlign='center'>지역</Header>
                 </Grid.Column>
                 <Grid.Column width={2}>
-                    <Header as='h4'>장르</Header>
+                    <Header as='h4' textAlign='center'>장르</Header>
                 </Grid.Column>
                 <Grid.Column width={4}>
-                    <Header as='h4'>테마명</Header>
+                    <Header as='h4' textAlign='center'>테마명</Header>
                 </Grid.Column>
                 <Grid.Column width={2}>
-                    <Header as='h4'>인원수</Header>
+                    <Header as='h4' textAlign='center'>인원수</Header>
                 </Grid.Column>
                 <Grid.Column width={2}>
-                    <Header as='h4'>난이도</Header>
+                    <Header as='h4' textAlign='center'>난이도</Header>
                 </Grid.Column>
                 <Grid.Column width={2}>
-                    <Header as='h4'>시간</Header>
+                    <Header as='h4' textAlign='center'>시간</Header>
                 </Grid.Column>
                 </Grid.Row>
                 {themeInfo?themeInfo.map((theme: any, index) => {
                     return (
                         <Grid.Row key={theme.themeId}>
                             <Grid.Column width={2}>
-                                <Header as='h4'>{index+pages*10+1}</Header>
+                                <Header as='h4' textAlign='center' className={styles.arrange}>{index+pages*10+1}</Header>
                             </Grid.Column>
                             <Grid.Column width={2}>
-                                <Header as='h4'>{theme.largeRegion}/{theme.smallRegion}</Header>
+                                <Header as='h4' textAlign='center'>{theme.largeRegion}/{theme.smallRegion}</Header>
                             </Grid.Column>
                             <Grid.Column width={2}>
-                                <Header as='h4'>{theme.genre}</Header>
+                                <Header as='h4' textAlign='center'>{theme.genre}</Header>
                             </Grid.Column>
                             <Grid.Column width={4}>
                                 <Detail themeId={theme.themeId} isImage={false} w={150} h={200}/>
                             </Grid.Column>
                             <Grid.Column width={2}>
-                                <Header as='h4'>{theme.maxNumber}명</Header>
+                                <Header as='h4' textAlign='center'>{theme.maxNumber}명</Header>
                             </Grid.Column>
                             <Grid.Column width={2}>
-                                <Header as='h4'>{theme.level>4
+                                <Header as='h4' textAlign='center'>{theme.level>5
                                 ?<Rating icon='star' rating={1} maxRating={1} size={'huge'} disabled/>
                                 :<Rating rating={theme.level} maxRating={theme.level} size={'mini'} disabled/>}</Header>
                             </Grid.Column>
                             <Grid.Column width={2}>
-                                <Header as='h4'>{theme.time}분</Header>
+                                <Header as='h4' textAlign='center'>{theme.time}분</Header>
                             </Grid.Column>
                         </Grid.Row>
                     );

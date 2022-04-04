@@ -134,9 +134,10 @@ export default function Reviewboard({ themeIds }: any){
     return(
         <>
             <Grid centered stackable>
+                {totalPages?
                 <Grid.Row>
-                    <Grid.Column width={1}>
-                        <Header as='h5'>번호</Header>
+                    <Grid.Column width={2}>
+                        <Header as='h5' textAlign="center">번호</Header>
                     </Grid.Column>
                     <Grid.Column width={2}>
                         <Header as='h5'>닉네임</Header>
@@ -150,15 +151,16 @@ export default function Reviewboard({ themeIds }: any){
                     <Grid.Column width={2}>
                         <Header as='h5'>클리어시간</Header>
                     </Grid.Column>
-                    <Grid.Column width={7}>
+                    <Grid.Column width={6}>
                         <Header as='h5'>후기</Header>
                     </Grid.Column>
                 </Grid.Row>
+                :<Header as='h4'>첫번째 리뷰를 남겨주세요!</Header>}
                 {reviewInfo?reviewInfo.map((review: any, index) => {
                     return(
                         <Grid.Row key={review.themeReviewId}>
-                            <Grid.Column width={1}>
-                                <Header as='h5'>{index+pages*5+1}</Header>
+                            <Grid.Column width={2}>
+                                <Header as='h5' textAlign="center">{index+pages*5+1}</Header>
                             </Grid.Column>
                             <Grid.Column width={2}>
                                 <Header as='h5'>{review.userNickName}</Header>
@@ -172,7 +174,7 @@ export default function Reviewboard({ themeIds }: any){
                             <Grid.Column width={2}>
                                 <Header as='h5'>{review.clearTime}분</Header>
                             </Grid.Column>
-                            <Grid.Column width={6}>
+                            <Grid.Column width={5}>
                                 <Header as='h5'>{review.reviewContent}</Header>
                             </Grid.Column>
                             <Grid.Column width={1}>
@@ -187,8 +189,8 @@ export default function Reviewboard({ themeIds }: any){
                 {userInfo.nick_name?
                 <Grid.Row>
                     <Grid.Column width={2}>
-                        <Header as='h5'>닉네임</Header>
-                        <p>{userInfo.nick_name}</p>
+                        <Header as='h5' textAlign="center">닉네임</Header>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{userInfo.nick_name}</p>
                     </Grid.Column>
                     <Grid.Column width={2}>
                         <Header as='h5'>별점</Header>
@@ -200,10 +202,10 @@ export default function Reviewboard({ themeIds }: any){
                     </Grid.Column>
                     <Grid.Column width={7}>
                         <Header as='h5'>후기</Header>
-                        <textarea className='reviewinput' cols={50} rows={5} maxLength={200} onChange={changeReview}></textarea>
+                        <textarea className='reviewinput' cols={50} rows={3} maxLength={200} onChange={changeReview}></textarea>
                     </Grid.Column>
                     <Grid.Column width={3}>
-                        <br />
+                        <br /><br />
                         <Button 
                             content='리뷰작성'
                             color='blue'

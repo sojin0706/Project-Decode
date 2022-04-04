@@ -39,7 +39,7 @@ export default function Detail({themeId, isImage, w, h}: any){
                 trigger={isImage?
                     <button style={{ backgroundColor: "white", border: "white", cursor: "pointer"}}><img src={themeDetail.posterUrl} alt="url" width={w} height={h} /></button>
                 :
-                    <Button>{themeDetail.themeName}</Button>
+                    <Button style={{  margin: 'auto', display: 'block' }}>{themeDetail.themeName}</Button>
                 }
                 >
                 <Modal.Content image>
