@@ -116,9 +116,11 @@ public class ArticleServiceImpl implements ArticleService{
 
     //게시글 검색
     @Override
-    public List<ArticleResponseDto> postList(String largeRegion, String smallRegion) {
-        List<Article> articleList = articleRepository.findPageDynamicQuery(largeRegion, smallRegion);
-        return articleList.stream().map(ArticleResponseDto::new).collect(Collectors.toList());
+    public Page<ArticleResponseDto> postList(String largeRegion, String smallRegion , Pageable pageable) {
+        Page<Article> list = articleRepository.findPageDynamicQuery(largeRegion, smallRegion, pageable);
+
+        Page<ArticleResponseDto> articleList = list.map(o-> new ArticleResponseDto(o.getId(),o.getTitle(), o.getContent(), o.getLargeRegion(), o.getSmallRegion(), o.getRecommend(), o.getReport(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getNickName(), o.getUserImage()));
+        return articleList;
     }
 
     //게시글 수정
