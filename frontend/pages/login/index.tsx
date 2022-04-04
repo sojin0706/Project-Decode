@@ -5,8 +5,9 @@ import userAxios from "../../src/lib/userAxios";
 import recoAxios from "../../src/lib/recoAxios";
 import { Segment } from "semantic-ui-react";
 // components
-import Router, { useRouter } from "next/router";
-
+import { useRouter } from "next/router";
+// css
+import style from "../../styles/login/login.module.css";
 export default function Index() {
   // 유저 정보 불러오기
   const [userInfo, setUserInfo]: any = useState([]);
@@ -154,61 +155,90 @@ export default function Index() {
     setDrama(Number(e.target.value));
   };
 
-  const [scorearr, setScorearr] = useState([scoreThrill,scoreRomance,scoreReasoning,scoreSffantasy,scoreAdventure,scoreComedy,scoreCrime,scoreHorror,scoreAdult,scoreDrama])
+  const [scorearr, setScorearr] = useState([
+    scoreThrill,
+    scoreRomance,
+    scoreReasoning,
+    scoreSffantasy,
+    scoreAdventure,
+    scoreComedy,
+    scoreCrime,
+    scoreHorror,
+    scoreAdult,
+    scoreDrama,
+  ]);
   useEffect(() => {
-    setScorearr([scoreThrill,scoreRomance,scoreReasoning,scoreSffantasy,scoreAdventure,scoreComedy,scoreCrime,scoreHorror,scoreAdult,scoreDrama])
+    setScorearr([
+      scoreThrill,
+      scoreRomance,
+      scoreReasoning,
+      scoreSffantasy,
+      scoreAdventure,
+      scoreComedy,
+      scoreCrime,
+      scoreHorror,
+      scoreAdult,
+      scoreDrama,
+    ]);
+  }, [
+    scoreThrill,
+    scoreRomance,
+    scoreReasoning,
+    scoreSffantasy,
+    scoreAdventure,
+    scoreComedy,
+    scoreCrime,
+    scoreHorror,
+    scoreAdult,
+    scoreDrama,
+  ]);
 
-  }, [scoreThrill,scoreRomance,scoreReasoning,scoreSffantasy,scoreAdventure,scoreComedy,scoreCrime,scoreHorror,scoreAdult,scoreDrama])
-  
-  const [genreIdx, setGenreIdx] = useState(1)
+  const [genreIdx, setGenreIdx] = useState(1);
 
   useEffect(() => {
     const maxScore = Math.max.apply(null, scorearr);
-    setGenreIdx(scorearr.indexOf(Number(maxScore)))
-  },[scorearr])
-  
-  const cb = async() => {
-    await recoAxios
-        .get(`/cb/${userInfo.id}/${genre[genreIdx].text}/`)
-        .then((data) => {
-            console.log('success')
-            console.log(data)
-        })
-        .catch((e) => {
-            console.log('fail')
-            console.log(e)
-        })
-}
+    setGenreIdx(scorearr.indexOf(Number(maxScore)));
+  }, [scorearr]);
 
-const cf1 = async() => {
-  await recoAxios
+  const cb = async () => {
+    await recoAxios
+      .get(`/cb/${userInfo.id}/${genre[genreIdx].text}/`)
+      .then((data) => {
+        console.log("success");
+        console.log(data);
+      })
+      .catch((e) => {
+        console.log("fail");
+        console.log(e);
+      });
+  };
+
+  const cf1 = async () => {
+    await recoAxios
       .get(`/cf/${userInfo.id}/${genre[genreIdx].text}/`)
       .then((data) => {
-          console.log('success')
-          console.log(data)
+        console.log("success");
+        console.log(data);
       })
       .catch((e) => {
-          console.log('fail')
-          console.log(e)
-      })
-}
+        console.log("fail");
+        console.log(e);
+      });
+  };
 
-const cf2 = async() => {
-  console.log(genre[genreIdx].text)
-  await recoAxios
+  const cf2 = async () => {
+    console.log(genre[genreIdx].text);
+    await recoAxios
       .get(`/cf/${userInfo.id}/${genre[genreIdx].text}/${gender}/${age}/`)
       .then((data) => {
-          console.log('success')
-          console.log(data)
+        console.log("success");
+        console.log(data);
       })
       .catch((e) => {
-          console.log('fail')
-          console.log(e)
-      })
-}
-
-
-
+        console.log("fail");
+        console.log(e);
+      });
+  };
 
   // 정보수정
   const router = useRouter();
@@ -285,12 +315,12 @@ const cf2 = async() => {
           getUserInfo();
         })
         .then(() => {
-          cb()
-          cf2()
-          cf1()
+          cb();
+          cf2();
+          cf1();
         })
         .then(() => {
-          router.push("/")
+          router.push("/");
         })
         .catch((err) => {
           console.log(err);
@@ -300,32 +330,21 @@ const cf2 = async() => {
 
   return (
     <>
-      {/* 확인용 !!!! */}
-      {/* <h1>ID : {userInfo.id}</h1>
-      <h1>이름 : {userInfo.name}</h1>
-      <h1>닉네임: {nick}</h1>
-      <h1>성별: {gender}</h1>
-      <h1>연령대: {age}</h1>
-      <h1>대분류: {selectedBigPlace}</h1>
-      <h1>소분류: {selectedSmallPlace}</h1>
-      <h1>스릴러: {scoreThrill}</h1>
-      <h1>로맨스: {scoreRomance}</h1>
-      <h1>추리: {scoreThrill}</h1>
-      <h1>SF/Fantasy: {scoreSffantasy}</h1>
-      <h1>모험/액션: {scoreAdventure}</h1>
-      <h1>코미디: {scoreComedy}</h1>
-      <h1>범죄: {scoreCrime}</h1>
-      <h1>공포: {scoreHorror}</h1>
-      <h1>19금: {scoreAdult}</h1>
-      <h1>감성/드라마: {scoreDrama}</h1> */}
       <Grid>
         <Grid.Row>
           <Grid.Column width={6}></Grid.Column>
           <Grid.Column width={4}>
             <Form>
+              <br></br>
+              <div className={style.middleText}>
+                <h1>추가 정보를 입력해주세요!</h1>
+                <h2>필수사항입니다!</h2>
+              </div>
+              <br></br>
+              <br></br>
               <Form.Group inline>
                 <Form.Field>
-                  <label>닉네임</label>
+                  <span className={style.formLabel}>닉네임</span>
                   <Input
                     placeholder={userInfo.name}
                     onChange={(e) => {
@@ -334,9 +353,12 @@ const cf2 = async() => {
                   />
                 </Form.Field>
               </Form.Group>
+              <br></br>
 
               <div>
-                <label>성별</label>
+                <label className={`${style.formLabel} ${style.gender_Margin}`}>
+                  성별
+                </label>
                 <span> 남 </span>
                 <input
                   id={"a"}
@@ -358,173 +380,257 @@ const cf2 = async() => {
               </div>
 
               <br></br>
-
-              <div>
-                <p>연령대 {age}</p>
-                <select
-                  onChange={(e) => {
-                    handleChangeAges(e);
-                  }}
-                >
-                  {ages.map((a, i) => {
-                    return (
-                      <option value={a.value} key={i}>
-                        {a.text}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-              <br></br>
-              <div>
-                <p>대분류 지역을 선택하세요</p>
-                <select onChange={(e) => handleChangeBig(e)}>
-                  {bigPlace.map((p, i) => {
-                    return (
-                      <option value={p.value} key={p.key}>
-                        {p.text}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
               <br></br>
 
-              <div>
-                <p>소분류 지역을 선택하세요</p>
-                <select onChange={(e) => handleChangeSmall(e)}>
-                  {/* <select onChange={(e) => handleChangeBig(e)}> */}
-                  {smallPlace.map((p, i) => {
-                    return (
-                      <option value={p} key={i}>
-                        {p}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
+              <Grid>
+                <Grid.Row>
+                  <Grid.Column width={3}>
+                    <p className={style.formLabel}>연령대</p>
+                  </Grid.Column>
+                  <Grid.Column width={5}>
+                    <select
+                      onChange={(e) => {
+                        handleChangeAges(e);
+                      }}
+                    >
+                      {ages.map((a, i) => {
+                        return (
+                          <option value={a.value} key={i}>
+                            {a.text}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </Grid.Column>
+                  <Grid.Column width={8}></Grid.Column>
+                </Grid.Row>
+              </Grid>
+              <Grid>
+                <Grid.Row>
+                  <Grid.Column width={8}>
+                    <h3>대분류 지역을 선택하세요</h3>
+                  </Grid.Column>
+                  <Grid.Column width={8}>
+                    <h3>소분류 지역을 선택하세요</h3>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column width={8}>
+                    <div className={style.formWidth}>
+                      <select onChange={(e) => handleChangeBig(e)}>
+                        {bigPlace.map((p, i) => {
+                          return (
+                            <option value={p.value} key={p.key}>
+                              {p.text}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                  </Grid.Column>
+                  <Grid.Column width={8}>
+                    <div className={style.formWidth}>
+                      <select onChange={(e) => handleChangeSmall(e)}>
+                        {smallPlace.map((p, i) => {
+                          return (
+                            <option value={p} key={i}>
+                              {p}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+              <br></br>
               <br></br>
               <div>
                 <h2>장르 선호도를 선택해주세요</h2>
+                <br></br>
+                <Grid>
+                  <Grid.Row>
+                    <Grid.Column width={3}>
+                      <p className={style.formLabel}>스릴러 </p>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                      <div className={style.formWidth}>
+                        <select onChange={(e) => handleChangeThrill(e)}>
+                          {score.map((s, i) => {
+                            return (
+                              <option value={s.value} key={i}>
+                                {s.text}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </Grid.Column>
+                    <Grid.Column width={1}></Grid.Column>
+                    <Grid.Column width={3}>
+                      <p className={style.formLabel}>로맨스</p>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                      <div className={style.formWidth}>
+                        <select onChange={(e) => handleChangeRomance(e)}>
+                          {score.map((s, i) => {
+                            return (
+                              <option value={s.value} key={i}>
+                                {s.text}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </Grid.Column>
+                    <Grid.Column width={1}></Grid.Column>
+                  </Grid.Row>
 
-                <p>스릴러 {scoreThrill}</p>
-                <select onChange={(e) => handleChangeThrill(e)}>
-                  {score.map((s, i) => {
-                    return (
-                      <option value={s.value} key={i}>
-                        {s.text}
-                      </option>
-                    );
-                  })}
-                </select>
-                <br></br>
-                <br></br>
-                <p>로맨스 {scoreRomance}</p>
-                <select onChange={(e) => handleChangeRomance(e)}>
-                  {score.map((s, i) => {
-                    return (
-                      <option value={s.value} key={i}>
-                        {s.text}
-                      </option>
-                    );
-                  })}
-                </select>
-                <br></br>
-                <br></br>
-                <p>추리 {scoreReasoning}</p>
-                <select onChange={(e) => handleChangeReasoning(e)}>
-                  {score.map((s, i) => {
-                    return (
-                      <option value={s.value} key={i}>
-                        {s.text}
-                      </option>
-                    );
-                  })}
-                </select>
-                <br></br>
-                <br></br>
-                <p>SF/판타지 {scoreSffantasy}</p>
-                <select onChange={(e) => handleChangeSffantasy(e)}>
-                  {score.map((s, i) => {
-                    return (
-                      <option value={s.value} key={i}>
-                        {s.text}
-                      </option>
-                    );
-                  })}
-                </select>
-                <br></br>
-                <br></br>
-                <p>모험/액션 {scoreAdventure}</p>
-                <select onChange={(e) => handleChangeAdventure(e)}>
-                  {score.map((s, i) => {
-                    return (
-                      <option value={s.value} key={i}>
-                        {s.text}
-                      </option>
-                    );
-                  })}
-                </select>
-                <br></br>
-                <br></br>
-                <p>코미디 {scoreComedy}</p>
-                <select onChange={(e) => handleChangeComedy(e)}>
-                  {score.map((s, i) => {
-                    return (
-                      <option value={s.value} key={i}>
-                        {s.text}
-                      </option>
-                    );
-                  })}
-                </select>
-                <br></br>
-                <br></br>
-                <p>범죄 {scoreCrime}</p>
-                <select onChange={(e) => handleChangeCrime(e)}>
-                  {score.map((s, i) => {
-                    return (
-                      <option value={s.value} key={i}>
-                        {s.text}
-                      </option>
-                    );
-                  })}
-                </select>
-                <br></br>
-                <br></br>
-                <p>공포 {scoreHorror}</p>
-                <select onChange={(e) => handleChangeHorror(e)}>
-                  {score.map((s, i) => {
-                    return (
-                      <option value={s.value} key={i}>
-                        {s.text}
-                      </option>
-                    );
-                  })}
-                </select>
-                <br></br>
-                <br></br>
-                <p>19금 {scoreAdult}</p>
-                <select onChange={(e) => handleChangeAdult(e)}>
-                  {score.map((s, i) => {
-                    return (
-                      <option value={s.value} key={i}>
-                        {s.text}
-                      </option>
-                    );
-                  })}
-                </select>
-                <br></br>
-                <br></br>
-                <p>감성/드라마 {scoreDrama}</p>
-                <select onChange={(e) => handleChangeDrama(e)}>
-                  {score.map((s, i) => {
-                    return (
-                      <option value={s.value} key={i}>
-                        {s.text}
-                      </option>
-                    );
-                  })}
-                </select>
+                  <Grid.Row>
+                    <Grid.Column width={3}>
+                      <p className={style.formLabel}>추리</p>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                      <div className={style.formWidth}>
+                        <select onChange={(e) => handleChangeReasoning(e)}>
+                          {score.map((s, i) => {
+                            return (
+                              <option value={s.value} key={i}>
+                                {s.text}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </Grid.Column>
+                    <Grid.Column width={1}></Grid.Column>
+                    <Grid.Column width={3}>
+                      <p className={style.formLabel}>SF/판타지</p>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                      <div className={style.formWidth}>
+                        <select onChange={(e) => handleChangeSffantasy(e)}>
+                          {score.map((s, i) => {
+                            return (
+                              <option value={s.value} key={i}>
+                                {s.text}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </Grid.Column>
+                    <Grid.Column width={1}></Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column width={3}>
+                      <p className={style.formLabel}>모험/액션</p>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                      <div className={style.formWidth}>
+                        <select onChange={(e) => handleChangeAdventure(e)}>
+                          {score.map((s, i) => {
+                            return (
+                              <option value={s.value} key={i}>
+                                {s.text}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </Grid.Column>
+                    <Grid.Column width={1}></Grid.Column>
+                    <Grid.Column width={3}>
+                      <p className={style.formLabel}>코미디</p>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                      <div className={style.formWidth}>
+                        <select onChange={(e) => handleChangeComedy(e)}>
+                          {score.map((s, i) => {
+                            return (
+                              <option value={s.value} key={i}>
+                                {s.text}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </Grid.Column>
+                    <Grid.Column width={1}></Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column width={3}>
+                      <p className={style.formLabel}>범죄</p>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                      <div className={style.formWidth}>
+                        <select onChange={(e) => handleChangeCrime(e)}>
+                          {score.map((s, i) => {
+                            return (
+                              <option value={s.value} key={i}>
+                                {s.text}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </Grid.Column>
+                    <Grid.Column width={1}></Grid.Column>
+                    <Grid.Column width={3}>
+                      <p className={style.formLabel}>공포</p>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                      <div className={style.formWidth}>
+                        <select onChange={(e) => handleChangeHorror(e)}>
+                          {score.map((s, i) => {
+                            return (
+                              <option value={s.value} key={i}>
+                                {s.text}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </Grid.Column>
+                    <Grid.Column width={1}></Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column width={3}>
+                      <p className={style.formLabel}>19금</p>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                      <div className={style.formWidth}>
+                        <select onChange={(e) => handleChangeAdult(e)}>
+                          {score.map((s, i) => {
+                            return (
+                              <option value={s.value} key={i}>
+                                {s.text}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </Grid.Column>
+                    <Grid.Column width={1}></Grid.Column>
+                    <Grid.Column width={3}>
+                      <p className={style.formLabel}>감성/드라마</p>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                      <div className={style.formWidth}>
+                        <select onChange={(e) => handleChangeDrama(e)}>
+                          {score.map((s, i) => {
+                            return (
+                              <option value={s.value} key={i}>
+                                {s.text}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </Grid.Column>
+                    <Grid.Column width={1}></Grid.Column>
+                  </Grid.Row>
+                </Grid>
               </div>
 
               <br></br>
