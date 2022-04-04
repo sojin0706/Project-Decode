@@ -11,7 +11,7 @@ import IsLogin from "../../../../src/lib/customLogin";
 import userAxios from "../../../../src/lib/userAxios";
 import Router, { useRouter } from "next/router";
 import styles from "../../../../styles/notice/detail.module.css";
-import Notice from "../..";
+
 
 export default function Qna_detail() {
     const [userInfo, setUserInfo]: any = useState([])
@@ -193,7 +193,7 @@ return (
                     <div className={styles.on} onClick={() => Router.back()}>목록</div>
                     {userInfo.id == qnaDetail.userId &&(
                     <>
-                        <div className={styles.editbutton} onClick={() => router.push(`/notice/editQna/${id}`)}> 수정</div>
+                        <div className={styles.editbutton} onClick={() => router.push(`/notice/edit/${id}`)}> 수정</div>
                         <div className={styles.deletebutton} onClick={deleteqna}> 삭제</div>
                     </>
                     )}

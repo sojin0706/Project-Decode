@@ -211,7 +211,7 @@ export default function Userboard() {
                                 </div>
                                 {userboard ? userboard.map((board: any) => {
                                     return (
-                                        <div className={styles.boardListContent}>
+                                        <div className={styles.boardListContent} key={board.id}>
                                             <div className={styles.num}>{board.id}</div>
                                             <div className={styles.type}>{board.largeRegion}/{board.smallRegion}</div>
                                             <div className={styles.title} onClick={() => Router.push(`/userboard/${board.id}`)}>{board.title}</div>

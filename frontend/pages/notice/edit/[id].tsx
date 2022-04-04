@@ -4,12 +4,13 @@ import {
     Checkbox,
   } from "semantic-ui-react";
 import React from 'react'
-import styles from "../../styles/notice/create.module.css";
+import styles from "../../../styles/notice/create.module.css";
 import allAxios from "../../../src/lib/allAxios";
 import { useEffect, useState } from 'react';
 import IsLogin from "../../../src/lib/customLogin";
 import userAxios from "../../../src/lib/userAxios";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
+
 
 
 export default function Qnaedit() {
@@ -17,11 +18,11 @@ export default function Qnaedit() {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState([])
     const [userInfo, setUserInfo]: any = useState([])
-    const [userId, setUserId] = useState(0)
     const [isNotice, setIsNotice] = useState(false)
     const [isSecret, setIsSecret] = useState<boolean>(false)
-    const id = Number(Router.query.id)
     const [qnaDetail,setQnaDetail]:any = useState([])
+    const router = useRouter()
+    const id = Number(router.query.id)
 
     // 유저
     useEffect(() => {
@@ -32,6 +33,7 @@ export default function Qnaedit() {
         if (IsLogin()){
             userAxios.get(`/auth/users`)
             .then(({ data }) => {
+                console.log(data.body.user)
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
@@ -58,6 +60,7 @@ export default function Qnaedit() {
             })
     }
 
+
     // 글 수정
     const qnaSubmit = async() => {
         if (title.length == 0){
@@ -78,7 +81,7 @@ export default function Qnaedit() {
                 isSecret: isSecret,
                 nickName: userInfo.nick_name,
             }
-    await allAxios.post('/qna', body)
+    await allAxios.put('/qna', body)
 
     .then(() => {
         alert("Q&A가 작성되었습니다.")
@@ -90,8 +93,9 @@ export default function Qnaedit() {
     }
     }
 
-    function qnaTitleWrite(e: any){
-        setTitle(e.target.value)
+    const qnaTitleWrite = (e: any) => {
+        const {value, name} = e.target;
+
     }
     function qnaContentWrite(e: any){
         setContent(e.target.value)
@@ -103,7 +107,7 @@ export default function Qnaedit() {
       };
 
       useEffect(() => {
-        if (!IsLogin() && userInfo.id != qnaDetail.userId){
+        if (userInfo.id != qnaDetail.userId){
             Router.push("/notice");
             alert("게시글 수정은 로그인 후 작성한 본인만 이용가능합니다.")                
         }
@@ -130,7 +134,7 @@ return (
                     <div className={styles.title}>
                         <dl>
                             <dt>제목</dt>
-                            <dd><input value={title} type="text" placeholder="제목 입력" onChange={qnaTitleWrite}/></dd>
+                            <dd><input name="title" value={qnaDetail.title} type="text" placeholder="제목 입력" onChange={qnaTitleWrite}/></dd>
                         </dl>
                     </div>
                     <div className={styles.info}>
@@ -148,7 +152,7 @@ return (
                         </dl>
                     </div>
                     <div className={styles.cont}>
-                        <textarea value={content} placeholder="내용 입력" onChange={qnaContentWrite}></textarea>
+                        <textarea name="content" value={qnaDetail.content} placeholder="내용 입력" onChange={qnaContentWrite}></textarea>
                     </div>
 
                 </div>

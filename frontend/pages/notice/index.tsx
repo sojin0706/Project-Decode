@@ -173,7 +173,7 @@ return (
 
                 {notice? notice.map((board:any) => {
                     return(
-                        <div className={styles.top_notice}>
+                        <div className={styles.top_notice} key={board.id}>
                         <div className={styles.type}>공지</div>
                         <div className={styles.num}>{board.id}</div>
                         <div className={styles.title} onClick={() => Router.push(`/notice/notice/${board.id}`)}>{board.title}</div>
@@ -185,7 +185,7 @@ return (
 
                 {qna ? qna.map((board:any) => {
                 return (
-                    <div className={styles.qna_notice}>
+                <div className={styles.qna_notice} key={board.id}>
                     <div className={styles.type}>Q&A</div>
                     <div className={styles.num}>{board.id}</div>
                     {board.isSecret == true && (userInfo.id ==  46441431 || userInfo.id ==board.userId)? 

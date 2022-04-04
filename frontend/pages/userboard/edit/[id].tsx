@@ -8,7 +8,7 @@ import allAxios from "../../../src/lib/allAxios";
 import { useEffect, useState } from 'react';
 import IsLogin from "../../../src/lib/customLogin";
 import userAxios from "../../../src/lib/userAxios";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 
 
 
@@ -23,7 +23,7 @@ const regionOptions = [
     { key: '제주', value: '제주', text: '제주' },
 ]
 
-export default function Userboard_edit({ id }: any) {
+export default function Userboard_edit() {
 
     // const [title, setTitle] = useState('')
     // const [content, setContent] = useState([])
@@ -39,8 +39,9 @@ export default function Userboard_edit({ id }: any) {
         content: '',
         userId: 0,
         nickName: '',
-        id: 0,
     });
+    const router = useRouter()
+    const id = Number(router.query.id)
 
 
     // 지역 선택    
@@ -103,25 +104,33 @@ export default function Userboard_edit({ id }: any) {
             });
           }        
         }
-    
+
     // 게시글 정보
     useEffect(() => {
-        allAxios.get(`/article/${id}`).then(({ data }) => {
-            setUserboardDetail({
-                title: data.article.title,
-                content: data.article.content,
-                largeRegion: data.article.region,
-                smallRegion: data.article.smallRegion,
-                userId: data.article.userId,
-                nickName: data.article.nickName,
-                id : data.article.id,
-            })
-        })
-        .catch((e) => {
-            console.log(e)
-        })
+        loaduserboardDetail(id)
+    }, [id])
 
-    }, [])
+    const loaduserboardDetail = async(id:Number) => {
+        await allAxios
+            .get(`/article/${id}`)
+            .then(({ data }) => {
+                console.log(data.article)
+                setUserboardDetail(data.article)
+                // setUserboardDetail({
+                //     title: data.article.title,
+                //     content: data.article.content,
+                //     largeRegion: data.article.region,
+                //     smallRegion: data.article.smallRegion,
+                //     userId: data.article.userId,
+                //     nickName: data.article.nickName,
+                //     id : data.article.id,
+                // })
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
 
     // 글 수정
     const userboardSubmit = async() => {
