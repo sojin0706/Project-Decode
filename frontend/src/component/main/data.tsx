@@ -12,6 +12,13 @@ export default function Data() {
       setStoreCnt(data.count[1]);
     });
   }, []);
+
+  const [userCnt, setUserCnt] = useState(0)
+  useEffect(() => {
+    axios.get(`http://j6c203.p.ssafy.io:8081/user/userCount`).then(({ data }) => {
+      setUserCnt(data.userCount)
+    });
+  }, []);
   return (
     <>
       <Statistic.Group>
@@ -24,7 +31,7 @@ export default function Data() {
           <Statistic.Label>지점 데이터</Statistic.Label>
         </Statistic>
         <Statistic color="olive">
-          <Statistic.Value>10000</Statistic.Value>
+          <Statistic.Value>{userCnt}</Statistic.Value>
           <Statistic.Label>유저 데이터</Statistic.Label>
         </Statistic>
       </Statistic.Group>

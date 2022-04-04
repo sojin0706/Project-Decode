@@ -3,6 +3,7 @@ import axios from "axios";
 import { Form, Input, Grid, Button } from "semantic-ui-react";
 import userAxios from "../../src/lib/userAxios";
 import recoAxios from "../../src/lib/recoAxios";
+import { Segment } from "semantic-ui-react";
 // components
 import Router, { useRouter } from "next/router";
 

@@ -1,8 +1,6 @@
-import type { NextPage } from "next";
 import { Grid, GridColumn, Image } from "semantic-ui-react";
 import IsLogin from "../src/lib/customLogin";
 import { useState, useEffect } from "react";
-import recoAxios from "../src/lib/recoAxios";
 import getrecoAxios from "../src/lib/getrecoAxios";
 // Component
 import Data from "../src/component/main/data";
