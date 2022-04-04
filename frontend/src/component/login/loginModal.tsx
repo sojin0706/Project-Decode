@@ -15,7 +15,7 @@ export default function LoginModal() {
               src="/images/login_naver.png"
               width="300px"
               // href="http://j6c203.p.ssafy.io:8081/oauth2/authorization/naver?redirect_uri=http://localhost:3000/oauth/redirect"
-              href="http://j6c203.p.ssafy.io:8081/oauth2/authorization/naver?redirect_uri=https://j6c203.p.ssafy.io/oauth/redirect"
+              href="http://j6c203.p.ssafy.io:8081/oauth2/authorization/naver?redirect_uri=http://j6c203.p.ssafy.io:3000/oauth/redirect"
               alt="네이버로그인"
               className="btn"
             />
@@ -24,7 +24,7 @@ export default function LoginModal() {
               src="/images/login_kakao.png"
               width="300px"
               // href="http://j6c203.p.ssafy.io:8081/oauth2/authorization/kakao?redirect_uri=http://localhost:3000/oauth/redirect"
-              href="http://j6c203.p.ssafy.io:8081/oauth2/authorization/kakao?redirect_uri=https://j6c203.p.ssafy.io/oauth/redirect"
+              href="http://j6c203.p.ssafy.io:8081/oauth2/authorization/kakao?redirect_uri=http://j6c203.p.ssafy.io:3000/oauth/redirect"
               alt="카카오로그인"
               className="btn"
             />
@@ -33,7 +33,7 @@ export default function LoginModal() {
               src="/images/login_google.png"
               width="300px"
               // href="http://j6c203.p.ssafy.io:8081/oauth2/authorization/google?redirect_uri=http://localhost:3000/oauth/redirect"
-              href="http://j6c203.p.ssafy.io:8081/oauth2/authorization/google?redirect_uri=https://j6c203.p.ssafy.io/oauth/redirect"
+              href="http://j6c203.p.ssafy.io:8081/oauth2/authorization/google?redirect_uri=http://j6c203.p.ssafy.io:3000/oauth/redirect"
               alt="구글로그인"
               className="btn"
             />
