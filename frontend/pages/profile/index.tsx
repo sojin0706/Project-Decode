@@ -65,32 +65,7 @@ export default function Index() {
         </Grid>
       </>
     );
-    <Grid.Column width={12}>
-      <Grid centered columns={3}>
-        <Grid.Column width={5}>
-          <Image src={userInfo.image} alt="profileImage"></Image>
-        </Grid.Column>
 
-        <Grid.Column width={3}>
-          <br></br>
-          <UserInfo />
-        </Grid.Column>
-
-        <Grid.Column width={8}>
-          <ClearList></ClearList>
-          <Board></Board>
-        </Grid.Column>
-      </Grid>
-
-      <Grid centered columns={4}>
-        <Grid.Column width={8}>
-          <Graph></Graph>
-        </Grid.Column>
-        <Grid.Column width={8}></Grid.Column>
-      </Grid>
-
-      <ClearList />
-    </Grid.Column>;
   } else {
     return <></>;
   }
