@@ -14,8 +14,8 @@ def svd(id, reviews, themes):
     user_theme_rating = pd.merge(reviews, theme, on='themeId')
 
     # 테이블 생성 및 빈칸 0으로 채우기 - 유저 기준으로
-    theme_user_rating = user_theme_rating.pivot(
-        index='userId', columns='themeId', values='rating')
+    theme_user_rating = user_theme_rating.pivot_table(
+        'rating', index='userId', columns='themeId')
     theme_user_rating = theme_user_rating.fillna(0)
 
     # 매트릭스로 변환
