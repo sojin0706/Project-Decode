@@ -1,11 +1,11 @@
 import {
     Pagination,
     Grid,
-    Dropdown,
-    Input,
-    Icon,
     Header,
     Select,
+    Input,
+    Icon,
+    Dropdown,
 } from "semantic-ui-react";
 import { useEffect, useState } from "react";
 import React from 'react'
@@ -36,7 +36,6 @@ export default function Userboard() {
 
     // 지역선택
     const [region, setRegion] = useState(null)
-    const [smallRegionselect, setSmallRegionselect] = useState(null)
     const [smallRegionOptions, setSmallRegionOptions] = useState([{ key: '전체', value: '전체', text: '전체' }])
 
     // 게시글 정보
@@ -47,7 +46,7 @@ export default function Userboard() {
     const [id, setId] = useState(0)
     const [createdAt, setCreatedAt] = useState([])
     const [nickName, setNickName] = useState('')
-    const [smallRegion, setSmallRegion] = useState('')
+    const [smallRegion, setSmallRegion] = useState(null)
 
     //지역 선택
     useEffect(() => {
@@ -55,7 +54,8 @@ export default function Userboard() {
     }, [])
 
     function selectedRegion(e: any) {
-        setSmallRegionselect(null)
+        setPages(0)
+        setSmallRegion(null)
         if (e.target.textContent === '전체') {
             loadSmallRegion(null)
             setRegion(null)
@@ -66,7 +66,8 @@ export default function Userboard() {
     }
 
     function selectedSmallRegion(e: any) {
-        setSmallRegionselect(e.target.textContent)
+        setPages(0)
+        setSmallRegion(e.target.textContent)
     }
 
     const loadSmallRegion = async (region: any) => {
@@ -90,15 +91,16 @@ export default function Userboard() {
     // 게시글 정보 
     useEffect(() => {
         loadUserboard(pages)
-    }, [pages, id, title, createdAt, nickName, smallRegion])
+    }, [pages, id, title, createdAt, nickName, smallRegion, region])
 
 
     const loadUserboard = async (pages: Number) => {
         await allAxios
-            .get(`/article`, {
+            .get(`/article/board`, {
                 params: {
                     title: title,
                     id: id,
+                    largeRegion: region,
                     smallRegion: smallRegion,
                     nickName: nickName,
                     createdAt: createdAt,
@@ -133,15 +135,21 @@ export default function Userboard() {
         }
     }
 
+
+
     // 글 작성 버튼 연결
     const goUserWrite = async () => {
         if (IsLogin()) {
             Router.push(`/userboard/create`)
         } else {
-            alert('게시글 작성은 로그인 후 이용가능합니다')
+            alert('게시글 작성은 로그인 후 이용가능합니다.')
             return
         }
     }
+
+
+
+
 
 
     return (
@@ -152,8 +160,8 @@ export default function Userboard() {
                     <div className={styles.board_wrap}>
 
                         <div className={styles.userboardtop}>
-                            <Grid stackable>
-                                <Grid.Column width={10}>
+                            <Grid >
+                                <Grid.Column width={13}>
                                     <div className={styles.board_title}>
                                         <strong>유저게시판</strong>
                                         <div>
@@ -173,8 +181,8 @@ export default function Userboard() {
                                     </div>
 
                                 </Grid.Column>
-                                <Grid.Column width={4}>
-                                    {/* <div className={styles.board_search}>
+                                {/* <Grid.Column width={1}>
+                                    <div className={styles.board_search}>
                                         <Input
                                             icon={<Icon name='search' inverted circular link />}
                                             action={
@@ -183,9 +191,9 @@ export default function Userboard() {
                                             actionPosition='left'
                                             placeholder='검색어를 입력하세요'
                                         />
-                                    </div> */}
-                                </Grid.Column>
-                                <Grid.Column width={2}>
+                                    </div>
+                                </Grid.Column> */}
+                                <Grid.Column width={3}>
                                     <div className={styles.bt_wrap}>
                                         <div className={styles.on} onClick={goUserWrite}>글 작성</div>
                                     </div>
@@ -203,9 +211,9 @@ export default function Userboard() {
                                 </div>
                                 {userboard ? userboard.map((board: any) => {
                                     return (
-                                        <div className={styles.boardListContent}>
+                                        <div className={styles.boardListContent} key={board.id}>
                                             <div className={styles.num}>{board.id}</div>
-                                            <div className={styles.type}>{board.smallRegion}</div>
+                                            <div className={styles.type}>{board.largeRegion}/{board.smallRegion}</div>
                                             <div className={styles.title} onClick={() => Router.push(`/userboard/${board.id}`)}>{board.title}</div>
                                             <div className={styles.writer}>{board.nickName}</div>
                                             <div className={styles.date}>{board.createdAt[0]}.{board.createdAt[1]}.{board.createdAt[2]}</div>

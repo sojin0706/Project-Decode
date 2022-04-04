@@ -2,6 +2,7 @@ import {
     Comment,
     Button,
     Grid,
+    Icon,
   } from "semantic-ui-react";
 import React from 'react'
 import allAxios from "../../../../src/lib/allAxios";
@@ -10,14 +11,13 @@ import IsLogin from "../../../../src/lib/customLogin";
 import userAxios from "../../../../src/lib/userAxios";
 import Router, { useRouter } from "next/router";
 import styles from "../../../../styles/notice/detail.module.css";
-import Notice from "../..";
+
 
 export default function Qna_detail() {
-
     const [userInfo, setUserInfo]: any = useState([])
     const [qnaDetail,setQnaDetail]:any = useState([])
     const [comments, setComments]:any = useState('')
-    const [comentInfo, setComentInfo]:any = useState([])
+    const [commentInfo, setCommentInfo]:any = useState([])
     const router = useRouter()
     const id = Number(router.query.id)
 
@@ -26,12 +26,11 @@ export default function Qna_detail() {
         loadUser()
     }, [])
 
-
-
     const loadUser = async() => {
         if (IsLogin()){
             userAxios.get(`/auth/users`)
             .then(({ data }) => {
+                console.log(data.body.user)
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
@@ -55,7 +54,7 @@ export default function Qna_detail() {
             })
             .catch((e) => {
                 console.log(e)
-            })      
+            })
     }
 
     const deleteqna = () => {
@@ -71,24 +70,21 @@ export default function Qna_detail() {
     };
 
     // 댓글
-    // useEffect(() => {
-    //     loadcomment(id)
-    // }, [id])
+    useEffect(() => {
+        loadcomment(id)
+    }, [id])
 
-    // const loadcomment = async(id:Number) => {
-    //     await allAxios
-    //         .get(`/qnaComment/${id}`)
-    //         .then(({ data }) => {
-    //             console.log(data.commentList)
-    //             setComentInfo(data.commentList)
-    //         })
-    //         .catch((e) => {
-    //             console.log(e)
-    //         })      
-    // }  
-
-
-
+    const loadcomment = async(id:Number) => {
+        await allAxios
+        .get(`/qnaComment/${id}`)
+        .then(({ data }) => {
+            console.log(data.commentList)
+            setCommentInfo(data.commentList)
+        })
+        .catch((e) => {
+            console.log(e)
+        })      
+    }  
 
 
     const submitComment = async() => {
@@ -119,6 +115,34 @@ export default function Qna_detail() {
         setComments(e.target.value)
     }
 
+    const commentDelete = async (commentId: Number) => {
+        await allAxios.delete(`/qnaComment/${commentId}`, {
+            params: {
+                id: commentId
+            }
+        })
+        .then(() => {
+            loadcomment(0)
+            alert('리뷰가 삭제되었습니다.')
+        })
+        .catch((e) => {
+            console.log(e)
+        })
+    }
+
+    // 우회 막기
+    useEffect(() => {
+        if (qnaDetail.isSecret == true){
+            if (userInfo.id != qnaDetail.userId){}
+            else if (userInfo.id != 46441431){}
+            else{
+                router.push("/notice");
+                alert("비밀글입니다")
+            }
+        }
+        else {
+        }
+    })
 
 
 return (
@@ -169,14 +193,14 @@ return (
                     <div className={styles.on} onClick={() => Router.back()}>목록</div>
                     {userInfo.id == qnaDetail.userId &&(
                     <>
-                        <div className={styles.editbutton} onClick={() => router.push(`/notice/editQna/${id}`)}> 수정</div>
+                        <div className={styles.editbutton} onClick={() => router.push(`/notice/edit/${id}`)}> 수정</div>
                         <div className={styles.deletebutton} onClick={deleteqna}> 삭제</div>
                     </>
                     )}
                 </div>
                 <div className={styles.comment_cont}>
                     <div className={styles.comment_title}>
-                        댓글쓰기
+                        댓글
                     </div>
                         {userInfo.id?
                             <Grid verticalAlign='middle' centered stackable>
@@ -199,31 +223,56 @@ return (
                             </Grid.Column>
                             <Grid.Column width={2}>
                                 <div className={styles.comment_button}>
-                                    <Button color='black' onClick={submitComment}> 작성 </Button>
+                                <Button color='black' onClick={submitComment} animated='fade'>
+                                    <Button.Content visible>
+                                        <Icon name='write' />
+                                    </Button.Content>
+                                    <Button.Content hidden>
+                                        작성
+                                    </Button.Content>
+                                </Button>
                                 </div>
                             </Grid.Column>
                         </Grid>
                         :''}
-                                    
-                        {/* {comentInfo? comentInfo.map((comment:any) => {
-                            return( */}
-                            <Comment.Group >
-                            <Comment>
-                            <Comment. Avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-                            <Comment.Content>
-                                <Comment.Author as='a'></Comment.Author>
-                                <Comment.Metadata>
-                                <div>하루 전</div>
-                                </Comment.Metadata>
-                                <Comment.Text>
-                                <p>방탈출 함께 해요</p>
-                                </Comment.Text>
-                            </Comment.Content>
-                            </Comment>
-                        </Comment.Group>
+                        <div className={styles.commentslocation}>
+                        {commentInfo? commentInfo.map((comment:any) => {
+                            return(
+                                <Comment.Group key={comment.id}>
+                                <Grid>
+                                    <Grid.Column width={15}>
+                                        <Comment>
+                                        <Comment. Avatar src={comment.userImage} />
+                                        <Comment.Content>
+                                            <Comment.Author as='a'>{comment.nickName}</Comment.Author>
+                                            <Comment.Metadata>
+                                            <div>{comment.createdAt[0]}.{comment.createdAt[1]}.{comment.createdAt[2]}</div>
+                                            </Comment.Metadata>
+                                            <Comment.Text>
+                                            <p>{comment.content}</p>
+                                            </Comment.Text>
+                                        </Comment.Content>
+                                        </Comment>
+                                    </Grid.Column>
+                                    <Grid.Column width={1}>
+                                    {userInfo.id == comment.userId? 
+                                        <Button color='red' inverted animated='fade' onClick={function(){commentDelete(comment.id)}}>
+                                        <Button.Content visible>
+                                            <Icon name='trash alternate outline' key={comment.id} />
+                                        </Button.Content>
+                                        <Button.Content hidden>
+                                            삭제
+                                        </Button.Content>
+                                        </Button>
+                                    :''}
+                                    </Grid.Column>
+                                </Grid>
 
-                         {/* );
-                        }) : ''} */}
+                                </Comment.Group>
+
+                            );
+                        }) : ''}
+                        </div>
                         </div>
                     </div>
             </div>

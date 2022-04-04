@@ -28,7 +28,6 @@ export default function Userboard_create() {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [userInfo, setUserInfo]: any = useState(0)
-    const [userId, setUserId] = useState(0)
         
     // 지역 선택    
     const [region, setRegion] = useState(null)
@@ -71,7 +70,6 @@ export default function Userboard_create() {
                 console.log(e)
             })
     }
-
     // 유저
     useEffect(() => {
         loadUser()
@@ -89,7 +87,7 @@ export default function Userboard_create() {
             });
           }
         }
-        
+    
     // 글 작성
     const userboardSubmit = async() => {
         if (title.length == 0){
@@ -104,6 +102,7 @@ export default function Userboard_create() {
             const body = {
                 title: title,
                 content: content,
+                largeRegion: region,
                 smallRegion: smallRegion,
                 userId: userInfo.id,
                 nickName: userInfo.nick_name,
@@ -126,7 +125,13 @@ export default function Userboard_create() {
     function userContentWrite(e: any){
         setContent(e.target.value)
     }
-
+    
+    useEffect(() => {
+        if (!IsLogin()){
+            Router.push("/notice");
+            alert("게시글 작성은 로그인 후 이용가능합니다.")                
+        }
+    })
 
 return (
     <>

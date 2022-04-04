@@ -15,12 +15,14 @@ import userAxios from "../../../src/lib/userAxios";
 
 export default function Userboard_detail() {
     const [userboardDetail,setUserboardDetail]:any = useState([])
-    const [likes, setLikes] = useState(false)
+    // const [likesInfo, setLikesInfo]:any = useState(0)
     const [userInfo, setUserInfo]: any = useState(0)
     const router = useRouter()
     const id = Number(router.query.id)
-    const [isLike, setisLike] = useState(false);
+    // const [like, setLike] = useState(0);
+    // const [disLike, setDisLike] = useState(0);
     const [comments, setComments]:any = useState('')
+    const [commentInfo, setCommentInfo]:any = useState([])
 
     useEffect(() => {
         loadUser()
@@ -30,6 +32,7 @@ export default function Userboard_detail() {
         if (IsLogin()){
             userAxios.get(`/auth/users`)
             .then(({ data }) => {
+                console.log(data.body.user)
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
@@ -71,6 +74,23 @@ export default function Userboard_detail() {
     };
 
     // 댓글
+    useEffect(() => {
+        loadcomment(id)
+    }, [id])
+
+    const loadcomment = async(id:Number) => {
+        await allAxios
+        .get(`/comment/${id}`)
+        .then(({ data }) => {
+            console.log(data)
+            setCommentInfo(data.commentList)
+        })
+        .catch((e:any) => {
+            console.log(e)
+        })      
+    }  
+
+
     const submitComment = async() => {
         if (comments.length == 0 || comments.length > 100){
             alert('댓글은 1자 이상 100자 이하로 작성해주세요')
@@ -98,6 +118,45 @@ export default function Userboard_detail() {
     function writeComment(e: any){
         setComments(e.target.value)
     }
+
+    const commentDelete = async (commentId: Number) => {
+        await allAxios.delete(`/comment/${commentId}`, {
+            params: {
+                id: commentId
+            }
+        })
+        .then(() => {
+            alert('리뷰가 삭제되었습니다.')
+        })
+        .catch((e) => {
+            console.log(e)
+        })
+    }
+
+    // 좋아요
+    // useEffect(() => {
+    //     loadlikes(id)
+    // }, [id])
+
+    // const loadlikes = async(id:Number) => {
+    //     await allAxios
+    //         .post(`/article/recommend/${id}`, {
+    //             params: {
+    //                 recommend: like,
+    //             }
+    //         })
+    //         .then(({ data }) => {
+    //             setLikesInfo(data)
+    //             console.log(data)
+    //         })
+    //         .catch((e) => {
+    //             console.log(e)
+    //         })
+    //     }
+    
+
+
+
 
 
 
@@ -143,10 +202,10 @@ return (
                         {/* <dl>
                             <dt>조회수</dt>
                             <dd>219</dd>
-                        </dl>
-                        <dl>
+                        </dl> */}
+                        {/* <dl>
                             <dt>추천수</dt>
-                            <dd>127</dd>
+                            <dd>{likesInfo.recommend}</dd>
                         </dl> */}
                     </div>
                     <div className={styles.board_cont}>
@@ -155,9 +214,9 @@ return (
                     
                 </div>
                 <div className={styles.comment}>
-                    <div className={styles.comment_review}>
+                    {/* <div className={styles.comment_review}>
                         <div className={styles.comment_reco}>
-                        <Button color='orange' inverted animated='fade'>
+                        <Button color='orange' inverted animated='fade' onClick={()=>userboardLikes()}>
                             <Button.Content visible>
                                 <Icon name='thumbs up outline' />
                             </Button.Content>
@@ -176,7 +235,7 @@ return (
                             </Button.Content>
                         </Button>
                         </div>
-                    </div>
+                    </div> */}
                     <br />
                 <div className={styles.bt_wrap}>
                     <div className={styles.on} onClick={() => Router.back()}>목록</div>
@@ -191,7 +250,7 @@ return (
                     <div className={styles.comments}>
                         
                         <div className={styles.comment_title}>
-                            댓글쓰기
+                            댓글
                         </div>
                         <div className={styles.comment_cont} >
                             {userInfo.id?
@@ -215,26 +274,57 @@ return (
                                     </Grid.Column>
                                     <Grid.Column width={2}>
                                         <div className={styles.comment_button}>
-                                            <Button color='black' onClick={submitComment}> 작성 </Button>
+                                        <Button color='black' onClick={submitComment} animated='fade'>
+                                            <Button.Content visible>
+                                                <Icon name='write' />
+                                            </Button.Content>
+                                            <Button.Content hidden>
+                                            작성
+                                            </Button.Content>
+                                        </Button>
                                         </div>
                                     </Grid.Column>
                                 </Grid>
                             :''}
                         </div>
-                        <Comment.Group >
-                            <Comment>
-                            <Comment. Avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-                            <Comment.Content>
-                                <Comment.Author as='a'>하랑</Comment.Author>
-                                <Comment.Metadata>
-                                <div>하루 전</div>
-                                </Comment.Metadata>
-                                <Comment.Text>
-                                <p>방탈출 함께 해요</p>
-                                </Comment.Text>
-                            </Comment.Content>
-                            </Comment>
-                        </Comment.Group>
+                        <div className={styles.commentslocation}>
+                        {commentInfo? commentInfo.map((comment:any) => {
+                            return(
+                                <Comment.Group key={comment.id}>
+                                <Grid>
+                                    <Grid.Column width={15}>
+                                        <Comment>
+                                        <Comment. Avatar src={comment.userImage} />
+                                        <Comment.Content>
+                                            <Comment.Author as='a'>{comment.nickName}</Comment.Author>
+                                            <Comment.Metadata>
+                                            <div>{comment.createdAt[0]}.{comment.createdAt[1]}.{comment.createdAt[2]}</div>
+                                            </Comment.Metadata>
+                                            <Comment.Text>
+                                            <p>{comment.content}</p>
+                                            </Comment.Text>
+                                        </Comment.Content>
+                                        </Comment>
+                                    </Grid.Column>
+                                    <Grid.Column width={1}>
+                                    {userInfo.id == comment.userId? 
+                                    <Button color='red' inverted animated='fade' onClick={function(){commentDelete(comment.id)}}>
+                                        <Button.Content visible>
+                                            <Icon name='trash alternate outline' key={comment.id} />
+                                        </Button.Content>
+                                        <Button.Content hidden>
+                                            삭제
+                                        </Button.Content>
+                                    </Button>
+                                    :''} 
+                                    </Grid.Column>
+                                </Grid>
+
+                                </Comment.Group>
+
+                            );
+                        }) : ''}
+                        </div>
                         <Divider/>
                     </div>
                 </div>

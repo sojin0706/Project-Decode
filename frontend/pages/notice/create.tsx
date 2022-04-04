@@ -12,14 +12,14 @@ import userAxios from "../../src/lib/userAxios";
 import Router from "next/router";
 
 
+
 export default function Qnacreate() {
 
     const [title, setTitle] = useState('')
     const [content, setContent] = useState([])
     const [userInfo, setUserInfo]: any = useState([])
-    const [userId, setUserId] = useState(0)
     const [isNotice, setIsNotice] = useState(false)
-    const [isSecret, setIsSecret] = useState(false)
+    const [isSecret, setIsSecret] = useState<boolean>(false)
     const [id, setId] = useState(0)
 
     // 유저
@@ -79,7 +79,17 @@ export default function Qnacreate() {
         setContent(e.target.value)
     }
 
+    // 비밀글
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsSecret(e.target.checked);
+      };
 
+    useEffect(() => {
+        if (!IsLogin()){
+            Router.push("/notice");
+            alert("게시글 작성은 로그인 후 이용가능합니다.")                
+        }
+    })
 
 return (
     <>
@@ -115,7 +125,7 @@ return (
                             비밀글
                             </dt>
                             <dd>
-                                <input type="checkbox" />
+                                <input type="checkbox" onChange={onChange} checked={isSecret} />
                             </dd>
                         </dl>
                     </div>

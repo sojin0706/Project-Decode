@@ -8,7 +8,7 @@ import allAxios from "../../../src/lib/allAxios";
 import { useEffect, useState } from 'react';
 import IsLogin from "../../../src/lib/customLogin";
 import userAxios from "../../../src/lib/userAxios";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 
 
 
@@ -23,13 +23,26 @@ const regionOptions = [
     { key: '제주', value: '제주', text: '제주' },
 ]
 
-export default function Userboard_edit({id}: any) {
+export default function Userboard_edit() {
 
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState([])
-    const [userInfo, setUserInfo]: any = useState(0)
-    const [userId, setUserId] = useState(0)
-    const [userboardDetail,setUserboardDetail]:any = useState([])
+    // const [title, setTitle] = useState('')
+    // const [content, setContent] = useState([])
+    // const [userInfo, setUserInfo]: any = useState(0)
+    // const [userId, setUserId] = useState(0)
+    // const [userboardDetail,setUserboardDetail]:any = useState([])
+    const [userInfo, setUserInfo]: any = useState({
+        id: 0,
+        nick_name: ''
+    });
+    const [userboardDetail,setUserboardDetail]:any = useState({
+        title: '',
+        content: '',
+        userId: 0,
+        nickName: '',
+    });
+    const router = useRouter()
+    const id = Number(router.query.id)
+
 
     // 지역 선택    
     const [region, setRegion] = useState(null)
@@ -82,6 +95,7 @@ export default function Userboard_edit({id}: any) {
         if (IsLogin()){
             userAxios.get(`/auth/users`)
             .then(({ data }) => {
+                console.log(data.body.user)
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
@@ -90,42 +104,52 @@ export default function Userboard_edit({id}: any) {
             });
           }        
         }
-    
-    // 게시글 정보
-    // useEffect(() => {
-    //     loadUserboardDetail(id)
-    // }, [id])
 
-    // const loadUserboardDetail = async(id:Number) => {
-    //     await allAxios
-    //         .get(`/article/${id}`)
-    //         .then(({ data }) => {
-    //             console.log(data.article)
-    //             setUserboardDetail(data.article)
-    //         })
-    //         .catch((e) => {
-    //             console.log(e)
-    //         })
-    //     }
+    // 게시글 정보
+    useEffect(() => {
+        loaduserboardDetail(id)
+    }, [id])
+
+    const loaduserboardDetail = async(id:Number) => {
+        await allAxios
+            .get(`/article/${id}`)
+            .then(({ data }) => {
+                console.log(data.article)
+                setUserboardDetail(data.article)
+                // setUserboardDetail({
+                //     title: data.article.title,
+                //     content: data.article.content,
+                //     largeRegion: data.article.region,
+                //     smallRegion: data.article.smallRegion,
+                //     userId: data.article.userId,
+                //     nickName: data.article.nickName,
+                //     id : data.article.id,
+                // })
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
 
     // 글 수정
     const userboardSubmit = async() => {
-        if (title.length == 0){
+        if (userboardDetail.title.length == 0){
             alert('제목을 작성해주세요')
             return
         }
-        if (content.length == 0){
+        if (userboardDetail.content.length == 0){
             alert('내용을 작성해주세요')
             return
         }
         if (IsLogin()){
-            const body = {
-                title: title,
-                content: content,
-                smallRegion: smallRegion,
-                userId: userInfo.id,
-                nickName: userInfo.nick_name,
-            }
+            const body = new FormData();
+            body.append("title", userboardDetail.title)
+            body.append("content", userboardDetail.content)
+            body.append("smallRegion", userboardDetail.smallRegion)
+            body.append("userId", userInfo.id)
+            body.append("nickName", userInfo.nick_name)
+
     await allAxios.put('/article', body)
 
     .then(() => {
@@ -136,13 +160,26 @@ export default function Userboard_edit({id}: any) {
     })    
     }
     }
+
+
+    const handleOnChange = (e:any) => {
+        const {value, name} = e.target;
+
+        setUserboardDetail({
+            ...userboardDetail,
+            [name]:value,
+        });
+
+
+    }
  
-    function userTitleWrite(e: any){
-        setTitle(e.target.value)
-    }
-    function userContentWrite(e: any){
-        setContent(e.target.value)
-    }
+
+    useEffect(() => {
+        if (!IsLogin() && userInfo.id != userboardDetail.userId){
+            Router.push("/userboard");
+            alert("게시글 수정은 로그인 후 작성한 본인만 이용가능합니다.")                
+        }
+    })
 
 
 return (
@@ -157,7 +194,7 @@ return (
                 <div className={styles.board_title}>
                     <strong>유저게시판</strong>
                 </div>
-                <div>방탈출에 관한 자유로운 이야기를 나눠보세요</div>
+                <div>유저게시판 게시글 수정페이지입니다.</div>
                 </Grid.Column>
             </Grid>
         </div>
@@ -166,7 +203,7 @@ return (
                     <div className={styles.title}>
                         <dl>
                             <dt>제목</dt>
-                            <dd><input value={title} type="text" placeholder="제목 입력" onChange={userTitleWrite} /></dd>
+                            <dd><input name="title" value={userboardDetail.title} type="text" placeholder="제목 입력" onChange={handleOnChange} /></dd>
                         </dl>
                     </div>
                     <div className={styles.info}>
@@ -187,7 +224,7 @@ return (
                         </dl>
                     </div>
                     <div className={styles.cont}>
-                        <textarea value={content} placeholder="내용 입력" onChange={userContentWrite}></textarea>
+                        <textarea name="content" value={userboardDetail.content} placeholder="내용 입력" onChange={handleOnChange}></textarea>
                     </div>
                     
                 </div> 

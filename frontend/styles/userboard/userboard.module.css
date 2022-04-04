@@ -76,7 +76,7 @@
 }
 
 .board_list .type {
-  width: 15%;
+  width: 20%;
 }
 
 .board_list .num {
@@ -84,7 +84,7 @@
 }
 
 .board_list .title {
-  width: 40%;
+  width: 35%;
   text-align: left;
   color: #000;
 }
