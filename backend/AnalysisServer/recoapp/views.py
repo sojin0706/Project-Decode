@@ -5,7 +5,7 @@ from rest_framework.response import Response
 import pymongo
 from .recommend.content import cb
 from .recommend.review import cf
-from .recommend.matrix import cfm2
+from .recommend.matrix import svd
 import pymysql.cursors
 
 # Create your views here.
@@ -17,28 +17,25 @@ curs = conn.cursor()
 
 @api_view(['GET'])
 def index(request):
-    # user = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.users
     theme = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.theme
     review = pymongo.MongoClient("j6c203.p.ssafy.io", 27017).escape.review
 
-    # 출력 확인용 코드
-    # for r in themes:
-    #     print(r)
-
     temp_genre = '로맨스'
+    temp_id = 1
 
     # cb 코드
     themes = theme.find()
-    # results = cb(temp_genre, themes)
-
-    reviews = review.find()
-    results = cfm2(temp_genre,reviews,themes)
+    results = cb(temp_genre, themes)
 
     # cf 코드
     # themes = theme.find()
     # reviews = review.find()
     # results = cf(temp_genre, reviews, themes)
 
+    # svd 코드
+    # themes = theme.find()
+    # reviews = review.find()
+    # results = svd(temp_id, reviews, themes)
 
     context = {
         'results': results,
@@ -112,7 +109,12 @@ def CF(request, id, genre):
 
     themes = theme.find()
     reviews = review.find()
-    results = cf(new_genre, reviews, themes)
+
+    n = len(list(review.find({'userId': id})))
+    if n >= 5:
+        results = svd(id, reviews, themes)
+    else:
+        results = cf(new_genre, reviews, themes)
 
     # mysql에 데이터 전달
     sql = "select user_id from recommend_like where user_id=%s"
@@ -163,7 +165,12 @@ def CF2(request, id, genre, gender, age):
     # temp_genre = '로맨스'
     themes = theme.find()
     reviews = review.find({"gender": gender, 'age': age})
-    results = cf(new_genre, reviews, themes)
+
+    n = len(list(review.find({'userId': id})))
+    if n >= 5:
+        results = svd(id, reviews, themes)
+    else:
+        results = cf(new_genre, reviews, themes)
 
     # mysql에 데이터 전달
     sql = "select user_id from recommend_gender_age where user_id=%s"
