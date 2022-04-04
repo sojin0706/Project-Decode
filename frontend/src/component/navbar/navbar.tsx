@@ -50,7 +50,7 @@ export default function Navbar() {
   }, [router.pathname]);
 
   useEffect(() => {
-    if (userInfo.small_region === null || userInfo.small_region === '원주') {
+    if (userInfo.small_region === null) {
       router.push("/login");
     } else {
       if (router.pathname === "/login") {
