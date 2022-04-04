@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import IsLogin from "../../lib/customLogin";
 import axios from "axios";
 import { Pie } from "react-chartjs-2";
-import "chart.js/auto";
 
-export default function Graph(props: any) {
+export default function Graph() {
   const [userInfo, setUserInfo]: any = useState(0);
 
   useEffect(() => {
@@ -26,18 +25,6 @@ export default function Graph(props: any) {
     }
   }, []);
 
-  const genreLst = [
-    "스릴러",
-    "로맨스",
-    "추리",
-    "SF/판타지",
-    "모험/액션",
-    "코미디",
-    "범죄",
-    "공포",
-    "19금",
-    "감성/드라마",
-  ];
   var tmparr: any = [];
   const [genreCnt, SetGenreCnt] = useState([]);
 
@@ -54,9 +41,6 @@ export default function Graph(props: any) {
         .catch((e: any) => {});
     }
   }, [userInfo]);
-
-  // useEffect(() => {
-  // }, [myData]);
 
   // 그래프 챠트
   const MyChart = () => {
@@ -85,16 +69,16 @@ export default function Graph(props: any) {
         {
           data: genreCnt,
           backgroundColor: [
-            "rgb(0, 60, 180)",
-            "rgb(30, 90, 150)",
-            "rgb(60, 120, 120)",
-            "rgb(90, 150, 0)",
-            "rgb(120, 180, 0)",
-            "rgb(150, 210, 0)",
-            "rgb(180, 240, 0)",
-            "rgb(210, 270, 0)",
-            "rgb(240, 300, 0)",
-            "rgb(270, 330, 0)",
+            "#571EF5",
+            "#FF007F",
+            "#A0A0A0",
+            "#006666",
+            "#994C00",
+            "#FFFF33",
+            "#000000",
+            "#000066",
+            "#FF0000",
+            "#FFCCE5",
           ],
         },
       ],
@@ -103,7 +87,7 @@ export default function Graph(props: any) {
     return (
       <div>
         <div>
-          <Pie data={pieData} options={options} />
+          <Pie data={pieData} options={options} style={{height: "250px"}}/>
         </div>
       </div>
     );
