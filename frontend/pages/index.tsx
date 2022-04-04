@@ -73,32 +73,32 @@ export default function Home() {
                   <Detail
                     themeId={myRecommend.like_one}
                     isImage={true}
-                    w={150}
-                    h={200}
+                    w={250}
+                    h={350}
                   />
                 </Grid.Column>
                 <Grid.Column>
                   <Detail
                     themeId={myRecommend.like_two}
                     isImage={true}
-                    w={150}
-                    h={200}
+                    w={250}
+                    h={350}
                   />
                 </Grid.Column>
                 <Grid.Column>
                   <Detail
                     themeId={myRecommend.like_three}
                     isImage={true}
-                    w={150}
-                    h={200}
+                    w={250}
+                    h={350}
                   />
                 </Grid.Column>
                 <Grid.Column>
                   <Detail
                     themeId={myRecommend.like_four}
                     isImage={true}
-                    w={150}
-                    h={200}
+                    w={250}
+                    h={350}
                   />
                 </Grid.Column>
               </Grid>
@@ -126,35 +126,38 @@ export default function Home() {
                   <Detail
                     themeId={notLoginReco[0]}
                     isImage={true}
-                    w={150}
-                    h={200}
+                    w={250}
+                    h={350}
                   />
                 </Grid.Column>
                 <Grid.Column>
                   <Detail
                     themeId={notLoginReco[1]}
                     isImage={true}
-                    w={150}
-                    h={200}
+                    w={250}
+                    h={350}
                   />
                 </Grid.Column>
                 <Grid.Column>
                   <Detail
                     themeId={notLoginReco[2]}
                     isImage={true}
-                    w={150}
-                    h={200}
+                    w={250}
+                    h={350}
                   />
                 </Grid.Column>
                 <Grid.Column>
                   <Detail
                     themeId={notLoginReco[3]}
                     isImage={true}
-                    w={150}
-                    h={200}
+                    w={250}
+                    h={350}
                   />
                 </Grid.Column>
               </Grid>
+              <br></br>
+              <br></br>
+              <br></br>
               <Grid centered columns={5}>
                 <Data />
               </Grid>

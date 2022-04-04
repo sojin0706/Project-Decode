@@ -1,7 +1,7 @@
 import { Statistic } from "semantic-ui-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import style from "../../../styles/main/Data.module.css"
 export default function Data() {
   const [themeCnt, setThemeCnt] = useState(0);
   const [storeCnt, setStoreCnt] = useState(0);
@@ -22,15 +22,15 @@ export default function Data() {
   return (
     <>
       <Statistic.Group>
-        <Statistic color="yellow">
+        <Statistic color="yellow" className={style.font}>
           <Statistic.Value>{themeCnt}</Statistic.Value>
           <Statistic.Label>테마 데이터</Statistic.Label>
         </Statistic>
-        <Statistic color="orange">
+        <Statistic color="orange" className={style.font}>
           <Statistic.Value>{storeCnt}</Statistic.Value>
           <Statistic.Label>지점 데이터</Statistic.Label>
         </Statistic>
-        <Statistic color="olive">
+        <Statistic color="olive" className={style.font}>
           <Statistic.Value>{userCnt}</Statistic.Value>
           <Statistic.Label>유저 데이터</Statistic.Label>
         </Statistic>
