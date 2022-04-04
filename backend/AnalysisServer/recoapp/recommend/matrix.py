@@ -55,10 +55,9 @@ def cfm2(genre, reviews, themes):
 
     # 작성된 평점, 예측 찾기
     already_rated, predictions = recommend_theme(
-        df_svd_preds, 20000, theme, reviews, 10)
+        df_svd_preds, 10000, theme, reviews, 10)
 
-    # print(already_rated) # 10001번 유저가 평점준것
-    print(already_rated['themeId']) #아이디확인
+    # print(already_rated)
     # print(predictions)
 
     # 결과 출력
