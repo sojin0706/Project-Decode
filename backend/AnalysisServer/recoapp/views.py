@@ -183,3 +183,4 @@ def CF2(request, id, genre, gender, age):
         conn.commit()
 
     return Response('success')
+
