@@ -1,16 +1,14 @@
 package com.ssafy.authsvr.entity;
 
-import com.ssafy.authsvr.payload.request.UserProfileRequest;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
-import javax.persistence.Column;
 import javax.persistence.Id;
 import java.util.List;
 
-@Document("escape")
+@Document("users")
 @NoArgsConstructor
 @Getter
 public class PreferenceDocument {
@@ -26,34 +24,24 @@ public class PreferenceDocument {
 
     private List<String> location;
 
-    @Column(name = "스릴러")
     private Integer thrill;
 
-    @Column(name = "로맨스")
     private Integer romance;
 
-    @Column(name = "추리")
     private Integer reasoning;
 
-    @Column(name = "SF/판타지")
     private Integer sfFantasy;
 
-    @Column(name = "모험/액션")
     private Integer adventure;
 
-    @Column(name = "코미디")
     private Integer comedy;
 
-    @Column(name = "범죄")
     private Integer crime;
 
-    @Column(name = "공포")
     private Integer horror;
 
-    @Column(name = "19금")
     private Integer adult;
 
-    @Column(name = "감성/드라마")
     private Integer drama;
 
     @Builder
