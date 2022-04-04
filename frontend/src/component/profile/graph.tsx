@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import IsLogin from "../../lib/customLogin";
 import axios from "axios";
 import { Pie } from "react-chartjs-2";
+import "chart.js/auto";
 
 export default function Graph() {
   const [userInfo, setUserInfo]: any = useState(0);
@@ -24,6 +25,19 @@ export default function Graph() {
         });
     }
   }, []);
+
+  // const genreLst = [
+  //   "스릴러",
+  //   "로맨스",
+  //   "추리",
+  //   "SF/판타지",
+  //   "모험/액션",
+  //   "코미디",
+  //   "범죄",
+  //   "공포",
+  //   "19금",
+  //   "감성/드라마",
+  // ];
 
   var tmparr: any = [];
   const [genreCnt, SetGenreCnt] = useState([]);
