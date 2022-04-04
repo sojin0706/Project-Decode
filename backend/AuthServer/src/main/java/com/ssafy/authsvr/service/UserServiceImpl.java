@@ -23,9 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -110,6 +108,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer findCountUser() {
         return userRepository.countAllBy() + preferenceDocumentRepository.countAllBy();
+    }
+
+    @Override
+    public Map<String,Object> findGenderAgeUser(Integer userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        User user = userOptional.orElseThrow(NoSuchElementException::new);
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("gender",user.getGender());
+        map.put("age",user.getAge());
+
+        return map;
     }
 
 
