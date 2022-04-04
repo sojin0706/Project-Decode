@@ -52,6 +52,9 @@ def svd(id, reviews, themes):
     already_rated, predictions = recommend_theme(
         df_svd_preds, id, theme, reviews, 6)
 
+    # print(already_rated['theme_name'])
+    # print(predictions)
+
     # 결과 출력
     new_data = []
     for i in predictions['themeId'][:6]:

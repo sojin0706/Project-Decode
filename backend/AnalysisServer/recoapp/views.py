@@ -110,11 +110,11 @@ def CF(request, id, genre):
     themes = theme.find()
     reviews = review.find()
 
-    n = len(list(review.find({'userId': id})))
-    if n >= 5:
-        results = svd(id, reviews, themes)
-    else:
-        results = cf(new_genre, reviews, themes)
+    # n = len(list(review.find({'userId': id})))
+    # if n >= 5:
+    #     results = svd(id, reviews, themes)
+    # else:
+    results = cf(new_genre, reviews, themes)
 
     # mysql에 데이터 전달
     sql = "select user_id from recommend_like where user_id=%s"
@@ -165,12 +165,7 @@ def CF2(request, id, genre, gender, age):
     # temp_genre = '로맨스'
     themes = theme.find()
     reviews = review.find({"gender": gender, 'age': age})
-
-    n = len(list(review.find({'userId': id})))
-    if n >= 5:
-        results = svd(id, reviews, themes)
-    else:
-        results = cf(new_genre, reviews, themes)
+    results = cf(new_genre, reviews, themes)
 
     # mysql에 데이터 전달
     sql = "select user_id from recommend_gender_age where user_id=%s"
