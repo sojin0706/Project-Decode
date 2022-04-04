@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -102,5 +103,15 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(map);
+    }
+
+    @ApiOperation(value = "회원 성별, 나이 조회", notes = "회원 성별 나이 조회")
+    @GetMapping("/gender/{userId}")
+    public ResponseEntity<Map<String,Object>> userFindGenderAge(@PathVariable Integer userId){
+        log.info("userFindGenderAge");
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userService.findGenderAgeUser(userId));
     }
 }

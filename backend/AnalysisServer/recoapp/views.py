@@ -5,6 +5,7 @@ from rest_framework.response import Response
 import pymongo
 from .recommend.content import cb
 from .recommend.review import cf
+from .recommend.matrix import cfm2
 import pymysql.cursors
 
 # Create your views here.
@@ -28,12 +29,16 @@ def index(request):
 
     # cb 코드
     themes = theme.find()
-    results = cb(temp_genre, themes)
+    # results = cb(temp_genre, themes)
+
+    reviews = review.find()
+    results = cfm2(temp_genre,reviews,themes)
 
     # cf 코드
     # themes = theme.find()
     # reviews = review.find()
     # results = cf(temp_genre, reviews, themes)
+
 
     context = {
         'results': results,
