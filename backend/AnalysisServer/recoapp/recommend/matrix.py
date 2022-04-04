@@ -1,10 +1,9 @@
 import pandas as pd
 import numpy as np
 from scipy.sparse.linalg import svds
-import random
 
 
-def cfm2(genre, reviews, themes):
+def svd(id, reviews, themes):
     # 유저 리뷰 정보
     reviews = pd.json_normalize(reviews)
 
@@ -27,16 +26,15 @@ def cfm2(genre, reviews, themes):
     # svd
     u, sigma, vt = svds(matrix_user_mean, k=12)
     sigma = np.diag(sigma)
-
     svd_user_predicted_ratings = np.dot(
         np.dot(u, sigma), vt) + user_ratings_mean.reshape(-1, 1)
     df_svd_preds = pd.DataFrame(
-        svd_user_predicted_ratings, columns=theme_user_rating.columns)
+        svd_user_predicted_ratings, index=theme_user_rating.index, columns=theme_user_rating.columns)
 
     # 추천 함수
     def recommend_theme(df_svd_preds, user_id, ori_theme_df, ori_rating_df, num_recommendation=5):
-        user_row_number = user_id - 1
-        sorted_user_predictions = df_svd_preds.iloc[user_row_number].sort_values(
+        user_row_number = user_id
+        sorted_user_predictions = df_svd_preds.loc[user_row_number].sort_values(
             ascending=False)
         user_data = ori_rating_df[ori_rating_df.userId == user_id]
         user_history = user_data.merge(ori_theme_df, on='themeId').sort_values([
@@ -46,23 +44,17 @@ def cfm2(genre, reviews, themes):
         recommendations = recommendations.merge(pd.DataFrame(
             sorted_user_predictions).reset_index(), on='themeId')
         recommendations = recommendations.rename(
-            columns={user_row_number: 'Predictions'}).sort_values('Predictions', ascending=False)
+            columns={user_row_number: 'Predictions'}).sort_values('Predictions', ascending=False)[:num_recommendation]
 
         return user_history, recommendations
 
-    # 유저 아이디
-    randomnumber = random.randint(1, 10000)
-
     # 작성된 평점, 예측 찾기
     already_rated, predictions = recommend_theme(
-        df_svd_preds, 10000, theme, reviews, 10)
-
-    # print(already_rated)
-    # print(predictions)
+        df_svd_preds, id, theme, reviews, 6)
 
     # 결과 출력
     new_data = []
-    for i in predictions['themeId'][:10]:
+    for i in predictions['themeId'][:6]:
         new_data.append(i)
 
     return new_data
