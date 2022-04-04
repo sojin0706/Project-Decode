@@ -35,7 +35,7 @@ public class SearchRepositoryImpl implements SearchRepository {
 
     private BooleanExpression largeRegionEq(String largeRegion) {
         if(largeRegion!=null){ //대분류지역선택한 것에 따라서 조회
-            return article.largeRegion.contains(largeRegion);
+            return qArticle.largeRegion.contains(largeRegion);
         } //만약 전체지역을 선택했다면 largeRegion은 null이 넘어옴
         return null;
 
@@ -43,7 +43,7 @@ public class SearchRepositoryImpl implements SearchRepository {
 
     private BooleanExpression smallRegionEq(String smallRegion) {
         if(smallRegion!=null){ //소분류지역선택한 것에 따라서 조회
-            return article.smallRegion.contains(smallRegion);
+            return qArticle.smallRegion.contains(smallRegion);
         } //만약 전체지역을 선택했다면 smallRegion은 null이 넘어옴
         return null;
     }
