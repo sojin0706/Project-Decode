@@ -36,7 +36,6 @@ export default function Userboard() {
 
     // 지역선택
     const [region, setRegion] = useState(null)
-    const [smallRegionselect, setSmallRegionselect] = useState(null)
     const [smallRegionOptions, setSmallRegionOptions] = useState([{ key: '전체', value: '전체', text: '전체' }])
 
     // 게시글 정보
@@ -47,7 +46,7 @@ export default function Userboard() {
     const [id, setId] = useState(0)
     const [createdAt, setCreatedAt] = useState([])
     const [nickName, setNickName] = useState('')
-    const [smallRegion, setSmallRegion] = useState('')
+    const [smallRegion, setSmallRegion] = useState(null)
 
     //지역 선택
     useEffect(() => {
@@ -56,7 +55,7 @@ export default function Userboard() {
 
     function selectedRegion(e: any) {
         setPages(0)
-        setSmallRegionselect(null)
+        setSmallRegion(null)
         if (e.target.textContent === '전체') {
             loadSmallRegion(null)
             setRegion(null)
@@ -68,7 +67,7 @@ export default function Userboard() {
 
     function selectedSmallRegion(e: any) {
         setPages(0)
-        setSmallRegionselect(e.target.textContent)
+        setSmallRegion(e.target.textContent)
     }
 
     const loadSmallRegion = async (region: any) => {
@@ -97,7 +96,7 @@ export default function Userboard() {
 
     const loadUserboard = async (pages: Number) => {
         await allAxios
-            .get(`/article`, {
+            .get(`/article/board`, {
                 params: {
                     title: title,
                     id: id,
