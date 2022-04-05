@@ -26,30 +26,21 @@ export default function Graph() {
     }
   }, []);
 
-  // const genreLst = [
-  //   "스릴러",
-  //   "로맨스",
-  //   "추리",
-  //   "SF/판타지",
-  //   "모험/액션",
-  //   "코미디",
-  //   "범죄",
-  //   "공포",
-  //   "19금",
-  //   "감성/드라마",
-  // ];
-
   var tmparr: any = [];
   const [genreCnt, SetGenreCnt] = useState([]);
 
+  const [sumGenre, setSumGenre] = useState(0)
   useEffect(() => {
     if (userInfo !== 0) {
+      let tmpSum = 0
       axios
         .get(`http://j6c203.p.ssafy.io:8082/review/mygenre/${userInfo.id}`)
         .then((data) => {
           data.data.genre.map((d: any, i: number) => {
+            tmpSum += d
             tmparr.push(d);
           });
+          setSumGenre(tmpSum)
           SetGenreCnt(tmparr);
         })
         .catch((e: any) => {});
@@ -101,15 +92,24 @@ export default function Graph() {
     return (
       <div>
         <div>
-          <Pie data={pieData} options={options} style={{height: "250px"}}/>
+          <Pie data={pieData} options={options} style={{ height: "250px" }} />
         </div>
       </div>
     );
   };
-
-  return (
-    <div className="graph">
-      <MyChart />
-    </div>
-  );
+  if (sumGenre === 0) {
+    return (
+      <>
+        <h3>방탈출 클리어 기록을 남기고</h3>
+        <h3>자신의 그래프를 확인해보세요!</h3>
+      </>
+    )
+  } else {
+    return (
+      <div className="graph">
+        <MyChart />
+      </div>
+    );
+  }
+  
 }

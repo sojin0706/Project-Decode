@@ -8,6 +8,9 @@ import ClearList from "../../src/component/profile/clearList";
 import UserInfo from "../../src/component/profile/userInfo";
 import Board from "../../src/component/profile/board";
 
+// style
+import style from "../../styles/profile/Profile.module.css"
+
 export default function Index() {
   const [userInfo, setUserInfo]: any = useState([]);
 
@@ -42,8 +45,10 @@ export default function Index() {
             <Grid.Column width={6}>
               <Grid centered>
                 <Grid.Column width={10}>
+                <div className={style.minHeight}>
                   <h2>My Profile</h2>
-                  <Image src={userInfo.image} alt="profileImage"></Image>
+                  <Image className={style.img} src={userInfo.image} alt="profileImage"></Image>
+                  </div>
                 </Grid.Column>
                 <Grid.Column width={6}>
                   <br></br>
@@ -58,9 +63,10 @@ export default function Index() {
 
             {/* 오른쪽 클리어리스트, 게시글 */}
             <Grid.Column width={6}>
-              <h2>My Board</h2>
-              <Board></Board>
-              <br></br>
+              <div className={style.minHeight}>
+                <h2>My Board</h2>
+                <Board></Board>
+              </div>
               <h2>My Clear List</h2>
               <ClearList></ClearList>
             </Grid.Column>

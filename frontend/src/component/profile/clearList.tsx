@@ -72,28 +72,36 @@ export default function ClearList() {
     }
   }, [currentPage, userInfo]);
 
-  return (
-    <>
-      <Grid columns={4}>
-        {myClearLst.map((p: any, i: number) => {
-          return (
-            <Grid.Column key={i}>
-              <ClearPoster themeId={p[0]} isImage={false} w={150} h={200} />
-            </Grid.Column>
-          );
-        })}
-      </Grid>
-      <Pagination
-        boundaryRange={0}
-        defaultActivePage={1}
-        ellipsisItem={null}
-        firstItem={null}
-        lastItem={null}
-        siblingRange={2}
-        totalPages={totalPage}
-        onClick={movePage}
-        activePage={currentPage}
-      />
-    </>
-  );
+  if (totalPage === 0) {
+    return (
+      <>
+        <h3>방탈출 클리어 기록을 남기고</h3>
+        <h3>테마 포스터를 채워보세요!</h3>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Grid columns={4}>
+          {myClearLst.map((p: any, i: number) => {
+            return (
+              <Grid.Column key={i}>
+                <ClearPoster themeId={p[0]} isImage={false} w={150} h={200} />
+              </Grid.Column>
+            );
+          })}
+        </Grid>
+        <Pagination
+          boundaryRange={0}
+          ellipsisItem={null}
+          firstItem={null}
+          lastItem={null}
+          siblingRange={2}
+          totalPages={totalPage}
+          onClick={movePage}
+          activePage={currentPage}
+        />
+      </>
+    );
+  }
 }

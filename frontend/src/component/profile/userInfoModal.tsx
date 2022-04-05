@@ -20,8 +20,13 @@ export default function UserInfoModal() {
   };
 
   // 닉네임
-  const [nick, setNick] = useState(userInfo.name);
+  const [nick, setNick] = useState("");
 
+  useEffect(() => {
+    if (userInfo !== 0) {
+      setNick(userInfo.nick_name);
+    }
+  }, [userInfo]);
   const handleChangeNick = (e: any) => {
     setNick(e.target.value);
   };
@@ -257,75 +262,80 @@ export default function UserInfoModal() {
   };
 
   const edit = (e: any) => {
-    e.preventDefault();
-    let profile: {
-      id: Number,
-      age: Number,
-      large_region: String,
-      nick_name: String,
-      small_region: String,
-    } = {
-      id: userInfo.id,
-      age: age,
-      large_region: selectedBigPlace,
-      nick_name: nick,
-      small_region: selectedSmallPlace,
-    };
+    if (nick === "") {
+      alert("닉네임을 입력해주세요");
+    } else {
+      e.preventDefault();
+      let profile: {
+        id: Number,
+        age: Number,
+        large_region: String,
+        nick_name: String,
+        small_region: String,
+      } = {
+        id: userInfo.id,
+        age: age,
+        large_region: selectedBigPlace,
+        nick_name: nick,
+        small_region: selectedSmallPlace,
+      };
 
-    let preference: {
-      id: Number,
-      adult: Number,
-      adventure: Number,
-      comedy: Number,
-      crime: Number,
-      drama: Number,
-      horror: Number,
-      reasoning: Number,
-      romance: Number,
-      sf_fantasy: Number,
-      thrill: Number,
-    } = {
-      id: userInfo.profile_id,
-      adult: scoreAdult,
-      adventure: scoreAdventure,
-      comedy: scoreComedy,
-      crime: scoreCrime,
-      drama: scoreDrama,
-      horror: scoreHorror,
-      reasoning: scoreReasoning,
-      romance: scoreRomance,
-      sf_fantasy: scoreSffantasy,
-      thrill: scoreThrill,
-    };
+      let preference: {
+        id: Number,
+        adult: Number,
+        adventure: Number,
+        comedy: Number,
+        crime: Number,
+        drama: Number,
+        horror: Number,
+        reasoning: Number,
+        romance: Number,
+        sf_fantasy: Number,
+        thrill: Number,
+      } = {
+        id: userInfo.profile_id,
+        adult: scoreAdult,
+        adventure: scoreAdventure,
+        comedy: scoreComedy,
+        crime: scoreCrime,
+        drama: scoreDrama,
+        horror: scoreHorror,
+        reasoning: scoreReasoning,
+        romance: scoreRomance,
+        sf_fantasy: scoreSffantasy,
+        thrill: scoreThrill,
+      };
 
-    // 수정 안되면 id값 들어가있는지 확인, /auth/users 토큰 조회에서 데이터가 안받아와질떄가 있음
-    const body = new FormData();
-    body.append(
-      "preferenceModifyRequest",
-      new Blob([JSON.stringify(preference)], { type: "application/json" })
-    );
-    body.append(
-      "profileRequest",
-      new Blob([JSON.stringify(profile)], { type: "application/json" })
-    );
-    body.append("file", file);
+      // 수정 안되면 id값 들어가있는지 확인, /auth/users 토큰 조회에서 데이터가 안받아와질떄가 있음
+      const body = new FormData();
+      body.append(
+        "preferenceModifyRequest",
+        new Blob([JSON.stringify(preference)], { type: "application/json" })
+      );
+      body.append(
+        "profileRequest",
+        new Blob([JSON.stringify(profile)], { type: "application/json" })
+      );
+      body.append("file", file);
 
-    userAxios
-      .put("/user/recommend", body, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then(() => {
-        cb();
-        cf2();
-        cf1();
-      })
-      .then(() => {
-        window.location.reload();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      userAxios
+        .put("/user/recommend", body, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then(() => {
+          cb();
+          cf2();
+          cf1();
+        })
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
+
   const [open, setOpen] = useState(false);
   return (
     <Modal
@@ -349,7 +359,7 @@ export default function UserInfoModal() {
               <Form.Field>
                 <label>닉네임</label>
                 <Input
-                  placeholder="닉네임을 입력해주세요"
+                  placeholder={nick}
                   onChange={(e) => {
                     handleChangeNick(e);
                   }}

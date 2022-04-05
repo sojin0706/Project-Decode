@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { Pagination } from "semantic-ui-react";
 import { Grid } from "semantic-ui-react";
+import style from "../../../styles/profile/Board.module.css";
 
 export default function Board() {
   const router = useRouter();
@@ -83,6 +84,7 @@ export default function Board() {
               .get(`http://j6c203.p.ssafy.io:8082/article/${d.articleId}`)
               .then(({ data }) => {
                 tmpComment[i].userImage = data.article.title;
+                console.log('here!!!!!!',data.article.title);
               });
           });
         })
@@ -132,9 +134,6 @@ export default function Board() {
       setCurrentPagesUserBoard(Number(e.target.textContent));
     }
   }
-  useEffect(() => {
-    console.log(currentPagesUserBoard);
-  }, [currentPagesUserBoard]);
 
   function movePageComment(e: any) {
     if (e.target.type == "nextItem") {
@@ -172,36 +171,44 @@ export default function Board() {
     }
   }
 
-  const panes = [
-    {
-      menuItem: "유저 게시판",
-      render: () => (
+  const UserBoardRender = (t: any) => {
+    if (t === 0) {
+      return (
         <>
           <Tab.Pane attached={false}>
-            
-            <Grid>
+            <h3>첫 게시글을 작성해보세요!</h3>
+          </Tab.Pane>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Tab.Pane attached={false}>
+            <Grid divided>
               {userBoard.map((d: any, i: number) => {
-                return (<>
-                  {/* <Grid.Column width = {6}>제목: {d.title}</Grid.Column>
-                  <Grid.Column width = {10}>제목: {d.content}</Grid.Column> */}
-                  <li
-                    key={i}
-                    onClick={() => {
-                      router.push(`/userboard/${d.id}`);
-                    }}
-                    style={{ cursor: "pointer" }}
-                  >
-                    번호: {d.id} 제목: {d.title} 내용: {d.content}
-                  </li>
+                return (
+                  <>
+                    <Grid.Row
+                      key={i}
+                      onClick={() => {
+                        router.push(`/userboard/${d.id}`);
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <Grid.Column width={2}>
+                        번호: {i + 1 + (currentPagesUserBoard - 1) * 3}{" "}
+                      </Grid.Column>
+                      <Grid.Column width={6}>제목: {d.title}</Grid.Column>
+                      <Grid.Column width={8}>내용: {d.content}</Grid.Column>
+                    </Grid.Row>
+                    <hr className={style.hr_line}></hr>
                   </>
                 );
               })}
             </Grid>
-              
           </Tab.Pane>
           <Pagination
             boundaryRange={0}
-            defaultActivePage={1}
             ellipsisItem={null}
             firstItem={null}
             lastItem={null}
@@ -211,37 +218,48 @@ export default function Board() {
             activePage={currentPagesUserBoard}
           />
         </>
-      ),
-    },
-    {
-      menuItem: "댓글",
-      render: () => (
+      );
+    }
+  };
+
+  const CommentRender = (t: any) => {
+    if (t === 0) {
+      return (
         <>
           <Tab.Pane attached={false}>
-            
-            <Grid>
-
-            </Grid>
-            <ul>
+            <h3>첫 댓글을 작성해보세요!</h3>
+          </Tab.Pane>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Tab.Pane attached={false}>
+            <Grid divided>
               {comment.map((d: any, i: number) => {
                 return (
-                  <li
-                    key={i}
-                    onClick={() => {
-                      router.push(`/userboard/${d.articleId}`);
-                    }}
-                    style={{ cursor: "pointer" }}
-                  >
-                    {" "}
-                    글 제목: {d.userImage} 댓글 내용: {d.content}
-                  </li>
+                  <>
+                    <Grid.Row
+                      key={i}
+                      onClick={() => {
+                        router.push(`/userboard/${d.articleId}`);
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <Grid.Column width={2}>
+                        번호: {i + 1 + (currentPagesComment - 1) * 3}{" "}
+                      </Grid.Column>
+                      <Grid.Column width={6}>제목: {d.userImage}</Grid.Column>
+                      <Grid.Column width={8}>내용: {d.content}</Grid.Column>
+                    </Grid.Row>
+                    <hr className={style.hr_line}></hr>
+                  </>
                 );
               })}
-            </ul>
+            </Grid>
           </Tab.Pane>
           <Pagination
             boundaryRange={0}
-            defaultActivePage={1}
             ellipsisItem={null}
             firstItem={null}
             lastItem={null}
@@ -251,34 +269,49 @@ export default function Board() {
             activePage={currentPagesComment}
           />
         </>
-      ),
-    },
-    {
-      menuItem: "Q&A",
-      render: () => (
+      );
+    }
+  };
+
+  const QaRender = (t: any) => {
+    if (t === 0) {
+      return (
         <>
           <Tab.Pane attached={false}>
-            
-            <ul>
+            <h3>첫 문의글을 작성해보세요!</h3>
+          </Tab.Pane>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Tab.Pane attached={false}>
+            <Grid divided>
               {qa.map((d: any, i: number) => {
                 return (
-                  <li
-                    key={i}
-                    onClick={() => {
-                      router.push(`/notice/qna/${d.id}`);
-                    }}
-                    style={{ cursor: "pointer" }}
-                  >
-                    번호: {d.id} 제목: {d.title} 내용: {d.content}
-                  </li>
+                  <>
+                    <Grid.Row
+                      key={i}
+                      onClick={() => {
+                        router.push(`/notice/qna/${d.id}`);
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <Grid.Column width={2}>
+                        번호: {i + 1 + (currentPagesQa - 1) * 3}{" "}
+                      </Grid.Column>
+                      <Grid.Column width={6}>제목: {d.title}</Grid.Column>
+                      <Grid.Column width={8}>내용: {d.content}</Grid.Column>
+                    </Grid.Row>
+                    <hr className={style.hr_line}></hr>
+                  </>
                 );
               })}
-            </ul>
+            </Grid>
           </Tab.Pane>
 
           <Pagination
             boundaryRange={0}
-            defaultActivePage={1}
             ellipsisItem={null}
             firstItem={null}
             lastItem={null}
@@ -288,7 +321,22 @@ export default function Board() {
             activePage={currentPagesQa}
           />
         </>
-      ),
+      );
+    }
+  };
+
+  const panes = [
+    {
+      menuItem: "유저 게시판",
+      render: () => UserBoardRender(totalPageUserBoard),
+    },
+    {
+      menuItem: "댓글",
+      render: () => CommentRender(totalPageComment),
+    },
+    {
+      menuItem: "Q&A",
+      render: () => QaRender(totalPageQa),
     },
   ];
 
