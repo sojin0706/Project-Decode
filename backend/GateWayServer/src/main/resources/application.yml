@@ -52,7 +52,7 @@ spring:
             #            - AddRequestHeader=auth-request, auth-request-header2
             #            - AddResponseHeader=auth-response, auth-response-header2
             - RewritePath=/api/auth-server/(?<path>.*),/$\{path}
-            - name: CustomFilter
+            - name: AuthorizationHeaderFilter
 #            - name: LoggingFilter
 #              args:
 #                baseMessage: Spring Cloud Gateway Logging filter
@@ -66,7 +66,7 @@ spring:
             - RewritePath=/api/escape-server/(?<path>.*),/$\{path}
             #            - AddRequestHeader=api-request, api-request-header2
             #            - AddResponseHeader=api-response, api-response-header2
-#            - name: CustomFilter
+#            - name: AuthorizationHeaderFilter
 #            - name: LoggingFilter
 #              args:
 #                baseMessage: Spring Cloud Gateway Logging filter
@@ -80,7 +80,7 @@ spring:
             - RewritePath=/api/analysis-server/(?<path>.*),/$\{path}
             #            - AddRequestHeader=api-request, api-request-header2
             #            - AddResponseHeader=api-response, api-response-header2
-#            - name: CustomFilter
+#            - name: AuthorizationHeaderFilter
     #            - name: LoggingFilter
     #              args:
     #                baseMessage: Spring Cloud Gateway Logging filter
