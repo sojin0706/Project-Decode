@@ -82,26 +82,31 @@ export default function Qnaedit() {
             alert('내용을 작성해주세요')
             return
         }
-        if (IsLogin()){
-            const body = new FormData();
-            body.append("title", qnaDetail.title)
-            body.append("content", qnaDetail.content)
-            body.append("userId", userInfo.id)
-            body.append("isSecret", qnaDetail.isSecret)
-            body.append("isNotice", qnaDetail.isNotice)
-            body.append("id", qnaDetail.id)
-    await allAxios.put(`/qna/${id}`, body)
-    
-    .then(() => {
-        alert("Q&A가 수정되었습니다.")
-        Router.push(`/notice/edit/${id}`)
-    })
-    .catch((e)=>{
-        console.log(e)
-        alert("잠시 후 시도해주세요.")
-    })    
-    }
-    }
+
+        if (!IsLogin()){
+            return
+        }
+
+        const body = {
+            "title": qnaDetail.title,
+            "content": qnaDetail.content,
+            "userId": userInfo.id,
+            "isSecret": qnaDetail.isSecret,
+            "isNotice": qnaDetail.isNotice,
+            "id": qnaDetail.id,
+        }
+
+        await allAxios.put(`/qna/${id}`, body)
+        
+        .then(() => {
+            alert("Q&A가 수정되었습니다.")
+            Router.push(`/notice/qna/${id}`)
+        })
+        .catch((e)=>{
+            console.log(e)
+            alert("잠시 후 시도해주세요.")
+        })    
+        }
 
     const handleOnChange = (e:any) => {
         const {value, name} = e.target;

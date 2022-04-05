@@ -59,10 +59,10 @@ export default function Qna_detail() {
 
     const deleteqna = () => {
         allAxios
-        .delete(`/qna/{id}`)
+        .delete(`/qna/${id}`)
         .then(()=>{
             alert("게시글이 삭제되었습니다.")
-            router.push("/userboard");
+            router.push("/notice");
         })
         .catch(() => {
         alert("잠시 후 다시 시도해주세요.")

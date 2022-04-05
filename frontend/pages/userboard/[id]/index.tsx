@@ -45,7 +45,9 @@ export default function Userboard_detail() {
     // 게시글 정보
 
     useEffect(() => {
-        loadUserboardDetail(id)
+        if (id){
+            loadUserboardDetail(id)
+        }
     }, [id])
 
     const loadUserboardDetail = async(id:Number) => {
@@ -75,7 +77,9 @@ export default function Userboard_detail() {
 
     // 댓글
     useEffect(() => {
-        loadcomment(id)
+        if (id){
+            loadcomment(id)
+        }
     }, [id])
 
     const loadcomment = async(id:Number) => {
@@ -105,8 +109,12 @@ export default function Userboard_detail() {
             }
         await allAxios.post(`/comment`, body)
         .then(() => {
+            loadcomment(id)
+            setComments(null)
+            const test: any = document.getElementsByClassName('commentInput')[0]
+            test['value'] = null
+            test['textContent'] = null
             alert('리뷰가 작성되었습니다.')
-
         })
         .catch((e) => {
             console.log(e)
@@ -126,6 +134,7 @@ export default function Userboard_detail() {
             }
         })
         .then(() => {
+            loadcomment(id)
             alert('리뷰가 삭제되었습니다.')
         })
         .catch((e) => {
@@ -184,7 +193,7 @@ return (
                     <div className={styles.info}>
                         <dl>
                             <dt>번호</dt>
-                            <dd>{id}</dd>
+                            <dd>{String(id)}</dd>
                         </dl>
                         <dl>
                             <dt>지역</dt>
@@ -269,7 +278,7 @@ return (
                                     </Grid.Column>
                                     <Grid.Column width={12}>
                                     <div>
-                                        <textarea value={comments} placeholder="댓글을 작성해주세요" onChange={writeComment}></textarea>
+                                        <textarea className="commentInput" value={comments} placeholder="댓글을 작성해주세요" onChange={writeComment}></textarea>
                                     </div>
                                     </Grid.Column>
                                     <Grid.Column width={2}>

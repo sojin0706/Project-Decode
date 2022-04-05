@@ -142,25 +142,39 @@ export default function Userboard_edit() {
             alert('내용을 작성해주세요')
             return
         }
-        if (IsLogin()){
-            const body = new FormData();
-            body.append("title", userboardDetail.title)
-            body.append("content", userboardDetail.content)
-            body.append("smallRegion", userboardDetail.smallRegion)
-            body.append("largeRegion", userboardDetail.largeRegion)
-            body.append("userId", userInfo.id)
 
-    await allAxios.put('/article', body)
+        if (!IsLogin()){
+            return
+        }
 
-    .then(() => {
-        alert("게시글이 수정되었습니다.")
-        Router.push(`/userboard/edit/${id}`)
-    })
-    .catch((e)=>{
-        alert("잠시 후 시도해주세요")
-    })    
-    }
-    }
+        const body = {
+            "title": userboardDetail.title,
+            "content": userboardDetail.content,
+            "smallRegion": userboardDetail.smallRegion,
+            "largeRegion": userboardDetail.largeRegion,
+            "userId": userInfo.id,
+        }
+        console.log(body)
+        console.log('2222222222222', userboardDetail)
+        // if (IsLogin()){
+        //     const body = new FormData();
+        //     body.append("title", userboardDetail.title)
+        //     body.append("content", userboardDetail.content)
+        //     body.append("smallRegion", userboardDetail.smallRegion)
+        //     body.append("largeRegion", userboardDetail.largeRegion)
+        //     body.append("userId", userInfo.id)
+
+        await allAxios.put(`/article/${id}`, body)
+
+        .then(() => {
+            alert("게시글이 수정되었습니다.")
+            Router.push(`/userboard/${id}`)
+        })
+        .catch((e)=>{
+            alert("잠시 후 시도해주세요")
+        })    
+        }
+    // }
 
 
     const handleOnChange = (e:any) => {
@@ -216,10 +230,10 @@ return (
                             <dt>지역선택</dt>
                             <dd>
                                 <div className={styles.board_select}>
-                                    <Select placeholder='지역' options={regionOptions} onChange={selectedRegion} />
+                                    <Select placeholder={userboardDetail.largeRegion} options={regionOptions} onChange={selectedRegion}/>
                                 </div>
                                 <div className={styles.board_select}>
-                                    <Select placeholder='세부지역' options={smallRegionOptions} onChange={selectedSmallRegion} />
+                                    <Select placeholder={userboardDetail.smallRegion} options={smallRegionOptions} onChange={selectedSmallRegion} />
                                 </div>
                             </dd>
                         </dl>

@@ -98,6 +98,10 @@ export default function Userboard_create() {
             alert('내용을 작성해주세요')
             return
         }
+        if (!smallRegion || !region){
+            alert('지역을 선택해주세요')
+        }
+        
         if (IsLogin()){
             const body = {
                 title: title,
