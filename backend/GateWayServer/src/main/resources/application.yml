@@ -47,11 +47,11 @@ spring:
           uri: http://j6c203.p.ssafy.io:8081/
           # 조건절
           predicates:
-            - Path=/auth-server/**
+            - Path=/api/auth-server/**
           filters:
             #            - AddRequestHeader=auth-request, auth-request-header2
             #            - AddResponseHeader=auth-response, auth-response-header2
-            - RewritePath=/auth-server/(?<path>.*),/$\{path}
+            - RewritePath=/api/auth-server/(?<path>.*),/$\{path}
             - name: CustomFilter
 #            - name: LoggingFilter
 #              args:
@@ -61,9 +61,9 @@ spring:
         - id: escape-server
           uri: http://j6c203.p.ssafy.io:8082/
           predicates:
-            - Path=/escape-server/**
+            - Path=/api/escape-server/**
           filters:
-            - RewritePath=/escape-server/(?<path>.*),/$\{path}
+            - RewritePath=/api/escape-server/(?<path>.*),/$\{path}
             #            - AddRequestHeader=api-request, api-request-header2
             #            - AddResponseHeader=api-response, api-response-header2
             - name: CustomFilter
@@ -73,16 +73,16 @@ spring:
 #                preLogger: true
 #                postLogger: true
         - id: analysis-server
-            uri: http://j6c203.p.ssafy.io:8083/
-            predicates:
-              - Path=/analysis-server/**
-            filters:
-              - RewritePath=/analysis-server/(?<path>.*),/$\{path}
-              #            - AddRequestHeader=api-request, api-request-header2
-              #            - AddResponseHeader=api-response, api-response-header2
-              - name: CustomFilter
-      #            - name: LoggingFilter
-      #              args:
-      #                baseMessage: Spring Cloud Gateway Logging filter
-      #                preLogger: true
-      #                postLogger: true
+          uri: http://j6c203.p.ssafy.io:8083/
+          predicates:
+            - Path=/analysis-server/**
+          filters:
+            - RewritePath=/analysis-server/(?<path>.*),/$\{path}
+            #            - AddRequestHeader=api-request, api-request-header2
+            #            - AddResponseHeader=api-response, api-response-header2
+            - name: CustomFilter
+    #            - name: LoggingFilter
+    #              args:
+    #                baseMessage: Spring Cloud Gateway Logging filter
+    #                preLogger: true
+    #                postLogger: true
