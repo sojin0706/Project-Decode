@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import IsLogin from "../../lib/customLogin";
 import axios from "axios";
 import { useRouter } from "next/router";
-import Detail from "../modal/detail";
+import { Pagination } from "semantic-ui-react";
+import Userboard from "../../../pages/userboard";
 export default function Board() {
   const router = useRouter();
   const [userInfo, setUserInfo]: any = useState(0);
@@ -104,75 +105,200 @@ export default function Board() {
     }
   }, [userInfo]);
 
+  const [totalPageUserBoard, setTotalPageUserBoard] = useState(1);
+  const [currentPagesUserBoard, setCurrentPagesUserBoard] = useState(1);
+  // userBoard
+
+  const [totalPageComment, setTotalPageComment] = useState(1);
+  const [currentPagesComment, setCurrentPagesComment] = useState(1);
+  // comment
+
+  const [totalPageQa, setTotalPageQa] = useState(1);
+  const [currentPagesQa, setCurrentPagesQa] = useState(1);
+  // qa
+
+
+
+  useEffect(() => {
+    const lastPageUserBoard = Math.ceil(userBoard.length / 3);
+    setTotalPageUserBoard(lastPageUserBoard ? lastPageUserBoard : 1);
+    const lastPageComment = Math.ceil(comment.length / 3);
+    setTotalPageComment(lastPageComment ? lastPageComment : 1);
+    const lastPageQa = Math.ceil(qa.length / 3);
+    setTotalPageQa(lastPageQa ? lastPageQa : 1);
+  }, [qa, Comment, Userboard]);
+
+
+
+  function movePageUserBoard(e: any) {
+    if (e.target.type === "nextItem") {
+      if (currentPagesUserBoard === totalPageUserBoard ) {
+        return;
+      } else {
+        setCurrentPagesUserBoard(Number(currentPagesUserBoard + 1));
+      }
+    } else if (e.target.type === "prevItem") {
+      if (currentPagesUserBoard === 1) {
+        return;
+      } else {
+        setCurrentPagesUserBoard(Number(currentPagesUserBoard - 1));
+      }
+    } else if (e.target.type === "pageItem") {
+      setCurrentPagesUserBoard(Number(e.target.textContent));
+    }
+  }
+  useEffect(() => {
+    console.log(currentPagesUserBoard)
+  },[currentPagesUserBoard])
+
+  function movePageComment(e: any) {
+    if (e.target.type == "nextItem") {
+      if (currentPagesComment === totalPageComment ) {
+        return;
+      } else {
+        setCurrentPagesComment(Number(currentPagesComment + 1));
+      }
+    } else if (e.target.type === "prevItem") {
+      if (currentPagesComment === 1) {
+        return;
+      } else {
+        setCurrentPagesComment(Number(currentPagesComment - 1));
+      }
+    } else if (e.target.type === "pageItem") {
+      setCurrentPagesComment(Number(e.target.textContent));
+    }
+  }
+
+  function movePageQa(e: any) {
+    if (e.target.type == "nextItem") {
+      if (currentPagesQa === totalPageQa ) {
+        return;
+      } else {
+        setCurrentPagesQa(Number(currentPagesQa + 1));
+      }
+    } else if (e.target.type === "prevItem") {
+      if (currentPagesQa === 1) {
+        return;
+      } else {
+        setCurrentPagesQa(Number(currentPagesQa - 1));
+      }
+    } else if (e.target.type === "pageItem") {
+      setCurrentPagesQa(Number(e.target.textContent));
+    }
+  }
+
   const panes = [
     {
       menuItem: "유저 게시판",
       render: () => (
-        <Tab.Pane attached={false}>
-          내가 작성한 유저 게시판 글
-          <ul>
-            {userBoard.map((d: any, i: number) => {
-              return (
-                <li
-                  key={i}
-                  onClick={() => {
-                    router.push(`/userboard/${d.id}`);
-                  }}
-                  style={{ cursor: "pointer" }}
-                >
-                  번호: {d.id} 제목: {d.title} 내용: {d.content}
-                </li>
-              );
-            })}
-          </ul>
-        </Tab.Pane>
+        <>
+          <Tab.Pane attached={false}>
+            내가 작성한 유저 게시판 글
+            <ul>
+              {userBoard.map((d: any, i: number) => {
+                if ((currentPagesUserBoard - 1) * 3 <= i && i < currentPagesUserBoard * 3)
+                return (
+                  <li
+                    key={i}
+                    onClick={() => {
+                      router.push(`/userboard/${d.id}`);
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
+                    번호: {d.id} 제목: {d.title} 내용: {d.content}
+                  </li>
+                );
+              })}
+            </ul>
+          </Tab.Pane>
+          <Pagination
+            boundaryRange={0}
+            defaultActivePage={1}
+            ellipsisItem={null}
+            firstItem={null}
+            lastItem={null}
+            siblingRange={2}
+            totalPages={totalPageUserBoard}
+            onClick={movePageUserBoard}
+            activePage={currentPagesUserBoard}
+          />
+        </>
       ),
     },
     {
       menuItem: "댓글",
       render: () => (
-        <Tab.Pane attached={false}>
-          내가 작성한 댓글
-          <ul>
-            {comment.map((d: any, i: number) => {
-              return (
-                <li
-                  key={i}
-                  onClick={() => {
-                    router.push(`/userboard/${d.articleId}`);
-                  }}
-                  style={{ cursor: "pointer" }}
-                >
-                  {" "}
-                  글 제목: {d.userImage} 댓글 내용: {d.content}
-                </li>
-              );
-            })}
-          </ul>
-        </Tab.Pane>
+        <>
+          <Tab.Pane attached={false}>
+            내가 작성한 댓글
+            <ul>
+              {comment.map((d: any, i: number) => {
+                if ((currentPagesComment - 1) * 3 <= i && i < currentPagesComment * 3)
+                return (
+                  <li
+                    key={i}
+                    onClick={() => {
+                      router.push(`/userboard/${d.articleId}`);
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {" "}
+                    글 제목: {d.userImage} 댓글 내용: {d.content}
+                  </li>
+                );
+              })}
+            </ul>
+          </Tab.Pane>
+          <Pagination
+            boundaryRange={0}
+            defaultActivePage={1}
+            ellipsisItem={null}
+            firstItem={null}
+            lastItem={null}
+            siblingRange={2}
+            totalPages={totalPageComment}
+            onClick={movePageComment}
+            activePage={currentPagesComment}
+          />
+        </>
       ),
     },
     {
       menuItem: "Q&A",
       render: () => (
-        <Tab.Pane attached={false}>
-          내가 작성한 Q&A 글
-          <ul>
-            {qa.map((d: any, i: number) => {
-              return (
-                <li
-                  key={i}
-                  onClick={() => {
-                    router.push(`/notice/qna/${d.id}`);
-                  }}
-                  style={{ cursor: "pointer" }}
-                >
-                  번호: {d.id} 제목: {d.title} 내용: {d.content}
-                </li>
-              );
-            })}
-          </ul>
-        </Tab.Pane>
+        <>
+          <Tab.Pane attached={false}>
+            내가 작성한 Q&A 글
+            <ul>
+              {qa.map((d: any, i: number) => {
+                if ((currentPagesQa - 1) * 3 <= i && i < currentPagesQa * 3)
+                return (
+                  <li
+                    key={i}
+                    onClick={() => {
+                      router.push(`/notice/qna/${d.id}`);
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
+                    번호: {d.id} 제목: {d.title} 내용: {d.content}
+                  </li>
+                );
+              })}
+            </ul>
+          </Tab.Pane>
+
+          <Pagination
+            boundaryRange={0}
+            defaultActivePage={1}
+            ellipsisItem={null}
+            firstItem={null}
+            lastItem={null}
+            siblingRange={2}
+            totalPages={totalPageQa}
+            onClick={movePageQa}
+            activePage={currentPagesQa}
+          />
+        </>
       ),
     },
   ];
