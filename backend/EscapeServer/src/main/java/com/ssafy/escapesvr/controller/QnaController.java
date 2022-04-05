@@ -75,7 +75,7 @@ public class QnaController {
 
     @ApiOperation(value = "자신(회원)이 쓴 qna 문의 리스트", notes = "회원이 프로필에서 확인하는 자신의 qna 문의 리스트")
     @GetMapping("/profile/{userId}")
-    public ResponseEntity<Map<String, Object>> getMyQnaList(@PathVariable @ApiParam(value = "회원번호") Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable) {
+    public ResponseEntity<Map<String, Object>> getMyQnaList(@PathVariable @ApiParam(value = "회원번호") Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=3) Pageable pageable) {
         Map<String, Object> result = new HashMap<>();
         Page<QnaResponseDto> myQnaList = null;
         HttpStatus status = null;
