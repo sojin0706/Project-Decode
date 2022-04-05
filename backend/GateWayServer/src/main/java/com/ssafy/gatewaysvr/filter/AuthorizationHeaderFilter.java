@@ -34,7 +34,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         return (exchange, chain) -> {
             // exchange 객체로 request, response를 받는다.
             ServerHttpRequest request = exchange.getRequest();
-            ServerHttpResponse response = exchange.getResponse();
+//            ServerHttpResponse response = exchange.getResponse();
             if(!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)){
                 return onError(exchange, "Not Found authorization Header", HttpStatus.UNAUTHORIZED);
             }
@@ -49,10 +49,11 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
             // chain에다가 postfilter: exchange 추가
             // 비동기방식으로 단일값 추가히기 위해서 Mono: 웹 플럭스 타입으로 추가
-            return chain.filter(exchange)
-                    .then(Mono.fromRunnable(() -> {
-                            log.info("AuthorizationHeaderFilter filter: response code -> {}", response.getStatusCode());
-                     }));
+            return chain.filter(exchange);
+//            return chain.filter(exchange)
+//                    .then(Mono.fromRunnable(() -> {
+//                            log.info("AuthorizationHeaderFilter filter: response code -> {}", response.getStatusCode());
+//                     }));
         };
     }
     private Mono<Void> onError(ServerWebExchange exchange, String e, HttpStatus status){
