@@ -15,7 +15,8 @@ export default function Data() {
 
   const [userCnt, setUserCnt] = useState(0)
   useEffect(() => {
-    axios.get(`http://j6c203.p.ssafy.io:8081/user/userCount`).then(({ data }) => {
+    // axios.get(`http://j6c203.p.ssafy.io:8081/user/userCount`).then(({ data }) => {
+    axios.get(`https://j6c203.p.ssafy.io/api/user/userCount`).then(({ data }) => {
       setUserCnt(data.userCount)
     });
   }, []);
