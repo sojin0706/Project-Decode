@@ -4,7 +4,7 @@ import IsLogin from "../../lib/customLogin";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { Pagination } from "semantic-ui-react";
-import Userboard from "../../../pages/userboard";
+
 export default function Board() {
   const router = useRouter();
   const [userInfo, setUserInfo]: any = useState(0);
@@ -28,23 +28,17 @@ export default function Board() {
     }
   }, []);
 
-  // 리뷰 불러오기
-  const [review, setReview]: any[] = useState([]);
-  const tmpReview: any[] = [];
-  useEffect(() => {
-    if (userInfo !== 0) {
-      axios
-        .get(`http://j6c203.p.ssafy.io:8082/review/myreview/${userInfo.id}`)
-        .then(({ data }) => {
-          data.review.content.map((d: any, i: number) => {
-            tmpReview.push(d);
-          });
-        })
-        .then(() => {
-          setReview(tmpReview);
-        });
-    }
-  }, [userInfo]);
+  const [totalPageUserBoard, setTotalPageUserBoard] = useState(1);
+  const [currentPagesUserBoard, setCurrentPagesUserBoard] = useState(1);
+  // userBoard
+
+  const [totalPageComment, setTotalPageComment] = useState(1);
+  const [currentPagesComment, setCurrentPagesComment] = useState(1);
+  // comment
+
+  const [totalPageQa, setTotalPageQa] = useState(1);
+  const [currentPagesQa, setCurrentPagesQa] = useState(1);
+  // qa
 
   // 유저게시판 불러오기
   const [userBoard, setUserBoard] = useState([]);
@@ -52,8 +46,13 @@ export default function Board() {
   useEffect(() => {
     if (userInfo !== 0) {
       axios
-        .get(`http://j6c203.p.ssafy.io:8082/article/profile/${userInfo.id}`)
+        .get(
+          `http://j6c203.p.ssafy.io:8082/article/profile/${userInfo.id}?page=${
+            currentPagesUserBoard - 1
+          }`
+        )
         .then(({ data }) => {
+          setTotalPageUserBoard(data.myArticleList.totalPages);
           data.myArticleList.content.map((d: any, i: number) => {
             tmpUserBoard.push(d);
           });
@@ -62,7 +61,7 @@ export default function Board() {
           setUserBoard(tmpUserBoard);
         });
     }
-  }, [userInfo]);
+  }, [currentPagesUserBoard, userInfo]);
 
   // 댓글 불러오기
   const [comment, setComment] = useState([]);
@@ -70,8 +69,13 @@ export default function Board() {
   useEffect(() => {
     if (userInfo !== 0) {
       axios
-        .get(`http://j6c203.p.ssafy.io:8082/comment/profile/${userInfo.id}`)
+        .get(
+          `http://j6c203.p.ssafy.io:8082/comment/profile/${userInfo.id}?page=${
+            currentPagesComment - 1
+          }`
+        )
         .then(({ data }) => {
+          setTotalPageComment(data.myArticleCommentList.totalPages);
           data.myArticleCommentList.content.map((d: any, i: number) => {
             tmpComment.push(d);
             axios
@@ -85,7 +89,7 @@ export default function Board() {
           setComment(tmpComment);
         });
     }
-  }, [userInfo]);
+  }, [currentPagesComment, userInfo]);
 
   // Q&A 불러오기
   const [qa, setQA] = useState([]);
@@ -93,8 +97,13 @@ export default function Board() {
   useEffect(() => {
     if (userInfo !== 0) {
       axios
-        .get(`http://j6c203.p.ssafy.io:8082/qna/profile/${userInfo.id}`)
+        .get(
+          `http://j6c203.p.ssafy.io:8082/qna/profile/${userInfo.id}?page=${
+            currentPagesQa - 1
+          }`
+        )
         .then(({ data }) => {
+          setTotalPageQa(data.myQnaList.totalPages);
           data.myQnaList.content.map((d: any, i: number) => {
             tmpQA.push(d);
           });
@@ -103,36 +112,11 @@ export default function Board() {
           setQA(tmpQA);
         });
     }
-  }, [userInfo]);
-
-  const [totalPageUserBoard, setTotalPageUserBoard] = useState(1);
-  const [currentPagesUserBoard, setCurrentPagesUserBoard] = useState(1);
-  // userBoard
-
-  const [totalPageComment, setTotalPageComment] = useState(1);
-  const [currentPagesComment, setCurrentPagesComment] = useState(1);
-  // comment
-
-  const [totalPageQa, setTotalPageQa] = useState(1);
-  const [currentPagesQa, setCurrentPagesQa] = useState(1);
-  // qa
-
-
-
-  useEffect(() => {
-    const lastPageUserBoard = Math.ceil(userBoard.length / 3);
-    setTotalPageUserBoard(lastPageUserBoard ? lastPageUserBoard : 1);
-    const lastPageComment = Math.ceil(comment.length / 3);
-    setTotalPageComment(lastPageComment ? lastPageComment : 1);
-    const lastPageQa = Math.ceil(qa.length / 3);
-    setTotalPageQa(lastPageQa ? lastPageQa : 1);
-  }, [qa, Comment, Userboard]);
-
-
+  }, [currentPagesQa, userInfo]);
 
   function movePageUserBoard(e: any) {
     if (e.target.type === "nextItem") {
-      if (currentPagesUserBoard === totalPageUserBoard ) {
+      if (currentPagesUserBoard === totalPageUserBoard) {
         return;
       } else {
         setCurrentPagesUserBoard(Number(currentPagesUserBoard + 1));
@@ -148,12 +132,12 @@ export default function Board() {
     }
   }
   useEffect(() => {
-    console.log(currentPagesUserBoard)
-  },[currentPagesUserBoard])
+    console.log(currentPagesUserBoard);
+  }, [currentPagesUserBoard]);
 
   function movePageComment(e: any) {
     if (e.target.type == "nextItem") {
-      if (currentPagesComment === totalPageComment ) {
+      if (currentPagesComment === totalPageComment) {
         return;
       } else {
         setCurrentPagesComment(Number(currentPagesComment + 1));
@@ -171,7 +155,7 @@ export default function Board() {
 
   function movePageQa(e: any) {
     if (e.target.type == "nextItem") {
-      if (currentPagesQa === totalPageQa ) {
+      if (currentPagesQa === totalPageQa) {
         return;
       } else {
         setCurrentPagesQa(Number(currentPagesQa + 1));
@@ -196,7 +180,6 @@ export default function Board() {
             내가 작성한 유저 게시판 글
             <ul>
               {userBoard.map((d: any, i: number) => {
-                if ((currentPagesUserBoard - 1) * 3 <= i && i < currentPagesUserBoard * 3)
                 return (
                   <li
                     key={i}
@@ -233,7 +216,6 @@ export default function Board() {
             내가 작성한 댓글
             <ul>
               {comment.map((d: any, i: number) => {
-                if ((currentPagesComment - 1) * 3 <= i && i < currentPagesComment * 3)
                 return (
                   <li
                     key={i}
@@ -271,7 +253,6 @@ export default function Board() {
             내가 작성한 Q&A 글
             <ul>
               {qa.map((d: any, i: number) => {
-                if ((currentPagesQa - 1) * 3 <= i && i < currentPagesQa * 3)
                 return (
                   <li
                     key={i}

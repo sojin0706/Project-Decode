@@ -28,13 +28,12 @@ export default function ClearList() {
 
   const clearLst: any = [];
   const [myClearLst, setMyClearLst] = useState([]);
-  const [totalPage, setTotalPage] = useState(1)
-  const [currentPage, setCurrentPage] = useState(1)
-
+  const [totalPage, setTotalPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   function movePage(e: any) {
     if (e.target.type === "nextItem") {
-      if (currentPage === totalPage ) {
+      if (currentPage === totalPage) {
         return;
       } else {
         setCurrentPage(Number(currentPage + 1));
@@ -52,11 +51,14 @@ export default function ClearList() {
 
   useEffect(() => {
     if (userInfo !== 0) {
-      console.log('무브함수발동해서 엑시오스까지!')
       axios
-        .get(`http://j6c203.p.ssafy.io:8082/review/poster/${userInfo.id}?page=${currentPage - 1}`)
+        .get(
+          `http://j6c203.p.ssafy.io:8082/review/poster/${userInfo.id}?page=${
+            currentPage - 1
+          }`
+        )
         .then((data) => {
-          setTotalPage(data.data.posters.totalPages)
+          setTotalPage(data.data.posters.totalPages);
           data.data.posters.content.map((d: any, i: number) => {
             return clearLst.push([d.themeId, d.themeName, d.posterUrl]);
           });
@@ -68,7 +70,7 @@ export default function ClearList() {
           console.log(err);
         });
     }
-  }, [currentPage]);
+  }, [currentPage, userInfo]);
 
   return (
     <>
@@ -82,16 +84,16 @@ export default function ClearList() {
         })}
       </Grid>
       <Pagination
-            boundaryRange={0}
-            defaultActivePage={1}
-            ellipsisItem={null}
-            firstItem={null}
-            lastItem={null}
-            siblingRange={2}
-            totalPages={totalPage}
-            onClick={movePage}
-            activePage={currentPage}
-          />
+        boundaryRange={0}
+        defaultActivePage={1}
+        ellipsisItem={null}
+        firstItem={null}
+        lastItem={null}
+        siblingRange={2}
+        totalPages={totalPage}
+        onClick={movePage}
+        activePage={currentPage}
+      />
     </>
   );
 }
