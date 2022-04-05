@@ -6,6 +6,7 @@ import userAxios from "../../lib/userAxios";
 // components
 import LoginModal from "../login/loginModal";
 import IsLogin from "../../lib/customLogin";
+import { Grid } from "semantic-ui-react";
 
 export default function Navbar() {
   const router = useRouter();
@@ -71,55 +72,66 @@ export default function Navbar() {
 
   // }
   return (
+    <Grid>
+      <Grid.Row />
+      <Grid.Row>
+        <Grid.Column width={2} />
+        <Grid.Column width={12}>
+          <nav>
+            <Link href="/">
+              <a className={router.pathname === "/" ? "active" : ""}>Home</a>
+            </Link>
+            <Link href="/profile">
+              <a className={router.pathname === "/profile" ? "active" : ""}>
+                profile
+              </a>
+            </Link>
+            <Link href="/info">
+              <a className={router.pathname === "/info" ? "active" : ""}>info</a>
+            </Link>
+            <Link href="/recommend">
+              <a className={router.pathname === "/recommend" ? "active" : ""}>
+                recommend
+              </a>
+            </Link>
+            <Link href="/notice">
+              <a className={router.pathname === "/notice" ? "active" : ""}>notice</a>
+            </Link>
+            <Link href="/userboard">
+              <a className={router.pathname === "/userboard" ? "active" : ""}>
+                userboard
+              </a>
+            </Link>
+            <div>
+              {IsLogin() ? (
+                <Link href="/">
+                  <a onClick={logout}>Logout</a>
+                </Link>
+              ) : (
+                <LoginModal />
+              )}
+            </div>
+            <style jsx>{`
+              a {
+                font-style: italic;
+                font-size: larger;
+              }
+              .active {
+                color: navy;
+                text-decoration: underline;
+              }
+              nav {
+                text-decoration: none;
+                display: flex;
+                justify-content: space-between;
+              }
+            `}</style>
+          </nav>
+        </Grid.Column>
+        <Grid.Column width={2} />
+      </Grid.Row>
+    </Grid>
     
-    <nav>
-      <Link href="/">
-        <a className={router.pathname === "/" ? "active" : ""}>Home</a>
-      </Link>
-      <Link href="/profile">
-        <a className={router.pathname === "/profile" ? "active" : ""}>
-          profile
-        </a>
-      </Link>
-      <Link href="/info">
-        <a className={router.pathname === "/info" ? "active" : ""}>info</a>
-      </Link>
-      <Link href="/recommend">
-        <a className={router.pathname === "/recommend" ? "active" : ""}>
-          recommend
-        </a>
-      </Link>
-      <Link href="/notice">
-        <a className={router.pathname === "/notice" ? "active" : ""}>notice</a>
-      </Link>
-      <Link href="/userboard">
-        <a className={router.pathname === "/userboard" ? "active" : ""}>
-          userboard
-        </a>
-      </Link>
-      <div>
-        {IsLogin() ? (
-          <Link href="/">
-            <a onClick={logout}>Logout</a>
-          </Link>
-        ) : (
-          <LoginModal />
-        )}
-      </div>
-      <style jsx>{`
-        a {
-          text-decoration: none;
-          font-size: larger;
-        }
-        .active {
-          color: red;
-        }
-        nav {
-          background-color: black;
-          display: flex;
-          justify-content: space-between;
-        }
-      `}</style>
-    </nav>
+    
   );
 }

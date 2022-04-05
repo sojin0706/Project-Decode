@@ -178,7 +178,7 @@ export default function Board() {
       render: () => (
         <>
           <Tab.Pane attached={false}>
-            내가 작성한 유저 게시판 글
+            
             <Grid>
               {userBoard.map((d: any, i: number) => {
                 return (<>
@@ -218,7 +218,7 @@ export default function Board() {
       render: () => (
         <>
           <Tab.Pane attached={false}>
-            내가 작성한 댓글
+            
             <Grid>
 
             </Grid>
@@ -258,7 +258,7 @@ export default function Board() {
       render: () => (
         <>
           <Tab.Pane attached={false}>
-            내가 작성한 Q&A 글
+            
             <ul>
               {qa.map((d: any, i: number) => {
                 return (
