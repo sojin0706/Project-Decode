@@ -339,7 +339,10 @@ export default function UserInfoModal() {
         <Image id="thu" size="medium" src={file.name} alt="" wrapped />
         <Modal.Description>
           <Form>
+            <p>변경할 이미지 파일을 올려주세요.</p>
             <input type="file" name="file" onChange={(e) => handleFile(e)} />
+            <br></br>
+            <br></br>
             <br></br>
             <br></br>
             <Form.Group inline>
@@ -351,7 +354,6 @@ export default function UserInfoModal() {
                     handleChangeNick(e);
                   }}
                 />
-                <p>닉확인용: {nick}</p>
               </Form.Field>
             </Form.Group>
             <br></br>

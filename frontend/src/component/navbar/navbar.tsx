@@ -15,11 +15,7 @@ export default function Navbar() {
     router.reload();
   }
 
-  function autoLogout() {
-    if (IsLogin() && localStorage.token !== "undefined") {
-      logout();
-    }
-  }
+
 
   const getUserInfo = async () => {
     userAxios
@@ -59,6 +55,21 @@ export default function Navbar() {
     }
   }, [userInfo]);
 
+  // useEffect(() => {
+  //   if (IsLogin() && userInfo === 0) {
+  //     alert('로그인 시간이 만료되었습니다.')
+  //     logout()
+  //   }
+  // },)
+
+  
+  // if (IsLogin()) {
+  //   return(
+  //     <></>
+  //   )
+  // } else {
+
+  // }
   return (
     
     <nav>
