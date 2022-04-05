@@ -42,20 +42,26 @@ export default function Index() {
             <Grid.Column width={6}>
               <Grid centered>
                 <Grid.Column width={10}>
+                  <h2>My Profile</h2>
                   <Image src={userInfo.image} alt="profileImage"></Image>
                 </Grid.Column>
                 <Grid.Column width={6}>
                   <br></br>
+                  <br></br>
+                  <br></br>
                   <UserInfo></UserInfo>
                 </Grid.Column>
               </Grid>
+              <h2>My Theme Graph</h2>
               <Graph></Graph>
             </Grid.Column>
 
             {/* 오른쪽 클리어리스트, 게시글 */}
             <Grid.Column width={6}>
+              <h2>My Board</h2>
               <Board></Board>
               <br></br>
+              <h2>My Clear List</h2>
               <ClearList></ClearList>
             </Grid.Column>
 

@@ -1,9 +1,10 @@
-import { List, Tab } from "semantic-ui-react";
+import { Tab } from "semantic-ui-react";
 import { useState, useEffect } from "react";
 import IsLogin from "../../lib/customLogin";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { Pagination } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 
 export default function Board() {
   const router = useRouter();
@@ -178,9 +179,11 @@ export default function Board() {
         <>
           <Tab.Pane attached={false}>
             내가 작성한 유저 게시판 글
-            <ul>
+            <Grid>
               {userBoard.map((d: any, i: number) => {
-                return (
+                return (<>
+                  {/* <Grid.Column width = {6}>제목: {d.title}</Grid.Column>
+                  <Grid.Column width = {10}>제목: {d.content}</Grid.Column> */}
                   <li
                     key={i}
                     onClick={() => {
@@ -190,9 +193,11 @@ export default function Board() {
                   >
                     번호: {d.id} 제목: {d.title} 내용: {d.content}
                   </li>
+                  </>
                 );
               })}
-            </ul>
+            </Grid>
+              
           </Tab.Pane>
           <Pagination
             boundaryRange={0}
@@ -214,6 +219,9 @@ export default function Board() {
         <>
           <Tab.Pane attached={false}>
             내가 작성한 댓글
+            <Grid>
+
+            </Grid>
             <ul>
               {comment.map((d: any, i: number) => {
                 return (
