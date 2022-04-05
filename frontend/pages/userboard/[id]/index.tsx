@@ -276,7 +276,7 @@ return (
                                         {userInfo.nick_name}
                                         </div>
                                     </Grid.Column>
-                                    <Grid.Column width={12}>
+                                    <Grid.Column width={11}>
                                     <div>
                                         <textarea className="commentInput" value={comments} placeholder="댓글을 작성해주세요" onChange={writeComment}></textarea>
                                     </div>
