@@ -16,7 +16,7 @@ import Router from "next/router";
 export default function Qnacreate() {
 
     const [title, setTitle] = useState('')
-    const [content, setContent] = useState([])
+    const [content, setContent] = useState('')
     const [userInfo, setUserInfo]: any = useState([])
     const [isNotice, setIsNotice] = useState(false)
     const [isSecret, setIsSecret] = useState<boolean>(false)

@@ -147,13 +147,14 @@ export default function Userboard_edit() {
             body.append("title", userboardDetail.title)
             body.append("content", userboardDetail.content)
             body.append("smallRegion", userboardDetail.smallRegion)
+            body.append("largeRegion", userboardDetail.largeRegion)
             body.append("userId", userInfo.id)
-            body.append("nickName", userInfo.nick_name)
 
     await allAxios.put('/article', body)
 
     .then(() => {
-        Router.push("/userboard")
+        alert("게시글이 수정되었습니다.")
+        Router.push(`/userboard/edit/${id}`)
     })
     .catch((e)=>{
         alert("잠시 후 시도해주세요")
@@ -175,9 +176,9 @@ export default function Userboard_edit() {
  
 
     useEffect(() => {
-        if (!IsLogin() && userInfo.id != userboardDetail.userId){
+        if (userInfo.id && (userInfo.id != userboardDetail.userId)){
             Router.push("/userboard");
-            alert("게시글 수정은 로그인 후 작성한 본인만 이용가능합니다.")                
+            alert("게시글 수정은 작성한 본인만 이용가능합니다.")                
         }
     })
 
@@ -209,7 +210,7 @@ return (
                     <div className={styles.info}>
                         <dl>
                             <dt>글쓴이</dt>
-                            <dd>{userInfo.nick_name}</dd>
+                            <dd>{userboardDetail.nickName}</dd>
                         </dl>
                         <dl>
                             <dt>지역선택</dt>
