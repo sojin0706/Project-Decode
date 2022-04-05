@@ -34,8 +34,8 @@ export default function UserInfo() {
   useEffect(() => {
     if (IsLogin()) {
       getUserInfo();
-      axios
-        .get(`http://j6c203.p.ssafy.io:8081/user/allProfile/2`)
+      userAxios
+        .get(`/user/allProfile/2`)
         .then(({ data }) => {
           setFavoriteGenre(
             genreArr[

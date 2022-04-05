@@ -3,6 +3,8 @@ import IsLogin from "../../lib/customLogin";
 import axios from "axios";
 import { Pie } from "react-chartjs-2";
 import "chart.js/auto";
+import userAxios from "../../lib/userAxios";
+import allAxios from "../../lib/allAxios";
 
 export default function Graph() {
   const [userInfo, setUserInfo]: any = useState(0);
@@ -12,8 +14,8 @@ export default function Graph() {
       var Token: any = null;
       if (typeof window !== "undefined") Token = localStorage.getItem("token");
 
-      axios
-        .get("http://j6c203.p.ssafy.io:8081/auth/users", {
+      userAxios
+        .get("/auth/users", {
           headers: { Authorization: `Bearer ${Token}` },
         })
         .then(({ data }) => {
@@ -33,8 +35,8 @@ export default function Graph() {
   useEffect(() => {
     if (userInfo !== 0) {
       let tmpSum = 0
-      axios
-        .get(`http://j6c203.p.ssafy.io:8082/review/mygenre/${userInfo.id}`)
+      allAxios
+        .get(`/review/mygenre/${userInfo.id}`)
         .then((data) => {
           data.data.genre.map((d: any, i: number) => {
             tmpSum += d

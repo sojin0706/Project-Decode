@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Form, Input, Grid, Button } from "semantic-ui-react";
 import userAxios from "../../src/lib/userAxios";
+import allAxios from "../../src/lib/allAxios";
 import recoAxios from "../../src/lib/recoAxios";
 import { Segment } from "semantic-ui-react";
 // components
@@ -67,8 +68,8 @@ export default function Index() {
 
   useEffect(() => {
     getUserInfo();
-    axios
-      .get(`http://j6c203.p.ssafy.io:8082/information/region?largeRegion=서울`)
+    allAxios
+      .get(`/information/region?largeRegion=서울`)
       .then(({ data }) => {
         setSmallPlace(data.smallRegions);
         return data.smallRegions;
@@ -78,10 +79,8 @@ export default function Index() {
       });
   }, []);
   const handleChangeBig = (e: any) => {
-    axios
-      .get(
-        `http://j6c203.p.ssafy.io:8082/information/region?largeRegion=${e.target.value}`
-      )
+    allAxios
+      .get(`/information/region?largeRegion=${e.target.value}`)
       .then(({ data }) => {
         setSelectedBigPlace(e.target.value);
         setSmallPlace(data.smallRegions);
@@ -309,8 +308,8 @@ export default function Index() {
       };
 
       console.log(body);
-      axios
-        .post(`http://j6c203.p.ssafy.io:8081/user/recommend`, body)
+      userAxios
+        .post(`/user/recommend`, body)
         .then(({ data }) => {
           getUserInfo();
         })

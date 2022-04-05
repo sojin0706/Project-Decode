@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import { Pagination } from "semantic-ui-react";
 import { Grid } from "semantic-ui-react";
 import style from "../../../styles/profile/Board.module.css";
+import userAxios from "../../lib/userAxios";
+import allAxios from "../../lib/allAxios";
 
 export default function Board() {
   const router = useRouter();
@@ -16,8 +18,8 @@ export default function Board() {
       var Token: any = null;
       if (typeof window !== "undefined") Token = localStorage.getItem("token");
 
-      axios
-        .get("http://j6c203.p.ssafy.io:8081/auth/users", {
+      userAxios
+        .get("/auth/users", {
           headers: { Authorization: `Bearer ${Token}` },
         })
         .then(({ data }) => {
@@ -47,9 +49,9 @@ export default function Board() {
   const tmpUserBoard: any = [];
   useEffect(() => {
     if (userInfo !== 0) {
-      axios
+      allAxios
         .get(
-          `http://j6c203.p.ssafy.io:8082/article/profile/${userInfo.id}?page=${
+          `/article/profile/${userInfo.id}?page=${
             currentPagesUserBoard - 1
           }`
         )
@@ -70,9 +72,9 @@ export default function Board() {
   const tmpComment: any = [];
   useEffect(() => {
     if (userInfo !== 0) {
-      axios
+      allAxios
         .get(
-          `http://j6c203.p.ssafy.io:8082/comment/profile/${userInfo.id}?page=${
+          `/comment/profile/${userInfo.id}?page=${
             currentPagesComment - 1
           }`
         )
@@ -80,8 +82,8 @@ export default function Board() {
           setTotalPageComment(data.myArticleCommentList.totalPages);
           data.myArticleCommentList.content.map((d: any, i: number) => {
             tmpComment.push(d);
-            axios
-              .get(`http://j6c203.p.ssafy.io:8082/article/${d.articleId}`)
+            allAxios
+              .get(`/article/${d.articleId}`)
               .then(({ data }) => {
                 tmpComment[i].userImage = data.article.title;
                 console.log('here!!!!!!',data.article.title);
@@ -99,9 +101,9 @@ export default function Board() {
   const tmpQA: any = [];
   useEffect(() => {
     if (userInfo !== 0) {
-      axios
+      allAxios
         .get(
-          `http://j6c203.p.ssafy.io:8082/qna/profile/${userInfo.id}?page=${
+          `/qna/profile/${userInfo.id}?page=${
             currentPagesQa - 1
           }`
         )

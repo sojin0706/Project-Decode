@@ -2,12 +2,16 @@ import { Statistic } from "semantic-ui-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import style from "../../../styles/main/Data.module.css"
+import allAxios from "../../lib/allAxios";
+import userAxios from "../../lib/userAxios";
+
 export default function Data() {
   const [themeCnt, setThemeCnt] = useState(0);
   const [storeCnt, setStoreCnt] = useState(0);
 
   useEffect(() => {
-    axios.get(`http://j6c203.p.ssafy.io:8082/home`).then(({ data }) => {
+    allAxios
+      .get(`/home`).then(({ data }) => {
       setThemeCnt(data.count[0]);
       setStoreCnt(data.count[1]);
     });
@@ -15,8 +19,8 @@ export default function Data() {
 
   const [userCnt, setUserCnt] = useState(0)
   useEffect(() => {
-    // axios.get(`http://j6c203.p.ssafy.io:8081/user/userCount`).then(({ data }) => {
-    axios.get(`https://j6c203.p.ssafy.io/api/auth-server/user/userCount`).then(({ data }) => {
+    userAxios
+      .get(`/user/userCount`).then(({ data }) => {
       setUserCnt(data.userCount)
     });
   }, []);

@@ -7,6 +7,7 @@ import Graph from "../../src/component/profile/graph";
 import ClearList from "../../src/component/profile/clearList";
 import UserInfo from "../../src/component/profile/userInfo";
 import Board from "../../src/component/profile/board";
+import userAxios from "../../src/lib/userAxios";
 
 // style
 import style from "../../styles/profile/Profile.module.css"
@@ -19,8 +20,8 @@ export default function Index() {
       var Token: any = null;
       if (typeof window !== "undefined") Token = localStorage.getItem("token");
 
-      axios
-        .get("http://j6c203.p.ssafy.io:8081/auth/users", {
+      userAxios
+        .get("/auth/users", {
           headers: { Authorization: `Bearer ${Token}` },
         })
         .then(({ data }) => {
