@@ -13,25 +13,14 @@ import Router, { useRouter } from "next/router";
 
 
 
+export default function test() {
 
-export default function Qnaedit() {
-    const [userInfo, setUserInfo]: any = useState({
-        id: 0,
-        nick_name: ''
-    });
-
-    const [qnaDetail,setQnaDetail]:any = useState({
-        title: '',
-        content: '',
-        isNotice: false,
-        isSecret: false,
-    })
-
-    // const [title, setTitle] = useState('')
-    // const [content, setContent] = useState([])
-    // const [isNotice, setIsNotice] = useState(false)
-    // const [isSecret, setIsSecret] = useState<boolean>(false)
-
+    const [title, setTitle] = useState('')
+    const [content, setContent] = useState([])
+    const [userInfo, setUserInfo]: any = useState([])
+    const [isNotice, setIsNotice] = useState(false)
+    const [isSecret, setIsSecret] = useState<boolean>(false)
+    const [qnaDetail,setQnaDetail]:any = useState([])
     const router = useRouter()
     const id = Number(router.query.id)
 
@@ -74,26 +63,28 @@ export default function Qnaedit() {
 
     // 글 수정
     const qnaSubmit = async() => {
-        if (qnaDetail.title.length == 0){
+        if (title.length == 0){
             alert('제목을 작성해주세요')
             return
         }
-        if (qnaDetail.content.length == 0){
+        if (content.length == 0){
             alert('내용을 작성해주세요')
             return
         }
         if (IsLogin()){
-            const body = new FormData();
-            body.append("title", qnaDetail.title)
-            body.append("content", qnaDetail.content)
-            body.append("userId", userInfo.id)
-            body.append("isSecret", qnaDetail.isSecret)
-            body.append("isNotice", qnaDetail.isNotice)
-            body.append("id", qnaDetail.id)
+            const body = {
+                title: title,
+                content: content,
+                userId: userInfo.id,
+                id: id,
+                isNotice: isNotice,
+                isSecret: isSecret,
+                nickName: userInfo.nick_name,
+            }
     await allAxios.put(`/qna/${id}`, body)
-    
+
     .then(() => {
-        alert("Q&A가 수정되었습니다.")
+        alert("Q&A가 작성되었습니다.")
         Router.push(`/notice/edit/${id}`)
     })
     .catch((e)=>{
@@ -103,14 +94,23 @@ export default function Qnaedit() {
     }
     }
 
-    const handleOnChange = (e:any) => {
+    const qnaTitleWrite = (e: any) => {
         const {value, name} = e.target;
 
-        setQnaDetail({
-            ...qnaDetail,
+        setTitle({
+            ...qnaDetail.title,
             [name]:value,
         });
 
+    }
+
+    const qnaContentWrite = (e: any) => {
+        const {value, name} = e.target;
+
+        setContent({
+            ...qnaDetail.content,
+            [name]:value,
+        });
 
     }
 
@@ -147,13 +147,13 @@ return (
                     <div className={styles.title}>
                         <dl>
                             <dt>제목</dt>
-                            <dd><input name="title" value={qnaDetail.title} type="text" placeholder="제목 입력" onChange={handleOnChange}/></dd>
+                            <dd><input name="title" value={qnaDetail.title} type="text" placeholder="제목 입력" onChange={qnaTitleWrite}/></dd>
                         </dl>
                     </div>
                     <div className={styles.info}>
                         <dl>
                             <dt>글쓴이</dt>
-                            <dd>{qnaDetail.nickName}</dd>
+                            <dd>{userInfo.nick_name}</dd>
                         </dl>
                         <dl>
                             <dt>
@@ -165,7 +165,7 @@ return (
                         </dl>
                     </div>
                     <div className={styles.cont}>
-                        <textarea name="content" value={qnaDetail.content} placeholder="내용 입력" onChange={handleOnChange}></textarea>
+                        <textarea name="content" value={qnaDetail.content} placeholder="내용 입력" onChange={qnaContentWrite}></textarea>
                     </div>
 
                 </div>
