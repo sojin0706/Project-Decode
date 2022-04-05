@@ -66,7 +66,7 @@ spring:
             - RewritePath=/api/escape-server/(?<path>.*),/$\{path}
             #            - AddRequestHeader=api-request, api-request-header2
             #            - AddResponseHeader=api-response, api-response-header2
-            - name: CustomFilter
+#            - name: CustomFilter
 #            - name: LoggingFilter
 #              args:
 #                baseMessage: Spring Cloud Gateway Logging filter
@@ -75,12 +75,12 @@ spring:
         - id: analysis-server
           uri: http://j6c203.p.ssafy.io:8083/
           predicates:
-            - Path=/analysis-server/**
+            - Path=/api/analysis-server/**
           filters:
-            - RewritePath=/analysis-server/(?<path>.*),/$\{path}
+            - RewritePath=/api/analysis-server/(?<path>.*),/$\{path}
             #            - AddRequestHeader=api-request, api-request-header2
             #            - AddResponseHeader=api-response, api-response-header2
-            - name: CustomFilter
+#            - name: CustomFilter
     #            - name: LoggingFilter
     #              args:
     #                baseMessage: Spring Cloud Gateway Logging filter
