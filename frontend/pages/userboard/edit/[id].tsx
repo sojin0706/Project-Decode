@@ -46,6 +46,11 @@ export default function Userboard_edit() {
         loadSmallRegion(null)
     }, [])
 
+    useEffect(() => {
+        setRegion(userboardDetail.largeRegion)
+        setSmallRegion(userboardDetail.smallRegion)
+    }, [userboardDetail])
+
     function selectedRegion(e: any){
         setSmallRegion(null)
         if (e.target.textContent === '전체'){
@@ -135,8 +140,8 @@ export default function Userboard_edit() {
         const body = {
             "title": userboardDetail.title,
             "content": userboardDetail.content,
-            "smallRegion": userboardDetail.smallRegion,
-            "largeRegion": userboardDetail.largeRegion,
+            "smallRegion": smallRegion,
+            "largeRegion": region,
             "userId": userInfo.id,
         }
 
