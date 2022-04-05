@@ -42,7 +42,7 @@ function Kakaomap({ storename, latitude, longitude }: MapProps) {
                 // LatLngBounds 객체에 좌표를 추가합니다
                 var bounds = new window.kakao.maps.LatLngBounds();
 
-                for (var i=0; i<data.length; i++) {
+                for (var i=0; i<1; i++) {
                     displayMarker(data[i]);    
                     bounds.extend(new window.kakao.maps.LatLng(data[i].y, data[i].x));
                 }       
