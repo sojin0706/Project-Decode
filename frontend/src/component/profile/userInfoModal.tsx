@@ -3,6 +3,8 @@ import { Button, Image, Modal, Form, Input } from "semantic-ui-react";
 import userAxios from "../../lib/userAxios";
 import axios from "axios";
 import recoAxios from "../../lib/recoAxios";
+import allAxios from "../../lib/allAxios";
+
 
 export default function UserInfoModal() {
   // 유저 정보 불러오기
@@ -61,8 +63,8 @@ export default function UserInfoModal() {
 
   useEffect(() => {
     getUserInfo();
-    axios
-      .get(`http://j6c203.p.ssafy.io:8082/information/region?largeRegion=서울`)
+    allAxios
+      .get(`/information/region?largeRegion=서울`)
       .then(({ data }) => {
         setSmallPlace(data.smallRegions);
         return data.smallRegions;
@@ -72,9 +74,9 @@ export default function UserInfoModal() {
       });
   }, []);
   const handleChangeBig = (e: any) => {
-    axios
+    allAxios
       .get(
-        `http://j6c203.p.ssafy.io:8082/information/region?largeRegion=${e.target.value}`
+        `/information/region?largeRegion=${e.target.value}`
       )
       .then(({ data }) => {
         setSelectedBigPlace(e.target.value);

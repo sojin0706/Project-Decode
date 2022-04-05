@@ -7,6 +7,9 @@ import Data from "../src/component/main/data";
 import Explain from "../src/component/main/explain";
 import axios from "axios";
 import Detail from "../src/component/modal/detail";
+import userAxios from "../src/lib/userAxios";
+import allAxios from "../src/lib/allAxios";
+
 export default function Home() {
   const [userInfo, setUserInfo]: any = useState([]);
 
@@ -15,8 +18,8 @@ export default function Home() {
       var Token: any = null;
       if (typeof window !== "undefined") Token = localStorage.getItem("token");
 
-      axios
-        .get("http://j6c203.p.ssafy.io:8081/auth/users", {
+      userAxios
+        .get("/auth/users", {
           headers: { Authorization: `Bearer ${Token}` },
         })
         .then(({ data }) => {
@@ -51,7 +54,7 @@ export default function Home() {
 
   const [notLoginReco, setNotLoginReco] = useState([])
   useEffect(() => {
-    axios.get('http://j6c203.p.ssafy.io:8082/home/nonmember')
+    allAxios.get('/home/nonmember')
     .then (({data}) => {
       const arr = data.themes
       arr.sort(function(){return Math.random() - Math.random();})
