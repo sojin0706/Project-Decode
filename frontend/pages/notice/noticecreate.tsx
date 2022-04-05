@@ -1,7 +1,5 @@
 import {
     Grid,
-    Form,
-    Checkbox,
   } from "semantic-ui-react";
 import React from 'react'
 import styles from "../../styles/notice/create.module.css";
@@ -17,7 +15,6 @@ export default function Noticecreate() {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState([])
     const [userInfo, setUserInfo]: any = useState([])
-    const [userId, setUserId] = useState(0)
     const [isNotice, setIsNotice] = useState(false)
     const [isSecret, setIsSecret] = useState(false)
     const [id, setId] = useState(0)
@@ -81,7 +78,7 @@ export default function Noticecreate() {
 
     // 우회 막기
     useEffect(() => {
-        if (userInfo.id != 46441431){
+        if (userInfo.id && (userInfo.id != 46441431)){
             Router.push("/notice");
             alert("관리자 작성페이지입니다.")                
         }

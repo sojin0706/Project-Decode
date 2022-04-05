@@ -30,7 +30,6 @@ export default function Qna_detail() {
         if (IsLogin()){
             userAxios.get(`/auth/users`)
             .then(({ data }) => {
-                console.log(data.body.user)
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
@@ -42,14 +41,15 @@ export default function Qna_detail() {
     
     // qna
     useEffect(() => {
-        loadqnaDetail(id)
+        if (id){
+            loadqnaDetail(id)
+        }
     }, [id])
 
     const loadqnaDetail = async(id:Number) => {
         await allAxios
             .get(`/qna/${id}`)
             .then(({ data }) => {
-                console.log(data.qna)
                 setQnaDetail(data.qna)
             })
             .catch((e) => {
@@ -71,17 +71,18 @@ export default function Qna_detail() {
 
     // 댓글
     useEffect(() => {
+        if (id){
         loadcomment(id)
+        }
     }, [id])
 
     const loadcomment = async(id:Number) => {
         await allAxios
         .get(`/qnaComment/${id}`)
         .then(({ data }) => {
-            console.log(data.commentList)
             setCommentInfo(data.commentList)
         })
-        .catch((e) => {
+        .catch((e:any) => {
             console.log(e)
         })      
     }  
@@ -101,8 +102,12 @@ export default function Qna_detail() {
             }
         await allAxios.post(`/qnaComment`, body)
         .then(() => {
+            loadcomment(id)
+            setComments(null)
+            const commentsinput: any = document.getElementsByClassName('commentInput')[0]
+            commentsinput['value'] = null
+            commentsinput['textContent'] = null
             alert('리뷰가 작성되었습니다.')
-
         })
         .catch((e) => {
             console.log(e)
@@ -169,7 +174,7 @@ return (
                     <div className={styles.info}>
                         <dl>
                             <dt>번호</dt>
-                            <dd>{id}</dd>
+                            <dd>{String(id)}</dd>
                         </dl>
                         <dl>
                             <dt>글쓴이</dt>
@@ -179,10 +184,6 @@ return (
                             <dt>작성일</dt>
                             <dd>{qnaDetail.createdAt?qnaDetail.createdAt[0]+'.'+qnaDetail.createdAt[1]+'.'+qnaDetail.createdAt[2]:''}</dd>
                         </dl>
-                        {/* <dl>
-                            <dt>조회</dt>
-                            <dd>127</dd>
-                        </dl> */}
                     </div>
                     <div className={styles.cont}>
                         {qnaDetail.content}
@@ -218,7 +219,7 @@ return (
                             </Grid.Column>
                             <Grid.Column width={12}>
                             <div>
-                                <textarea value={comments} placeholder="댓글을 작성해주세요" onChange={writeComment}></textarea>
+                                <textarea className="commentInput" value={comments} placeholder="댓글을 작성해주세요" onChange={writeComment}></textarea>
                             </div>
                             </Grid.Column>
                             <Grid.Column width={2}>

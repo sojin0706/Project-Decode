@@ -36,7 +36,6 @@ export default function Notice() {
         if (IsLogin()){
             userAxios.get(`/auth/users`)
             .then(({ data }) => {
-                console.log(data.body.user)
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
@@ -66,7 +65,6 @@ export default function Notice() {
                 }
             })
             .then(({ data }) => {
-                console.log(data)
                 setTotalPages(data.qnaList.totalPages)
                 setQna(data.qnaList.content)
             })
@@ -90,7 +88,6 @@ export default function Notice() {
                 }
             })
             .then(({ data }) => {
-                console.log(data.noticeList.content)
                 setNotice(data.noticeList.content)
             })
             .catch((e) => {

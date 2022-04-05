@@ -12,19 +12,18 @@ import Router, { useRouter } from "next/router";
 
 
 
-export default function QnaEdit() {
+export default function NoticeEdit() {
     const [userInfo, setUserInfo]: any = useState({
         id: 0,
         nick_name: ''
     });
 
-    const [qnaDetail,setQnaDetail]:any = useState({
+    const [noticeDetail,setNoticeDetail]:any = useState({
         title: '',
         content: '',
         isNotice: false,
         isSecret: false,
     })
-
     const router = useRouter()
     const id = Number(router.query.id)
 
@@ -48,14 +47,16 @@ export default function QnaEdit() {
 
     // 글 정보
     useEffect(() => {
-        loadqnaDetail(id)
+        if (id) {
+        loadNoticeDetail(id)
+        }
     }, [id])
 
-    const loadqnaDetail = async(id:Number) => {
+    const loadNoticeDetail = async(id:Number) => {
         await allAxios
-            .get(`/qna/${id}`)
+            .get(`/notice/${id}`)
             .then(({ data }) => {
-                setQnaDetail(data.qna)
+                setNoticeDetail(data.notice)
             })
             .catch((e) => {
                 console.log(e)
@@ -64,12 +65,12 @@ export default function QnaEdit() {
 
 
     // 글 수정
-    const qnaSubmit = async() => {
-        if (qnaDetail.title.length == 0){
+    const noticeSubmit = async() => {
+        if (noticeDetail.title.length == 0){
             alert('제목을 작성해주세요')
             return
         }
-        if (qnaDetail.content.length == 0){
+        if (noticeDetail.content.length == 0){
             alert('내용을 작성해주세요')
             return
         }
@@ -79,19 +80,19 @@ export default function QnaEdit() {
         }
 
         const body = {
-            "title": qnaDetail.title,
-            "content": qnaDetail.content,
+            "title": noticeDetail.title,
+            "content": noticeDetail.content,
             "userId": userInfo.id,
-            "isSecret": qnaDetail.isSecret,
-            "isNotice": qnaDetail.isNotice,
-            "id": qnaDetail.id,
+            "isSecret": noticeDetail.isSecret,
+            "isNotice": noticeDetail.isNotice,
+            "id": noticeDetail.id,
         }
 
-        await allAxios.put(`/qna/${id}`, body)
+        await allAxios.put(`/notice/${id}`, body)
         
         .then(() => {
             alert("Q&A가 수정되었습니다.")
-            Router.push(`/notice/qna/${id}`)
+            Router.push(`/notice/notice/${id}`)
         })
         .catch((e)=>{
             console.log(e)
@@ -102,22 +103,17 @@ export default function QnaEdit() {
     const handleOnChange = (e:any) => {
         const {value, name} = e.target;
 
-        setQnaDetail({
-            ...qnaDetail,
+        setNoticeDetail({
+            ...noticeDetail,
             [name]:value,
         });
 
 
     }
 
-    // 비밀글
-    // const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     setIsSecret(e.target.checked);
-    //   };
-
       useEffect(() => {
-        if (userInfo.id && (userInfo.id != qnaDetail.userId)){
-            Router.push(`/notice/edit/${id}`);
+        if (userInfo.id && (userInfo.id != noticeDetail.userId)){
+            Router.push(`/notice/notice/${id}`);
             alert("게시글 수정은 작성한 본인만 이용가능합니다.")                
         }
     })
@@ -143,32 +139,24 @@ return (
                     <div className={styles.title}>
                         <dl>
                             <dt>제목</dt>
-                            <dd><input name="title" value={qnaDetail.title} type="text" placeholder="제목 입력" onChange={handleOnChange}/></dd>
+                            <dd><input name="title" value={noticeDetail.title} type="text" placeholder="제목 입력" onChange={handleOnChange}/></dd>
                         </dl>
                     </div>
                     <div className={styles.info}>
                         <dl>
                             <dt>글쓴이</dt>
-                            <dd>{qnaDetail.nickName}</dd>
-                        </dl>
-                        <dl>
-                            <dt>
-                            비밀글
-                            </dt>
-                            <dd>
-                                <input type="checkbox" checked={qnaDetail.isSecret} />
-                            </dd>
+                            <dd>{noticeDetail.nickName}</dd>
                         </dl>
                     </div>
                     <div className={styles.cont}>
-                        <textarea name="content" value={qnaDetail.content} placeholder="내용 입력" onChange={handleOnChange}></textarea>
+                        <textarea name="content" value={noticeDetail.content} placeholder="내용 입력" onChange={handleOnChange}></textarea>
                     </div>
 
                 </div>
 
 
                 <div className={styles.bt_wrap}>
-                    <div className={styles.on} onClick={qnaSubmit}>등록</div>
+                    <div className={styles.on} onClick={noticeSubmit}>등록</div>
                     <div onClick={() => Router.back()}>취소</div>
                 </div>
             </div>

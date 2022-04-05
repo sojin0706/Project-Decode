@@ -24,14 +24,15 @@ export default function Notice_detail() {
     }, [])
 
     useEffect(() => {
+        if (id){
         loadnoticeDetail(id)
+        }
     }, [id])
 
     const loadUser = async() => {
         if (IsLogin()){
             userAxios.get(`/auth/users`)
             .then(({ data }) => {
-                console.log(data.body.user)
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
@@ -45,7 +46,6 @@ export default function Notice_detail() {
         await allAxios
             .get(`/notice/${id}`)
             .then(({ data }) => {
-                console.log(data.notice)
                 setNoticeDetail(data.notice)
             })
             .catch((e) => {
@@ -90,7 +90,7 @@ return (
                     <div className={styles.info}>
                         <dl>
                             <dt>번호</dt>
-                            <dd>{id}</dd>
+                            <dd>{String(id)}</dd>
                         </dl>
                         <dl>
                             <dt>글쓴이</dt>
@@ -100,10 +100,6 @@ return (
                             <dt>작성일</dt>
                             <dd>{noticeDetail.createdAt?noticeDetail.createdAt[0]+'.'+noticeDetail.createdAt[1]+'.'+noticeDetail.createdAt[2]:''}</dd>
                         </dl>
-                        {/* <dl>
-                            <dt>조회</dt>
-                            <dd>127</dd>
-                        </dl> */}
                     </div>
                     <div className={styles.cont}>
                         {noticeDetail.content}
@@ -111,10 +107,10 @@ return (
                     
                 </div>
                 <div className={styles.bt_wrap}>
-                    <div className={styles.on} onClick={() => Router.back()}>목록</div>
+                    <div className={styles.on} onClick={() => router.push('/notice')}>목록</div>
                     {userInfo.id == noticeDetail.userId &&(
                     <>
-                        <div className={styles.editbutton} onClick={() => router.push(`/notice/editQna/${id}`)}> 수정</div>
+                        <div className={styles.editbutton} onClick={() => router.push(`/notice/noticeedit/${id}`)}> 수정</div>
                         <div className={styles.deletebutton} onClick={deleteNotice}> 삭제</div>
                     </>
                     )}

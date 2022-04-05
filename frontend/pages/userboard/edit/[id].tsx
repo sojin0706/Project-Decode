@@ -24,12 +24,6 @@ const regionOptions = [
 ]
 
 export default function Userboard_edit() {
-
-    // const [title, setTitle] = useState('')
-    // const [content, setContent] = useState([])
-    // const [userInfo, setUserInfo]: any = useState(0)
-    // const [userId, setUserId] = useState(0)
-    // const [userboardDetail,setUserboardDetail]:any = useState([])
     const [userInfo, setUserInfo]: any = useState({
         id: 0,
         nick_name: ''
@@ -42,7 +36,6 @@ export default function Userboard_edit() {
     });
     const router = useRouter()
     const id = Number(router.query.id)
-
 
     // 지역 선택    
     const [region, setRegion] = useState(null)
@@ -95,7 +88,6 @@ export default function Userboard_edit() {
         if (IsLogin()){
             userAxios.get(`/auth/users`)
             .then(({ data }) => {
-                console.log(data.body.user)
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
@@ -107,24 +99,16 @@ export default function Userboard_edit() {
 
     // 게시글 정보
     useEffect(() => {
+        if(id){
         loaduserboardDetail(id)
+        }
     }, [id])
 
     const loaduserboardDetail = async(id:Number) => {
         await allAxios
             .get(`/article/${id}`)
             .then(({ data }) => {
-                console.log(data.article)
                 setUserboardDetail(data.article)
-                // setUserboardDetail({
-                //     title: data.article.title,
-                //     content: data.article.content,
-                //     largeRegion: data.article.region,
-                //     smallRegion: data.article.smallRegion,
-                //     userId: data.article.userId,
-                //     nickName: data.article.nickName,
-                //     id : data.article.id,
-                // })
             })
             .catch((e) => {
                 console.log(e)
@@ -142,11 +126,12 @@ export default function Userboard_edit() {
             alert('내용을 작성해주세요')
             return
         }
-
+        if (!smallRegion || !region){
+            alert('지역을 선택해주세요')
+        }
         if (!IsLogin()){
             return
         }
-
         const body = {
             "title": userboardDetail.title,
             "content": userboardDetail.content,
@@ -154,15 +139,6 @@ export default function Userboard_edit() {
             "largeRegion": userboardDetail.largeRegion,
             "userId": userInfo.id,
         }
-        console.log(body)
-        console.log('2222222222222', userboardDetail)
-        // if (IsLogin()){
-        //     const body = new FormData();
-        //     body.append("title", userboardDetail.title)
-        //     body.append("content", userboardDetail.content)
-        //     body.append("smallRegion", userboardDetail.smallRegion)
-        //     body.append("largeRegion", userboardDetail.largeRegion)
-        //     body.append("userId", userInfo.id)
 
         await allAxios.put(`/article/${id}`, body)
 
@@ -174,7 +150,7 @@ export default function Userboard_edit() {
             alert("잠시 후 시도해주세요")
         })    
         }
-    // }
+
 
 
     const handleOnChange = (e:any) => {
