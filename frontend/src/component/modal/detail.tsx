@@ -42,7 +42,7 @@ export default function Detail({themeId, isImage, w, h}: any){
                     <Button style={{  margin: 'auto', display: 'block' }}>{themeDetail.themeName}</Button>
                 }
                 >
-                <Modal.Content image>
+                <Modal.Content image style={{ backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url(${themeDetail.posterUrl})`, backgroundSize:"cover"}}>
                     <img src={themeDetail.posterUrl} alt="이미지가 없습니다" width="250px" height="350px"/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <Modal.Description>

@@ -6,6 +6,7 @@ import allAxios from "../../src/lib/allAxios";
 import IsLogin from "../../src/lib/customLogin";
 import getrecoAxios from "../../src/lib/getrecoAxios";
 import userAxios from "../../src/lib/userAxios";
+import styles from "../../styles/recommend/recommend.module.css";
 
 const regionOptions = [
     { key: '전체', value: '전체', text: '전체' },
@@ -161,7 +162,7 @@ export default function Recommend(){
                 <Grid.Row>
                     <Grid.Column width={2}/>
                     <Grid.Column width={12}>
-                        <Header as='h3'>{userInfo.nick_name} 님이 좋아하실만한 테마를 준비해봤어요!</Header>
+                        <Header as='h3'><span className={styles.color}>{userInfo.nick_name}</span> 님이 좋아하실만한 <span className={styles.color}>테마</span>를 준비해봤어요!</Header>
                         <Detail themeId={myRecommend.like_one} isImage={true} w={150} h={200}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Detail themeId={myRecommend.like_two} isImage={true} w={150} h={200}/>
@@ -176,7 +177,7 @@ export default function Recommend(){
                 <Grid.Row>
                     <Grid.Column width={2}/>
                     <Grid.Column width={12}>
-                        <Header as='h3'>{userInfo.nick_name} 님과 같은 {userInfo.age}대 {userInfo.gender==='남'?"남자":"여자"}들이 좋아하는 방에 도전해보세요!</Header>
+                        <Header as='h3'><span className={styles.color}>{userInfo.nick_name}</span> 님과 같은 <span className={styles.color}>{userInfo.age}대 {userInfo.gender==='남'?"남자":"여자"}</span>들이 좋아하는 방에 도전해보세요!</Header>
                         <Detail themeId={ageRecommend.gender_age_one} isImage={true} w={150} h={200}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Detail themeId={ageRecommend.gender_age_two} isImage={true} w={150} h={200}/>
@@ -191,7 +192,7 @@ export default function Recommend(){
                 <Grid.Row>
                     <Grid.Column width={2}/>
                     <Grid.Column width={12}>
-                        <Header as='h3'>{userInfo.nick_name} 님이 좋아하는 장르를 모아봤어요!</Header>
+                        <Header as='h3'><span className={styles.color}>{userInfo.nick_name}</span> 님이 좋아하는 <span className={styles.color}>장르</span>를 모아봤어요!</Header>
                         <Detail themeId={genreRecommend.genre_one} isImage={true} w={150} h={200}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Detail themeId={genreRecommend.genre_two} isImage={true} w={150} h={200}/>

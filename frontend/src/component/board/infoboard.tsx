@@ -220,7 +220,7 @@ export default function Infoboard() {
                 </Grid.Column>
                 <Grid.Column width={3}>
                     <Header as='h5'>1인 가능 여부</Header>
-                    <Radio label={onePerson?'1인 가능':''} onClick={checkOnePerson} checked={onePerson?true:false}/>
+                    <Radio className={onePerson?styles.color:''} label={onePerson?'1인 가능':''} onClick={checkOnePerson} checked={onePerson?true:false}/>
                 </Grid.Column>
             </Grid>
             <Grid celled centered stackable>
@@ -251,7 +251,7 @@ export default function Infoboard() {
                     return (
                         <Grid.Row key={theme.themeId}>
                             <Grid.Column width={2}>
-                                <Header as='h4' textAlign='center' className={styles.arrange}>{index+pages*10+1}</Header>
+                                <Header as='h4' textAlign='center'>{index+pages*10+1}</Header>
                             </Grid.Column>
                             <Grid.Column width={2}>
                                 <Header as='h4' textAlign='center'>{theme.largeRegion}/{theme.smallRegion}</Header>
