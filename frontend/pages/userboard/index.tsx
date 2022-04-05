@@ -3,9 +3,6 @@ import {
     Grid,
     Header,
     Select,
-    Input,
-    Icon,
-    Dropdown,
 } from "semantic-ui-react";
 import { useEffect, useState } from "react";
 import React from 'react'
@@ -108,7 +105,6 @@ export default function Userboard() {
                 }
             })
             .then(({ data }) => {
-                console.log(data.articleList)
                 setTotalPages(data.articleList.totalPages)
                 setUserboard(data.articleList.content)
             })
@@ -181,18 +177,6 @@ export default function Userboard() {
                                     </div>
 
                                 </Grid.Column>
-                                {/* <Grid.Column width={1}>
-                                    <div className={styles.board_search}>
-                                        <Input
-                                            icon={<Icon name='search' inverted circular link />}
-                                            action={
-                                                <Dropdown button basic floating options={options} placeholder='검색' defaultValue='page' />
-                                            }
-                                            actionPosition='left'
-                                            placeholder='검색어를 입력하세요'
-                                        />
-                                    </div>
-                                </Grid.Column> */}
                                 <Grid.Column width={3}>
                                     <div className={styles.bt_wrap}>
                                         <div className={styles.on} onClick={goUserWrite}>글 작성</div>

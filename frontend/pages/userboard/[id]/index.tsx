@@ -15,12 +15,9 @@ import userAxios from "../../../src/lib/userAxios";
 
 export default function Userboard_detail() {
     const [userboardDetail,setUserboardDetail]:any = useState([])
-    // const [likesInfo, setLikesInfo]:any = useState(0)
     const [userInfo, setUserInfo]: any = useState(0)
     const router = useRouter()
     const id = Number(router.query.id)
-    // const [like, setLike] = useState(0);
-    // const [disLike, setDisLike] = useState(0);
     const [comments, setComments]:any = useState('')
     const [commentInfo, setCommentInfo]:any = useState([])
 
@@ -32,7 +29,6 @@ export default function Userboard_detail() {
         if (IsLogin()){
             userAxios.get(`/auth/users`)
             .then(({ data }) => {
-                console.log(data.body.user)
                 setUserInfo(data.body.user)
             })
             .catch((e) => {
@@ -54,7 +50,6 @@ export default function Userboard_detail() {
         await allAxios
             .get(`/article/${id}`)
             .then(({ data }) => {
-                console.log(data.article)
                 setUserboardDetail(data.article)
             })
             .catch((e) => {
@@ -86,7 +81,6 @@ export default function Userboard_detail() {
         await allAxios
         .get(`/comment/${id}`)
         .then(({ data }) => {
-            console.log(data)
             setCommentInfo(data.commentList)
         })
         .catch((e:any) => {
@@ -111,9 +105,9 @@ export default function Userboard_detail() {
         .then(() => {
             loadcomment(id)
             setComments(null)
-            const test: any = document.getElementsByClassName('commentInput')[0]
-            test['value'] = null
-            test['textContent'] = null
+            const commentsinput: any = document.getElementsByClassName('commentInput')[0]
+            commentsinput['value'] = null
+            commentsinput['textContent'] = null
             alert('리뷰가 작성되었습니다.')
         })
         .catch((e) => {
@@ -141,32 +135,6 @@ export default function Userboard_detail() {
             console.log(e)
         })
     }
-
-    // 좋아요
-    // useEffect(() => {
-    //     loadlikes(id)
-    // }, [id])
-
-    // const loadlikes = async(id:Number) => {
-    //     await allAxios
-    //         .post(`/article/recommend/${id}`, {
-    //             params: {
-    //                 recommend: like,
-    //             }
-    //         })
-    //         .then(({ data }) => {
-    //             setLikesInfo(data)
-    //             console.log(data)
-    //         })
-    //         .catch((e) => {
-    //             console.log(e)
-    //         })
-    //     }
-    
-
-
-
-
 
 
 return (
@@ -208,14 +176,6 @@ return (
                             <dt>작성일</dt>
                             <dd>{userboardDetail.createdAt?userboardDetail.createdAt[0]+'.'+userboardDetail.createdAt[1]+'.'+userboardDetail.createdAt[2]:''}</dd>
                         </dl>
-                        {/* <dl>
-                            <dt>조회수</dt>
-                            <dd>219</dd>
-                        </dl> */}
-                        {/* <dl>
-                            <dt>추천수</dt>
-                            <dd>{likesInfo.recommend}</dd>
-                        </dl> */}
                     </div>
                     <div className={styles.board_cont}>
                         {userboardDetail.content}
@@ -223,31 +183,9 @@ return (
                     
                 </div>
                 <div className={styles.comment}>
-                    {/* <div className={styles.comment_review}>
-                        <div className={styles.comment_reco}>
-                        <Button color='orange' inverted animated='fade' onClick={()=>userboardLikes()}>
-                            <Button.Content visible>
-                                <Icon name='thumbs up outline' />
-                            </Button.Content>
-                            <Button.Content hidden>
-                                추천
-                            </Button.Content>
-                        </Button>
-                        </div>
-                        <div className={styles.comment_report}>
-                        <Button color='grey'  animated='fade'>
-                            <Button.Content visible>
-                                <Icon name='user close' />
-                            </Button.Content>
-                            <Button.Content hidden>
-                                신고
-                            </Button.Content>
-                        </Button>
-                        </div>
-                    </div> */}
                     <br />
                 <div className={styles.bt_wrap}>
-                    <div className={styles.on} onClick={() => Router.back()}>목록</div>
+                    <div className={styles.on} onClick={() => Router.push('/userboard')}>목록</div>
                     {userInfo.id == userboardDetail.userId &&(
                     <>
                         <div className={styles.editbutton} onClick={() => router.push(`/userboard/edit/${id}`)}> 수정</div>
