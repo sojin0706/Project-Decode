@@ -17,8 +17,9 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "http://localhost:3000"
+#            allowedOrigins: "http://localhost:3000"
 #            allowedOrigins: "http://j6c203.p.ssafy.io:3000"
+            allowedOrigins: "https://j6c203.p.ssafy.io"
             allow-credentials: true   #추가
             allowedHeaders:
               - x-requested-with
@@ -71,3 +72,17 @@ spring:
 #                baseMessage: Spring Cloud Gateway Logging filter
 #                preLogger: true
 #                postLogger: true
+        - id: analysis-server
+            uri: http://j6c203.p.ssafy.io:8083/
+            predicates:
+              - Path=/analysis-server/**
+            filters:
+              - RewritePath=/analysis-server/(?<path>.*),/$\{path}
+              #            - AddRequestHeader=api-request, api-request-header2
+              #            - AddResponseHeader=api-response, api-response-header2
+              - name: CustomFilter
+      #            - name: LoggingFilter
+      #              args:
+      #                baseMessage: Spring Cloud Gateway Logging filter
+      #                preLogger: true
+      #                postLogger: true
