@@ -107,7 +107,7 @@ public class ArticleCommentController {
     //자신이 쓴 유저게시판 댓글 조회
     @ApiOperation(value = "자신이 쓴 유저게시판 댓글 리스트", notes = "자신이 쓴 유저게시판 댓글 리스트을 반환한다.")
     @GetMapping("/profile/{userId}")
-    public ResponseEntity<Map<String, Object>> getMyArticleCommentList(@PathVariable("userId") @ApiParam(value = "회원번호") Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable) {
+    public ResponseEntity<Map<String, Object>> getMyArticleCommentList(@PathVariable("userId") @ApiParam(value = "회원번호") Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=3) Pageable pageable) {
 
         Map<String, Object> result = new HashMap<>();
         Page<ArticleCommentResponseDto> myArticleCommentList = null;

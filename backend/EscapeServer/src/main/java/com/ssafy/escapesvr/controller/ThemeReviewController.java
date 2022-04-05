@@ -69,7 +69,7 @@ public class ThemeReviewController {
     // auth서버 전달 - 포스터들
     @ApiOperation(value = "내가 깬 테마의 포스터 - myprofile 포스터들", notes = "회원 아아디가 깬 장르 개수를 불러온다.",response=Map.class)
     @GetMapping("/poster/{userId}")
-    public ResponseEntity<Map<String, Object>> getPoster(@PathVariable @ApiParam( value="회원 아이디",required = true) Integer userId,@PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=12) Pageable pageable){
+    public ResponseEntity<Map<String, Object>> getPoster(@PathVariable @ApiParam( value="회원 아이디",required = true) Integer userId,@PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=8) Pageable pageable){
         Map<String, Object> result = new HashMap<>();
         HttpStatus httpStatus = null;
         Page<PosterResponseDto>posters=null;

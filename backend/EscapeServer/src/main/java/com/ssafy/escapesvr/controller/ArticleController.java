@@ -133,7 +133,7 @@ public class ArticleController {
     //유저 별 게시글 조회
     @ApiOperation(value = "자신(회원)이 쓴 유저게시글 리스트", notes = "(프로필페이지에서 확인) 회원이 자신이 작성한 유저게시판의 모든 게시글 리스트를 불러온다")
     @GetMapping("/profile/{userId}")
-    public ResponseEntity<Map<String, Object>> getMyArticleList(@PathVariable @ApiParam(value = "회원번호") Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=5) Pageable pageable) {
+    public ResponseEntity<Map<String, Object>> getMyArticleList(@PathVariable @ApiParam(value = "회원번호") Integer userId, @PageableDefault(sort="createdAt",direction = Sort.Direction.DESC,size=3) Pageable pageable) {
 
         Map<String, Object> result = new HashMap<>();
         Page<ArticleResponseDto> myArticleList = null;
