@@ -183,10 +183,10 @@ export default function Board() {
                       }}
                       style={{ cursor: "pointer" }}
                     >
-                      <Grid.Column width={2}>
+                      <Grid.Column width={3}>
                         번호: {i + 1 + (currentPagesUserBoard - 1) * 3}{" "}
                       </Grid.Column>
-                      <Grid.Column width={6}>제목: {d.title}</Grid.Column>
+                      <Grid.Column width={5}>제목: {d.title}</Grid.Column>
                       <Grid.Column width={8}>내용: {d.content}</Grid.Column>
                     </Grid.Row>
                     <hr className={style.hr_line}></hr>
@@ -234,10 +234,10 @@ export default function Board() {
                       }}
                       style={{ cursor: "pointer" }}
                     >
-                      <Grid.Column width={2}>
+                      <Grid.Column width={3}>
                         번호: {i + 1 + (currentPagesComment - 1) * 3}{" "}
                       </Grid.Column>
-                      <Grid.Column width={6}>제목: {d.articleTitle}</Grid.Column>
+                      <Grid.Column width={5}>제목: {d.articleTitle}</Grid.Column>
                       <Grid.Column width={8}>내용: {d.content}</Grid.Column>
                     </Grid.Row>
                     <hr className={style.hr_line}></hr>
@@ -285,10 +285,10 @@ export default function Board() {
                       }}
                       style={{ cursor: "pointer" }}
                     >
-                      <Grid.Column width={2}>
+                      <Grid.Column width={3}>
                         번호: {i + 1 + (currentPagesQa - 1) * 3}{" "}
                       </Grid.Column>
-                      <Grid.Column width={6}>제목: {d.title}</Grid.Column>
+                      <Grid.Column width={5}>제목: {d.title}</Grid.Column>
                       <Grid.Column width={8}>내용: {d.content}</Grid.Column>
                     </Grid.Row>
                     <hr className={style.hr_line}></hr>

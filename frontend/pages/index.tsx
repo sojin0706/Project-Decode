@@ -41,7 +41,6 @@ export default function Home() {
     if (userInfo.id) {
       getrecoAxios
         .get(`/recommend/like/${userInfo.id}`)
-        // getrecoAxios.get(`/recommend/like/1`)
         .then(({ data }) => {
           setMyRecommend(data);
         })
@@ -105,6 +104,7 @@ export default function Home() {
                 </Grid.Column>
               </Grid>
               <Grid centered columns={5}>
+                <Grid.Row />
                 <Data />
               </Grid>
               <Explain />
