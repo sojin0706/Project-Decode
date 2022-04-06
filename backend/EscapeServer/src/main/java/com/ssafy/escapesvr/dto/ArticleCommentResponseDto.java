@@ -35,6 +35,9 @@ public class ArticleCommentResponseDto {
     @ApiModelProperty(value = "유저게시판 작성글 번호(articleId)", required = true)
     private Long articleId; //게시글 번호
 
+    @ApiModelProperty(value = "유저게시판 작성글 제목")
+    private String articleTitle; //게시글 제목
+
     @ApiModelProperty(value = "유저게시판 댓글 작성자 닉네임")
     private String nickName;//유저 닉네임
 
@@ -51,6 +54,7 @@ public class ArticleCommentResponseDto {
         this.createdAt = articleComment.getCreatedAt();
         this.modifiedAt = articleComment.getModifiedAt();
         this.articleId = articleComment.getArticle().getId();
+        this.articleTitle= articleComment.getArticle().getTitle();
         this.nickName = articleComment.getNickName();
         this.userImage = articleComment.getUserImage();
     }
