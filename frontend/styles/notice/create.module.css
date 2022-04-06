@@ -23,9 +23,10 @@
   margin-top: 50px;
   text-align: center;
   font-size: 0;
+  cursor: pointer;
 }
 
-.bt_wrap a {
+.bt_wrap div {
   display: inline-block;
   min-width: 80px;
   padding: 10px;
@@ -35,11 +36,11 @@
   font-size: 1.4rem;
 }
 
-.bt_wrap a:first-child {
+.bt_wrap div:first-child {
   margin-left: 0;
 }
 
-.bt_wrap a.on {
+.bt_wrap div.on {
   background: #000;
   color: #fff;
 }
