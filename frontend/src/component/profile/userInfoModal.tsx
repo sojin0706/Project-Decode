@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Image, Modal, Form, Input } from "semantic-ui-react";
 import userAxios from "../../lib/userAxios";
-import axios from "axios";
 import recoAxios from "../../lib/recoAxios";
 import allAxios from "../../lib/allAxios";
 

@@ -1,14 +1,10 @@
-import {
-    Comment,
-    Button,
-    Grid,
-  } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import React from 'react'
 import allAxios from "../../../../src/lib/allAxios";
 import { useEffect, useState } from 'react';
 import IsLogin from "../../../../src/lib/customLogin";
 import userAxios from "../../../../src/lib/userAxios";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import styles from "../../../../styles/notice/detail.module.css";
 
 export default function Notice_detail() {

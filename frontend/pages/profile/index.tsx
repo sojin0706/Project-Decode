@@ -1,5 +1,4 @@
 import { Grid, Image } from "semantic-ui-react";
-import axios from "axios";
 import { useEffect, useState } from "react";
 // Components
 import IsLogin from "../../src/lib/customLogin";

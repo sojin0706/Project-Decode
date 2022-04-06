@@ -25,7 +25,7 @@ export default function Detail({themeId, isImage, w, h}: any){
                     setThemeDetail(data.storeandtheme)
                 })
                 .catch((e) => {
-                    console.log(e)
+                    alert('잠시후 다시 시도해주세요')
                 })
         }
     }

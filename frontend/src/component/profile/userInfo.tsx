@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import IsLogin from "../../lib/customLogin";
-import axios from "axios";
 import UserInfoModal from "./userInfoModal";
 import userAxios from "../../lib/userAxios";
 

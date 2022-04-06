@@ -1,7 +1,6 @@
 import { Tab } from "semantic-ui-react";
 import { useState, useEffect } from "react";
 import IsLogin from "../../lib/customLogin";
-import axios from "axios";
 import { useRouter } from "next/router";
 import { Pagination } from "semantic-ui-react";
 import { Grid } from "semantic-ui-react";
