@@ -25,7 +25,6 @@ export default function Board() {
           setUserInfo(data.body.user);
         })
         .catch((e: any) => {
-          console.log("에러");
           console.log(e);
         });
     }
