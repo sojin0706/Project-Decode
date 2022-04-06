@@ -85,14 +85,6 @@ export default function explain() {
         </Grid.Column>
       </Grid.Row>
     </Grid>
-      
-      
-      
-      
-     
-      
-      
-      
 
       <style jsx>
         {`

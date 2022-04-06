@@ -16,8 +16,6 @@ export default function Navbar() {
     router.reload();
   }
 
-
-
   const getUserInfo = async () => {
     userAxios
       .get(`/auth/users`)
@@ -25,8 +23,8 @@ export default function Navbar() {
         setUserInfo(data.data.body.user);
       })
       .catch((e) => {
-        // window.location.reload()
-        console.log(e);
+        logout()
+        alert('로그인 시간이 만료되었습니다.')
       });
   };
 
@@ -56,21 +54,7 @@ export default function Navbar() {
     }
   }, [userInfo]);
 
-  // useEffect(() => {
-  //   if (IsLogin() && userInfo === 0) {
-  //     alert('로그인 시간이 만료되었습니다.')
-  //     logout()
-  //   }
-  // },)
-
   
-  // if (IsLogin()) {
-  //   return(
-  //     <></>
-  //   )
-  // } else {
-
-  // }
   return (
     <Grid>
       <Grid.Row />

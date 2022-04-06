@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import IsLogin from "../../lib/customLogin";
 import UserInfoModal from "./userInfoModal";
 import userAxios from "../../lib/userAxios";
+import { Icon } from "semantic-ui-react";
 
 export default function UserInfo() {
   const [userInfo, setUserInfo]: any = useState(0);
@@ -78,30 +79,24 @@ export default function UserInfo() {
 
   return (
     <>
+      <span>
       <h3>
-        이름:{" "}
-        {String(JSON.stringify(userInfo.name)).substr(
-          1,
-          String(userInfo.name).length
-        )}
-      </h3>
-      <h3>
-        닉네임:
         {String(JSON.stringify(userInfo.nick_name)).substr(
           1,
           String(userInfo.nick_name).length
-        )}
+        )}&nbsp;님
       </h3>
-      <h3>연령대: {JSON.stringify(userInfo.age)}대</h3>
-      <h3>성별: {String(JSON.stringify(userInfo.gender)).substr(1, 1)}</h3>
-      <h3>선호장르: {favoriteGenre}</h3>
+      <h3>연령대:&nbsp; {JSON.stringify(userInfo.age)}대</h3>
+      <h3>성별:&nbsp; {String(JSON.stringify(userInfo.gender)).substr(1, 1)=='남'?<>남<Icon color={'blue'} name='man'/></>:<>여<Icon color={'red'} name='woman' /></>}</h3>
+      <h3>선호장르:&nbsp; {favoriteGenre}</h3>
       <h3>
-        활동지역:
+        활동지역:&nbsp;
         {String(JSON.stringify(userInfo.small_region)).substr(
           1,
           String(userInfo.small_region).length
         )}
       </h3>
+      </span><br />
       <UserInfoModal></UserInfoModal>
     </>
   );
