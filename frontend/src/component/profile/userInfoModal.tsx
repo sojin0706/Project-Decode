@@ -198,12 +198,9 @@ export default function UserInfoModal() {
   const cb = async () => {
     await recoAxios
       .get(`/cb/${userInfo.id}/${genre[genreIdx].text}/`)
-      .then((data) => {
-        console.log("success");
-        console.log(data);
+      .then(() => {
       })
       .catch((e) => {
-        console.log("fail");
         console.log(e);
       });
   };
@@ -211,28 +208,21 @@ export default function UserInfoModal() {
   const cf1 = async () => {
     await recoAxios
       .get(`/cf/${userInfo.id}/${genre[genreIdx].text}/`)
-      .then((data) => {
-        console.log("success");
-        console.log(data);
+      .then(() => {
       })
       .catch((e) => {
-        console.log("fail");
         console.log(e);
       });
   };
 
   const cf2 = async () => {
-    console.log(genre[genreIdx].text);
     await recoAxios
       .get(
         `/cf/${userInfo.id}/${genre[genreIdx].text}/${userInfo.gender}/${userInfo.age}/`
       )
-      .then((data) => {
-        console.log("success");
-        console.log(data);
+      .then(() => {
       })
       .catch((e) => {
-        console.log("fail");
         console.log(e);
       });
   };
