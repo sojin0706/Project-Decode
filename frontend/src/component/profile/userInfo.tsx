@@ -34,8 +34,13 @@ export default function UserInfo() {
   useEffect(() => {
     if (IsLogin()) {
       getUserInfo();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (userInfo !== 0) {
       userAxios
-        .get(`/user/allProfile/2`)
+        .get(`/user/allProfile/${userInfo.id}`)
         .then(({ data }) => {
           setFavoriteGenre(
             genreArr[
@@ -70,13 +75,7 @@ export default function UserInfo() {
           );
         });
     }
-  }, []);
-
-  // 선호장르 1등 받아오기
-  // useEffect(() => {
-  //   if (userInfo !== 0) {
-  //   console.log(userInfo)}
-  // },[userInfo])
+  }, [userInfo])
 
   return (
     <>

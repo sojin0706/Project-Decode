@@ -69,7 +69,6 @@ export default function Board() {
 
   // 댓글 불러오기
   const [comment, setComment] = useState([]);
-  const tmpComment: any = [];
   useEffect(() => {
     if (userInfo !== 0) {
       allAxios
@@ -80,19 +79,8 @@ export default function Board() {
         )
         .then(({ data }) => {
           setTotalPageComment(data.myArticleCommentList.totalPages);
-          data.myArticleCommentList.content.map((d: any, i: number) => {
-            tmpComment.push(d);
-            allAxios
-              .get(`/article/${d.articleId}`)
-              .then(({ data }) => {
-                tmpComment[i].userImage = data.article.title;
-                console.log('here!!!!!!',data.article.title);
-              });
-          });
+          setComment(data.myArticleCommentList.content)
         })
-        .then(() => {
-          setComment(tmpComment);
-        });
     }
   }, [currentPagesComment, userInfo]);
 
@@ -251,7 +239,7 @@ export default function Board() {
                       <Grid.Column width={2}>
                         번호: {i + 1 + (currentPagesComment - 1) * 3}{" "}
                       </Grid.Column>
-                      <Grid.Column width={6}>제목: {d.userImage}</Grid.Column>
+                      <Grid.Column width={6}>제목: {d.articleTitle}</Grid.Column>
                       <Grid.Column width={8}>내용: {d.content}</Grid.Column>
                     </Grid.Row>
                     <hr className={style.hr_line}></hr>
