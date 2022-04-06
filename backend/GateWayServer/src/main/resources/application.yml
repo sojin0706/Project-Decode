@@ -17,7 +17,8 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "http://localhost:3000","https://j6c203.p.ssafy.io"
+            allowedOrigins: "http://localhost:3000"
+#            allowedOrigins:"https://j6c203.p.ssafy.io"
             allow-credentials: true   #추가
             allowedHeaders:
               - x-requested-with
