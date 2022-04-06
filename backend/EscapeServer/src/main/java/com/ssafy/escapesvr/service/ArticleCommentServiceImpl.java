@@ -32,7 +32,7 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     public Page<ArticleCommentResponseDto> getArticleComment(Pageable pageable) {
         Page<ArticleComment> list = articleCommentRepository.findAll(pageable);
 
-        Page<ArticleCommentResponseDto> articleCommentList=list.map( o-> new ArticleCommentResponseDto(o.getId(), o.getContent(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getArticle().getId(), o.getNickName(), o.getUserImage()));
+        Page<ArticleCommentResponseDto> articleCommentList=list.map( o-> new ArticleCommentResponseDto(o.getId(), o.getContent(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getArticle().getId(), o.getArticle().getTitle(), o.getNickName(), o.getUserImage()));
         return articleCommentList;
     }
 
@@ -48,7 +48,7 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     @Override
     public Page<ArticleCommentResponseDto> getMyArticleCommentList(Integer userId, Pageable pageable) {
         Page<ArticleComment> myArticleComments = articleCommentRepository.findByUserIdOrderByCreatedAtDesc(userId, pageable);
-        Page<ArticleCommentResponseDto> myArticleComment = myArticleComments.map(o-> new ArticleCommentResponseDto(o.getId(), o.getContent(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getArticle().getId(), o.getNickName(), o.getUserImage()));
+        Page<ArticleCommentResponseDto> myArticleComment = myArticleComments.map(o-> new ArticleCommentResponseDto(o.getId(), o.getContent(), o.getUserId(), o.getCreatedAt(), o.getModifiedAt(), o.getArticle().getId(), o.getArticle().getTitle(), o.getNickName(), o.getUserImage()));
 
         return myArticleComment;
     }
