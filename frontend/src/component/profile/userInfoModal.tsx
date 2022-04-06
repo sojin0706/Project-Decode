@@ -327,13 +327,21 @@ export default function UserInfoModal() {
     }
   };
 
+  const FileLoad = () => {
+    const newBlob = new Blob([new Uint8Array(userInfo.image)]);
+    const newFile = new File([newBlob], userInfo.image, {
+      type: userInfo.image,
+    });
+    setFile(newFile);
+  };
+
   const [open, setOpen] = useState(false);
   return (
     <Modal
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button primary>정보 수정</Button>}
+      trigger={<Button  onClick={() => FileLoad()} primary>정보 수정</Button>}
     >
       <Modal.Header>회원 정보 수정</Modal.Header>
       <Modal.Content image scrolling>
