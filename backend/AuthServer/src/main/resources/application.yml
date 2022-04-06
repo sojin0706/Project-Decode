@@ -42,8 +42,8 @@ logging:
   level.com.amazonaws.util.EC2MetadataUtils: error
 
 cors:
-#  allowed-origins: "https://j6c203.p.ssafy.io"
-  allowed-origins: "http://localhost:3000"
+  allowed-origins: "https://j6c203.p.ssafy.io"
+#  allowed-origins: "http://localhost:3000"
   allowed-methods: GET,POST,PUT,DELETE,OPTIONS
   allowed-headers: "*"
   max-age: 3600
@@ -58,5 +58,5 @@ app:
     refreshTokenExpiry: 604800000
   oauth2:
     authorizedRedirectUris:
-#      - https://j6c203.p.ssafy.io/oauth/redirect
-      - http://localhost:3000/oauth/redirect
+      - https://j6c203.p.ssafy.io/oauth/redirect
+#      - http://localhost:3000/oauth/redirect
