@@ -31,7 +31,10 @@ public class Article {
     private Integer userId; //사용자id
 
     @NotNull
-    private String smallRegion; //지역
+    private String largeRegion; //지역대분류
+
+    @NotNull
+    private String smallRegion; //지역소분류
 
     private int recommend; //추천개수
 
@@ -40,6 +43,11 @@ public class Article {
     private LocalDateTime createdAt; //작성시간
 
     private LocalDateTime modifiedAt; //수정시간
+
+    private String nickName;//유저 닉네임
+
+    private String userImage; //유저 프로필 사진
+
 
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE, orphanRemoval = true)
@@ -59,22 +67,23 @@ public class Article {
 
     //빌더
     @Builder
-    public Article(String title, String content, String smallRegion, Integer userId) {
+    public Article(String title, String content, String largeRegion, String smallRegion, Integer userId) {
         this.title= title;
         this.content= content;
+        this.largeRegion = largeRegion;
         this.smallRegion = smallRegion;
         this.userId = userId;
     }
 
     //게시글 수정
-    public void update(String title, String content, String smallRegion, Integer userId) {
+    public void update(String title, String content, String largeRegion, String smallRegion, Integer userId) {
         this.title = title;
         this.content = content;
+        this.largeRegion = largeRegion;
         this.smallRegion = smallRegion;
         this.userId = userId;
         this.modifiedAt = LocalDateTime.now();
     }
-
 
 
 }

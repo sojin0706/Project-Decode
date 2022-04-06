@@ -1,15 +1,16 @@
-#server:
-#  port: 8082
-##  port: 0
-#
-#eureka:
-#  instance:
-#    instance-id: ${spring.application.name}:flushed:{spring.application.instance_id:${random.value}}
-#  client:
-#    register-with-eureka: true
-#    fetch-registry: true
-#    service-url:
-#      defaultZone: http://j6c203.p.ssafy.io:8761/eureka
+server:
+  port: 8082
+#  port: 0
+
+eureka:
+  #  instance:
+  #  instance:
+  #    instance-id: ${spring.application.name}:flushed:{spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://j6c203.p.ssafy.io:8761/eureka
 
 spring:
   application:
@@ -17,14 +18,13 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-#  datasource:
-#    url: jdbc:mysql://j6c203.p.ssafy.io:3306/escape?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-#    username:
-#    password: escape
+  data:
+    mongodb:
+      uri: mongodb://j6c203.p.ssafy.io:27017/escape
   datasource:
     url: jdbc:mysql://j6c203.p.ssafy.io:3306/escape?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-    username: root
-    password: 1234
+    username: escape
+    password: escape
 
   jpa:
     hibernate:
@@ -37,10 +37,17 @@ spring:
   profiles:
     include:
       - oauth
-#      - aws
-#      - credentials
+      - aws
+      - credentials
   jackson:
     property-naming-strategy: SNAKE_CASE
+
+  logging:
+    level:
+      com:
+        amazonaws:
+          util:
+            EC2MetadataUtils: error
 
 #logging:
 #  level.org.springframework: debug

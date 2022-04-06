@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -37,7 +38,7 @@ public class ThemeReview {
     private Integer clearTime;
 
     @NotNull
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
 
     @ManyToOne(fetch = FetchType.LAZY)

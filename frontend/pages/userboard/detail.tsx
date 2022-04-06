@@ -86,8 +86,8 @@ return (
                     </div>
                     <br />
                 <div className={styles.bt_wrap}>
-                    <a href="/userboard" className={styles.on}>목록</a>
-                    <a href="/userboard/create">수정</a>
+                    {/* <a href="/userboard" className={styles.on}>목록</a>
+                    <a href="/userboard/create">수정</a> */}
                 </div>
                     {/* <div className={styles.comment_title}>
                         댓글쓰기

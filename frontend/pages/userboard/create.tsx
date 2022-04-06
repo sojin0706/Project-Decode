@@ -49,8 +49,8 @@ return (
 
 
                 <div className={styles.bt_wrap}>
-                    <a href="/userboard" className={styles.on}>등록</a>
-                    <a href="/userboard">취소</a>
+                    {/* <a href="/userboard" className={styles.on}>등록</a>
+                    <a href="/userboard">취소</a> */}
                 </div>
             </div>
     </div>

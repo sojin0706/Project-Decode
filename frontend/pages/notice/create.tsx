@@ -16,7 +16,7 @@ return (
             <Grid>
                 <Grid.Column width={16}>
                 <div className={styles.board_title}>
-                    <strong>Q&A</strong>
+                    {/* <strong>Q&A</strong> */}
                 </div>
                 <div>문의사항이 있으실 경우 질문을 남겨주세요</div>
                 </Grid.Column>
@@ -48,8 +48,8 @@ return (
 
 
                 <div className={styles.bt_wrap}>
-                    <a href="/notice" className={styles.on}>등록</a>
-                    <a href="/notice">취소</a>
+                    {/* <a href="/notice" className={styles.on}>등록</a>
+                    <a href="/notice">취소</a> */}
                 </div>
             </div>
     </div>
