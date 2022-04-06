@@ -9,8 +9,8 @@ spring:
   cloud:
     config:
       server:
-        native:
-          search-locations: file://${user.home}/ssafy2/config-yml
-#        git:
-#          uri: https://github.com/cheery72/config-yml.git
+#        native:
+#          search-locations: file://${user.home}/ssafy2/config-yml
+        git:
+          uri: https://github.com/cheery72/config-yml.git
 
