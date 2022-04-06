@@ -3,7 +3,7 @@ spring:
     name: auth-prod
   cloud:
     config:
-      uri: http://j6c023.p.ssafy.io:8888
+      uri: http://j6c203.p.ssafy.io:8888
 #      name: auth-server-dev
 #      profile: dev
 #      profile: native
