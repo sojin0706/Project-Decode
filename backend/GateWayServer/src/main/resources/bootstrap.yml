@@ -1,6 +1,6 @@
 spring:
   application:
-    name: auth-prod
+    name: gateway-prod
   cloud:
     config:
       uri: http://j6c023.p.ssafy.io:8888
