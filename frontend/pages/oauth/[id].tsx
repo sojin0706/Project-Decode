@@ -11,9 +11,9 @@ export default function Authentication() {
   useEffect(() => {
     if (localStorage.token !== "undefined"){
       // router.push("/");
-      // location.href = "http://localhost:3000/"
+      location.href = "http://localhost:3000/"
       // location.href = "http://j6c203.p.ssafy.io:3000/"
-      location.href = "https://j6c203.p.ssafy.io/"
+      // location.href = "https://j6c203.p.ssafy.io/"
     }
   }, );
 
