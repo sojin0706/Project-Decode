@@ -152,11 +152,7 @@ return (
                 </Grid.Column>
                 <Grid.Column width={3}>
                 <div className={styles.bt_wrap}>
-<<<<<<< HEAD
-                    {/* <a href="/notice/create" className={styles.on}>글 작성</a> */}
-=======
                     <div className={styles.on} onClick={goqnaWrite}>글 작성</div>
->>>>>>> FE
                 </div>
                 </Grid.Column>
             </Grid>
@@ -170,16 +166,6 @@ return (
                     <div className={styles.writer}>글쓴이</div>
                     <div className={styles.date}>작성일</div>
                 </div>
-<<<<<<< HEAD
-                <div>
-                    {/* <div className={styles.type}>Q&A</div> */}
-                    <div className={styles.num}>1</div>
-                    {/* <div className={styles.title}><a href="/notice/detail">제목test</a></div> */}
-                    <div className={styles.writer}>하루</div>
-                    <div className={styles.date}>2022.03.14</div>
-                </div>
-=======
->>>>>>> FE
 
 
                 {notice? notice.map((board:any) => {
