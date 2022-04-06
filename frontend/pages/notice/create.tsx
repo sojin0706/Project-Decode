@@ -132,13 +132,8 @@ return (
 
 
                 <div className={styles.bt_wrap}>
-<<<<<<< HEAD
-                    {/* <a href="/notice" className={styles.on}>등록</a>
-                    <a href="/notice">취소</a> */}
-=======
                     <div className={styles.on} onClick={qnaSubmit}>등록</div>
                     <div onClick={() => Router.back()}>취소</div>
->>>>>>> FE
                 </div>
             </div>
     </div>
