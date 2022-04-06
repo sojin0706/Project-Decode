@@ -7,11 +7,12 @@ declare global {
   }
 
 interface MapProps {
+  storename: String,
   latitude: number;
   longitude: number;
 }
 
-function Kakaomap({ latitude, longitude }: MapProps) {
+function Kakaomap({ storename, latitude, longitude }: MapProps) {
   useEffect(() => {
     const mapScript = document.createElement("script");
 
@@ -31,7 +32,7 @@ function Kakaomap({ latitude, longitude }: MapProps) {
         var infowindow = new window.kakao.maps.InfoWindow({zIndex:1});
         const ps = new window.kakao.maps.services.Places(); 
         // 키워드로 장소를 검색합니다
-        ps.keywordSearch('마스터키 강남점', placesSearchCB); 
+        ps.keywordSearch(storename, placesSearchCB); 
 
         // 키워드 검색 완료 시 호출되는 콜백함수 입니다
         function placesSearchCB (data: any, status: any, pagination: any) {
@@ -41,7 +42,7 @@ function Kakaomap({ latitude, longitude }: MapProps) {
                 // LatLngBounds 객체에 좌표를 추가합니다
                 var bounds = new window.kakao.maps.LatLngBounds();
 
-                for (var i=0; i<data.length; i++) {
+                for (var i=0; i<1; i++) {
                     displayMarker(data[i]);    
                     bounds.extend(new window.kakao.maps.LatLng(data[i].y, data[i].x));
                 }       
@@ -67,12 +68,6 @@ function Kakaomap({ latitude, longitude }: MapProps) {
                 infowindow.open(map, marker);
             });
         }
-        // 위치 이동을 위한 코드 끝 부분
-        // const markerPosition = new window.kakao.maps.LatLng(latitude, longitude);
-        // const marker = new window.kakao.maps.Marker({
-        //   position: markerPosition,
-        // });
-        // marker.setMap(map);
       });
     };
     mapScript.addEventListener("load", onLoadKakaoMap);

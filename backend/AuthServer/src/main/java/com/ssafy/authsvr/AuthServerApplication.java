@@ -7,12 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@SpringBootApplication
-@EnableDiscoveryClient
 @EnableConfigurationProperties({
 		CorsProperties.class,
 		AppProperties.class
 })
+@EnableDiscoveryClient
+@SpringBootApplication
 public class AuthServerApplication {
 
 	public static void main(String[] args) {

@@ -11,7 +11,7 @@ import com.ssafy.authsvr.oauth.token.AuthTokenProvider;
 import com.ssafy.authsvr.oauth.repository.UserRefreshTokenRepository;
 import com.ssafy.authsvr.oauth.utils.CookieUtil;
 import com.ssafy.authsvr.oauth.utils.HeaderUtil;
-import com.ssafy.authsvr.payload.response.UserReponseDto;
+import com.ssafy.authsvr.payload.response.UserDetailReponse;
 import com.ssafy.authsvr.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.swagger.annotations.ApiOperation;
@@ -46,7 +46,7 @@ public class AuthController {
     @GetMapping("/users")
     public ApiResponse getUser() {
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserReponseDto.DetailResponse detailResponse = UserReponseDto.DetailResponse.detailResponse(userService.findDetailsUser(principal.getUsername()));
+        UserDetailReponse detailResponse = UserDetailReponse.detailResponse(userService.findDetailsUser(principal.getUsername()));
 
         return ApiResponse.success("user", detailResponse);
     }

@@ -8,6 +8,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,16 +18,25 @@ import lombok.NoArgsConstructor;
 public class ArticleRequestDto {
 
     @ApiModelProperty(value = "유저게시판 글 제목", required = true)
+    @NotBlank
     private String title; //제목
 
     @ApiModelProperty(value = "유저게시판 글 내용", required = true)
+    @NotBlank
     private String content; //내용
 
     @ApiModelProperty(value = "유저게시판 작성자 id(번호)", required = true)
+    @NotNull
     private Integer userId; //작성자
 
-    @ApiModelProperty(value = "유저게시판 지역 말머리", required = true)
-    private String smallRegion; //지역
+    @ApiModelProperty(value = "유저게시판 지역 대분류", required = true)
+    @NotBlank
+    private String largeRegion; //지역 대분류
+
+    @ApiModelProperty(value = "유저게시판 지역 소분류", required = true)
+    @NotBlank
+    private String smallRegion; //지역 소분류
+
 
 //    @Builder
 //    public ArticleCreateRequestDto(String title, String content, Integer userId, String smallRegion){
@@ -39,6 +51,7 @@ public class ArticleRequestDto {
                 .title(title)
                 .content(content)
                 .userId(userId)
+                .largeRegion(largeRegion)
                 .smallRegion(smallRegion)
                 .build();
     }

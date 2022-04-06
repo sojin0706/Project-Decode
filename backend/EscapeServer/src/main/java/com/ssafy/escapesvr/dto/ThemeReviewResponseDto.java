@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.GeneratedValue;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +17,9 @@ import java.time.LocalDate;
 public class ThemeReviewResponseDto {
 
     @ApiModelProperty(value = "테마 아이디", example = "1", required = true)
-    private Integer theme_review_id;
+    private Integer themeReviewId;
+
+    private Integer userId;
 
     private String userNickName;
 
@@ -24,17 +27,17 @@ public class ThemeReviewResponseDto {
 
     private String reviewContent;
 
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     private Integer clearTime;
 
-    public  ThemeReviewResponseDto(ThemeReview themeReview){
-        theme_review_id=themeReview.getId();
-        userNickName=themeReview.getUserNickName();
-        myScore=themeReview.getMyScore();
-        reviewContent=themeReview.getReviewContent();
-        createdAt=themeReview.getCreatedAt();
-        clearTime=themeReview.getClearTime();
-    }
+//    public  ThemeReviewResponseDto(ThemeReview themeReview){
+//        themeReviewId=themeReview.getId();
+//        userNickName=themeReview.getUserNickName();
+//        myScore=themeReview.getMyScore();
+//        reviewContent=themeReview.getReviewContent();
+//        createdAt=themeReview.getCreatedAt();
+//        clearTime=themeReview.getClearTime();
+//    }
 
 }

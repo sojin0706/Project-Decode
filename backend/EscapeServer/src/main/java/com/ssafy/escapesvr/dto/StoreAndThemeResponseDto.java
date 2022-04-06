@@ -17,6 +17,9 @@ public class StoreAndThemeResponseDto {
     @ApiModelProperty(value = "테마 아이디", example = "1", required = true)
     private Integer themeId;
 
+    @ApiModelProperty(value = "테마 이름", example = "명당", required = true)
+    private String themeName;
+
     @ApiModelProperty(value = "포스터 url", example = "http://www.secretgardenescape.com/pimages/Product/Pr_1593416874.jpg", required = true)
     private String posterUrl;
 
@@ -65,6 +68,7 @@ public class StoreAndThemeResponseDto {
 
     public StoreAndThemeResponseDto(Theme theme, Store store,RecommendNumber recommendNumber){
         themeId=theme.getId();
+        themeName=theme.getName();
         posterUrl=theme.getPosterUrl();
         level=theme.getLevel();
         genre=theme.getGenre();

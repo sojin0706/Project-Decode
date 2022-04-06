@@ -22,10 +22,10 @@
 .bt_wrap {
   margin-top: 50px;
   text-align: center;
-  font-size: 0;
+  font-size: 0rem;
 }
 
-.bt_wrap a {
+.bt_wrap div {
   display: inline-block;
   min-width: 80px;
   padding: 10px;
@@ -33,13 +33,14 @@
   border: 1px solid #000;
   border-radius: 2px;
   font-size: 1.4rem;
+  cursor: pointer;
 }
 
-.bt_wrap a:first-child {
+.bt_wrap div:first-child {
   margin-left: 0;
 }
 
-.bt_wrap a.on {
+.bt_wrap div.on {
   background: #000;
   color: #fff;
 }
@@ -112,3 +113,9 @@
   border: 0;
   resize: vertical;
 }
+
+.board_select {
+  display: inline-flex;
+  margin-right: 10px;
+}
+

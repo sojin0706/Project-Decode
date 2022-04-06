@@ -10,9 +10,8 @@ spring:
               - email
               - profile
           naver:
-            clientId: 0sWPNALWs4UNXiWdkhH6
-            clientSecret: 68NGV6LgQl
-#            clientSecret: ENC(AFkKVRWDG/ft3y/djwhQucVclrzuo0nK)
+            clientId: PVbOVwkqA48r5lmokxLn
+            clientSecret: zfnLFpC0cf
             clientAuthenticationMethod: post
             authorizationGrantType: authorization_code
             redirectUri: http://j6c203.p.ssafy.io:8081/login/oauth2/code/naver
@@ -24,7 +23,6 @@ spring:
           kakao:
             clientId: a17d69d97f5fed847460e793e23ea66d
             clientSecret: l10gR10KtO0ysDarPqMGDait5JC8SLgT
-#            clientSecret: ENC(1zdPcyo0yxO36UX2xqOrLEuk74JH0hS2adDM8TjdLPA+AvQnNAwQgNK2kEnbwgYF)
             clientAuthenticationMethod: post
             authorizationGrantType: authorization_code
             redirectUri: http://j6c203.p.ssafy.io:8081/login/oauth2/code/kakao
