@@ -37,8 +37,8 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             // 비동기방식으로 단일값 추가히기 위해서 Mono: 웹 플럭스 타입으로 추가
             return chain.filter(exchange)
                     .then(Mono.fromRunnable(() -> {
-                            log.info("AuthorizationHeaderFilter filter: response code -> {}", response.getStatusCode());
-                     }));
+                        log.info("AuthorizationHeaderFilter filter: response code -> {}", response.getStatusCode());
+                    }));
         };
     }
     private Mono<Void> onError(ServerWebExchange exchange, String e, HttpStatus status){
@@ -52,3 +52,4 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
     }
 }
+
