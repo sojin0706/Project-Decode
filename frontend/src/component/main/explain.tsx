@@ -21,7 +21,7 @@ export default function explain() {
           
         </Grid.Column>
         <Grid.Column width={10}>
-        <Image src="/images/111.png" width="600px" height="400px" className="item" data-aos="fade-up"></Image>
+        <Image src="/images/111.PNG" width="600px" height="400px" className="item" data-aos="fade-up"></Image>
         </Grid.Column>
       </Grid.Row>
       
@@ -29,7 +29,7 @@ export default function explain() {
       <Grid.Row>
         <Grid.Column width={2}></Grid.Column>
         <Grid.Column width={8}>
-        <Image src="/images/222.png" width="600px" height="400px" className="item" data-aos="fade-up"></Image>
+        <Image src="/images/222.PNG" width="600px" height="400px" className="item" data-aos="fade-up"></Image>
         </Grid.Column>
         <Grid.Column width={6}>
           <br></br>
@@ -52,14 +52,14 @@ export default function explain() {
           <h3>모두 확인해보세요!</h3>
         </Grid.Column>
         <Grid.Column width={9}>
-        <Image src="/images/333.png" width="400px" height="400px" className="item" data-aos="fade-up"></Image>
+        <Image src="/images/333.PNG" width="400px" height="400px" className="item" data-aos="fade-up"></Image>
         </Grid.Column>
       </Grid.Row>
 
       <Grid.Row>
       <Grid.Column width={2}></Grid.Column>
         <Grid.Column width={7}>
-        <Image src="/images/444.png" width="600px" height="400px" className="item" data-aos="fade-up"></Image>
+        <Image src="/images/444.PNG" width="600px" height="400px" className="item" data-aos="fade-up"></Image>
         </Grid.Column>
         <Grid.Column width={7}>
           <br></br>
@@ -81,7 +81,7 @@ export default function explain() {
           <h3>도전할 사람들을 직접 찾아보세요!</h3>
         </Grid.Column>
         <Grid.Column width={9}>
-        <Image src="/images/555.png" width="600px" height="400px" className="item" data-aos="fade-up"></Image>
+        <Image src="/images/555.PNG" width="600px" height="400px" className="item" data-aos="fade-up"></Image>
         </Grid.Column>
       </Grid.Row>
     </Grid>
