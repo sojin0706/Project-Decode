@@ -1,11 +1,10 @@
-import { Grid, GridColumn, Image } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import IsLogin from "../src/lib/customLogin";
 import { useState, useEffect } from "react";
 import getrecoAxios from "../src/lib/getrecoAxios";
 // Component
 import Data from "../src/component/main/data";
 import Explain from "../src/component/main/explain";
-import axios from "axios";
 import Detail from "../src/component/modal/detail";
 import userAxios from "../src/lib/userAxios";
 import allAxios from "../src/lib/allAxios";
