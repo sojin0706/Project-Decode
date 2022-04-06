@@ -1,6 +1,4 @@
-import {
-    Grid,
-  } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import React from 'react'
 import styles from "../../styles/notice/create.module.css";
 import allAxios from "../../src/lib/allAxios";

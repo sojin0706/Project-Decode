@@ -125,7 +125,7 @@ export default function Infoboard() {
                 setThemeInfo(data.informationList.content)
             })
             .catch((e) => {
-                console.log(e)
+                alert('잠시후 다시 시도해주세요')
             })
     }
 
@@ -144,7 +144,6 @@ export default function Infoboard() {
             })
             .catch((e: any) => {
                 alert('잠시후 다시 시도해주세요')
-                console.log(e)
             })
     }
 
@@ -289,7 +288,6 @@ export default function Infoboard() {
                         activePage={pages+1}
                     />
             </Grid>
-            
         </>
     );
 }

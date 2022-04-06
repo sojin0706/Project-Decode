@@ -1,7 +1,6 @@
-import { Grid, Image } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import { useState, useEffect } from "react";
 import IsLogin from "../../lib/customLogin";
-import axios from "axios";
 import ClearPoster from "./clearListModal";
 import { Pagination } from "semantic-ui-react";
 import userAxios from "../../lib/userAxios";

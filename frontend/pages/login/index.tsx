@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Form, Input, Grid, Button } from "semantic-ui-react";
 import userAxios from "../../src/lib/userAxios";
 import allAxios from "../../src/lib/allAxios";
 import recoAxios from "../../src/lib/recoAxios";
-import { Segment } from "semantic-ui-react";
 // components
 import { useRouter } from "next/router";
 // css

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import IsLogin from "../../lib/customLogin";
-import axios from "axios";
 import { Pie } from "react-chartjs-2";
 import "chart.js/auto";
 import userAxios from "../../lib/userAxios";

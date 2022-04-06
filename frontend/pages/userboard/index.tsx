@@ -144,10 +144,6 @@ export default function Userboard() {
     }
 
 
-
-
-
-
     return (
         <>
             <Grid stackable>

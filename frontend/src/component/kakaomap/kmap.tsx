@@ -68,12 +68,6 @@ function Kakaomap({ storename, latitude, longitude }: MapProps) {
                 infowindow.open(map, marker);
             });
         }
-        // 위치 이동을 위한 코드 끝 부분
-        // const markerPosition = new window.kakao.maps.LatLng(latitude, longitude);
-        // const marker = new window.kakao.maps.Marker({
-        //   position: markerPosition,
-        // });
-        // marker.setMap(map);
       });
     };
     mapScript.addEventListener("load", onLoadKakaoMap);

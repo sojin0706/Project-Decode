@@ -1,6 +1,4 @@
-import {
-    Grid,
-  } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import React from 'react'
 import styles from "../../../styles/notice/create.module.css";
 import allAxios from "../../../src/lib/allAxios";
@@ -8,8 +6,6 @@ import { useEffect, useState } from 'react';
 import IsLogin from "../../../src/lib/customLogin";
 import userAxios from "../../../src/lib/userAxios";
 import Router, { useRouter } from "next/router";
-
-
 
 
 export default function QnaEdit() {
@@ -110,12 +106,7 @@ export default function QnaEdit() {
 
     }
 
-    // 비밀글
-    // const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     setIsSecret(e.target.checked);
-    //   };
-
-      useEffect(() => {
+    useEffect(() => {
         if (userInfo.id && (userInfo.id != qnaDetail.userId)){
             Router.push(`/notice/edit/${id}`);
             alert("게시글 수정은 작성한 본인만 이용가능합니다.")                

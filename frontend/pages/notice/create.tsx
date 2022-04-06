@@ -1,6 +1,4 @@
-import {
-    Grid,
-  } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import React from 'react'
 import styles from "../../styles/notice/create.module.css";
 import allAxios from "../../src/lib/allAxios";
@@ -8,7 +6,6 @@ import { useEffect, useState } from 'react';
 import IsLogin from "../../src/lib/customLogin";
 import userAxios from "../../src/lib/userAxios";
 import Router from "next/router";
-
 
 
 export default function Qnacreate() {
