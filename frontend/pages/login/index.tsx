@@ -317,7 +317,7 @@ export default function Index() {
           cf1();
         })
         .then(() => {
-          router.push("/");
+          location.href = "https://j6c203.p.ssafy.io/"
         })
         .catch((err) => {
           console.log(err);

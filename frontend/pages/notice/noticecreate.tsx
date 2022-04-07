@@ -76,7 +76,7 @@ export default function Noticecreate() {
 
     // 우회 막기
     useEffect(() => {
-        if (userInfo.id && (userInfo.id != 46441431)){
+        if (userInfo.id && (userInfo.id != 90489394)){
             Router.push("/notice");
             alert("관리자 작성페이지입니다.")                
         }

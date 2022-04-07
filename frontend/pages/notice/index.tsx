@@ -185,12 +185,12 @@ return (
                 <div className={styles.qna_notice} key={board.id}>
                     <div className={styles.type}>Q&A</div>
                     <div className={styles.num}>{board.id}</div>
-                    {board.isSecret == true && (userInfo.id ==  46441431 || userInfo.id ==board.userId)? 
+                    {board.isSecret == true && (userInfo.id ==  90489394 || userInfo.id ==board.userId)? 
                         <div className={styles.title} onClick={() => Router.push(`/notice/qna/${board.id}`)}>{board.title}
                         <Icon name='lock' />
                         </div>
                     :''}
-                    {board.isSecret == true && (userInfo.id !=  46441431 && userInfo.id != board.userId)? 
+                    {board.isSecret == true && (userInfo.id !=  90489394 && userInfo.id != board.userId)? 
                         <div className={styles.title} onClick={moveSecretTitle}>{board.title}
                         <Icon name='lock' />
                         </div>
