@@ -186,7 +186,7 @@ return (
                     <div className={styles.type}>Q&A</div>
                     <div className={styles.num}>{board.id}</div>
                     {board.isSecret == true && (userInfo.id ==  90489394 || userInfo.id ==board.userId)? 
-                        <div className={styles.title} onClick={() => Router.push(`/notice/qna/${board.id}`)}>{board.title}
+                        <div className={styles.title} onClick={() => Router.push(`/notice/notice/${board.id}`)}>{board.title}
                         <Icon name='lock' />
                         </div>
                     :''}
