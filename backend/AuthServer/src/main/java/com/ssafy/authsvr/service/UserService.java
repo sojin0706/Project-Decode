@@ -7,8 +7,6 @@ import com.ssafy.authsvr.payload.response.UserDetailProfileResponse;
 import com.ssafy.authsvr.payload.response.UserProfileResponse;
 import com.ssafy.authsvr.entity.User;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 import java.util.Map;
 
 public interface UserService {

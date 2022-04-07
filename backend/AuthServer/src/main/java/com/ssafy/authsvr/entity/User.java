@@ -99,6 +99,7 @@ public class User {
         this.smallRegion = profileRequest.getSmallRegion();
         this.genrePreference = genrePreference;
         this.image = image;
+        this.modifiedAt = LocalDateTime.now();
     }
 
     public void setGenrePreference(GenrePreference genrePreference){
