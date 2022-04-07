@@ -116,7 +116,7 @@ export default function Notice() {
 
     // 글 작성 버튼 연결
     const goqnaWrite = async () => {
-        if (IsLogin() && userInfo.id == 46441431) {
+        if (IsLogin() && userInfo.id == 90489394) {
             Router.push(`/notice/noticecreate`)
         } else if(IsLogin()) {
             Router.push(`/notice/create`)
@@ -186,7 +186,7 @@ return (
                     <div className={styles.type}>Q&A</div>
                     <div className={styles.num}>{board.id}</div>
                     {board.isSecret == true && (userInfo.id ==  90489394 || userInfo.id ==board.userId)? 
-                        <div className={styles.title} onClick={() => Router.push(`/notice/notice/${board.id}`)}>{board.title}
+                        <div className={styles.title} onClick={() => Router.push(`/notice/qna/${board.id}`)}>{board.title}
                         <Icon name='lock' />
                         </div>
                     :''}
