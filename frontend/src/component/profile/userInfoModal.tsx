@@ -231,7 +231,7 @@ export default function UserInfoModal() {
   const [file, setFile]: any = useState(0);
 
   useEffect(() => {
-    if (userInfo !== 0) {
+    if (userInfo !== 0 && userInfo.image !== null && userInfo.image !== undefined) {
       const newBlob = new Blob([new Uint8Array(userInfo.image)]);
       const newFile = new File([newBlob], userInfo.image, {
         type: userInfo.image,
@@ -335,6 +335,17 @@ export default function UserInfoModal() {
     setFile(newFile);
   };
 
+  const Thumbnail = () => {
+    if (file === 0) {
+      return (
+        <Image id="thu" size="medium" src="/images/noImage.png" alt="" wrapped />
+      )
+    } else {
+      return (
+        <Image id="thu" size="medium" src={file.name} alt="" wrapped />
+      )
+    }
+  }
   const [open, setOpen] = useState(false);
   return (
     <Modal
