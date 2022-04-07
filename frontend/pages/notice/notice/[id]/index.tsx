@@ -51,7 +51,7 @@ export default function Notice_detail() {
 
     const deleteNotice = () => {
         allAxios
-        .delete(`/notice/{id}`)
+        .delete(`/notice/${id}`)
         .then(()=>{
             alert("게시글이 삭제되었습니다.")
             router.push("/notice");

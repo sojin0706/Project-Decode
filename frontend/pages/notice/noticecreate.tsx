@@ -57,7 +57,7 @@ export default function Noticecreate() {
             }
     await allAxios.post('/notice', body)
 
-    .then(({data}) => {
+    .then(() => {
         alert("공지사항이 작성되었습니다.")
         Router.push("/notice")
     })
