@@ -317,8 +317,8 @@ export default function Index() {
           cf1();
         })
         .then(() => {
-          alert('추가정보 입력이 완료되었습니다.')
-          window.location.reload()
+          alert('추천 알고리즘을 분석중입니다. 3초후 이동합니다.')
+          setTimeout(() => location.href = "https://j6c203.p.ssafy.io/", 4000)
         })
         .catch((err) => {
           console.log(err);

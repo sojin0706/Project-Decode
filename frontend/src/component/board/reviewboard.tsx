@@ -52,8 +52,8 @@ export default function Reviewboard({ themeIds }: any){
     } 
 
     const reviewWrite = async() => {
-        if (!myTime && myTime < 30 || myTime > 90){
-            alert('클리어 시간은 30 ~ 90 사이 숫자로만 작성이 가능합니다.')
+        if (!myTime && (myTime < 10 || myTime > 500)){
+            alert('클리어 시간은 10 ~ 500 사이 숫자로만 작성이 가능합니다.')
             return
         }
 
