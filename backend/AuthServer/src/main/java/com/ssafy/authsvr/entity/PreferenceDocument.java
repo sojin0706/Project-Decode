@@ -63,23 +63,4 @@ public class PreferenceDocument {
         this.drama = drama;
     }
 
-//    public static PreferenceDocument genreDocument(UserProfileRequest profileRequest, List<String> location){
-//        return PreferenceDocument.builder()
-//                .name(profileRequest.getNickName())
-//                .age(profileRequest.getAge())
-//                .gender(profileRequest.getGender())
-//                .location(location)
-//                .thrill(profileRequest.getPreferenceGenre().getThrill())
-//                .romance(profileRequest.getPreferenceGenre().getRomance())
-//                .reasoning(profileRequest.getPreferenceGenre().getReasoning())
-//                .sfFantasy(profileRequest.getPreferenceGenre().getSfFantasy())
-//                .adventure(profileRequest.getPreferenceGenre().getAdventure())
-//                .comedy(profileRequest.getPreferenceGenre().getComedy())
-//                .crime(profileRequest.getPreferenceGenre().getCrime())
-//                .horror(profileRequest.getPreferenceGenre().getHorror())
-//                .adult(profileRequest.getPreferenceGenre().getAdult())
-//                .drama(profileRequest.getPreferenceGenre().getDrama())
-//                .build();
-//    }
-
 }

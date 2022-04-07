@@ -3,10 +3,8 @@ package com.ssafy.authsvr.controller;
 import com.ssafy.authsvr.payload.request.UserPreferenceModifyReqeust;
 import com.ssafy.authsvr.payload.request.UserProfilePreferenceRequest;
 import com.ssafy.authsvr.payload.request.UserProfileRequest;
-import com.ssafy.authsvr.payload.response.RecommendLikeResponse;
 import com.ssafy.authsvr.payload.response.UserDetailProfileResponse;
 import com.ssafy.authsvr.payload.response.UserProfileResponse;
-import com.ssafy.authsvr.service.RecommendService;
 import com.ssafy.authsvr.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
 @RestController
-@RestControllerAdvice(annotations = RestController.class)
-@RequestMapping("/user")
 @RequiredArgsConstructor
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;

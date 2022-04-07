@@ -11,11 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/recommend")
-@RestControllerAdvice(annotations = RestController.class)
-@Slf4j
 public class RecommendController {
 
     private final RecommendService recommendService;

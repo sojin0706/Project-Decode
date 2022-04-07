@@ -122,7 +122,6 @@ public class UserServiceImpl implements UserService {
         return map;
     }
 
-
     private String AwsFile(MultipartFile file) {
             String fileName = createFileName(file.getOriginalFilename());
             ObjectMetadata objectMetadata = new ObjectMetadata();

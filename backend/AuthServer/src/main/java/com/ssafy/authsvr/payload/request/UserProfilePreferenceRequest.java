@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserProfilePreferenceRequest {
+
     @NotNull
     private Integer id;
     @NotBlank

@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface RecommendGenderAgeRepository extends JpaRepository<RecommendGenderAge,Integer> {
-    Optional<RecommendGenderAge> findByUserId(Integer userId);
 
+    Optional<RecommendGenderAge> findByUserId(Integer userId);
 }
