@@ -124,9 +124,9 @@ return (
             <Grid>
                 <Grid.Column width={16}>
                 <div className={styles.board_title}>
-                    <strong>Q&A</strong>
+                    <strong>공지사항</strong>
                 </div>
-                <div>문의사항이 있으실 경우 질문을 남겨주세요</div>
+                <div>공지사항 수정 페이지입니다.</div>
                 </Grid.Column>
             </Grid>
         </div>
