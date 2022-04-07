@@ -33,6 +33,20 @@ export default function Index() {
     }
   }, []);
 
+  const ImageSpace = () => {
+    if (userInfo.image !== null || userInfo.image === undefined) {
+      return (
+        <>
+          <Image className={style.img} src="/images/noImage.png" alt="profileImage"></Image>
+        </>
+      )
+    } else {
+      return (
+      <Image className={style.img} src={userInfo.image} alt="profileImage"></Image>
+      )
+    }
+  }
+
   if (IsLogin()) {
     return (
       <>
@@ -40,14 +54,14 @@ export default function Index() {
           <Grid.Row>
             {/* 여백 */}
             <Grid.Column width={2}></Grid.Column>
-
+            <ImageSpace></ImageSpace>
             {/* 왼쪽 프로필사진, 정보, 그래프 */}
             <Grid.Column width={6}>
               <Grid centered>
                 <Grid.Column width={10}>
                 <div className={style.minHeight}>
                   <h2>My Profile</h2>
-                  <Image className={style.img} src={userInfo.image} alt="profileImage"></Image>
+                    
                   </div>
                 </Grid.Column>
                 <Grid.Column width={6}>
