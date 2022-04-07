@@ -54,14 +54,13 @@ export default function Index() {
           <Grid.Row>
             {/* 여백 */}
             <Grid.Column width={2}></Grid.Column>
-            <ImageSpace></ImageSpace>
             {/* 왼쪽 프로필사진, 정보, 그래프 */}
             <Grid.Column width={6}>
               <Grid centered>
                 <Grid.Column width={10}>
                 <div className={style.minHeight}>
                   <h2>My Profile</h2>
-                    
+                  <ImageSpace></ImageSpace>
                   </div>
                 </Grid.Column>
                 <Grid.Column width={6}>
