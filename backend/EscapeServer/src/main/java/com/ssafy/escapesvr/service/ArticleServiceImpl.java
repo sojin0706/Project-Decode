@@ -3,6 +3,8 @@ package com.ssafy.escapesvr.service;
 import com.ssafy.escapesvr.client.UserServiceClient;
 import com.ssafy.escapesvr.dto.ProfileRequestDto;
 import com.ssafy.escapesvr.dto.SearchDto;
+import com.ssafy.escapesvr.entity.ArticleComment;
+import com.ssafy.escapesvr.repository.ArticleCommentRepository;
 import com.ssafy.escapesvr.repository.querydsl.SearchRepository;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,8 @@ public class ArticleServiceImpl implements ArticleService{
     //private final SearchRepository searchRepository;
 
     private final UserServiceClient userServiceClient;
+
+    private final ArticleCommentRepository articleCommentRepository;
 
     //게시글 생성
     @Override
@@ -152,6 +156,11 @@ public class ArticleServiceImpl implements ArticleService{
         Article article = articleRepository.getById(id);
 
         //댓글 완성되면 연관 댓글도 삭제!
+        List<ArticleComment> comments = articleCommentRepository.findByArticle(article);
+
+        for(ArticleComment articleComment : comments){
+            articleCommentRepository.deleteById(articleComment.getId());
+        }
 
         articleRepository.deleteById(id);
     }

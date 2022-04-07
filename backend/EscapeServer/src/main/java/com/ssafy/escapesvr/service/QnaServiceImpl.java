@@ -7,6 +7,8 @@ import com.ssafy.escapesvr.dto.QnaRequestDto;
 import com.ssafy.escapesvr.dto.QnaResponseDto;
 import com.ssafy.escapesvr.entity.Notice;
 import com.ssafy.escapesvr.entity.Qna;
+import com.ssafy.escapesvr.entity.QnaComment;
+import com.ssafy.escapesvr.repository.QnaCommentRepository;
 import com.ssafy.escapesvr.repository.QnaRepository;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -26,6 +29,8 @@ public class QnaServiceImpl implements QnaService {
     private final QnaRepository qnaRepository;
 
     private final UserServiceClient userServiceClient;
+
+    private final QnaCommentRepository qnaCommentRepository;
 
     //게시글 작성
     @Transactional
@@ -75,7 +80,21 @@ public class QnaServiceImpl implements QnaService {
     @Transactional
     @Override
     public void deleteQna(Long id) {
+
+        //qnaRepository.deleteById(id);
+
+        Qna qna = qnaRepository.getById(id);
+
+        List<QnaComment> comments = qnaCommentRepository.findByQna(qna);
+
+        for(QnaComment qnaComment : comments){
+            qnaCommentRepository.deleteById(qnaComment.getId());
+        }
+
         qnaRepository.deleteById(id);
+
+
+
     }
 
 
