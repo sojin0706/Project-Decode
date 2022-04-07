@@ -76,7 +76,7 @@ public class Article {
     }
 
     //게시글 수정
-    public void update(String title, String content, String largeRegion, String smallRegion, Integer userId) {
+    public void update(String title, String content, String largeRegion, String smallRegion, Integer userId, LocalDateTime modifiedAt) {
         this.title = title;
         this.content = content;
         this.largeRegion = largeRegion;

@@ -14,6 +14,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long> , Search
 
     Page<Article> findByUserId(Integer userId, Pageable pageable);
 
+    //Page<Article> findAllOrderByCreatedAt(Pageable pageable);
     Page<Article> findAll(Pageable pageable);
-
 }
