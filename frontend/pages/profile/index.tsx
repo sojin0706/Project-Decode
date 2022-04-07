@@ -34,7 +34,7 @@ export default function Index() {
   }, []);
 
   const ImageSpace = () => {
-    if (userInfo.image !== null || userInfo.image === undefined) {
+    if (userInfo.image === null || userInfo.image === undefined) {
       return (
         <>
           <Image className={style.img} src="/images/noImage.png" alt="profileImage"></Image>
