@@ -16,7 +16,6 @@ export default function UserInfoModal() {
         setUserInfo(data.data.body.user);
       })
       .catch((e) => {
-        console.log(e);
       });
   };
 

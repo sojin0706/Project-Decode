@@ -200,9 +200,7 @@ export default function Index() {
   const cb = async () => {
     await recoAxios
       .get(`/cb/${userInfo.id}/${genre[genreIdx].text}/`)
-      .then((data) => {
-        console.log("success");
-        console.log(data);
+      .then(() => {
       })
       .catch((e) => {
         console.log("fail");
@@ -213,9 +211,7 @@ export default function Index() {
   const cf1 = async () => {
     await recoAxios
       .get(`/cf/${userInfo.id}/${genre[genreIdx].text}/`)
-      .then((data) => {
-        console.log("success");
-        console.log(data);
+      .then(() => {
       })
       .catch((e) => {
         console.log("fail");
@@ -228,8 +224,6 @@ export default function Index() {
     await recoAxios
       .get(`/cf/${userInfo.id}/${genre[genreIdx].text}/${gender}/${age}/`)
       .then((data) => {
-        console.log("success");
-        console.log(data);
       })
       .catch((e) => {
         console.log("fail");
@@ -305,7 +299,6 @@ export default function Index() {
         small_region: selectedSmallPlace,
       };
 
-      console.log(body);
       userAxios
         .post(`/user/recommend`, body)
         .then(({ data }) => {
