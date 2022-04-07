@@ -104,6 +104,9 @@
   line-height: 160%;
   font-size: 1.4rem;
   margin-bottom: 20px;
+  white-space:pre-wrap; 
+  word-wrap:break-word; 
+  word-break: break-all;
 }
 
 .comment_review div {

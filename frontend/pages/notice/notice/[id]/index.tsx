@@ -97,9 +97,9 @@ return (
                             <dd>{noticeDetail.createdAt?noticeDetail.createdAt[0]+'.'+noticeDetail.createdAt[1]+'.'+noticeDetail.createdAt[2]:''}</dd>
                         </dl>
                     </div>
-                    <div className={styles.cont}>
+                    <pre className={styles.cont}>
                         {noticeDetail.content}
-                    </div>
+                    </pre>
                     
                 </div>
                 <div className={styles.bt_wrap}>
