@@ -317,6 +317,7 @@ export default function Index() {
           cf1();
         })
         .then(() => {
+          alert('추가정보 입력이 완료되었습니다.')
           window.location.reload()
         })
         .catch((err) => {
