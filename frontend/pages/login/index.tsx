@@ -317,7 +317,7 @@ export default function Index() {
           cf1();
         })
         .then(() => {
-          router.reload()
+          window.location.reload()
         })
         .catch((err) => {
           console.log(err);
