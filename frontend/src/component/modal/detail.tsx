@@ -59,7 +59,9 @@ export default function Detail({themeId, isImage, w, h}: any){
                         <h3>{themeDetail.storeName}</h3>
                         <Kakaomap storename={themeDetail.storeName} latitude={33.450701} longitude={126.570667}/>
                         <br />
-                        <a href={themeDetail.reserveUrl}>예약하기</a>
+                        <Button inverted color='teal'>
+                            <a href={themeDetail.reserveUrl}>예약하기</a>
+                        </Button>
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
