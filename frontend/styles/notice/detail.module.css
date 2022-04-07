@@ -103,6 +103,9 @@
   border-bottom: 1px solid #000;
   line-height: 160%;
   font-size: 1.4rem;
+  white-space:pre-wrap; 
+  word-wrap:break-word; 
+  word-break: break-all;
 }
 
 .comment_cont textarea {
