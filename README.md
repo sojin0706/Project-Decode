@@ -80,7 +80,7 @@
 ## :wrench: 기술스택
 
 ### Frontend
-<img alt="HTML5" src="https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/><img alt="CSS3" src="https://img.shields.io/badge/css3%20-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white"/><img alt="TypeScript" src="md-images/TypeScript%20-3178C6.svg"/><img alt="JavaScript" src="https://img.shields.io/badge/JavaScript%20-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=white"/>
+<img alt="HTML5" src="https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/><img alt="CSS3" src="https://img.shields.io/badge/css3%20-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white"/><img alt="TypeScript" src="md-images/TypeScript%20-3178C6.svg"/><img alt="JavaScript" src="https://img.shields.io/badge/JavaScript%20-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=white"/>  <br />
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"><img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=Next.js&logoColor=white">
 
 ### Backend
