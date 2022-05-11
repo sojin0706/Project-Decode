@@ -71,16 +71,18 @@
 
 
 ##  :hammer: 아키텍처 이미지
-
-![architecture](md-images/architecture.png)
-
+![architecture](https://user-images.githubusercontent.com/69693631/166647385-a5ed484a-173e-41f9-aa6f-6ce3937d7934.png)
 
 
 ## :bookmark_tabs: 페이지 소개
 
 ### 메인 페이지
 
+<<<<<<< HEAD
 ![main](md-images/main.png)
+=======
+<img width="1231" alt="main" src="https://user-images.githubusercontent.com/69693631/166647416-1f919a8c-7fee-412a-9858-5f256e091a7e.png">
+>>>>>>> f3af4b9d1dfa1c1a9781d99d25ab97c7f7192dd6
 
 #### 로그인 유저
 
@@ -95,7 +97,7 @@
 
 ### 프로필 페이지
 
-![profile](md-images/profile.png)
+<img width="1195" alt="profile" src="https://user-images.githubusercontent.com/69693631/166647446-614fa99b-20d1-45ac-bb3d-4ee767316dc6.png">
 
 유저가 클리어한 방탈출 테마 분석 그래프를 볼 수 있습니다.
 닉네임, 선호도, 연령, 이미지, 지역 등 회원의 정보를 수정할 수 있습니다.
@@ -105,7 +107,7 @@
 
 ### 정보 페이지
 
-![info](md-images/info.png)
+<img width="1202" alt="info" src="https://user-images.githubusercontent.com/69693631/166647469-8ab15c83-b001-4949-824c-3a8972e468c8.png">
 
 디코드가 보유한 방탈출 데이터들을 사용자들이 원하는 필터에 맞춰 확인 할 수 있습니다.
 테마명 클릭시 테마 정보와 함께 방탈출 클리어한 유저들의 리뷰를 볼 수 있는 모달로 이동합니다.
@@ -115,7 +117,7 @@
 
 ### 추천 페이지
 
-![recommend](md-images/recommend.png)
+<img width="1147" alt="recommend" src="https://user-images.githubusercontent.com/69693631/166647492-5d0cc10d-5069-43d3-a4b0-b680affbf368.png">
 
 컨텐츠 기반 필터링
 - 로그인한 유저의 장르 선호도를 기반으로 추천을 제공합니다.
@@ -130,7 +132,7 @@
 
 ### 테마 상세 페이지
 
-![detail](md-images/detail.png)
+<img width="1076" alt="detail" src="https://user-images.githubusercontent.com/69693631/166647510-c1571728-bf3b-4aae-9da0-4374696373f0.png">
 
 테마 이름, 난이도, 장르 등 상세정보와 테마를 가지고 있는 카페위치, 예약 url을 제공합니다.
 회원의 경우 리뷰를 작성하고 삭제할 수 있습니다.
@@ -138,7 +140,7 @@
 
 ### 공지사항 & QnA
 
-![notice](md-images/notice.png)
+<img width="1115" alt="notice" src="https://user-images.githubusercontent.com/69693631/166647520-2dbcd0ec-897d-4b62-9079-be659e719610.png">
 
 관리자의 공지사항과 유저의 Q&A를 확인할 수 있는 공간으로 게시글 작성, 수정, 댓글 기능을 제공합니다.
 관리자의 공지사항은 메인페이지 게시판 상단에서 확인 할 수 있습니다.
@@ -148,7 +150,7 @@
 
 ### 유저 게시판
 
-### ![userarticle](md-images/userarticle.png)
+<img width="1183" alt="userarticle" src="https://user-images.githubusercontent.com/69693631/166647530-52a4b884-1b98-4744-af31-f7c3c07f921d.png">
 
 유저들이 작성할 수 있는 게시판으로 게시글 작성, 수정, 댓글 기능을 제공합니다.
 유저들이 작성한 글을 지역별로 확인 할 수 있습니다.
@@ -164,6 +166,7 @@ $ npm install
 $ npm run dev
 ```
 
+<<<<<<< HEAD
 #### Backend <br/>
 
 ##### Spring <br />
@@ -174,6 +177,9 @@ $ java jar jar파일명
 
 ##### Django <br />
 
+=======
+Django <br />
+>>>>>>> f3af4b9d1dfa1c1a9781d99d25ab97c7f7192dd6
 ```
 $ python manage.py migrate
 $ python manage.py runserver
