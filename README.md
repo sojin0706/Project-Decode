@@ -22,14 +22,18 @@
 ## :raising_hand: 팀원소개
 <table>
   <tr>
-      <td align="center"><a href="https://github.com/smingi/"><img src="" width="100px;" alt=""/><br /><sub><b>손민기<br>Front-end,팀장</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/Panseung"><img src="" width="100px;" alt=""/><br /><sub><b>김승환<br>Front-end</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/hanuirangroovy"><img src="" width="100px;" alt=""/><br /><sub><b>하지애<br>Front-end</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/smingi/"><img src="https://user-images.githubusercontent.com/69693631/167859855-64a71a36-661f-42d6-9e5f-5a0cfebf3c5e.png
+" width="100px;" alt=""/><br /><sub><b>손민기<br>Front-end,팀장</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/Panseung"><img src="https://user-images.githubusercontent.com/69693631/167859892-4d2bef50-a081-4904-a256-57a52d445c25.png
+" width="100px;" alt=""/><br /><sub><b>김승환<br>Front-end</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/hanuirangroovy"><img src="https://user-images.githubusercontent.com/69693631/167859899-9f558678-7e19-47db-8c13-ba56fbaa91a7.png
+" width="100px;" alt=""/><br /><sub><b>하지애<br>Front-end</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/cheery72"><img src="https://user-images.githubusercontent.com/69693631/161688473-11a1164a-02cf-44aa-9336-cff95fb136ce.jpeg" width="100px;" alt=""/><br /><sub><b>김경민<br>Back-end</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/sojin0706"><img src="https://avatars.githubusercontent.com/u/87872966?v=4" width="100px;" alt=""/><br /><sub><b>박소진<br>Back-end</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/cherrymaru"><img src="https://avatars.githubusercontent.com/u/92589228?s=400&u=ced8b44d99aeea9faa511d212c888a4a7163b63a&v=4" width="100px;" alt=""/><br /><sub><b>오윤진<br>Back-end</b></sub></a><br /></td>
     </tr>
 </table>
+
 
 
 
@@ -39,29 +43,30 @@
 <img alt="HTML5" src="https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/> <br />
 <img alt="CSS3" src="https://img.shields.io/badge/css3%20-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white"/> <br />
 <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript%20-3178C6.svg?&style=for-the-badge&logo=typescript&logoColor=white"/><br />
-<img alt="React" src="https://img.shields.io/badge/React-%23323330.svg?&style=for-the-badge&logo=react&logoColor=%#000000"/><br/>
-<img alt="next.js" src="https://img.shields.io/badge/next.js%20-E0234E.svg?&style=for-the-badge&logo=next.js&logoColor=%#000000"/><br />
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"><br/>
+<img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=Next.js&logoColor=white"><br />
 <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript%20-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=white"/><br/>
 
 
 
 ### Backend
 <img alt="Java" src="https://img.shields.io/badge/java-007396.svg?&style=for-the-badge&logo=java&logoColor=white"/> <br />
-<img alt="SPRING BOOT" src="https://img.shields.io/badge/SPRINGBOOT%20-6DB33F.svg?&for-the-badge&logo=Spring&logoColor=white"/> <br />
-<img alt="SPRING SECURITY" src="md-images/spring%20security%20-mB33F-165165182001013.svg"/><br /><img alt="SWAGGER" src="md-images/swagger%20-mB33F.svg"/><br />
+<img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"> <br /><img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white"> <br /><img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white"> <br />
 
 
 
 ### DataBase
 
 <img alt="MySQL" src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"/> <br />
-<img alt="MongoDB" src="md-images/mongodb-GA248.svg"/> <br />
+<img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white"> <br />
 
 
 
 ### Server
 
-<img alt="AWS S3" src="md-images/AWS%20S3%20-569A31.svg"/> <br /><img alt="nginx" src="md-images/nginx%20-009639.svg"/> <br /><img alt="Docker" src="md-images/docker%20-2496ED-16516432870522.svg"/> <br /><img src="https://img.shields.io/badge/JENKINS-D24939?style=for-the-badge&logo=jenkins&logoColor=white">
+<img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"> <br />
+
+<img src="https://img.shields.io/badge/Amazon S3-D24939?style=for-the-badge&logo=Amazon S3&logoColor=white"> <br /><img src="https://img.shields.io/badge/Nginx-RED?style=for-the-badge&logo=Nginx&logoColor=white"><br /><img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"><br /><img src="https://img.shields.io/badge/JENKINS-D24939?style=for-the-badge&logo=jenkins&logoColor=white">
 
 
 
@@ -75,7 +80,7 @@
 
 ### 메인 페이지
 
-![main](md-images/main-16516504767326.png)
+![main](md-images/main.png)
 
 #### 로그인 유저
 
@@ -148,8 +153,8 @@
 유저들이 작성할 수 있는 게시판으로 게시글 작성, 수정, 댓글 기능을 제공합니다.
 유저들이 작성한 글을 지역별로 확인 할 수 있습니다.
 
+#### Frontend
 
-Frontend
 ```
 패키지 설치
 $ npm install
@@ -159,14 +164,16 @@ $ npm install
 $ npm run dev
 ```
 
-Backend <br/>
-Spring
+#### Backend <br/>
+
+##### Spring <br />
 
 ```
-
+$ java jar jar파일명
 ```
 
-Django <br />
+##### Django <br />
+
 ```
 $ python manage.py migrate
 $ python manage.py runserver
