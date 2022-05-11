@@ -1,5 +1,5 @@
 
-## :date: 프로젝트 소개
+## :exclamation: 프로젝트 소개
 
 ##### 안녕하세요
 
@@ -17,7 +17,51 @@
 
 * ##### 프로젝트 세부 사항 노션 링크: https://axiomatic-lord-8f5.notion.site/2fea7ec47feb443c9105d3d85eb57362
 
-  
+
+
+
+## :date: 프로젝트 진행
+
+### 특화-sub PJT Ⅰ
+
+- ##### 기간 : 2022.02.28 ~ 2022.03.04 (1주)
+
+- ##### 목표 : 데이터셋 분석 및 시각화
+
+- ##### 진행상황
+
+  - ##### [서비스를-개발하기-전-기획-고민](/문서/서비스를-개발하기-전-기획-고민/README.md)
+
+  - ##### [MVP](/문서/MVP/README.md)
+
+  - ##### [와이어프레임-작성](/문서/와이어프레임-작성/README.md)
+
+  - ##### [화면설계](/문서/화면설계/README.md)
+
+  - ##### [기술스택](/문서/기술스택/README.md)
+
+### 특화-sub PJT Ⅱ
+
+- ##### 기간 : 2022.03.07 ~ 2022.03.18 (2주)
+
+- ##### 목표 : 기본 추천 시스템 구현
+
+- ##### 진행상황
+
+  - ##### [ERD-설계](/문서/ERD-설계/README.md)
+
+  - ##### [데이터전처리](/문서/데이터전처리/README.md)
+
+  - ##### [유저데이터](/문서/유저데이터/README.md)
+
+
+### 특화-sub PJT Ⅲ
+
+- ##### 기간 : 2022.03.21 ~ 2022.04.08 (총3주)
+
+- ##### 목표 : 하이브리드 추천 시스템 및 서비스 고도화
+
+
 
 ## :raising_hand: 팀원소개
 <table>
@@ -36,33 +80,38 @@
 ## :wrench: 기술스택
 
 ### Frontend
-<img alt="HTML5" src="https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/> <br />
-<img alt="CSS3" src="https://img.shields.io/badge/css3%20-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white"/> <br />
-<img alt="TypeScript" src="https://img.shields.io/badge/TypeScript%20-3178C6.svg?&style=for-the-badge&logo=typescript&logoColor=white"/><br />
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"><br/>
-<img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=Next.js&logoColor=white"><br />
-<img alt="JavaScript" src="https://img.shields.io/badge/JavaScript%20-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=white"/><br/>
-
-
+<img alt="HTML5" src="https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/><img alt="CSS3" src="https://img.shields.io/badge/css3%20-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white"/><img alt="TypeScript" src="md-images/TypeScript%20-3178C6.svg"/><img alt="JavaScript" src="https://img.shields.io/badge/JavaScript%20-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=white"/>
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"><img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=Next.js&logoColor=white">
 
 ### Backend
 <img alt="Java" src="https://img.shields.io/badge/java-007396.svg?&style=for-the-badge&logo=java&logoColor=white"/> <br />
-<img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"> <br /><img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white"> <br /><img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white"> <br />
+<img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"><img src="https://img.shields.io/badge/SpringCloud-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"><img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white"> <br />
+
+<img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white"> <br />
 
 
 
 ### DataBase
 
-<img alt="MySQL" src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"/> <br />
-<img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white"> <br />
+<img alt="MySQL" src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"/><img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white">  <br />
 
 
 
 ### Server
 
-<img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"> <br />
+<img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"><img src="https://img.shields.io/badge/Amazon S3-D24939?style=for-the-badge&logo=Amazon S3&logoColor=white"> <br /><img src="https://img.shields.io/badge/Nginx-RED?style=for-the-badge&logo=Nginx&logoColor=white"><img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"><img src="https://img.shields.io/badge/JENKINS-D24939?style=for-the-badge&logo=jenkins&logoColor=white">  <br />
 
-<img src="https://img.shields.io/badge/Amazon S3-D24939?style=for-the-badge&logo=Amazon S3&logoColor=white"> <br /><img src="https://img.shields.io/badge/Nginx-RED?style=for-the-badge&logo=Nginx&logoColor=white"><br /><img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"><br /><img src="https://img.shields.io/badge/JENKINS-D24939?style=for-the-badge&logo=jenkins&logoColor=white">
+
+
+### **Version Control** 
+
+<img src="https://img.shields.io/badge/GitLab-FC6D26?style=for-the-badge&logo=GitLab&logoColor=white"><img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white">
+
+
+
+### **Issue Tracking System**
+
+<img src="https://img.shields.io/badge/jira-0052CC?style=for-the-badge&logo=jira&logoColor=white">  <br />
 
 
 
