@@ -22,17 +22,15 @@
 ## :raising_hand: 팀원소개
 <table>
   <tr>
-      <td align="center"><a href="https://github.com/smingi/"><img src="https://user-images.githubusercontent.com/69693631/167859855-64a71a36-661f-42d6-9e5f-5a0cfebf3c5e.png
-" width="100px;" alt=""/><br /><sub><b>손민기<br>Front-end,팀장</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/Panseung"><img src="https://user-images.githubusercontent.com/69693631/167859892-4d2bef50-a081-4904-a256-57a52d445c25.png
-" width="100px;" alt=""/><br /><sub><b>김승환<br>Front-end</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/hanuirangroovy"><img src="https://user-images.githubusercontent.com/69693631/167859899-9f558678-7e19-47db-8c13-ba56fbaa91a7.png
-" width="100px;" alt=""/><br /><sub><b>하지애<br>Front-end</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/smingi/"><img src="https://user-images.githubusercontent.com/69693631/167859855-64a71a36-661f-42d6-9e5f-5a0cfebf3c5e.png" width="100px;" alt=""/><br /><sub><b>손민기<br>Front-end,팀장</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/Panseung"><img src="https://user-images.githubusercontent.com/69693631/167859892-4d2bef50-a081-4904-a256-57a52d445c25.png" width="100px;" alt=""/><br /><sub><b>김승환<br>Front-end</b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/hanuirangroovy"><img src="https://user-images.githubusercontent.com/69693631/167859899-9f558678-7e19-47db-8c13-ba56fbaa91a7.png" width="100px;" alt=""/><br /><sub><b>하지애<br>Front-end</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/cheery72"><img src="https://user-images.githubusercontent.com/69693631/161688473-11a1164a-02cf-44aa-9336-cff95fb136ce.jpeg" width="100px;" alt=""/><br /><sub><b>김경민<br>Back-end</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/sojin0706"><img src="https://avatars.githubusercontent.com/u/87872966?v=4" width="100px;" alt=""/><br /><sub><b>박소진<br>Back-end</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/cherrymaru"><img src="https://avatars.githubusercontent.com/u/92589228?s=400&u=ced8b44d99aeea9faa511d212c888a4a7163b63a&v=4" width="100px;" alt=""/><br /><sub><b>오윤진<br>Back-end</b></sub></a><br /></td>
     </tr>
 </table>
+
 
 
 
