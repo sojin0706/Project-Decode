@@ -111,7 +111,7 @@
 
 ### **Issue Tracking System**
 
-<img src="https://img.shields.io/badge/jira-0052CC?style=for-the-badge&logo=jira&logoColor=white">  <br />
+<img src="https://img.shields.io/badge/Jira Software-0052CC?style=for-the-badge&logo=Jira Software&logoColor=white">  <br />
 
 
 
